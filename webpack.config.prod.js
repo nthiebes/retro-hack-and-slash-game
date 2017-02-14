@@ -19,6 +19,7 @@ export default {
   //devtool: 'source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   noInfo: true, // set to false to see a list of every file being bundled.
   entry: [
+    './_source/js/misc/polyfills',
     './_source/main'
   ],
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test

@@ -1,15 +1,22 @@
 import Sprite from '../utils/sprite';
 import Input from '../utils/input';
 import Unit from '../unit';
+import utils from './utils';
 
 export default class Canvas {
     constructor(config) {
+        this.wrapper = document.getElementById('canvas-wrapper');
         this.canvasGround1 = document.getElementById('canvas-ground1');
+        this.canvasGround2 = document.getElementById('canvas-ground2');
         this.canvasAnim = document.getElementById('canvas-anim');
         this.canvasTop1 = document.getElementById('canvas-top1');
         this.ctxGround1 = this.canvasGround1.getContext('2d');
+        this.ctxGround2 = this.canvasGround2.getContext('2d');
         this.ctxAnim = this.canvasAnim.getContext('2d');
+        this.ctxTop1 = this.canvasTop1.getContext('2d');
         this.ground1 = config.map[0];
+        this.ground2 = config.map[1];
+        this.top1 = config.map[2];
         this.rowTileCount = this.ground1.length;
         this.colTileCount = this.ground1[0].length;
         this.fieldWidth = 32;
@@ -20,10 +27,12 @@ export default class Canvas {
         this.gameTime = 0;
         this.playerSpeed = 4;
         this.units = [];
+        this.offsetX = 0;
+        this.offsetY = 0;
 
         this.units.push(new Unit({
             'name': 'Human swordsman',
-            'pos': [0, 0],
+            'pos': [18, 7],
             'skin': new Sprite({
                 'url': '/images/units.png',
                 'pos': [0, 256],
@@ -32,37 +41,47 @@ export default class Canvas {
                 'frames': [0]
             })
         }));
-        this.drawImage(this.ctxGround1, this.ground1);
+
+        this.prepareCanvas();
+        this.registerEventHandler();
+
         this.main();
+    }
 
+    prepareCanvas() {
+        const canvas = document.querySelectorAll('canvas');
+
+        for (let i = 0; i < canvas.length; i++) {
+            canvas[i].width = this.colTileCount * this.fieldWidth;
+            canvas[i].height = this.rowTileCount * this.fieldWidth;
+        }
+
+        utils.drawImage({
+            'rowTileCount': this.rowTileCount,
+            'colTileCount': this.colTileCount,
+            'tileset': this.tileset,
+            'ctx': this.ctxGround1,
+            'array': this.ground1
+        });
+        utils.drawImage({
+            'rowTileCount': this.rowTileCount,
+            'colTileCount': this.colTileCount,
+            'tileset': this.tileset,
+            'ctx': this.ctxGround2,
+            'array': this.ground2
+        });
+        utils.drawImage({
+            'rowTileCount': this.rowTileCount,
+            'colTileCount': this.colTileCount,
+            'tileset': this.tileset,
+            'ctx': this.ctxTop1,
+            'array': this.top1
+        });
+    }
+
+    registerEventHandler() {
         this.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
-    }
-
-    onMouseMove(e) {
-        const player = this.units[0];
-        
-        if (e.pageX < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
-            player.turn('LEFT');
-        } else if (e.pageX >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
-            player.turn('RIGHT');
-        }
-    }
-
-    drawImage(ctx, array) {
-        const tileSize = 32,
-            imageNumTiles = 16;
-
-        // Each row
-        for (let r = 0; r < this.rowTileCount; r++) {
-            // Each column
-            for (let c = 0; c < this.colTileCount; c++) {
-                const tile = array[r][c],
-                    tileRow = (tile / imageNumTiles) | 0,
-                    tileCol = (tile % imageNumTiles) | 0;
-
-                ctx.drawImage(this.tileset, tileCol * tileSize, tileRow * tileSize, tileSize, tileSize, c * tileSize, r * tileSize, tileSize, tileSize);
-            }
-        }
+        this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
     }
 
     main() {
@@ -123,28 +142,61 @@ export default class Canvas {
     handleInput(delta) {
         const player = this.units[0],
             input = this.input,
-            playerSpeed = this.playerSpeed;
+            playerSpeed = this.playerSpeed,
+            wrapper = this.wrapper;
+        let valueX = this.offsetX,
+            valueY = this.offsetY;
 
         if (input.isDown('S')) {
+            valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
+
             player.pos[1] += playerSpeed * delta;
         }
 
         if (input.isDown('W')) {
+            valueY = this.offsetY + ((playerSpeed * this.fieldWidth) * delta);
             player.pos[1] -= playerSpeed * delta;
         }
 
-        if (input.isDown('A')) {
-            player.pos[0] -= playerSpeed * delta;
-        }
-
         if (input.isDown('D')) {
+            valueX = this.offsetX - ((playerSpeed * this.fieldWidth) * delta);
             player.pos[0] += playerSpeed * delta;
         }
 
+        if (input.isDown('A')) {
+            valueX = this.offsetX + ((playerSpeed * this.fieldWidth) * delta);
+            player.pos[0] -= playerSpeed * delta;
+        }
+
         if (input.isDown('S') || input.isDown('W') || input.isDown('A') || input.isDown('D')) {
+            wrapper.style.transform = `translateX(${valueX}px) translateY(${valueY}px)`;
+            this.offsetX = valueX;
+            this.offsetY = valueY;
+
             player.walk();
+
         } else if (player.moving) {
             player.stop();
         }
+    }
+
+    onMouseMove(e) {
+        const player = this.units[0];
+
+        if (e.pageX < window.innerWidth / 2 && player.direction === 'RIGHT') {
+            player.turn('LEFT');
+        } else if (e.pageX >= window.innerWidth / 2 && player.direction === 'LEFT') {
+            player.turn('RIGHT');
+        }
+        
+        // if (e.pageX < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
+        //     player.turn('LEFT');
+        // } else if (e.pageX >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
+        //     player.turn('RIGHT');
+        // }
+    }
+
+    onRightClick(e) {
+        e.preventDefault();
     }
 }
