@@ -39,7 +39,7 @@ export default class Canvas {
         this.units.push(new Unit({
             'id': 2,
             'name': 'Nico',
-            'pos': [7, 7],
+            'pos': [7, 6],
             'skin': new Sprite({
                 'url': '/images/human0.png',
                 'pos': [0, 256],
