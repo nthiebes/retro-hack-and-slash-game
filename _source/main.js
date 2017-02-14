@@ -1,6 +1,6 @@
 import './main.scss';
-import Resources from './utils/resources';
-import Canvas from './canvas';
+import Resources from './js/utils/resources';
+import Canvas from './js/canvas';
 
 /**
  * A cross-browser requestAnimationFrame

@@ -1,10 +1,12 @@
 import Sprite from '../utils/sprite';
 import Input from '../utils/input';
+import Unit from '../unit';
 
 export default class Canvas {
     constructor(config) {
         this.canvasGround1 = document.getElementById('canvas-ground1');
         this.canvasAnim = document.getElementById('canvas-anim');
+        this.canvasTop1 = document.getElementById('canvas-top1');
         this.ctxGround1 = this.canvasGround1.getContext('2d');
         this.ctxAnim = this.canvasAnim.getContext('2d');
         this.ground1 = config.map[0];
@@ -17,21 +19,33 @@ export default class Canvas {
         this.lastTime = Date.now();
         this.gameTime = 0;
         this.playerSpeed = 4;
-        this.units = [{
+        this.units = [];
+
+        this.units.push(new Unit({
             'name': 'Human swordsman',
             'pos': [0, 0],
             'skin': new Sprite({
                 'url': '/images/units.png',
                 'pos': [0, 256],
                 'size': [128, 128],
-                'speed': 0,
+                'speed': this.playerSpeed,
                 'frames': [0]
             })
-        }];
-        this.player = this.units[0];
-
+        }));
         this.drawImage(this.ctxGround1, this.ground1);
         this.main();
+
+        this.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
+    }
+
+    onMouseMove(e) {
+        const player = this.units[0];
+        
+        if (e.pageX < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
+            player.turn('LEFT');
+        } else if (e.pageX >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
+            player.turn('RIGHT');
+        }
     }
 
     drawImage(ctx, array) {
@@ -107,20 +121,30 @@ export default class Canvas {
     }
 
     handleInput(delta) {
-        if (this.input.isDown('DOWN') || this.input.isDown('s')) {
-            this.player.pos[1] += this.playerSpeed * delta;
+        const player = this.units[0],
+            input = this.input,
+            playerSpeed = this.playerSpeed;
+
+        if (input.isDown('S')) {
+            player.pos[1] += playerSpeed * delta;
         }
 
-        if (this.input.isDown('UP') || this.input.isDown('w')) {
-            this.player.pos[1] -= this.playerSpeed * delta;
+        if (input.isDown('W')) {
+            player.pos[1] -= playerSpeed * delta;
         }
 
-        if (this.input.isDown('LEFT') || this.input.isDown('a')) {
-            this.player.pos[0] -= this.playerSpeed * delta;
+        if (input.isDown('A')) {
+            player.pos[0] -= playerSpeed * delta;
         }
 
-        if (this.input.isDown('RIGHT') || this.input.isDown('d')) {
-            this.player.pos[0] += this.playerSpeed * delta;
+        if (input.isDown('D')) {
+            player.pos[0] += playerSpeed * delta;
+        }
+
+        if (input.isDown('S') || input.isDown('W') || input.isDown('A') || input.isDown('D')) {
+            player.walk();
+        } else if (player.moving) {
+            player.stop();
         }
     }
 }
