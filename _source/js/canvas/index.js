@@ -90,7 +90,7 @@ export default class Canvas {
                     if (this.blockedArr[r][c] === 1) {
                         utils.drawSquare({
                             'ctx': this.ctxTop1,
-                            'color': 'rgba(255,0,0,0.5)',
+                            'color': 'rgba(0,0,0,0.5)',
                             'width': this.fieldWidth,
                             'height': this.fieldWidth,
                             'x': c * this.fieldWidth,
@@ -159,8 +159,8 @@ export default class Canvas {
         });
 
         this.ctxAnim.translate(
-            (unit.pos[0] * this.fieldWidth) - 50,
-            (unit.pos[1] * this.fieldWidth) - 92
+            (unit.pos[0] * this.fieldWidth) - 64,
+            (unit.pos[1] * this.fieldWidth) - 110
         );
 
         for (let i = 0; i < args.length; i++) {

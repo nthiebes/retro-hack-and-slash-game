@@ -12,7 +12,7 @@ export default class Map {
         if (config.debug) {
             utils.drawSquare({
                 'ctx': config.ctx,
-                'color': 'rgba(0,0,0,0.5)',
+                'color': 'rgba(0,0,255,0.5)',
                 'width': 32,
                 'height': 32,
                 'x': x * 32,
@@ -20,27 +20,19 @@ export default class Map {
             });
             utils.drawSquare({
                 'ctx': config.ctx,
-                'color': 'rgba(0,0,0,0.5)',
+                'color': 'rgba(255,0,0,0.5)',
                 'width': 32,
                 'height': 32,
-                'x': (x + 1) * 32,
+                'x': (x + 2) * 32,
                 'y': y * 32
             });
             utils.drawSquare({
                 'ctx': config.ctx,
-                'color': 'rgba(0,0,0,0.5)',
+                'color': 'rgba(255,0,0,0.5)',
                 'width': 32,
                 'height': 32,
-                'x': (x + 1) * 32,
-                'y': (y + 1) * 32,
-            });
-            utils.drawSquare({
-                'ctx': config.ctx,
-                'color': 'rgba(0,0,0,0.5)',
-                'width': 32,
-                'height': 32,
-                'x': x * 32,
-                'y': (y + 1) * 32,
+                'x': (x - 2) * 32,
+                'y': y * 32
             });
         }
     }
