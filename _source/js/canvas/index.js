@@ -29,6 +29,8 @@ export default class Canvas {
         this.units = [];
         this.offsetX = 0;
         this.offsetY = 0;
+        this.innerWidth = window.innerWidth;
+        this.innerHeight = window.innerHeight;
 
         this.units.push(new Unit({
             'name': 'Human swordsman',
@@ -149,30 +151,45 @@ export default class Canvas {
 
         if (input.isDown('S')) {
             valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
-
-            player.pos[1] += playerSpeed * delta;
+            // player.pos[1] += playerSpeed * delta;
         }
 
         if (input.isDown('W')) {
             valueY = this.offsetY + ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[1] -= playerSpeed * delta;
+            // player.pos[1] -= playerSpeed * delta;
         }
 
         if (input.isDown('D')) {
             valueX = this.offsetX - ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[0] += playerSpeed * delta;
+            // player.pos[0] += playerSpeed * delta;
         }
 
         if (input.isDown('A')) {
             valueX = this.offsetX + ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[0] -= playerSpeed * delta;
+            // player.pos[0] -= playerSpeed * delta;
         }
 
         if (input.isDown('S') || input.isDown('W') || input.isDown('A') || input.isDown('D')) {
-            wrapper.style.transform = `translateX(${valueX}px) translateY(${valueY}px)`;
-            this.offsetX = valueX;
-            this.offsetY = valueY;
+            const maxOffsetX = (this.colTileCount * this.fieldWidth) - this.innerWidth,
+                maxOffsetY = (this.rowTileCount * this.fieldWidth) - this.innerHeight;
 
+            if (valueX < 0 && valueX > maxOffsetX * -1) {
+                this.offsetX = valueX;
+            } else if (valueX < 0 && valueX <= maxOffsetX * -1) {
+                this.offsetX = maxOffsetX * -1;
+            } else {
+                this.offsetX = 0;
+            }
+
+            if (valueY < 0 && valueY > maxOffsetY * -1) {
+                this.offsetY = valueY;
+            } else if (valueY < 0 && valueY <= maxOffsetY * -1) {
+                this.offsetY = maxOffsetY * -1;
+            } else {
+                this.offsetY = 0;
+            }
+
+            wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
             player.walk();
 
         } else if (player.moving) {
@@ -183,9 +200,9 @@ export default class Canvas {
     onMouseMove(e) {
         const player = this.units[0];
 
-        if (e.pageX < window.innerWidth / 2 && player.direction === 'RIGHT') {
+        if (e.pageX < this.innerWidth / 2 && player.direction === 'RIGHT') {
             player.turn('LEFT');
-        } else if (e.pageX >= window.innerWidth / 2 && player.direction === 'LEFT') {
+        } else if (e.pageX >= this.innerWidth / 2 && player.direction === 'LEFT') {
             player.turn('RIGHT');
         }
         
