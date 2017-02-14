@@ -15,4 +15,17 @@ export default class Utils {
             }
         }
     }
+
+    static drawSquare(config) {
+        config.ctx.fillStyle = config.color;
+        config.ctx.beginPath();
+        config.ctx.moveTo(config.x, config.y);
+        config.ctx.lineTo(config.x + config.width, config.y);
+        config.ctx.lineTo(config.x + config.width, config.y + config.width);
+        config.ctx.lineTo(config.x, config.y + config.width);
+        config.ctx.lineTo(config.x, config.y);
+        config.ctx.lineWidth = 1;
+        config.ctx.closePath();
+        config.ctx.fill();
+    }
 }

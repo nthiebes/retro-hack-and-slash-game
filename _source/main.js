@@ -12,7 +12,7 @@ export default class Ridane {
         const resources = new Resources(),
             resourcesList = [
                 '/images/tileset.png',
-                '/images/units.png'
+                '/images/human0.png'
             ];
 
         resources.load(resourcesList);

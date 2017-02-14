@@ -1,10 +1,12 @@
 import Sprite from '../utils/sprite';
 import Input from '../utils/input';
 import Unit from '../unit';
+import Map from './map';
 import utils from './utils';
 
 export default class Canvas {
     constructor(config) {
+        this.debug = true;
         this.wrapper = document.getElementById('canvas-wrapper');
         this.canvasGround1 = document.getElementById('canvas-ground1');
         this.canvasGround2 = document.getElementById('canvas-ground2');
@@ -17,6 +19,7 @@ export default class Canvas {
         this.ground1 = config.map[0];
         this.ground2 = config.map[1];
         this.top1 = config.map[2];
+        this.blockedArr = config.map[3];
         this.rowTileCount = this.ground1.length;
         this.colTileCount = this.ground1[0].length;
         this.fieldWidth = 32;
@@ -25,18 +28,20 @@ export default class Canvas {
         this.tileset = this.resources.get('/images/tileset.png');
         this.lastTime = Date.now();
         this.gameTime = 0;
-        this.playerSpeed = 14;
+        this.playerSpeed = 4;
         this.units = [];
         this.offsetX = 0;
         this.offsetY = 0;
         this.innerWidth = window.innerWidth;
         this.innerHeight = window.innerHeight;
+        this.map = new Map(this.blockedArr);
 
         this.units.push(new Unit({
-            'name': 'Human swordsman',
+            'id': 2,
+            'name': 'Nico',
             'pos': [7, 7],
             'skin': new Sprite({
-                'url': '/images/units.png',
+                'url': '/images/human0.png',
                 'pos': [0, 256],
                 'size': [128, 128],
                 'speed': this.playerSpeed,
@@ -79,6 +84,22 @@ export default class Canvas {
             'ctx': this.ctxTop1,
             'array': this.top1
         });
+        if (this.debug) {
+            for (let r = 0; r < this.blockedArr.length; r++) {
+                for (let c = 0; c < this.blockedArr[0].length; c++) {
+                    if (this.blockedArr[r][c] === 1) {
+                        utils.drawSquare({
+                            'ctx': this.ctxTop1,
+                            'color': 'rgba(255,0,0,0.5)',
+                            'width': this.fieldWidth,
+                            'height': this.fieldWidth,
+                            'x': c * this.fieldWidth,
+                            'y': r * this.fieldWidth
+                        });
+                    }
+                }
+            }
+        }
     }
 
     registerEventHandler() {
@@ -130,14 +151,21 @@ export default class Canvas {
 
     renderEntity(unit, ...args) {
         this.ctxAnim.save();
+
+        this.map.setUnitPosition({
+            'ctx': this.ctxAnim,
+            'unit': unit,
+            'debug': this.debug
+        });
+
         this.ctxAnim.translate(
-            (unit.pos[0] * this.fieldWidth),
-            (unit.pos[1] * this.fieldWidth)
+            (unit.pos[1] * this.fieldWidth) - 92
         );
 
         for (let i = 0; i < args.length; i++) {
             args[i].render(this.ctxAnim, this.resources);
         }
+
         this.ctxAnim.restore();
     }
 
