@@ -25,7 +25,7 @@ export default class Canvas {
         this.tileset = this.resources.get('/images/tileset.png');
         this.lastTime = Date.now();
         this.gameTime = 0;
-        this.playerSpeed = 4;
+        this.playerSpeed = 14;
         this.units = [];
         this.offsetX = 0;
         this.offsetY = 0;
@@ -34,7 +34,7 @@ export default class Canvas {
 
         this.units.push(new Unit({
             'name': 'Human swordsman',
-            'pos': [18, 7],
+            'pos': [7, 7],
             'skin': new Sprite({
                 'url': '/images/units.png',
                 'pos': [0, 256],
@@ -142,50 +142,70 @@ export default class Canvas {
     }
 
     handleInput(delta) {
-        const player = this.units[0],
-            input = this.input,
+        const input = this.input,
+            down = input.isDown('S'),
+            up = input.isDown('W'),
+            right = input.isDown('D'),
+            left = input.isDown('A'),
+            player = this.units[0],
             playerSpeed = this.playerSpeed,
             wrapper = this.wrapper;
         let valueX = this.offsetX,
             valueY = this.offsetY;
 
-        if (input.isDown('S')) {
+        if (down) {
             valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
-            // player.pos[1] += playerSpeed * delta;
+            player.pos[1] += playerSpeed * delta;
         }
 
-        if (input.isDown('W')) {
+        if (up) {
             valueY = this.offsetY + ((playerSpeed * this.fieldWidth) * delta);
-            // player.pos[1] -= playerSpeed * delta;
+            player.pos[1] -= playerSpeed * delta;
         }
 
-        if (input.isDown('D')) {
+        if (right) {
             valueX = this.offsetX - ((playerSpeed * this.fieldWidth) * delta);
-            // player.pos[0] += playerSpeed * delta;
+            player.pos[0] += playerSpeed * delta;
         }
 
-        if (input.isDown('A')) {
+        if (left) {
             valueX = this.offsetX + ((playerSpeed * this.fieldWidth) * delta);
-            // player.pos[0] -= playerSpeed * delta;
+            player.pos[0] -= playerSpeed * delta;
         }
 
-        if (input.isDown('S') || input.isDown('W') || input.isDown('A') || input.isDown('D')) {
+        if (down || up || right || left) {
             const maxOffsetX = (this.colTileCount * this.fieldWidth) - this.innerWidth,
                 maxOffsetY = (this.rowTileCount * this.fieldWidth) - this.innerHeight;
 
-            if (valueX < 0 && valueX > maxOffsetX * -1) {
+            // Horizontal map scrolling
+            if (valueX < 0 && 
+                valueX > maxOffsetX * -1 && 
+                player.pos[0] * this.fieldWidth > (this.innerWidth / 2) - playerSpeed && 
+                player.pos[0] * this.fieldWidth < (this.colTileCount * this.fieldWidth) - (this.innerWidth / 2) + playerSpeed) {
                 this.offsetX = valueX;
+
+            // Limit scrolling - end of the map
             } else if (valueX < 0 && valueX <= maxOffsetX * -1) {
                 this.offsetX = maxOffsetX * -1;
-            } else {
+
+            // Limit scrolling - start of the map
+            } else if (valueX > 0) {
                 this.offsetX = 0;
             }
 
-            if (valueY < 0 && valueY > maxOffsetY * -1) {
+            // Vertical map scrolling
+            if (valueY < 0 && 
+                valueY > maxOffsetY * -1 && 
+                player.pos[1] * this.fieldWidth > (this.innerHeight / 2) - playerSpeed && 
+                player.pos[1] * this.fieldWidth < (this.rowTileCount * this.fieldWidth) - (this.innerHeight / 2) + playerSpeed) {
                 this.offsetY = valueY;
+
+            // Limit scrolling - end of the map
             } else if (valueY < 0 && valueY <= maxOffsetY * -1) {
                 this.offsetY = maxOffsetY * -1;
-            } else {
+
+            // Limit scrolling - start of the map
+            } else if (valueY > 0) {
                 this.offsetY = 0;
             }
 
