@@ -152,11 +152,12 @@ export default class Canvas {
     renderEntity(unit, ...args) {
         this.ctxAnim.save();
 
-        this.map.setUnitPosition({
-            'ctx': this.ctxAnim,
-            'unit': unit,
-            'debug': this.debug
-        });
+        if (this.debug) {
+            this.map.showDebugFields({
+                'ctx': this.ctxAnim,
+                'unit': unit
+            });
+        }
 
         this.ctxAnim.translate(
             (unit.pos[0] * this.fieldWidth) - 64,
@@ -184,22 +185,50 @@ export default class Canvas {
 
         if (down) {
             valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[1] += playerSpeed * delta;
+
+            const newPos = player.pos[1] + (playerSpeed * delta),
+                newY = Math.floor(newPos),
+                x = Math.floor(player.pos[0]);
+
+            if (this.blockedArr[newY][x] === 0) {
+                player.pos[1] = newPos;
+            }
         }
 
         if (up) {
             valueY = this.offsetY + ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[1] -= playerSpeed * delta;
+
+            const newPos = player.pos[1] - (playerSpeed * delta),
+                newY = Math.floor(newPos),
+                x = Math.floor(player.pos[0]);
+
+            if (this.blockedArr[newY][x] === 0) {
+                player.pos[1] = newPos;
+            }
         }
 
         if (right) {
             valueX = this.offsetX - ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[0] += playerSpeed * delta;
+            
+            const newPos = player.pos[0] + (playerSpeed * delta),
+                newX = Math.floor(newPos),
+                y = Math.floor(player.pos[1]);
+
+            if (this.blockedArr[y][newX] === 0) {
+                player.pos[0] = newPos;
+            }
         }
 
         if (left) {
             valueX = this.offsetX + ((playerSpeed * this.fieldWidth) * delta);
-            player.pos[0] -= playerSpeed * delta;
+
+            const newPos = player.pos[0] - (playerSpeed * delta),
+                newX = Math.floor(newPos),
+                y = Math.floor(player.pos[1]);
+
+            if (this.blockedArr[y][newX] === 0) {
+                player.pos[0] = newPos;
+            }
         }
 
         if (down || up || right || left) {
