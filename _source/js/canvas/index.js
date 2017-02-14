@@ -159,6 +159,7 @@ export default class Canvas {
         });
 
         this.ctxAnim.translate(
+            (unit.pos[0] * this.fieldWidth) - 50,
             (unit.pos[1] * this.fieldWidth) - 92
         );
 
