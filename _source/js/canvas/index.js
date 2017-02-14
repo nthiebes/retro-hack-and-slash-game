@@ -220,17 +220,11 @@ export default class Canvas {
     onMouseMove(e) {
         const player = this.units[0];
 
-        if (e.pageX < this.innerWidth / 2 && player.direction === 'RIGHT') {
+        if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
             player.turn('LEFT');
-        } else if (e.pageX >= this.innerWidth / 2 && player.direction === 'LEFT') {
+        } else if (e.pageX + (this.offsetX * -1) >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
             player.turn('RIGHT');
-        }
-        
-        // if (e.pageX < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
-        //     player.turn('LEFT');
-        // } else if (e.pageX >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
-        //     player.turn('RIGHT');
-        // }
+        } 
     }
 
     onRightClick(e) {
