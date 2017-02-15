@@ -2,6 +2,7 @@ export default class Unit {
     constructor(config) {
         this.direction = 'RIGHT';
         this.moving = false;
+        this.path = [];
 
         for (const i in config) {
             if (config.hasOwnProperty(i)) {

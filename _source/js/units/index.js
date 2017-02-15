@@ -10,7 +10,6 @@ export default class Units {
     addUnits(config) {
         const keys = Object.keys(config.units);
 
-
         for (let i = 0; i < keys.length; i++) {
             const unit = config.units[keys[i]];
 

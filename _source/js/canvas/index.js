@@ -1,6 +1,7 @@
 import Input from '../utils/input';
 import Units from '../units';
 import Map from './map';
+import Path from './path';
 import utils from './utils';
 
 export default class Canvas {
@@ -35,6 +36,7 @@ export default class Canvas {
         this.innerWidth = window.innerWidth;
         this.innerHeight = window.innerHeight;
         this.map = new Map(this.blockedArr);
+        this.path = new Path();
 
         this.prepareCanvas();
         this.registerEventHandler();
@@ -141,7 +143,8 @@ export default class Canvas {
         if (this.debug) {
             this.map.showDebugFields({
                 'ctx': this.ctxAnim,
-                'unit': unit
+                'unit': unit,
+                'units': this.unitsList
             });
         }
 
@@ -321,6 +324,22 @@ export default class Canvas {
             }
         } else if (player.moving) {
             player.stop();
+        }
+
+        // temporary
+        const playerPos1 = [Math.floor(player.pos[0] + 2), Math.floor(player.pos[1])],
+            playerPos2 = [Math.floor(player.pos[0] - 2), Math.floor(player.pos[1])],
+            enemy = this.unitsList[1],
+            path1 = this.path.get(this.map.map, enemy.pos, playerPos1),
+            path2 = this.path.get(this.map.map, enemy.pos, playerPos2);
+
+        if (path1.length <= path2.length && 
+            path1.length !== 0 || 
+            path2.length === 0) {
+
+            enemy.path = path1;
+        } else {
+            enemy.path = path2;
         }
     }
 
