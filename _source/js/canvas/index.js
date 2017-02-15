@@ -168,7 +168,9 @@ export default class Canvas {
             playerSpeed = this.playerSpeed,
             wrapper = this.wrapper;
         let valueX = this.offsetX,
-            valueY = this.offsetY;
+            valueY = this.offsetY,
+            blockedX = true,
+            blockedY = true;
 
         if (down) {
             valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
@@ -180,6 +182,7 @@ export default class Canvas {
                 newTile = newY > y;
 
             if (this.blockedArr[newY][x] <= 1) {
+                blockedY = false;
                 player.pos[1] = newPos;
 
                 if (newTile) {
@@ -204,6 +207,7 @@ export default class Canvas {
                 newTile = newY < Math.floor(player.pos[1]);
 
             if (this.blockedArr[newY][x] <= 1) {
+                blockedY = false;
                 player.pos[1] = newPos;
 
                 if (newTile) {
@@ -228,6 +232,7 @@ export default class Canvas {
                 newTile = newX > Math.floor(player.pos[0]);
 
             if (this.blockedArr[y][newX] <= 1) {
+                blockedX = false;
                 player.pos[0] = newPos;
 
                 if (newTile) {
@@ -252,6 +257,7 @@ export default class Canvas {
                 newTile = newX < Math.floor(player.pos[0]);
 
             if (this.blockedArr[y][newX] <= 1) {
+                blockedX = false;
                 player.pos[0] = newPos;
 
                 if (newTile) {
@@ -271,10 +277,13 @@ export default class Canvas {
                 maxOffsetY = (this.rowTileCount * this.fieldWidth) - this.innerHeight;
 
             // Horizontal map scrolling
-            if (valueX < 0 && 
+            if (!blockedX && // player not blocked
+                !(right && left) && 
+                valueX < 0 && 
                 valueX > maxOffsetX * -1 && 
-                player.pos[0] * this.fieldWidth > (this.innerWidth / 2) - playerSpeed && 
+                player.pos[0] * this.fieldWidth > (this.innerWidth / 2) - playerSpeed && // + next line: player in center
                 player.pos[0] * this.fieldWidth < (this.colTileCount * this.fieldWidth) - (this.innerWidth / 2) + playerSpeed) {
+
                 this.offsetX = valueX;
 
             // Limit scrolling - end of the map
@@ -287,10 +296,13 @@ export default class Canvas {
             }
 
             // Vertical map scrolling
-            if (valueY < 0 && 
+            if (!blockedY && // player not blocked
+                !(up && down) && 
+                valueY < 0 && 
                 valueY > maxOffsetY * -1 && 
-                player.pos[1] * this.fieldWidth > (this.innerHeight / 2) - playerSpeed && 
+                player.pos[1] * this.fieldWidth > (this.innerHeight / 2) - playerSpeed && // + next line: player in center
                 player.pos[1] * this.fieldWidth < (this.rowTileCount * this.fieldWidth) - (this.innerHeight / 2) + playerSpeed) {
+
                 this.offsetY = valueY;
 
             // Limit scrolling - end of the map
