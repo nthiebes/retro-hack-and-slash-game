@@ -25,9 +25,9 @@ export default class Unit {
     }
 
     stop() {
+        this.moving = false;
         this.turn(this.direction);
         this.skin.frames = [0];
-        this.moving = false;
     }
 
     turn(direction) {

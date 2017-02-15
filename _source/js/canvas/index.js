@@ -317,8 +317,16 @@ export default class Canvas {
 
         if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
             player.turn('LEFT');
+
+            if (player.moving) {
+                player.walk();
+            }
         } else if (e.pageX + (this.offsetX * -1) >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
             player.turn('RIGHT');
+
+            if (player.moving) {
+                player.walk();
+            }
         } 
     }
 
