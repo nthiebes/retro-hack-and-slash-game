@@ -5,6 +5,14 @@ export default class Map {
         this.map = map;
     }
 
+    updatePosition(config) {
+        // Delete old position
+        this.map[config.y][config.x] = 0;
+
+        // Add new position
+        this.map[config.newY][config.newX] = config.id;
+    }
+
     showDebugFields(config) {
         const x = Math.floor(config.unit.pos[0]),
             y = Math.floor(config.unit.pos[1]);

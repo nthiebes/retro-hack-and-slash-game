@@ -2,7 +2,7 @@ export default class Sprite {
     constructor(cfg) {
         this.pos = cfg.pos;
         this.size = cfg.size;
-        this.speed = typeof cfg.speed === 'number' ? cfg.speed : 0;
+        this.speed = cfg.speed;
         this.frames = cfg.frames;
         this.index = 0;
         this.url = cfg.url;

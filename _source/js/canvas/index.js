@@ -74,7 +74,7 @@ export default class Canvas {
         if (this.debug) {
             for (let r = 0; r < this.blockedArr.length; r++) {
                 for (let c = 0; c < this.blockedArr[0].length; c++) {
-                    if (this.blockedArr[r][c] === 1) {
+                    if (this.blockedArr[r][c] === 2) {
                         utils.drawSquare({
                             'ctx': this.ctxTop1,
                             'color': 'rgba(0,0,0,0.5)',
@@ -131,7 +131,6 @@ export default class Canvas {
 
     renderEntities(list) {
         for (let i = 0; i < list.length; i++) {
-            // Unit gear
             this.renderEntity(list[i], list[i].skin);
         }
     }
@@ -152,6 +151,7 @@ export default class Canvas {
         );
 
         for (let i = 0; i < args.length; i++) {
+            // Skin
             args[i].render(this.ctxAnim, this.resources);
         }
 
@@ -175,10 +175,22 @@ export default class Canvas {
 
             const newPos = player.pos[1] + (playerSpeed * delta),
                 newY = Math.floor(newPos),
-                x = Math.floor(player.pos[0]);
+                x = Math.floor(player.pos[0]),
+                y = Math.floor(player.pos[1]),
+                newTile = newY > y;
 
-            if (this.blockedArr[newY][x] === 0) {
+            if (this.blockedArr[newY][x] <= 1) {
                 player.pos[1] = newPos;
+
+                if (newTile) {
+                    this.map.updatePosition({
+                        'id': player.id,
+                        'x': x,
+                        'y': y,
+                        'newX': x,
+                        'newY': newY
+                    });
+                }
             }
         }
 
@@ -187,10 +199,22 @@ export default class Canvas {
 
             const newPos = player.pos[1] - (playerSpeed * delta),
                 newY = Math.floor(newPos),
-                x = Math.floor(player.pos[0]);
+                x = Math.floor(player.pos[0]),
+                y = Math.floor(player.pos[1]),
+                newTile = newY < Math.floor(player.pos[1]);
 
-            if (this.blockedArr[newY][x] === 0) {
+            if (this.blockedArr[newY][x] <= 1) {
                 player.pos[1] = newPos;
+
+                if (newTile) {
+                    this.map.updatePosition({
+                        'id': player.id,
+                        'x': x,
+                        'y': y,
+                        'newX': x,
+                        'newY': newY
+                    });
+                }
             }
         }
 
@@ -199,10 +223,22 @@ export default class Canvas {
             
             const newPos = player.pos[0] + (playerSpeed * delta),
                 newX = Math.floor(newPos),
-                y = Math.floor(player.pos[1]);
+                x = Math.floor(player.pos[0]),
+                y = Math.floor(player.pos[1]),
+                newTile = newX > Math.floor(player.pos[0]);
 
-            if (this.blockedArr[y][newX] === 0) {
+            if (this.blockedArr[y][newX] <= 1) {
                 player.pos[0] = newPos;
+
+                if (newTile) {
+                    this.map.updatePosition({
+                        'id': player.id,
+                        'x': x,
+                        'y': y,
+                        'newX': newX,
+                        'newY': y
+                    });
+                }
             }
         }
 
@@ -211,10 +247,22 @@ export default class Canvas {
 
             const newPos = player.pos[0] - (playerSpeed * delta),
                 newX = Math.floor(newPos),
-                y = Math.floor(player.pos[1]);
+                x = Math.floor(player.pos[0]),
+                y = Math.floor(player.pos[1]),
+                newTile = newX < Math.floor(player.pos[0]);
 
-            if (this.blockedArr[y][newX] === 0) {
+            if (this.blockedArr[y][newX] <= 1) {
                 player.pos[0] = newPos;
+
+                if (newTile) {
+                    this.map.updatePosition({
+                        'id': player.id,
+                        'x': x,
+                        'y': y,
+                        'newX': newX,
+                        'newY': y
+                    });
+                }
             }
         }
 
@@ -255,8 +303,10 @@ export default class Canvas {
             }
 
             wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
-            player.walk();
 
+            if (!player.moving) {
+                player.walk();
+            }
         } else if (player.moving) {
             player.stop();
         }

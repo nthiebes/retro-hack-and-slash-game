@@ -14,13 +14,13 @@ export default class Units {
             const unit = config.units[keys[i]];
 
             this.list.push(new Unit(Object.assign({}, unit, {
-                'id': i,
+                'id': i + 1,
                 'pos': unit.pos,
                 'skin': new Sprite({
                     'url': `/images/races/${unit.race}${unit.skin}.png`,
                     'pos': [0, 256],
                     'size': [128, 128],
-                    'speed': this.playerSpeed,
+                    'speed': 4,
                     'frames': [0]
                 })
             })));
