@@ -1,6 +1,5 @@
-import Sprite from '../utils/sprite';
 import Input from '../utils/input';
-import Unit from '../unit';
+import Units from '../units';
 import Map from './map';
 import utils from './utils';
 
@@ -29,25 +28,13 @@ export default class Canvas {
         this.lastTime = Date.now();
         this.gameTime = 0;
         this.playerSpeed = 4;
-        this.units = [];
+        this.units = new Units(config);
+        this.unitsList = this.units.list;
         this.offsetX = 0;
         this.offsetY = 0;
         this.innerWidth = window.innerWidth;
         this.innerHeight = window.innerHeight;
         this.map = new Map(this.blockedArr);
-
-        this.units.push(new Unit({
-            'id': 2,
-            'name': 'Nico',
-            'pos': [7, 6],
-            'skin': new Sprite({
-                'url': '/images/human0.png',
-                'pos': [0, 256],
-                'size': [128, 128],
-                'speed': this.playerSpeed,
-                'frames': [0]
-            })
-        }));
 
         this.prepareCanvas();
         this.registerEventHandler();
@@ -130,8 +117,8 @@ export default class Canvas {
     updateEntities(delta) {
         let unit;
 
-        for (let i = 0; i < this.units.length; i++) {
-            unit = this.units[i];
+        for (let i = 0; i < this.unitsList.length; i++) {
+            unit = this.unitsList[i];
             unit.skin.update(delta);
         }
     }
@@ -139,7 +126,7 @@ export default class Canvas {
     render() {
         // Clear canvas hack
         this.canvasAnim.width = this.canvasAnim.width;
-        this.renderEntities(this.units);
+        this.renderEntities(this.unitsList);
     }
 
     renderEntities(list) {
@@ -177,7 +164,7 @@ export default class Canvas {
             up = input.isDown('W'),
             right = input.isDown('D'),
             left = input.isDown('A'),
-            player = this.units[0],
+            player = this.unitsList[0],
             playerSpeed = this.playerSpeed,
             wrapper = this.wrapper;
         let valueX = this.offsetX,
@@ -276,7 +263,7 @@ export default class Canvas {
     }
 
     onMouseMove(e) {
-        const player = this.units[0];
+        const player = this.unitsList[0];
 
         if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
             player.turn('LEFT');

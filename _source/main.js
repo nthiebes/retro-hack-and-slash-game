@@ -1,38 +1,80 @@
 import './main.scss';
 import Resources from './js/utils/resources';
-import Canvas from './js/canvas';
+import Game from './js/game';
 import 'whatwg-fetch';
 
-export default class Ridane {
+class Ridane {
     constructor() {
         this.getResources();
     }
 
     getResources() {
-        const resources = new Resources(),
-            resourcesList = [
-                '/images/tileset.png',
-                '/images/human0.png'
-            ];
+        const resourcesList = [
+            '/images/tileset.png',
+            '/images/races/human0.png',
+            '/images/races/human1.png',
+            '/images/races/orc0.png',
+            '/images/races/orc1.png'
+        ];
 
-        resources.load(resourcesList);
+        this.resources = new Resources();
 
-        resources.onReady(() => {
-            this.getMap(resources);
+        this.resources.load(resourcesList);
+
+        this.resources.onReady(() => {
+            this.getMap();
         });
     }
 
-    getMap(resources) {
+    getMap() {
         fetch('/data/maps/0.json')
-        .then(function(response) {
-            return response.json();
-        }).then(function(json) {
-            const canvas = new Canvas({
-                'map': json.map,
-                'resources': resources
+        .then((response) => response.json()).then((json) => {
+            this.map = json.map;
+            this.getWeapons();
+        });
+    }
+
+    getWeapons() {
+        fetch('/data/armor.json')
+        .then((response) => response.json()).then((json) => {
+            this.weapons = json;
+            this.getArmor();
+        });
+    }
+
+    getArmor() {
+        fetch('/data/armor.json')
+        .then((response) => response.json()).then((json) => {
+            this.armor = json;
+            this.getRaces();
+        });
+    }
+
+    getRaces() {
+        fetch('/data/races.json')
+        .then((response) => response.json()).then((json) => {
+            this.races = json;
+            this.getUnits();
+        });
+    }
+
+    getUnits() {
+        fetch('/data/units.json')
+        .then((response) => response.json()).then((json) => {
+            // eslint-disable-next-line
+            const game = new Game({
+                'map': this.map,
+                'weapons': this.weapons,
+                'armor': this.armor,
+                'races': this.races,
+                'units': json,
+                'resources': this.resources
             });
         });
     }
 }
 
-const ridane = new Ridane();
+window.onload = function() {
+    // eslint-disable-next-line
+    const ridane = new Ridane();
+};
