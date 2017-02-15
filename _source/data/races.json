@@ -3,41 +3,41 @@
         "damageMelee": 3,
         "damageRanged": 3,
         "defense": 3,
-        "moveRange": 4
+        "speed": 4
     },
 
     "orc": {
         "damageMelee": 4,
         "damageRanged": 2,
         "defense": 4,
-        "moveRange": 3
+        "speed": 3
     },
 
     "elf": {
         "damageMelee": 3,
         "damageRanged": 4,
         "defense": 2,
-        "moveRange": 5
+        "speed": 5
     },
 
     "vampire": {
         "damageMelee": 4,
         "damageRanged": 3,
         "defense": 2,
-        "moveRange": 4
+        "speed": 5
     },
 
     "ghost": {
         "damageMelee": 2,
         "damageRanged": 3,
         "defense": 4,
-        "moveRange": 4
+        "speed": 4
     },
 
     "zombie": {
         "damageMelee": 2,
         "damageRanged": 0,
         "defense": 2,
-        "moveRange": 1
+        "speed": 1
     }
 }

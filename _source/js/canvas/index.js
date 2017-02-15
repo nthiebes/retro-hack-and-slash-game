@@ -27,7 +27,7 @@ export default class Canvas {
         this.tileset = this.resources.get('/images/tileset.png');
         this.lastTime = Date.now();
         this.gameTime = 0;
-        this.playerSpeed = 4;
+        this.playerSpeed = config.races[config.units.player.race].speed;
         this.units = new Units(config);
         this.unitsList = this.units.list;
         this.offsetX = 0;

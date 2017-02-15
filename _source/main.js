@@ -14,7 +14,8 @@ class Ridane {
             '/images/races/human0.png',
             '/images/races/human1.png',
             '/images/races/orc0.png',
-            '/images/races/orc1.png'
+            '/images/races/orc1.png',
+            '/images/races/elf0.png'
         ];
 
         this.resources = new Resources();

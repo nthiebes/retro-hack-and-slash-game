@@ -10,6 +10,7 @@ export default class Units {
     addUnits(config) {
         const keys = Object.keys(config.units);
 
+
         for (let i = 0; i < keys.length; i++) {
             const unit = config.units[keys[i]];
 
@@ -20,10 +21,14 @@ export default class Units {
                     'url': `/images/races/${unit.race}${unit.skin}.png`,
                     'pos': [0, 256],
                     'size': [128, 128],
-                    'speed': 4,
+                    'speed': this.getSpeed(config, unit),
                     'frames': [0]
                 })
             })));
         }
+    }
+
+    getSpeed(config, unit) {
+        return config.races[unit.race].speed;
     }
 }
