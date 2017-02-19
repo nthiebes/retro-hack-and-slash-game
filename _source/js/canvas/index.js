@@ -1,13 +1,11 @@
-import Input from '../utils/input';
 import Units from '../units';
+import Interactions from './interactions';
 import Map from './map';
-import Path from './path';
 import utils from './utils';
 
 export default class Canvas {
     constructor(config) {
         this.debug = true;
-        this.wrapper = document.getElementById('canvas-wrapper');
         this.canvasGround1 = document.getElementById('canvas-ground1');
         this.canvasGround2 = document.getElementById('canvas-ground2');
         this.canvasAnim = document.getElementById('canvas-anim');
@@ -24,23 +22,25 @@ export default class Canvas {
         this.colTileCount = this.ground1[0].length;
         this.fieldWidth = 32;
         this.resources = config.resources;
-        this.input = new Input();
         this.tileset = this.resources.get('/images/tileset.png');
         this.lastTime = Date.now();
         this.gameTime = 0;
         this.playerSpeed = config.races[config.units.player.race].speed;
         this.units = new Units(config);
         this.unitsList = this.units.list;
-        this.offsetX = 0;
-        this.offsetY = 0;
-        this.innerWidth = window.innerWidth;
-        this.innerHeight = window.innerHeight;
         this.map = new Map(this.blockedArr);
-        this.path = new Path();
+        this.interactions = new Interactions({
+            'unitsList': this.unitsList,
+            'canvasTop1': this.canvasTop1,
+            'blockedArr': this.blockedArr,
+            'map': this.map,
+            'playerSpeed': this.playerSpeed,
+            'rowTileCount': this.rowTileCount,
+            'colTileCount': this.colTileCount,
+            'fieldWidth': this.fieldWidth
+        });
 
         this.prepareCanvas();
-        this.registerEventHandler();
-
         this.main();
     }
 
@@ -91,11 +91,6 @@ export default class Canvas {
         }
     }
 
-    registerEventHandler() {
-        this.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
-        this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
-    }
-
     main() {
         const now = Date.now(),
             delta = (now - this.lastTime) / 1000.0;
@@ -112,7 +107,7 @@ export default class Canvas {
     update(delta) {
         this.gameTime += delta;
 
-        this.handleInput(delta);
+        this.interactions.update(delta);
         this.updateEntities(delta);
     }
 
@@ -159,209 +154,5 @@ export default class Canvas {
         }
 
         this.ctxAnim.restore();
-    }
-
-    handleInput(delta) {
-        const input = this.input,
-            down = input.isDown('S'),
-            up = input.isDown('W'),
-            right = input.isDown('D'),
-            left = input.isDown('A'),
-            player = this.unitsList[0],
-            playerSpeed = this.playerSpeed,
-            wrapper = this.wrapper;
-        let valueX = this.offsetX,
-            valueY = this.offsetY,
-            blockedX = true,
-            blockedY = true;
-
-        if (down) {
-            valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
-
-            const newPos = player.pos[1] + (playerSpeed * delta),
-                newY = Math.floor(newPos),
-                x = Math.floor(player.pos[0]),
-                y = Math.floor(player.pos[1]),
-                newTile = newY > y;
-
-            if (this.blockedArr[newY][x] <= 1) {
-                blockedY = false;
-                player.pos[1] = newPos;
-
-                if (newTile) {
-                    this.map.updatePosition({
-                        'id': player.id,
-                        'x': x,
-                        'y': y,
-                        'newX': x,
-                        'newY': newY
-                    });
-                }
-            }
-        }
-
-        if (up) {
-            valueY = this.offsetY + ((playerSpeed * this.fieldWidth) * delta);
-
-            const newPos = player.pos[1] - (playerSpeed * delta),
-                newY = Math.floor(newPos),
-                x = Math.floor(player.pos[0]),
-                y = Math.floor(player.pos[1]),
-                newTile = newY < Math.floor(player.pos[1]);
-
-            if (this.blockedArr[newY][x] <= 1) {
-                blockedY = false;
-                player.pos[1] = newPos;
-
-                if (newTile) {
-                    this.map.updatePosition({
-                        'id': player.id,
-                        'x': x,
-                        'y': y,
-                        'newX': x,
-                        'newY': newY
-                    });
-                }
-            }
-        }
-
-        if (right) {
-            valueX = this.offsetX - ((playerSpeed * this.fieldWidth) * delta);
-            
-            const newPos = player.pos[0] + (playerSpeed * delta),
-                newX = Math.floor(newPos),
-                x = Math.floor(player.pos[0]),
-                y = Math.floor(player.pos[1]),
-                newTile = newX > Math.floor(player.pos[0]);
-
-            if (this.blockedArr[y][newX] <= 1) {
-                blockedX = false;
-                player.pos[0] = newPos;
-
-                if (newTile) {
-                    this.map.updatePosition({
-                        'id': player.id,
-                        'x': x,
-                        'y': y,
-                        'newX': newX,
-                        'newY': y
-                    });
-                }
-            }
-        }
-
-        if (left) {
-            valueX = this.offsetX + ((playerSpeed * this.fieldWidth) * delta);
-
-            const newPos = player.pos[0] - (playerSpeed * delta),
-                newX = Math.floor(newPos),
-                x = Math.floor(player.pos[0]),
-                y = Math.floor(player.pos[1]),
-                newTile = newX < Math.floor(player.pos[0]);
-
-            if (this.blockedArr[y][newX] <= 1) {
-                blockedX = false;
-                player.pos[0] = newPos;
-
-                if (newTile) {
-                    this.map.updatePosition({
-                        'id': player.id,
-                        'x': x,
-                        'y': y,
-                        'newX': newX,
-                        'newY': y
-                    });
-                }
-            }
-        }
-
-        if (down || up || right || left) {
-            const maxOffsetX = (this.colTileCount * this.fieldWidth) - this.innerWidth,
-                maxOffsetY = (this.rowTileCount * this.fieldWidth) - this.innerHeight;
-
-            // Horizontal map scrolling
-            if (!blockedX && // player not blocked
-                !(right && left) && 
-                valueX < 0 && 
-                valueX > maxOffsetX * -1 && 
-                player.pos[0] * this.fieldWidth > (this.innerWidth / 2) - playerSpeed && // + next line: player in center
-                player.pos[0] * this.fieldWidth < (this.colTileCount * this.fieldWidth) - (this.innerWidth / 2) + playerSpeed) {
-
-                this.offsetX = valueX;
-
-            // Limit scrolling - end of the map
-            } else if (valueX < 0 && valueX <= maxOffsetX * -1) {
-                this.offsetX = maxOffsetX * -1;
-
-            // Limit scrolling - start of the map
-            } else if (valueX > 0) {
-                this.offsetX = 0;
-            }
-
-            // Vertical map scrolling
-            if (!blockedY && // player not blocked
-                !(up && down) && 
-                valueY < 0 && 
-                valueY > maxOffsetY * -1 && 
-                player.pos[1] * this.fieldWidth > (this.innerHeight / 2) - playerSpeed && // + next line: player in center
-                player.pos[1] * this.fieldWidth < (this.rowTileCount * this.fieldWidth) - (this.innerHeight / 2) + playerSpeed) {
-
-                this.offsetY = valueY;
-
-            // Limit scrolling - end of the map
-            } else if (valueY < 0 && valueY <= maxOffsetY * -1) {
-                this.offsetY = maxOffsetY * -1;
-
-            // Limit scrolling - start of the map
-            } else if (valueY > 0) {
-                this.offsetY = 0;
-            }
-
-            wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
-
-            if (!player.moving) {
-                player.walk();
-            }
-        } else if (player.moving) {
-            player.stop();
-        }
-
-        // temporary
-        const playerPos1 = [Math.floor(player.pos[0] + 2), Math.floor(player.pos[1])],
-            playerPos2 = [Math.floor(player.pos[0] - 2), Math.floor(player.pos[1])],
-            enemy = this.unitsList[1],
-            path1 = this.path.get(this.map.map, enemy.pos, playerPos1),
-            path2 = this.path.get(this.map.map, enemy.pos, playerPos2);
-
-        if (path1.length <= path2.length && 
-            path1.length !== 0 || 
-            path2.length === 0) {
-
-            enemy.path = path1;
-        } else {
-            enemy.path = path2;
-        }
-    }
-
-    onMouseMove(e) {
-        const player = this.unitsList[0];
-
-        if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
-            player.turn('LEFT');
-
-            if (player.moving) {
-                player.walk();
-            }
-        } else if (e.pageX + (this.offsetX * -1) >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
-            player.turn('RIGHT');
-
-            if (player.moving) {
-                player.walk();
-            }
-        } 
-    }
-
-    onRightClick(e) {
-        e.preventDefault();
     }
 }
