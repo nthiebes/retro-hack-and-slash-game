@@ -16,6 +16,9 @@ export default class Units {
             this.list.push(new Unit(Object.assign({}, unit, {
                 'id': i + 1,
                 'pos': unit.pos,
+                'primary': config.weapons[unit.weapons.primary],
+                'secondary': config.weapons[unit.weapons.secondary],
+                'range': config.weapons[unit.weapons.primary].range,
                 'skin': new Sprite({
                     'url': `/images/races/${unit.race}${unit.skin}.png`,
                     'pos': [0, 256],

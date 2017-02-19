@@ -30,10 +30,15 @@ export default class Interactions {
     registerEventHandler() {
         this.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
         this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
+        this.wrapper.addEventListener('click', this.onLeftClick.bind(this));
     }
 
     onMouseMove(e) {
         const player = this.unitsList[0];
+
+        if (this.player.attacking) {
+            return;
+        }
 
         if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
             player.turn('LEFT');
@@ -47,11 +52,15 @@ export default class Interactions {
             if (player.moving) {
                 player.walk();
             }
-        } 
+        }
     }
 
     onRightClick(e) {
         e.preventDefault();
+    }
+
+    onLeftClick(e) {
+        this.player.attack();
     }
 
     handleInput(delta) {
@@ -67,6 +76,10 @@ export default class Interactions {
             valueY = this.offsetY,
             blockedX = true,
             blockedY = true;
+
+        if (this.player.attacking) {
+            return;
+        }
 
         if (down) {
             valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);

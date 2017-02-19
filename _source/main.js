@@ -36,7 +36,7 @@ class Ridane {
     }
 
     getWeapons() {
-        fetch('/data/armor.json')
+        fetch('/data/weapons.json')
         .then((response) => response.json()).then((json) => {
             this.weapons = json;
             this.getArmor();

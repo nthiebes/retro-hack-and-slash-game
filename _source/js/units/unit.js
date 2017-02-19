@@ -2,6 +2,7 @@ export default class Unit {
     constructor(config) {
         this.direction = 'RIGHT';
         this.moving = false;
+        this.attacking = false;
         this.path = [];
 
         for (const i in config) {
@@ -23,6 +24,21 @@ export default class Unit {
 
         this.skin.frames = [0, 1, 2, 3];
         this.moving = true;
+    }
+
+    attack() {
+        switch (this.direction) {
+            case 'LEFT':
+                this.skin.pos = [0, 384];
+                break;
+
+            default:
+                this.skin.pos = [0, 256];
+        }
+
+        this.skin.frames = [0, 1, 2];
+        this.moving = false;
+        this.attacking = true;
     }
 
     stop() {

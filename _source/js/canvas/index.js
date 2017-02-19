@@ -29,6 +29,7 @@ export default class Canvas {
         this.units = new Units(config);
         this.unitsList = this.units.list;
         this.map = new Map(this.blockedArr);
+        this.player = this.unitsList[0];
         this.interactions = new Interactions({
             'unitsList': this.unitsList,
             'canvasTop1': this.canvasTop1,
