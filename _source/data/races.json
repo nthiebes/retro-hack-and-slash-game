@@ -1,42 +1,48 @@
 {
     "human": {
-        "damageMelee": 3,
-        "damageRanged": 3,
+        "strength": 3,
+        "dexterity": 3,
+        "intelligence": 3,
         "defense": 3,
         "speed": 4
     },
 
     "orc": {
-        "damageMelee": 4,
-        "damageRanged": 2,
+        "strength": 5,
+        "dexterity": 2,
+        "intelligence": 1,
         "defense": 4,
         "speed": 3
     },
 
     "elf": {
-        "damageMelee": 3,
-        "damageRanged": 4,
+        "strength": 2,
+        "dexterity": 4,
+        "intelligence": 4,
         "defense": 2,
         "speed": 5
     },
 
     "vampire": {
-        "damageMelee": 4,
-        "damageRanged": 3,
+        "strength": 4,
+        "dexterity": 3,
+        "intelligence": 3,
         "defense": 2,
         "speed": 5
     },
 
     "ghost": {
-        "damageMelee": 2,
-        "damageRanged": 3,
+        "strength": 2,
+        "dexterity": 3,
+        "intelligence": 2,
         "defense": 4,
         "speed": 4
     },
 
     "zombie": {
-        "damageMelee": 2,
-        "damageRanged": 0,
+        "strength": 2,
+        "dexterity": 0,
+        "intelligence": 1,
         "defense": 2,
         "speed": 1
     }

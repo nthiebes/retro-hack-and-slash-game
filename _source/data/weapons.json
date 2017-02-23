@@ -27,11 +27,11 @@
         "name": "shortbow0",
         "damage": 1,
         "range": 5,
-        "arrow": true
+        "projectile": "arrow"
     },
 
     "primary5": {
-        "name": "halberdier",
+        "name": "halberdier0",
         "damage": 2,
         "range": 1
     },
@@ -40,28 +40,28 @@
         "name": "longbow0",
         "damage": 2,
         "range": 7,
-        "arrow": true
+        "projectile": "arrow"
     },
 
     "primary7": {
         "name": "crossbow0",
         "damage": 3,
         "range": 6,
-        "bolt": true
+        "projectile": "bolt"
     },
 
     "primary8": {
         "name": "musket0",
         "damage": 4,
         "range": 5,
-        "bullet": true
+        "projectile": "bullet"
     },
 
     "primary9": {
         "name": "rifle0",
         "damage": 4,
         "range": 7,
-        "bullet": true
+        "projectile": "bullet"
     },
 
     "primary10": {
