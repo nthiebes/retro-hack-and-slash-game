@@ -47,7 +47,6 @@ export default class Unit {
 
         this.skin.frames = [0, 1, 2];
         this.skin.index = 0;
-        this.skin.once = true;
         this.moving = false;
         this.attacking = true;
     }

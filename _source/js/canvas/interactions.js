@@ -30,14 +30,15 @@ export default class Interactions {
 
     registerEventHandler() {
         this.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
+        this.wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
+        this.wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
         this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
-        this.wrapper.addEventListener('click', this.onLeftClick.bind(this));
     }
 
     onMouseMove(e) {
-        const player = this.unitsList[0];
+        const player = this.player;
 
-        if (this.player.attacking) {
+        if (player.attacking) {
             return;
         }
 
@@ -60,8 +61,19 @@ export default class Interactions {
         e.preventDefault();
     }
 
-    onLeftClick(e) {
-        this.player.attack();
+    onMouseDown() {
+        if (this.player.attacking) {
+            // Continue animation
+            this.player.skin.once = false;
+        } else {
+            // Start animation
+            this.player.attack();
+        }
+    }
+
+    onMouseUp() {
+        // Finish after current animation
+        this.player.skin.once = true;
     }
 
     handleInput(delta) {
