@@ -26,7 +26,7 @@ export default class Canvas {
         this.lastTime = Date.now();
         this.gameTime = 0;
         this.playerSpeed = config.races[config.units.player.race].speed;
-        this.units = new Units(config);
+        this.units = new Units(config, this.debug);
         this.unitsList = this.units.list;
         this.map = new Map(this.blockedArr);
         this.player = this.unitsList[0];
@@ -38,7 +38,8 @@ export default class Canvas {
             'playerSpeed': this.playerSpeed,
             'rowTileCount': this.rowTileCount,
             'colTileCount': this.colTileCount,
-            'fieldWidth': this.fieldWidth
+            'fieldWidth': this.fieldWidth,
+            'debug': this.debug
         });
 
         this.prepareCanvas();
@@ -120,7 +121,7 @@ export default class Canvas {
             unit.skin.update(delta);
 
             // Stop after animation
-            if (unit.skin.frames.length === Math.floor(unit.skin.index)) {
+            if (unit.skin.frames.length === Math.floor(unit.skin.index) && unit.skin.once) {
                 unit.stop();
             }
         }

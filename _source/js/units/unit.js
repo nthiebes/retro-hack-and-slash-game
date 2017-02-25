@@ -1,9 +1,10 @@
 export default class Unit { 
-    constructor(config) {
+    constructor(config, debug) {
         this.direction = 'RIGHT';
         this.moving = false;
         this.attacking = false;
         this.path = [];
+        this.debug = debug;
 
         for (const i in config) {
             if (config.hasOwnProperty(i)) {
@@ -13,6 +14,10 @@ export default class Unit {
     }
 
     walk() {
+        if (this.debug) {
+            console.log('=> walk');
+        }
+
         switch (this.direction) {
             case 'LEFT':
                 this.skin.pos = [0, 128];
@@ -27,6 +32,10 @@ export default class Unit {
     }
 
     attack() {
+        if (this.debug) {
+            console.log('=> attack');
+        }
+
         switch (this.direction) {
             case 'LEFT':
                 this.skin.pos = [0, 384];
@@ -37,13 +46,17 @@ export default class Unit {
         }
 
         this.skin.frames = [0, 1, 2];
-        this.skin.index =0;
+        this.skin.index = 0;
         this.skin.once = true;
         this.moving = false;
         this.attacking = true;
     }
 
     stop() {
+        if (this.debug) {
+            console.log('=> stop');
+        }
+
         this.moving = false;
         this.attacking = false;
         this.skin.once = false;
@@ -53,6 +66,10 @@ export default class Unit {
     }
 
     turn(direction) {
+        if (this.debug) {
+            console.log('=> turn ' + direction);
+        }
+
         switch (direction.toUpperCase()) {
             case 'LEFT':
                 this.skin.pos = [0, 384];

@@ -2,12 +2,12 @@ import Sprite from '../utils/sprite';
 import Unit from './unit';
 
 export default class Units { 
-    constructor(config) {
+    constructor(config, debug) {
         this.list = [];
-        this.addUnits(config);
+        this.addUnits(config, debug);
     }
 
-    addUnits(config) {
+    addUnits(config, debug) {
         const keys = Object.keys(config.units);
 
         for (let i = 0; i < keys.length; i++) {
@@ -26,7 +26,7 @@ export default class Units {
                     'speed': this.getSpeed(config, unit),
                     'frames': [0]
                 })
-            })));
+            }), debug));
         }
     }
 

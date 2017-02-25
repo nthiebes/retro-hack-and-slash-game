@@ -3,6 +3,7 @@ import Path from './path';
 
 export default class Interactions {
     constructor(config) {
+        this.debug = config.debug;
         this.wrapper = document.getElementById('canvas-wrapper');
         this.input = new Input();
         this.path = new Path();
