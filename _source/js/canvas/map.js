@@ -1,8 +1,13 @@
 import utils from './utils';
 
 export default class Map {
-    constructor(map) {
+    constructor(map, units) {
         this.map = map;
+
+        // Initial unit positions
+        for (let i = 0; i < units.length; i++) {
+            this.map[units[i].pos[1]][units[i].pos[0]] = units[i].id;
+        }
     }
 
     updatePosition(config) {

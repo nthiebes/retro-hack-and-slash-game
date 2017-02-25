@@ -28,7 +28,7 @@ export default class Canvas {
         this.playerSpeed = config.races[config.units.player.race].speed;
         this.units = new Units(config, this.debug);
         this.unitsList = this.units.list;
-        this.map = new Map(this.blockedArr);
+        this.map = new Map(this.blockedArr, this.unitsList);
         this.player = this.unitsList[0];
         this.interactions = new Interactions({
             'unitsList': this.unitsList,

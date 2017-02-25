@@ -13,7 +13,6 @@ export default class Interactions {
         this.offsetX = 0;
         this.offsetY = 0;
         this.map = config.map;
-        this.blockedArr = config.blockedArr;
         this.playerSpeed = config.playerSpeed;
         this.rowTileCount = config.rowTileCount;
         this.colTileCount = config.colTileCount;
@@ -103,7 +102,7 @@ export default class Interactions {
                 y = Math.floor(player.pos[1]),
                 newTile = newY > y;
 
-            if (this.blockedArr[newY][x] <= 1) {
+            if (this.map.map[newY][x] <= 1) {
                 blockedY = false;
                 player.pos[1] = newPos;
 
@@ -128,7 +127,7 @@ export default class Interactions {
                 y = Math.floor(player.pos[1]),
                 newTile = newY < Math.floor(player.pos[1]);
 
-            if (this.blockedArr[newY][x] <= 1) {
+            if (this.map.map[newY][x] <= 1) {
                 blockedY = false;
                 player.pos[1] = newPos;
 
@@ -153,7 +152,7 @@ export default class Interactions {
                 y = Math.floor(player.pos[1]),
                 newTile = newX > Math.floor(player.pos[0]);
 
-            if (this.blockedArr[y][newX] <= 1) {
+            if (this.map.map[y][newX] <= 1) {
                 blockedX = false;
                 player.pos[0] = newPos;
 
@@ -178,7 +177,7 @@ export default class Interactions {
                 y = Math.floor(player.pos[1]),
                 newTile = newX < Math.floor(player.pos[0]);
 
-            if (this.blockedArr[y][newX] <= 1) {
+            if (this.map.map[y][newX] <= 1) {
                 blockedX = false;
                 player.pos[0] = newPos;
 
