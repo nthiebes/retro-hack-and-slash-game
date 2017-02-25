@@ -65,23 +65,4 @@ export default class Sprite {
                           this.size[0], this.size[1]);
         }
     }
-
-    setframes(newframes) {
-        this.frames = newframes;
-    }
-
-    getframes() {
-        return {
-            'framesLength': this.frames.length,
-            'index': Math.floor(this.index)
-        };
-    }
-
-    setIndex(newIndex) {
-        this.index = newIndex;
-    }
-
-    setPos(newPos) {
-        this.pos = newPos;
-    }
 }

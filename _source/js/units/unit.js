@@ -37,12 +37,17 @@ export default class Unit {
         }
 
         this.skin.frames = [0, 1, 2];
+        this.skin.index =0;
+        this.skin.once = true;
         this.moving = false;
         this.attacking = true;
     }
 
     stop() {
         this.moving = false;
+        this.attacking = false;
+        this.skin.once = false;
+        this.skin.done = false;
         this.turn(this.direction);
         this.skin.frames = [0];
     }

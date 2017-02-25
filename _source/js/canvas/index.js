@@ -118,6 +118,11 @@ export default class Canvas {
         for (let i = 0; i < this.unitsList.length; i++) {
             unit = this.unitsList[i];
             unit.skin.update(delta);
+
+            // Stop after animation
+            if (unit.skin.frames.length === Math.floor(unit.skin.index)) {
+                unit.stop();
+            }
         }
     }
 
