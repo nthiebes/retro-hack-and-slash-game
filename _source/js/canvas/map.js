@@ -14,9 +14,11 @@ export default class Map {
     updatePosition(config) {
         // Delete old position
         this.map[config.y][config.x] = 0;
+        this.map[config.y - 1][config.x] = 0; // one above
 
         // Add new position
         this.map[config.newY][config.newX] = config.id;
+        this.map[config.newY - 1][config.newX] = config.id; // one above
     }
 
     showDebugFields(config) {
@@ -53,37 +55,23 @@ export default class Map {
             'y': (y - 1) * 32
         });
 
-        utils.drawSquare({
-            'ctx': config.ctx,
-            'color': 'rgba(255,0,0,0.5)',
-            'width': 32,
-            'height': 32,
-            'x': (x + 1) * 32,
-            'y': y * 32
-        });
-        utils.drawSquare({
-            'ctx': config.ctx,
-            'color': 'rgba(255,0,0,0.5)',
-            'width': 32,
-            'height': 32,
-            'x': (x - 1) * 32,
-            'y': y * 32
-        });
-        utils.drawSquare({
-            'ctx': config.ctx,
-            'color': 'rgba(255,0,0,0.5)',
-            'width': 32,
-            'height': 32,
-            'x': (x + 1) * 32,
-            'y': (y + 1) * 32
-        });
-        utils.drawSquare({
-            'ctx': config.ctx,
-            'color': 'rgba(255,0,0,0.5)',
-            'width': 32,
-            'height': 32,
-            'x': (x - 1) * 32,
-            'y': (y + 1) * 32
-        });
+        if (config.unit.id === 1) {
+            utils.drawSquare({
+                'ctx': config.ctx,
+                'color': 'rgba(255,0,0,0.5)',
+                'width': 32,
+                'height': 32,
+                'x': (x + 1) * 32,
+                'y': y * 32
+            });
+            utils.drawSquare({
+                'ctx': config.ctx,
+                'color': 'rgba(255,0,0,0.5)',
+                'width': 32,
+                'height': 32,
+                'x': (x - 1) * 32,
+                'y': y * 32
+            });
+        }
     }
 }
