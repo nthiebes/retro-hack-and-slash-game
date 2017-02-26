@@ -2,7 +2,7 @@
     "primary0": {
         "name": "fist0",
         "damage": 1,
-        "range": 1
+        "range": 0
     },
 
     "primary1": {

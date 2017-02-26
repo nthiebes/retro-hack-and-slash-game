@@ -123,10 +123,47 @@ export default class Canvas {
             // Stop after animation
             if (unit.skin.frames.length === Math.floor(unit.skin.index) && unit.skin.once) {
                 if (unit.attacking) {
-                    console.log('hit');
+                    this.checkForHit();
                 }
 
                 unit.stop();
+            }
+        }
+    }
+
+    checkForHit() {
+        const unitsList = this.unitsList,
+            player = this.player;
+        let i = this.unitsList.length;
+
+        while (i--) {
+            const unit = unitsList[i];
+
+            if (unit.id !== player.id) {
+                const playerPosX = Math.round(this.fieldWidth * player.pos[0]),
+                    enemyPosX = Math.round(this.fieldWidth * unit.pos[0]),
+                    playerPosY = Math.round(this.fieldWidth * player.pos[1]),
+                    enemyPosY = Math.round(this.fieldWidth * unit.pos[1]),
+                    playerWidth = 40,
+                    playerHeight = 50;
+
+                if (playerPosY > enemyPosY - (playerHeight / 2) && playerPosY < enemyPosY + (playerHeight / 2)) {
+                    if (player.direction === 'LEFT') {
+                        const playerReach = playerPosX - playerWidth - player.range;
+
+                        if (playerReach <= enemyPosX && playerPosX > enemyPosX) {
+                            console.log('💘');
+                        }
+                    }
+
+                    if (player.direction === 'RIGHT') {
+                        const playerReach = playerPosX + playerWidth + player.range;
+                        
+                        if (playerReach >= enemyPosX && playerPosX < enemyPosX) {
+                            console.log('💘');
+                        }
+                    }
+                }
             }
         }
     }
