@@ -11,7 +11,16 @@ export default class Utils {
                     tileRow = (tile / imageNumTiles) | 0,
                     tileCol = (tile % imageNumTiles) | 0;
 
-                config.ctx.drawImage(config.tileset, tileCol * tileSize, tileRow * tileSize, tileSize, tileSize, c * tileSize, r * tileSize, tileSize, tileSize);
+                config.ctx.drawImage(
+                    config.tileset, 
+                    tileCol * tileSize, 
+                    tileRow * tileSize, 
+                    tileSize, tileSize, 
+                    c * tileSize, 
+                    r * tileSize, 
+                    tileSize, 
+                    tileSize
+                );
             }
         }
     }
@@ -27,5 +36,26 @@ export default class Utils {
         config.ctx.lineWidth = 1;
         config.ctx.closePath();
         config.ctx.fill();
+    }
+
+    static getPath(cfg) {
+        const path = [],
+            speed = cfg.speed,
+            x1 = cfg.x1,
+            y1 = cfg.y1,
+            x2 = cfg.x2,
+            y2 = cfg.y2,
+            x = (x2 - x1) / speed,
+            y = (y2 - y1) / speed;
+        let lastX = x1,
+            lastY = y1;
+
+        for (let i = 0; i <= speed; i++) {
+            path.push([lastX, lastY]);
+            lastX = lastX + x;
+            lastY = lastY + y;
+        }
+
+        return path;
     }
 }

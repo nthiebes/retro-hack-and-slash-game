@@ -122,6 +122,10 @@ export default class Canvas {
 
             // Stop after animation
             if (unit.skin.frames.length === Math.floor(unit.skin.index) && unit.skin.once) {
+                if (unit.attacking) {
+                    console.log('hit');
+                }
+
                 unit.stop();
             }
         }
@@ -151,8 +155,8 @@ export default class Canvas {
         }
 
         this.ctxAnim.translate(
-            (unit.pos[0] * this.fieldWidth) - 48,
-            (unit.pos[1] * this.fieldWidth) - 100
+            (unit.pos[0] * this.fieldWidth) - 64,
+            (unit.pos[1] * this.fieldWidth) - 125
         );
 
         for (let i = 0; i < args.length; i++) {

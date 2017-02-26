@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class Path {
     get(world, pathStart, pathEnd) {
         // Shortcuts for speed
@@ -164,3 +165,4 @@ export default class Path {
         return calculatePath();
     }
 }
+/* eslint-enable */

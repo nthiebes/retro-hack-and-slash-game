@@ -7,6 +7,7 @@ export default class Map {
         // Initial unit positions
         for (let i = 0; i < units.length; i++) {
             this.map[units[i].pos[1]][units[i].pos[0]] = units[i].id;
+            this.map[units[i].pos[1] - 1][units[i].pos[0]] = units[i].id; // one above
         }
     }
 
@@ -19,8 +20,8 @@ export default class Map {
     }
 
     showDebugFields(config) {
-        const x = Math.round(config.unit.pos[0]),
-            y = Math.round(config.unit.pos[1]),
+        const x = Math.floor(config.unit.pos[0]),
+            y = Math.floor(config.unit.pos[1]),
             path = config.units[1].path;
         let i = path.length;
 

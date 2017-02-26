@@ -4,9 +4,6 @@ export default class Unit {
         this.moving = false;
         this.attacking = false;
         this.path = [];
-        this.animationPath = [];
-        this.targetTile = config.pos;
-        this.animationIndex = 0;
         this.debug = debug;
 
         for (const i in config) {
@@ -18,7 +15,7 @@ export default class Unit {
 
     walk() {
         if (this.debug) {
-            console.log('=> walk');
+            console.log('👣');
         }
 
         switch (this.direction) {
@@ -36,7 +33,7 @@ export default class Unit {
 
     attack() {
         if (this.debug) {
-            console.log('=> attack');
+            console.log('⚔');
         }
 
         switch (this.direction) {
@@ -56,7 +53,7 @@ export default class Unit {
 
     stop() {
         if (this.debug) {
-            console.log('=> stop');
+            console.log('✋');
         }
 
         this.moving = false;
@@ -69,7 +66,7 @@ export default class Unit {
 
     turn(direction) {
         if (this.debug) {
-            console.log('=> turn ' + direction);
+            console.log(direction === 'LEFT' ? '↩' : '↪');
         }
 
         switch (direction.toUpperCase()) {
