@@ -151,8 +151,8 @@ export default class Canvas {
         }
 
         this.ctxAnim.translate(
-            (unit.pos[0] * this.fieldWidth) - 64,
-            (unit.pos[1] * this.fieldWidth) - 110
+            (unit.pos[0] * this.fieldWidth) - 48,
+            (unit.pos[1] * this.fieldWidth) - 100
         );
 
         for (let i = 0; i < args.length; i++) {

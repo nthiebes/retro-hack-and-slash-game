@@ -4,7 +4,7 @@
         "race": "human",
         "skin": 0,
         "health": 100,
-        "pos": [7, 6],
+        "pos": [6, 7],
         "armor": "steel",
         "gear": {
             "head": 2,

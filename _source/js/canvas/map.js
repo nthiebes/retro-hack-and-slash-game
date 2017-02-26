@@ -19,8 +19,8 @@ export default class Map {
     }
 
     showDebugFields(config) {
-        const x = Math.floor(config.unit.pos[0]),
-            y = Math.floor(config.unit.pos[1]),
+        const x = Math.round(config.unit.pos[0]),
+            y = Math.round(config.unit.pos[1]),
             path = config.units[1].path;
         let i = path.length;
 
@@ -45,10 +45,19 @@ export default class Map {
         });
         utils.drawSquare({
             'ctx': config.ctx,
+            'color': 'rgba(0,255,255,0.5)',
+            'width': 32,
+            'height': 32,
+            'x': x * 32,
+            'y': (y - 1) * 32
+        });
+
+        utils.drawSquare({
+            'ctx': config.ctx,
             'color': 'rgba(255,0,0,0.5)',
             'width': 32,
             'height': 32,
-            'x': (x + 2) * 32,
+            'x': (x + 1) * 32,
             'y': y * 32
         });
         utils.drawSquare({
@@ -56,8 +65,24 @@ export default class Map {
             'color': 'rgba(255,0,0,0.5)',
             'width': 32,
             'height': 32,
-            'x': (x - 2) * 32,
+            'x': (x - 1) * 32,
             'y': y * 32
+        });
+        utils.drawSquare({
+            'ctx': config.ctx,
+            'color': 'rgba(255,0,0,0.5)',
+            'width': 32,
+            'height': 32,
+            'x': (x + 1) * 32,
+            'y': (y + 1) * 32
+        });
+        utils.drawSquare({
+            'ctx': config.ctx,
+            'color': 'rgba(255,0,0,0.5)',
+            'width': 32,
+            'height': 32,
+            'x': (x - 1) * 32,
+            'y': (y + 1) * 32
         });
     }
 }

@@ -4,6 +4,9 @@ export default class Unit {
         this.moving = false;
         this.attacking = false;
         this.path = [];
+        this.animationPath = [];
+        this.targetTile = config.pos;
+        this.animationIndex = 0;
         this.debug = debug;
 
         for (const i in config) {
