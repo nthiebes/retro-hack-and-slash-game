@@ -114,10 +114,11 @@ export default class Canvas {
     }
 
     updateEntities(delta) {
+        const unitsList = this.unitsList;
         let unit;
 
-        for (let i = 0; i < this.unitsList.length; i++) {
-            unit = this.unitsList[i];
+        for (let i = 0; i < unitsList.length; i++) {
+            unit = unitsList[i];
             unit.skin.update(delta);
 
             // Stop after animation
@@ -169,9 +170,11 @@ export default class Canvas {
     }
 
     render() {
+        const tempUnitList = this.getTempUnitList(this.unitsList);
+
         // Clear canvas hack
         this.canvasAnim.width = this.canvasAnim.width;
-        this.renderEntities(this.unitsList);
+        this.renderEntities(tempUnitList);
     }
 
     renderEntities(list) {
@@ -202,5 +205,18 @@ export default class Canvas {
         }
 
         this.ctxAnim.restore();
+    }
+
+    getTempUnitList(unitsList) {
+        const tempUnitList = [];
+        let i = unitsList.length;
+
+        while (i--) {
+            tempUnitList.push(unitsList[i]);
+        }
+
+        tempUnitList.sort((a, b) => a.pos[1] - b.pos[1]);
+
+        return tempUnitList;
     }
 }
