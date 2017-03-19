@@ -250,17 +250,29 @@ export default class Interactions {
             player.stop();
         }
 
-        // temporary
-        const playerPos1 = [Math.floor(player.pos[0] + 1), Math.floor(player.pos[1])],
-            playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])],
-            enemy = this.unitsList[1],
-            path1 = this.path.get(this.map.map, enemy.pos, playerPos1),
-            path2 = this.path.get(this.map.map, enemy.pos, playerPos2);
+        this.setPath(player);
+    }
 
-        if ((path1.length <= path2.length && path1.length !== 0) || path2.length === 0) {
-            enemy.path = path1;
-        } else {
-            enemy.path = path2;
+    setPath(player) {
+        const playerPos1 = [Math.floor(player.pos[0] + 1), Math.floor(player.pos[1])],
+            playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
+            
+        let enemy,
+            i = this.unitsList.length;
+
+        while (i--) {
+            enemy = this.unitsList[i];
+
+            if (enemy.id !== 1) {
+                const path1 = this.path.get(this.map.map, enemy.pos, playerPos1),
+                    path2 = this.path.get(this.map.map, enemy.pos, playerPos2);
+
+                if ((path1.length <= path2.length && path1.length !== 0) || path2.length === 0) {
+                    enemy.path = path1;
+                } else {
+                    enemy.path = path2;
+                }
+            }
         }
     }
 }

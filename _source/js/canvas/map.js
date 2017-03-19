@@ -21,7 +21,7 @@ export default class Map {
     showDebugFields(config) {
         const x = Math.floor(config.unit.pos[0]),
             y = Math.floor(config.unit.pos[1]),
-            path = config.units[1].path;
+            path = config.unit.path;
         let i = path.length;
 
         while (i--) {
