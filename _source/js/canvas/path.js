@@ -64,8 +64,6 @@ export default class Path {
                 (world[y][x] !== null) &&
                 (world[y][x] <= maxWalkableTileNum));
 
-            // console.log('x:', x, 'y:', y, canwalk);
-
             return canwalk;
         }
 

@@ -7,18 +7,15 @@ export default class Map {
         // Initial unit positions
         for (let i = 0; i < units.length; i++) {
             this.map[units[i].pos[1]][units[i].pos[0]] = units[i].id;
-            this.map[units[i].pos[1] - 1][units[i].pos[0]] = units[i].id; // one above
         }
     }
 
     updatePosition(config) {
         // Delete old position
         this.map[config.y][config.x] = 0;
-        this.map[config.y - 1][config.x] = 0; // one above
 
         // Add new position
         this.map[config.newY][config.newX] = config.id;
-        this.map[config.newY - 1][config.newX] = config.id; // one above
     }
 
     showDebugFields(config) {
@@ -45,14 +42,6 @@ export default class Map {
             'height': 32,
             'x': x * 32,
             'y': y * 32
-        });
-        utils.drawSquare({
-            'ctx': config.ctx,
-            'color': 'rgba(0,255,255,0.5)',
-            'width': 32,
-            'height': 32,
-            'x': x * 32,
-            'y': (y - 1) * 32
         });
 
         if (config.unit.id === 1) {
