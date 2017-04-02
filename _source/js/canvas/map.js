@@ -1,4 +1,5 @@
 import utils from './utils';
+import server from '../server';
 
 export default class Map {
     constructor(map, units) {
@@ -16,6 +17,8 @@ export default class Map {
 
         // Add new position
         this.map[config.newY][config.newX] = config.id;
+
+        // server.emit('move', config);
     }
 
     showDebugFields(config) {

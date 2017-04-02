@@ -9,9 +9,16 @@ import historyApiFallback from 'connect-history-api-fallback';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import proxy from 'http-proxy-middleware';
 import config from '../webpack.config.dev';
 
 const bundler = webpack(config);
+
+const jsonPlaceholderProxy = proxy('/socket/**', {
+  target: 'http://localhost:9000',
+  changeOrigin: true,
+  logLevel: 'debug'
+});
 
 // Run Browsersync and use middleware for Hot Module Replacement
 browserSync({
@@ -24,6 +31,7 @@ browserSync({
     baseDir: '_source',
 
     middleware: [
+      jsonPlaceholderProxy,
       historyApiFallback(),
 
       webpackDevMiddleware(bundler, {

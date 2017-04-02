@@ -20,6 +20,7 @@
   "license": "SEE LICENSE IN \"LICENSE\"",
   "dependencies": {
     "redux": "3.6.0",
+    "socket.io-client": "1.7.3",
     "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.10.0",
     "html-webpack-plugin": "2.22.0",
+    "http-proxy-middleware": "0.17.4",
     "minami": "1.1.1",
     "node-sass": "4.5.0",
     "npm-run-all": "4.0.1",

@@ -1,5 +1,6 @@
 import Input from '../utils/input';
 import Path from './path';
+import server from '../server';
 
 export default class Interactions {
     constructor(config) {
@@ -21,6 +22,7 @@ export default class Interactions {
         this.innerHeight = window.innerHeight;
 
         this.registerEventHandler();
+        this.registerServerEvents();
     }
 
     update(delta) {
@@ -32,6 +34,12 @@ export default class Interactions {
         this.wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
         this.wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
         this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
+    }
+
+    registerServerEvents() {
+        server.on('move', (config) => {
+            console.log('move', config);
+        });
     }
 
     onMouseMove(e) {
