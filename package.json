@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "npm run open:source",
+    "server": "node ./_server/index.js",
     "open:source": "babel-node tools/srcServer.js",
     "open:public": "babel-node tools/distServer.js",
     "lint": "./node_modules/.bin/esw \"_source/**/*.{js,jsx}\" --ext .js,.jsx --color",
@@ -45,7 +46,7 @@
     "html-webpack-plugin": "2.22.0",
     "http-proxy-middleware": "0.17.4",
     "minami": "1.1.1",
-    "node-sass": "4.5.0",
+    "node-sass": "4.5.3",
     "npm-run-all": "4.0.1",
     "open": "0.0.5",
     "postcss-loader": "1.2.2",
