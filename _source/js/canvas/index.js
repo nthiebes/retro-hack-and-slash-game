@@ -1,7 +1,7 @@
-import Units from '../view/units';
-import Interactions from './interactions';
-import Map from './map';
-import utils from './utils';
+import Units from '../view/units.js';
+import Interactions from './interactions.js';
+import Map from './map.js';
+import utils from './utils.js';
 
 export default class Canvas {
   constructor(config) {
@@ -22,7 +22,7 @@ export default class Canvas {
     this.colTileCount = this.ground1[0].length;
     this.fieldWidth = 32;
     this.resources = config.resources;
-    this.tileset = this.resources.get('/images/tileset.png');
+    this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
     this.playerSpeed = config.races[config.units.player.race].speed;
@@ -102,7 +102,7 @@ export default class Canvas {
 
     this.lastTime = now;
 
-    window.requestAnimFrame(this.main.bind(this));
+    window.requestAnimationFrame(this.main.bind(this));
   }
 
 
@@ -121,6 +121,16 @@ export default class Canvas {
       unit = unitsList[i];
       unit.skin.update(delta);
 
+      // Continue walking
+      if (unit.path.length > 0 && !unit.friendly) {
+        // console.log(unit.path[1], unit.pos);
+        this.updateMoveAnimation(unit, i);
+
+      // Stop walking
+      } else {
+        // stopMoveAnimation(unit, i);
+      }
+
       // Stop after animation
       if (unit.skin.frames.length === Math.floor(unit.skin.index) && unit.skin.once) {
         if (unit.attacking) {
@@ -130,6 +140,70 @@ export default class Canvas {
         unit.stop();
       }
     }
+  }
+
+  updateMoveAnimation(unit, index) {
+    const path = unit.path;
+
+    // unit.moving = true;
+
+    // Vertical movement
+    // if (unitStats[index].nextTile[0] === path[0][0]) {
+
+    // Move top if next tile is above current
+    // console.log(unit.pos[1], path[1][1]);
+    if (unit.pos[1] > path[1][1]) {
+      console.log('move up', unit.speed, unit.currentStep);
+      // unit.pos[1] = path[0][1] + ((1 / unit.speed) * unit.currentStep);
+
+    // Move bottom if next tile is below current
+    } else if (unit.pos[1] < path[0][1]) {
+      // unit.pos[1] = path[0][1] - ((1 / unit.steps) * unit.currentStep);
+    }
+
+    // Horizontal movement
+    // } else {
+
+    //   // Move left if next tile is on the left side of the current
+    //   if (unit.nextTile[0] > path[0][0]) {
+    //     unit.pos[0] = path[0][0] + ((1 / unit.steps) * unit.currentStep);
+    //     unit.skin.setPos([0, 128]);
+    //     unit.gear.head.setPos([0, 128]);
+    //     unit.gear.torso.setPos([0, 128]);
+    //     unit.gear.leg.setPos([0, 128]);
+    //     unit.primary.setPos([0, 128]);
+    //     unit.secondary.setPos([0, 128]);
+    //     unit.wounded.setPos([0, 128]);
+    //     unitDirection = 'left';
+
+    //   // Move right if next tile is on the right side of the current
+    //   } else if (unit.nextTile[0] < path[0][0]) {
+    //     unit.pos[0] = path[0][0] - ((1 / unit.steps) * unit.currentStep);
+    //     unit.skin.setPos([0, 0]);
+    //     unit.gear.head.setPos([0, 0]);
+    //     unit.gear.torso.setPos([0, 0]);
+    //     unit.gear.leg.setPos([0, 0]);
+    //     unit.primary.setPos([0, 0]);
+    //     unit.secondary.setPos([0, 0]);
+    //     unit.wounded.setPos([0, 0]);
+    //     unitDirection = 'right';
+    //   }
+    // }
+
+    // End of an animation from tile to tile
+    // if (unit.currentStep === 1) {
+    //   unit.nextTile = path[0];
+
+    //   // Remove the first tile in the array
+    //   path.splice(0, 1);
+
+    //   // Reset to start animation for next tile
+    //   unit.currentStep = unit.steps;
+
+    //   // tileCounter++;
+    // }
+
+    // unit.currentStep--;
   }
 
   checkForHit() {

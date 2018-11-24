@@ -51,7 +51,7 @@
     "max-lines": 1,
     "max-nested-callbacks": 1,
     "max-params": 1,
-    "max-statements": 1,
+    "max-statements": 0,
     "new-cap": 1,
     "new-parens": 1,
     "newline-after-var": 1,

@@ -1,5 +1,5 @@
-import Sprite from '../utils/sprite';
-import Unit from '../model/Unit';
+import Sprite from '../utils/sprite.js';
+import Unit from '../model/Unit.js';
 
 export default class Units { 
   constructor(config, debug) {
@@ -19,8 +19,9 @@ export default class Units {
         'primary': config.weapons[unit.weapons.primary],
         'secondary': config.weapons[unit.weapons.secondary],
         'range': config.weapons[unit.weapons.primary].range,
+        'speed': this.getSpeed(config, unit) * 5,
         'skin': new Sprite({
-          'url': `/images/races/${unit.race}${unit.skin}.png`,
+          'url': `images/races/${unit.race}${unit.skin}.png`,
           'pos': [0, 256],
           'size': [128, 128],
           'speed': this.getSpeed(config, unit),

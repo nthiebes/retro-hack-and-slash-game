@@ -1,6 +1,5 @@
-import Input from '../utils/input';
-import Path from './path';
-// import server from '../server';
+import Input from '../utils/input.js';
+import Path from './path.js';
 
 export default class Interactions {
   constructor(config) {
@@ -36,12 +35,6 @@ export default class Interactions {
     this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
   }
 
-  // registerServerEvents() {
-  //   server.on('move', (config) => {
-  //     console.log('move', config);
-  //   });
-  // }
-
   onMouseMove(e) {
     const player = this.player;
 
@@ -49,15 +42,19 @@ export default class Interactions {
       return;
     }
 
+    // Left screen half
     if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
       player.turn('LEFT');
 
+      // Continue animation
       if (player.moving) {
         player.walk();
       }
+    // Right screen halfdd
     } else if (e.pageX + (this.offsetX * -1) >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
       player.turn('RIGHT');
 
+      // Continue animation
       if (player.moving) {
         player.walk();
       }
@@ -254,11 +251,11 @@ export default class Interactions {
       if (!player.moving) {
         player.walk();
       }
+      this.setPath(player);
     } else if (player.moving) {
       player.stop();
     }
 
-    this.setPath(player);
   }
 
   setPath(player) {

@@ -5,6 +5,7 @@ export default class Unit {
     this.attacking = false;
     this.path = [];
     this.debug = debug;
+    this.currentStep = this.speed;
 
     for (const i in config) {
       if (config.hasOwnProperty(i)) {
