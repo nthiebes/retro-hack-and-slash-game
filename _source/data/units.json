@@ -1,39 +1,39 @@
 {
-    "player": {
-        "friendly": true,
-        "name": "Nico",
-        "race": "human",
-        "skin": 0,
-        "health": 100,
-        "pos": [18, 6],
-        "armor": "steel",
-        "gear": {
-            "head": 2,
-            "torso": 1,
-            "leg": 1
-        },
-        "weapons": {
-            "primary": "primary0",
-            "secondary": "secondary0"
-        }
+  "player": {
+    "friendly": true,
+    "name": "Nico",
+    "race": "human",
+    "skin": 0,
+    "health": 100,
+    "pos": [18, 6],
+    "armor": "steel",
+    "gear": {
+      "head": 2,
+      "torso": 1,
+      "leg": 1
     },
-
-    "enemy1": {
-        "friendly": false,
-        "name": "Orc warrior",
-        "race": "orc",
-        "skin": 1,
-        "health": 100,
-        "pos": [20, 5],
-        "armor": "leather",
-        "gear": {
-            "head": 0,
-            "torso": 0,
-            "leg": 3
-        },
-        "weapons": {
-            "primary": "primary3",
-            "secondary": "secondary1"
-        }
+    "weapons": {
+      "primary": "primary0",
+      "secondary": "secondary0"
     }
+  },
+
+  "enemy1": {
+    "friendly": false,
+    "name": "Orc warrior",
+    "race": "orc",
+    "skin": 0,
+    "health": 100,
+    "pos": [20, 5],
+    "armor": "leather",
+    "gear": {
+      "head": 0,
+      "torso": 0,
+      "leg": 3
+    },
+    "weapons": {
+      "primary": "primary3",
+      "secondary": "secondary1"
+    }
+  }
 }

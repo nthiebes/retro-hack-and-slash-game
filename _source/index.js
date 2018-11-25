@@ -1,6 +1,8 @@
 import Resources from './js/utils/resources.js';
 import Canvas from './js/canvas/index.js';
 
+const gameData = {};
+const resources = new Resources();
 const resourcesList = [
   'images/tileset.png',
   'images/races/human0.png',
@@ -9,8 +11,6 @@ const resourcesList = [
   'images/races/orc1.png',
   'images/races/elf0.png'
 ];
-const gameData = {};
-const resources = new Resources();
 
 const getGameData = () => {
   fetch('data/maps/0.json')

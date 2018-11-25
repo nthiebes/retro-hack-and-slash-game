@@ -121,15 +121,15 @@ export default class Canvas {
       unit = unitsList[i];
       unit.skin.update(delta);
 
-      // Continue walking
-      if (unit.path.length > 0 && !unit.friendly) {
-        // console.log(unit.path[1], unit.pos);
-        this.updateMoveAnimation(unit, i);
+      // // Continue walking
+      // if (unit.path.length > 0 && !unit.friendly) {
+      //   // console.log(unit.path[1], unit.pos);
+      //   this.updateMoveAnimation(unit, i);
 
-      // Stop walking
-      } else {
-        // stopMoveAnimation(unit, i);
-      }
+      // // Stop walking
+      // } else {
+      //   // stopMoveAnimation(unit, i);
+      // }
 
       // Stop after animation
       if (unit.skin.frames.length === Math.floor(unit.skin.index) && unit.skin.once) {
