@@ -1,5 +1,5 @@
 import Resources from './js/utils/resources.js';
-import Canvas from './js/canvas/index.js';
+import Canvas from './js/canvas/Canvas.js';
 
 const gameData = {};
 const resources = new Resources();
@@ -33,7 +33,10 @@ const getGameData = () => {
     .then(response => response.json()).then(units => {
       gameData.units = units;
       // eslint-disable-next-line
-      const game = new Canvas({...gameData, resources: resources});
+      const game = new Canvas({
+        ...gameData,
+        resources: resources
+      });
     });
 };
 

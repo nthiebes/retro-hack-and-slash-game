@@ -1,91 +1,80 @@
+import config from '../config.js';
 import Units from '../view/units.js';
 import Interactions from './interactions.js';
 import Map from './map.js';
 import utils from './utils.js';
 
 export default class Canvas {
-  constructor(config) {
-    this.debug = true;
-    this.canvasGround1 = document.getElementById('canvas-ground1');
-    this.canvasGround2 = document.getElementById('canvas-ground2');
-    this.canvasAnim = document.getElementById('canvas-anim');
-    this.canvasTop1 = document.getElementById('canvas-top1');
-    this.ctxGround1 = this.canvasGround1.getContext('2d');
-    this.ctxGround2 = this.canvasGround2.getContext('2d');
-    this.ctxAnim = this.canvasAnim.getContext('2d');
-    this.ctxTop1 = this.canvasTop1.getContext('2d');
-    this.ground1 = config.map[0];
-    this.ground2 = config.map[1];
-    this.top1 = config.map[2];
-    this.blockedArr = config.map[3];
+  constructor(data) {
+    this.ground1 = data.map[0];
+    this.ground2 = data.map[1];
+    this.top1 = data.map[2];
+    this.blockedArr = data.map[3];
     this.rowTileCount = this.ground1.length;
     this.colTileCount = this.ground1[0].length;
-    this.fieldWidth = 32;
-    this.resources = config.resources;
+    this.resources = data.resources;
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.playerSpeed = config.races[config.units.player.race].speed;
-    this.units = new Units(config, this.debug);
+    this.playerSpeed = data.races[data.units.player.race].speed;
+    this.units = new Units(data);
     this.unitsList = this.units.list;
     this.map = new Map(this.blockedArr, this.unitsList);
     this.player = this.unitsList[0];
     this.interactions = new Interactions({
-      'unitsList': this.unitsList,
-      'canvasTop1': this.canvasTop1,
-      'blockedArr': this.blockedArr,
-      'map': this.map,
-      'playerSpeed': this.playerSpeed,
-      'rowTileCount': this.rowTileCount,
-      'colTileCount': this.colTileCount,
-      'fieldWidth': this.fieldWidth,
-      'debug': this.debug
+      unitsList: this.unitsList,
+      blockedArr: this.blockedArr,
+      map: this.map,
+      playerSpeed: this.playerSpeed,
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      fieldWidth: config.fieldWidth
     });
 
     this.prepareCanvas();
-    this.main();
+    this.gameLoop();
   }
 
   prepareCanvas() {
     const canvas = document.querySelectorAll('canvas');
 
     for (let i = 0; i < canvas.length; i++) {
-      canvas[i].width = this.colTileCount * this.fieldWidth;
-      canvas[i].height = this.rowTileCount * this.fieldWidth;
+      canvas[i].width = this.colTileCount * config.fieldWidth;
+      canvas[i].height = this.rowTileCount * config.fieldWidth;
     }
 
     utils.drawImage({
       'rowTileCount': this.rowTileCount,
       'colTileCount': this.colTileCount,
       'tileset': this.tileset,
-      'ctx': this.ctxGround1,
+      'ctx': config.ctxGround1,
       'array': this.ground1
     });
     utils.drawImage({
       'rowTileCount': this.rowTileCount,
       'colTileCount': this.colTileCount,
       'tileset': this.tileset,
-      'ctx': this.ctxGround2,
+      'ctx': config.ctxGround2,
       'array': this.ground2
     });
     utils.drawImage({
       'rowTileCount': this.rowTileCount,
       'colTileCount': this.colTileCount,
       'tileset': this.tileset,
-      'ctx': this.ctxTop1,
+      'ctx': config.ctxTop1,
       'array': this.top1
     });
-    if (this.debug) {
+    if (config.debug) {
       for (let r = 0; r < this.blockedArr.length; r++) {
         for (let c = 0; c < this.blockedArr[0].length; c++) {
           if (this.blockedArr[r][c] === 2) {
             utils.drawSquare({
-              'ctx': this.ctxTop1,
+              'ctx': config.ctxTop1,
               'color': 'rgba(0,0,0,0.5)',
-              'width': this.fieldWidth,
-              'height': this.fieldWidth,
-              'x': c * this.fieldWidth,
-              'y': r * this.fieldWidth
+              'width': config.fieldWidth,
+              'height': config.fieldWidth,
+              'x': c * config.fieldWidth,
+              'y': r * config.fieldWidth
             });
           }
         }
@@ -93,7 +82,7 @@ export default class Canvas {
     }
   }
 
-  main() {
+  gameLoop() {
     const now = Date.now(),
       delta = (now - this.lastTime) / 1000.0;
 
@@ -102,7 +91,7 @@ export default class Canvas {
 
     this.lastTime = now;
 
-    window.requestAnimationFrame(this.main.bind(this));
+    window.requestAnimationFrame(this.gameLoop.bind(this));
   }
 
 
@@ -117,7 +106,7 @@ export default class Canvas {
     const unitsList = this.unitsList;
     let unit;
 
-    for (let i = 0; i < unitsList.length; i++) {
+    for (let i = 0, length = unitsList.length; i < length; i++) {
       unit = unitsList[i];
       unit.skin.update(delta);
 
@@ -215,10 +204,10 @@ export default class Canvas {
       const unit = unitsList[i];
 
       if (unit.id !== player.id) {
-        const playerPosX = Math.round(this.fieldWidth * player.pos[0]),
-          enemyPosX = Math.round(this.fieldWidth * unit.pos[0]),
-          playerPosY = Math.round(this.fieldWidth * player.pos[1]),
-          enemyPosY = Math.round(this.fieldWidth * unit.pos[1]),
+        const playerPosX = Math.round(config.fieldWidth * player.pos[0]),
+          enemyPosX = Math.round(config.fieldWidth * unit.pos[0]),
+          playerPosY = Math.round(config.fieldWidth * player.pos[1]),
+          enemyPosY = Math.round(config.fieldWidth * unit.pos[1]),
           playerWidth = 40,
           playerHeight = 50;
 
@@ -247,7 +236,8 @@ export default class Canvas {
     const tempUnitList = this.getTempUnitList(this.unitsList);
 
     // Clear canvas hack
-    this.canvasAnim.width = this.canvasAnim.width;
+    // eslint-disable-next-line
+    config.canvasAnim.width = config.canvasAnim.width;
     this.renderEntities(tempUnitList);
   }
 
@@ -258,27 +248,27 @@ export default class Canvas {
   }
 
   renderEntity(unit, ...args) {
-    this.ctxAnim.save();
+    config.ctxAnim.save();
 
-    if (this.debug) {
+    if (config.debug) {
       this.map.showDebugFields({
-        'ctx': this.ctxAnim,
-        'unit': unit,
-        'units': this.unitsList
+        ctx: config.ctxAnim,
+        unit: unit,
+        units: this.unitsList
       });
     }
 
-    this.ctxAnim.translate(
-      (unit.pos[0] * this.fieldWidth) - 64,
-      (unit.pos[1] * this.fieldWidth) - 125
+    config.ctxAnim.translate(
+      (unit.pos[0] * config.fieldWidth) - 64,
+      (unit.pos[1] * config.fieldWidth) - 125
     );
 
     for (let i = 0; i < args.length; i++) {
       // Skin
-      args[i].render(this.ctxAnim, this.resources);
+      args[i].render(config.ctxAnim, this.resources);
     }
 
-    this.ctxAnim.restore();
+    config.ctxAnim.restore();
   }
 
   getTempUnitList(unitsList) {

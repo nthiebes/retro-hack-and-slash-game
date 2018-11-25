@@ -1,27 +1,25 @@
+import config from '../config.js';
 import Input from '../utils/input.js';
 import Path from './path.js';
 
 export default class Interactions {
-  constructor(config) {
-    this.debug = config.debug;
+  constructor(data) {
     this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
     this.path = new Path();
-    this.unitsList = config.unitsList;
-    this.canvasTop1 = config.canvasTop1;
+    this.unitsList = data.unitsList;
     this.player = this.unitsList[0];
     this.offsetX = 0;
     this.offsetY = 0;
-    this.map = config.map;
-    this.playerSpeed = config.playerSpeed;
-    this.rowTileCount = config.rowTileCount;
-    this.colTileCount = config.colTileCount;
-    this.fieldWidth = config.fieldWidth;
+    this.map = data.map;
+    this.playerSpeed = data.playerSpeed;
+    this.rowTileCount = data.rowTileCount;
+    this.colTileCount = data.colTileCount;
+    this.fieldWidth = data.fieldWidth;
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
 
     this.registerEventHandler();
-    // this.registerServerEvents();
   }
 
   update(delta) {
@@ -29,7 +27,7 @@ export default class Interactions {
   }
 
   registerEventHandler() {
-    this.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
+    config.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
     this.wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
     this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));

@@ -1,21 +1,22 @@
+import config from '../config.js';
+
 export default class Unit { 
-  constructor(config, debug) {
+  constructor(data) {
     this.direction = 'RIGHT';
     this.moving = false;
     this.attacking = false;
     this.path = [];
-    this.debug = debug;
     this.currentStep = this.speed;
 
-    for (const i in config) {
-      if (config.hasOwnProperty(i)) {
-        this[i] = config[i];
+    for (const i in data) {
+      if (data.hasOwnProperty(i)) {
+        this[i] = data[i];
       }
     }
   }
 
   walk() {
-    if (this.debug) {
+    if (config.debug) {
       console.log('👣');
     }
 
@@ -33,7 +34,7 @@ export default class Unit {
   }
 
   attack() {
-    if (this.debug) {
+    if (config.debug) {
       console.log('⚔');
     }
 
@@ -53,7 +54,7 @@ export default class Unit {
   }
 
   stop() {
-    if (this.debug) {
+    if (config.debug) {
       console.log('✋');
     }
 
@@ -66,7 +67,7 @@ export default class Unit {
   }
 
   turn(direction) {
-    if (this.debug) {
+    if (config.debug) {
       console.log(direction === 'LEFT' ? '↩' : '↪');
     }
 
