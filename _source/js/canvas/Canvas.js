@@ -16,9 +16,9 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.playerSpeed = data.races[data.units.player.race].speed * data.armor[data.units.player.armor].speedModifier;
     this.units = new Units(data);
     this.unitsList = this.units.list;
+    this.playerSpeed = this.unitsList[0].speed;
     this.map = new Map(this.blockedArr, this.unitsList);
     this.player = this.unitsList[0];
     this.interactions = new Interactions({

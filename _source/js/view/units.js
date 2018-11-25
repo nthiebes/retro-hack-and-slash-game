@@ -15,24 +15,24 @@ export default class Units {
       const unit = data.units[keys[i]];
 
       this.list.push(new Unit(Object.assign({}, unit, {
-        'id': i + 1,
-        'pos': unit.pos,
-        'primary': data.weapons[unit.weapons.primary],
-        'secondary': data.weapons[unit.weapons.secondary],
-        'range': data.weapons[unit.weapons.primary].range,
-        'speed': this.getSpeed(data, unit) * 5,
-        'skin': new Sprite({
-          'url': `images/races/${unit.race}${unit.skin}.png`,
-          'pos': [0, 256],
-          'size': [128, 128],
-          'speed': this.getSpeed(data, unit),
-          'frames': [0]
+        id: i + 1,
+        pos: unit.pos,
+        primary: data.weapons[unit.weapons.primary],
+        secondary: data.weapons[unit.weapons.secondary],
+        range: data.weapons[unit.weapons.primary].range,
+        speed: this.getSpeed(data, unit),
+        skin: new Sprite({
+          url: `images/races/${unit.race}${unit.skin}.png`,
+          pos: [0, 256],
+          size: [128, 128],
+          speed: this.getSpeed(data, unit),
+          frames: [0]
         })
       }), config.debug));
     }
   }
 
   getSpeed(data, unit) {
-    return data.races[unit.race].speed;
+    return data.races[unit.race].speed * data.armor[unit.armor].speedModifier;
   }
 }
