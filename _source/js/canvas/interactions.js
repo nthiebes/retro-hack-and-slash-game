@@ -84,6 +84,7 @@ export default class Interactions {
     }
   }
 
+  // eslint-disable-next-line
   handleInput(delta) {
     const input = this.input,
       down = input.isDown('S'),

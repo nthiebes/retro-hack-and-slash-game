@@ -6,7 +6,7 @@
     "skin": 0,
     "health": 100,
     "pos": [18, 6],
-    "armor": "steel",
+    "armor": "none",
     "gear": {
       "head": 2,
       "torso": 1,
