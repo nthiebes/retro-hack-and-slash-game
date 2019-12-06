@@ -42,8 +42,8 @@
   "zombie": {
     "strength": 2,
     "dexterity": 0,
-    "intelligence": 1,
-    "defense": 2,
+    "intelligence": 0,
+    "defense": 1,
     "speed": 1
   }
 }

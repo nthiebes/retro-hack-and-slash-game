@@ -1,14 +1,17 @@
 {
+  "root": true,
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
+  "plugins": [],
+  "settings": {},
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true,
       "experimentalObjectRestSpread": true
     }
   },
@@ -20,11 +23,11 @@
   "rules": {
     "array-bracket-spacing": 1,
     "arrow-body-style": 1,
-    "arrow-parens": 0,
+    "arrow-parens": 1,
     "arrow-spacing": 1,
     "block-scoped-var": 1,
     "block-spacing": 1,
-    "brace-style": 1,
+    "brace-style": 0,
     "camelcase": 1,
     "comma-dangle": 1,
     "comma-spacing": 1,
@@ -54,7 +57,11 @@
     "max-statements": 0,
     "new-cap": 1,
     "new-parens": 1,
-    "newline-after-var": 1,
+    "padding-line-between-statements": [
+      1,
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "never", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
+    ],
     "no-alert": 1,
     "no-array-constructor": 1,
     "no-bitwise": 1,
@@ -62,7 +69,7 @@
     "no-caller": 1,
     "no-case-declarations": 1,
     "no-catch-shadow": 1,
-    "no-confusing-arrow": 1,
+    "no-confusing-arrow": 0,
     "no-console": 0,
     "no-continue": 1,
     "no-debugger": 1,
@@ -79,14 +86,14 @@
     "no-implicit-coercion": 1,
     "no-implicit-globals": 1,
     "no-implied-eval": 1,
-    "no-invalid-this": 1,
+    "no-invalid-this": 0,
     "no-label-var": 1,
     "no-labels": 1,
     "no-lone-blocks": 1,
     "no-lonely-if": 1,
     "no-loop-func": 1,
     "no-magic-numbers": 0,
-    "no-mixed-operators": 1,
+    "no-mixed-operators": 0,
     "no-mixed-spaces-and-tabs": 1,
     "no-multi-spaces": 1,
     "no-multi-str": 1,
@@ -117,7 +124,7 @@
     "no-unmodified-loop-condition": 1,
     "no-unneeded-ternary": 1,
     "no-unsafe-negation": 2,
-    "no-unused-expressions": 1,
+    "no-unused-expressions": [1, {"allowShortCircuit": true}],
     "no-use-before-define": 1,
     "no-useless-call": 1,
     "no-useless-computed-key": 1,
@@ -158,6 +165,5 @@
     "yield-star-spacing": 1,
     "yoda": 1
   },
-  "globals": {
-  }
+  "globals": {}
 }

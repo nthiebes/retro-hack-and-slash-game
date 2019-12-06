@@ -9,7 +9,7 @@
     "npm": ">=9"
   },
   "scripts": {
-    "start": "python -m SimpleHTTPServer 8080",
+    "start": "python -m SimpleHTTPServer 1337",
     "lint": "./node_modules/.bin/esw \"_source/**/*.{js}\" --ext .js --color"
   },
   "author": "Nico Thiebes",
@@ -18,7 +18,7 @@
     "whatwg-fetch": "2.0.2"
   },
   "devDependencies": {
-    "eslint": "5.9.0",
+    "eslint": "5.16.0",
     "eslint-plugin-import": "2.14.0"
   },
   "keywords": [],

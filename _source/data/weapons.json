@@ -71,11 +71,11 @@
   },
 
   "secondary0": {
-    "name": "fist0",
-    "defense": 2
+    "name": "fist0"
   },
 
   "secondary1": {
-    "name": "shield0"
+    "name": "shield0",
+    "defense": 2
   }
 }
