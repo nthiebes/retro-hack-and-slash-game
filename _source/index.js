@@ -9,7 +9,23 @@ const resourcesList = [
   'images/races/human1.png',
   'images/races/orc0.png',
   'images/races/orc1.png',
-  'images/races/elf0.png'
+  'images/races/elf0.png',
+  'images/armor/head0.png',
+  'images/armor/head1.png',
+  'images/armor/head2.png',
+  'images/armor/head3.png',
+  'images/armor/head4.png',
+  'images/armor/head5.png',
+  'images/armor/leg0.png',
+  'images/armor/leg1.png',
+  'images/armor/leg2.png',
+  'images/armor/leg3.png',
+  'images/armor/leg4.png',
+  'images/armor/torso0.png',
+  'images/armor/torso1.png',
+  'images/armor/torso2.png',
+  'images/armor/torso3.png',
+  'images/armor/torso4.png'
 ];
 
 const getGameData = () => {

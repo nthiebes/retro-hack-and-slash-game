@@ -109,6 +109,9 @@ export default class Canvas {
     for (let i = 0, length = unitsList.length; i < length; i++) {
       unit = unitsList[i];
       unit.skin.update(delta);
+      unit.head.update(delta);
+      unit.leg.update(delta);
+      unit.torso.update(delta);
 
       // // Continue walking
       // if (unit.path.length > 0 && !unit.friendly) {
@@ -243,11 +246,16 @@ export default class Canvas {
 
   renderEntities(list) {
     for (let i = 0; i < list.length; i++) {
-      this.renderEntity(list[i], list[i].skin);
+      this.renderEntity(list[i], [
+        list[i].skin,
+        list[i].head,
+        list[i].leg,
+        list[i].torso
+      ]);
     }
   }
 
-  renderEntity(unit, ...args) {
+  renderEntity(unit, bodyParts) {
     config.ctxAnim.save();
 
     if (config.debug) {
@@ -263,9 +271,8 @@ export default class Canvas {
       (unit.pos[1] * config.fieldWidth) - 125
     );
 
-    for (let i = 0; i < args.length; i++) {
-      // Skin
-      args[i].render(config.ctxAnim, this.resources);
+    for (let i = 0; i < bodyParts.length; i++) {
+      bodyParts[i].render(config.ctxAnim, this.resources);
     }
 
     config.ctxAnim.restore();

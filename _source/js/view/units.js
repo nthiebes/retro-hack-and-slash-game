@@ -27,6 +27,27 @@ export default class Units {
           size: [128, 128],
           speed: this.getSpeed(data, unit),
           frames: [0]
+        }),
+        head: new Sprite({
+          url: `images/armor/head${unit.gear.head}.png`,
+          pos: [0, 256],
+          size: [128, 128],
+          speed: this.getSpeed(data, unit),
+          frames: [0]
+        }),
+        leg: new Sprite({
+          url: `images/armor/leg${unit.gear.leg}.png`,
+          pos: [0, 256],
+          size: [128, 128],
+          speed: this.getSpeed(data, unit),
+          frames: [0]
+        }),
+        torso: new Sprite({
+          url: `images/armor/torso${unit.gear.torso}.png`,
+          pos: [0, 256],
+          size: [128, 128],
+          speed: this.getSpeed(data, unit),
+          frames: [0]
         })
       }), config.debug));
     }

@@ -59,10 +59,10 @@ export default class Sprite {
     // If it is done and it has to run once, we dont update
     if (!(this.done && this.once)) {
       ctx.drawImage(resources.get(this.url),
-              x, y,
-              this.size[0], this.size[1],
-              0, 0,
-              this.size[0], this.size[1]);
+        x, y,
+        this.size[0], this.size[1],
+        0, 0,
+        this.size[0], this.size[1]);
     }
   }
 }

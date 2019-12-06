@@ -23,13 +23,22 @@ export default class Unit {
     switch (this.direction) {
       case 'LEFT':
         this.skin.pos = [0, 128];
+        this.head.pos = [0, 128];
+        this.leg.pos = [0, 128];
+        this.torso.pos = [0, 128];
         break;
 
       default:
         this.skin.pos = [0, 0];
+        this.head.pos = [0, 0];
+        this.leg.pos = [0, 0];
+        this.torso.pos = [0, 0];
     }
 
     this.skin.frames = [0, 1, 2, 3];
+    this.head.frames = [0, 1, 2, 3];
+    this.leg.frames = [0, 1, 2, 3];
+    this.torso.frames = [0, 1, 2, 3];
     this.moving = true;
   }
 
@@ -41,14 +50,26 @@ export default class Unit {
     switch (this.direction) {
       case 'LEFT':
         this.skin.pos = [0, 384];
+        this.head.pos = [0, 384];
+        this.leg.pos = [0, 384];
+        this.torso.pos = [0, 384];
         break;
 
       default:
         this.skin.pos = [0, 256];
+        this.head.pos = [0, 256];
+        this.leg.pos = [0, 256];
+        this.torso.pos = [0, 256];
     }
 
     this.skin.frames = [0, 1, 2];
     this.skin.index = 0;
+    this.head.frames = [0, 1, 2];
+    this.head.index = 0;
+    this.leg.frames = [0, 1, 2];
+    this.leg.index = 0;
+    this.torso.frames = [0, 1, 2];
+    this.torso.index = 0;
     this.moving = false;
     this.attacking = true;
   }
@@ -62,8 +83,17 @@ export default class Unit {
     this.attacking = false;
     this.skin.once = false;
     this.skin.done = false;
+    // this.head.once = false;
+    // this.head.done = false;
+    // this.leg.once = false;
+    // this.leg.done = false;
+    // this.torso.once = false;
+    // this.torso.done = false;
     this.turn(this.direction);
     this.skin.frames = [0];
+    this.head.frames = [0];
+    this.leg.frames = [0];
+    this.torso.frames = [0];
   }
 
   turn(direction) {
@@ -74,11 +104,17 @@ export default class Unit {
     switch (direction.toUpperCase()) {
       case 'LEFT':
         this.skin.pos = [0, 384];
+        this.head.pos = [0, 384];
+        this.leg.pos = [0, 384];
+        this.torso.pos = [0, 384];
         this.direction = 'LEFT';
         break;
 
       default:
         this.skin.pos = [0, 256];
+        this.head.pos = [0, 256];
+        this.leg.pos = [0, 256];
+        this.torso.pos = [0, 256];
         this.direction = 'RIGHT';
     }
   }
