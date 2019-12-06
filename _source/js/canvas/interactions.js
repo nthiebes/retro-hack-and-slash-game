@@ -114,7 +114,7 @@ export default class Interactions {
 
       if (this.map.map[newY][x] <= 1) {
         blockedY = false;
-        player.pos[1] = newPos;
+        player.pos[1] = this.getSmoothPixelValue(newPos);
 
         if (newTile) {
           this.map.updatePosition({
@@ -139,7 +139,7 @@ export default class Interactions {
 
       if (this.map.map[newY][x] <= 1) {
         blockedY = false;
-        player.pos[1] = newPos;
+        player.pos[1] = this.getSmoothPixelValue(newPos);
 
         if (newTile) {
           this.map.updatePosition({
@@ -164,7 +164,7 @@ export default class Interactions {
 
       if (this.map.map[y][newX] <= 1) {
         blockedX = false;
-        player.pos[0] = newPos;
+        player.pos[0] = this.getSmoothPixelValue(newPos);
 
         if (newTile) {
           this.map.updatePosition({
@@ -189,7 +189,7 @@ export default class Interactions {
 
       if (this.map.map[y][newX] <= 1) {
         blockedX = false;
-        player.pos[0] = newPos;
+        player.pos[0] = this.getSmoothPixelValue(newPos);
 
         if (newTile) {
           this.map.updatePosition({
@@ -255,6 +255,25 @@ export default class Interactions {
       player.stop();
     }
 
+  }
+
+  getSmoothPixelValue(value) {
+    const counts = [];
+
+    for (let i = 0; i < this.fieldWidth; i++) {
+      counts.push((1 / this.fieldWidth) * i);
+    }
+
+    const decimalSeparatedValues = value.toFixed(3).toString().split('.');
+    const decimalPlaceValue = parseInt(decimalSeparatedValues[1], 10) / 1000;
+
+    // eslint-disable-next-line no-confusing-arrow
+    const closest = counts.reduce((prev, curr) => (
+      Math.abs(curr - decimalPlaceValue) < Math.abs(prev - decimalPlaceValue) ? curr : prev
+    ));
+    const newValue = Math.floor(value) + closest;
+
+    return newValue;
   }
 
   setPath(player) {
