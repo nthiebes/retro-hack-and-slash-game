@@ -1,81 +1,77 @@
 {
-  "primary0": {
-    "name": "fist0",
+  "fist": {
+    "name": "Fist",
     "damage": 1,
     "range": 0
   },
 
-  "primary1": {
-    "name": "sword0",
+  "sword0": {
+    "name": "Sword",
     "damage": 2,
     "range": 1
   },
 
-  "primary2": {
-    "name": "speer0",
+  "speer0": {
+    "name": "Speer",
     "damage": 1,
     "range": 1
   },
 
-  "primary3": {
-    "name": "axe0",
+  "axe0": {
+    "name": "Axe",
     "damage": 2,
     "range": 1
   },
 
-  "primary4": {
-    "name": "shortbow0",
+  "bow0": {
+    "name": "Shortbow",
     "damage": 1,
     "range": 5,
     "projectile": "arrow"
   },
 
-  "primary5": {
-    "name": "halberdier0",
-    "damage": 2,
-    "range": 1
-  },
-
-  "primary6": {
-    "name": "longbow0",
+  "bow1": {
+    "name": "Longbow",
     "damage": 2,
     "range": 7,
     "projectile": "arrow"
   },
 
-  "primary7": {
-    "name": "crossbow0",
+  "halberd0": {
+    "name": "Halberd",
+    "damage": 2,
+    "range": 1
+  },
+
+  "crossbow0": {
+    "name": "Crossbow",
     "damage": 3,
     "range": 6,
     "projectile": "bolt"
   },
 
-  "primary8": {
-    "name": "musket0",
+  "musket0": {
+    "name": "Musket",
     "damage": 4,
     "range": 5,
     "projectile": "bullet"
   },
 
-  "primary9": {
-    "name": "rifle0",
+  "rifle0": {
+    "name": "Rifle",
     "damage": 4,
     "range": 7,
     "projectile": "bullet"
   },
 
-  "primary10": {
-    "name": "dagger0",
+  "dagger0": {
+    "name": "Dagger",
     "damage": 1,
     "range": 1
   },
 
-  "secondary0": {
-    "name": "fist0"
-  },
-
-  "secondary1": {
-    "name": "shield0",
+  "shield0": {
+    "name": "Shield",
     "defense": 2
   }
 }

@@ -13,8 +13,8 @@
       "leg": 3
     },
     "weapons": {
-      "primary": "primary0",
-      "secondary": "secondary0"
+      "primary": "fist",
+      "secondary": "fist"
     }
   },
 
@@ -32,8 +32,8 @@
       "leg": 3
     },
     "weapons": {
-      "primary": "primary3",
-      "secondary": "secondary1"
+      "primary": "fist",
+      "secondary": "fist"
     }
   }
 }

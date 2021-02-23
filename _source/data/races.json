@@ -16,34 +16,42 @@
   },
 
   "elf": {
-    "strength": 2,
-    "dexterity": 4,
+    "strength": 3,
+    "dexterity": 3,
     "intelligence": 4,
     "defense": 2,
-    "speed": 5
+    "speed": 4
   },
 
   "vampire": {
     "strength": 4,
     "dexterity": 3,
-    "intelligence": 3,
+    "intelligence": 2,
     "defense": 2,
-    "speed": 5
+    "speed": 4
   },
 
   "ghost": {
     "strength": 2,
     "dexterity": 3,
-    "intelligence": 2,
+    "intelligence": 1,
     "defense": 4,
-    "speed": 4
+    "speed": 5
   },
 
   "zombie": {
-    "strength": 2,
+    "strength": 1,
     "dexterity": 0,
     "intelligence": 0,
     "defense": 1,
     "speed": 1
+  },
+
+  "skeleton": {
+    "strength": 2,
+    "dexterity": 1,
+    "intelligence": 0,
+    "defense": 1,
+    "speed": 2
   }
 }
