@@ -15,7 +15,7 @@
   "author": "Nico Thiebes",
   "license": "SEE LICENSE IN \"LICENSE\"",
   "dependencies": {
-    "whatwg-fetch": "2.0.2"
+    "whatwg-fetch": "2.0.4"
   },
   "devDependencies": {
     "eslint": "5.16.0",
