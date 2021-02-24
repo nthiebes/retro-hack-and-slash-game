@@ -1,0 +1,7 @@
+coverage/**/*.js
+maps
+*.yml
+_source/images
+*.html
+package-lock.json
+*.md

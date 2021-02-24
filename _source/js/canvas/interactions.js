@@ -27,7 +27,10 @@ export default class Interactions {
   }
 
   registerEventHandler() {
-    config.canvasTop1.addEventListener('mousemove', this.onMouseMove.bind(this));
+    config.canvasTop1.addEventListener(
+      'mousemove',
+      this.onMouseMove.bind(this)
+    );
     this.wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
     this.wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
     this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
@@ -41,15 +44,21 @@ export default class Interactions {
     }
 
     // Left screen half
-    if (e.pageX + (this.offsetX * -1) < player.pos[0] * this.fieldWidth && player.direction === 'RIGHT') {
+    if (
+      e.pageX + this.offsetX * -1 < player.pos[0] * this.fieldWidth &&
+      player.direction === 'RIGHT'
+    ) {
       player.turn('LEFT');
 
       // Continue animation
       if (player.moving) {
         player.walk();
       }
-    // Right screen halfdd
-    } else if (e.pageX + (this.offsetX * -1) >= player.pos[0] * this.fieldWidth && player.direction === 'LEFT') {
+      // Right screen halfdd
+    } else if (
+      e.pageX + this.offsetX * -1 >= player.pos[0] * this.fieldWidth &&
+      player.direction === 'LEFT'
+    ) {
       player.turn('RIGHT');
 
       // Continue animation
@@ -104,9 +113,9 @@ export default class Interactions {
     }
 
     if (down) {
-      valueY = this.offsetY - ((playerSpeed * this.fieldWidth) * delta);
+      valueY = this.offsetY - playerSpeed * this.fieldWidth * delta;
 
-      const newPos = player.pos[1] + (playerSpeed * delta),
+      const newPos = player.pos[1] + playerSpeed * delta,
         newY = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
@@ -118,20 +127,20 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            'id': player.id,
-            'x': x,
-            'y': y,
-            'newX': x,
-            'newY': newY
+            id: player.id,
+            x: x,
+            y: y,
+            newX: x,
+            newY: newY
           });
         }
       }
     }
 
     if (up) {
-      valueY = this.offsetY + ((playerSpeed * this.fieldWidth) * delta);
+      valueY = this.offsetY + playerSpeed * this.fieldWidth * delta;
 
-      const newPos = player.pos[1] - (playerSpeed * delta),
+      const newPos = player.pos[1] - playerSpeed * delta,
         newY = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
@@ -143,20 +152,20 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            'id': player.id,
-            'x': x,
-            'y': y,
-            'newX': x,
-            'newY': newY
+            id: player.id,
+            x: x,
+            y: y,
+            newX: x,
+            newY: newY
           });
         }
       }
     }
 
     if (right) {
-      valueX = this.offsetX - ((playerSpeed * this.fieldWidth) * delta);
-      
-      const newPos = player.pos[0] + (playerSpeed * delta),
+      valueX = this.offsetX - playerSpeed * this.fieldWidth * delta;
+
+      const newPos = player.pos[0] + playerSpeed * delta,
         newX = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
@@ -168,20 +177,20 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            'id': player.id,
-            'x': x,
-            'y': y,
-            'newX': newX,
-            'newY': y
+            id: player.id,
+            x: x,
+            y: y,
+            newX: newX,
+            newY: y
           });
         }
       }
     }
 
     if (left) {
-      valueX = this.offsetX + ((playerSpeed * this.fieldWidth) * delta);
+      valueX = this.offsetX + playerSpeed * this.fieldWidth * delta;
 
-      const newPos = player.pos[0] - (playerSpeed * delta),
+      const newPos = player.pos[0] - playerSpeed * delta,
         newX = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
@@ -193,54 +202,62 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            'id': player.id,
-            'x': x,
-            'y': y,
-            'newX': newX,
-            'newY': y
+            id: player.id,
+            x: x,
+            y: y,
+            newX: newX,
+            newY: y
           });
         }
       }
     }
 
     if (down || up || right || left) {
-      const maxOffsetX = (this.colTileCount * this.fieldWidth) - this.innerWidth,
-        maxOffsetY = (this.rowTileCount * this.fieldWidth) - this.innerHeight;
+      const maxOffsetX = this.colTileCount * this.fieldWidth - this.innerWidth,
+        maxOffsetY = this.rowTileCount * this.fieldWidth - this.innerHeight;
 
       // Horizontal map scrolling
-      if (!blockedX && // player not blocked
-        !(right && left) && 
-        valueX < 0 && 
-        valueX > maxOffsetX * -1 && 
-        player.pos[0] * this.fieldWidth > (this.innerWidth / 2) - playerSpeed && // + next line: player in center
-        player.pos[0] * this.fieldWidth < (this.colTileCount * this.fieldWidth) - (this.innerWidth / 2) + playerSpeed) {
-
+      if (
+        !blockedX && // player not blocked
+        !(right && left) &&
+        valueX < 0 &&
+        valueX > maxOffsetX * -1 &&
+        player.pos[0] * this.fieldWidth > this.innerWidth / 2 - playerSpeed && // + next line: player in center
+        player.pos[0] * this.fieldWidth <
+          this.colTileCount * this.fieldWidth -
+            this.innerWidth / 2 +
+            playerSpeed
+      ) {
         this.offsetX = valueX;
 
-      // Limit scrolling - end of the map
+        // Limit scrolling - end of the map
       } else if (valueX < 0 && valueX <= maxOffsetX * -1) {
         this.offsetX = maxOffsetX * -1;
 
-      // Limit scrolling - start of the map
+        // Limit scrolling - start of the map
       } else if (valueX > 0) {
         this.offsetX = 0;
       }
 
       // Vertical map scrolling
-      if (!blockedY && // player not blocked
-        !(up && down) && 
-        valueY < 0 && 
-        valueY > maxOffsetY * -1 && 
-        player.pos[1] * this.fieldWidth > (this.innerHeight / 2) - playerSpeed && // + next line: player in center
-        player.pos[1] * this.fieldWidth < (this.rowTileCount * this.fieldWidth) - (this.innerHeight / 2) + playerSpeed) {
-
+      if (
+        !blockedY && // player not blocked
+        !(up && down) &&
+        valueY < 0 &&
+        valueY > maxOffsetY * -1 &&
+        player.pos[1] * this.fieldWidth > this.innerHeight / 2 - playerSpeed && // + next line: player in center
+        player.pos[1] * this.fieldWidth <
+          this.rowTileCount * this.fieldWidth -
+            this.innerHeight / 2 +
+            playerSpeed
+      ) {
         this.offsetY = valueY;
 
-      // Limit scrolling - end of the map
+        // Limit scrolling - end of the map
       } else if (valueY < 0 && valueY <= maxOffsetY * -1) {
         this.offsetY = maxOffsetY * -1;
 
-      // Limit scrolling - start of the map
+        // Limit scrolling - start of the map
       } else if (valueY > 0) {
         this.offsetY = 0;
       }
@@ -254,7 +271,6 @@ export default class Interactions {
     } else if (player.moving) {
       player.stop();
     }
-
   }
 
   getSmoothPixelValue(value) {
@@ -268,18 +284,23 @@ export default class Interactions {
     const decimalPlaceValue = parseInt(decimalSeparatedValues[1], 10) / 1000;
 
     // eslint-disable-next-line no-confusing-arrow
-    const closest = counts.reduce((prev, curr) => (
-      Math.abs(curr - decimalPlaceValue) < Math.abs(prev - decimalPlaceValue) ? curr : prev
-    ));
+    const closest = counts.reduce((prev, curr) =>
+      Math.abs(curr - decimalPlaceValue) < Math.abs(prev - decimalPlaceValue)
+        ? curr
+        : prev
+    );
     const newValue = Math.floor(value) + closest;
 
     return newValue;
   }
 
   setPath(player) {
-    const playerPos1 = [Math.floor(player.pos[0] + 1), Math.floor(player.pos[1])],
+    const playerPos1 = [
+        Math.floor(player.pos[0] + 1),
+        Math.floor(player.pos[1])
+      ],
       playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
-      
+
     let enemy,
       i = this.unitsList.length;
 
@@ -290,7 +311,10 @@ export default class Interactions {
         const path1 = this.path.get(this.map.map, enemy.pos, playerPos1),
           path2 = this.path.get(this.map.map, enemy.pos, playerPos2);
 
-        if ((path1.length <= path2.length && path1.length !== 0) || path2.length === 0) {
+        if (
+          (path1.length <= path2.length && path1.length !== 0) ||
+          path2.length === 0
+        ) {
           enemy.path = path1;
         } else {
           enemy.path = path2;

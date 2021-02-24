@@ -30,23 +30,28 @@ const resourcesList = [
 
 const getGameData = () => {
   fetch('data/maps/0.json')
-    .then(response => response.json()).then(json => {
+    .then((response) => response.json())
+    .then((json) => {
       gameData.map = json.map;
       return fetch('data/weapons.json');
     })
-    .then(response => response.json()).then(weapons => {
+    .then((response) => response.json())
+    .then((weapons) => {
       gameData.weapons = weapons;
       return fetch('data/armor.json');
     })
-    .then(response => response.json()).then(armor => {
+    .then((response) => response.json())
+    .then((armor) => {
       gameData.armor = armor;
       return fetch('data/races.json');
     })
-    .then(response => response.json()).then(races => {
+    .then((response) => response.json())
+    .then((races) => {
       gameData.races = races;
       return fetch('data/units.json');
     })
-    .then(response => response.json()).then(units => {
+    .then((response) => response.json())
+    .then((units) => {
       gameData.units = units;
       // eslint-disable-next-line
       const game = new Canvas({

@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "python -m SimpleHTTPServer 1337",
-    "lint": "./node_modules/.bin/esw \"_source/**/*.{js}\" --ext .js --color"
+    "lint": "eslint .",
+    "prettier": "prettier --write ."
   },
   "author": "Nico Thiebes",
   "license": "SEE LICENSE IN \"LICENSE\"",
@@ -18,8 +19,10 @@
     "whatwg-fetch": "3.6.1"
   },
   "devDependencies": {
+    "babel-eslint": "10.1.0",
     "eslint": "7.20.0",
-    "eslint-plugin-import": "2.14.0"
+    "eslint-plugin-import": "2.22.1",
+    "prettier": "2.2.1"
   },
   "keywords": [],
   "repository": {

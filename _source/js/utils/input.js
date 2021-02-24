@@ -1,4 +1,4 @@
-export default class Input { 
+export default class Input {
   constructor() {
     this.pressedKeys = {};
 
@@ -21,15 +21,20 @@ export default class Input {
 
     switch (code) {
       case 32:
-        key = 'SPACE'; break;
+        key = 'SPACE';
+        break;
       case 37:
-        key = 'LEFT'; break;
+        key = 'LEFT';
+        break;
       case 38:
-        key = 'UP'; break;
+        key = 'UP';
+        break;
       case 39:
-        key = 'RIGHT'; break;
+        key = 'RIGHT';
+        break;
       case 40:
-        key = 'DOWN'; break;
+        key = 'DOWN';
+        break;
       default:
         // Convert ASCII codes to letters
         key = String.fromCharCode(code);

@@ -1,6 +1,6 @@
 import config from '../config.js';
 
-export default class Unit { 
+export default class Unit {
   constructor(data) {
     this.direction = 'RIGHT';
     this.moving = false;

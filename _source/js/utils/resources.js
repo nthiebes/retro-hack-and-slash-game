@@ -1,4 +1,4 @@
-export default class Resources { 
+export default class Resources {
   constructor() {
     this.resourceCache = {};
     this.readyCallbacks = [];
@@ -42,8 +42,7 @@ export default class Resources {
     let ready = true;
 
     for (const k in this.resourceCache) {
-      if (this.resourceCache.hasOwnProperty(k) &&
-         !this.resourceCache[k]) {
+      if (this.resourceCache.hasOwnProperty(k) && !this.resourceCache[k]) {
         ready = false;
       }
     }

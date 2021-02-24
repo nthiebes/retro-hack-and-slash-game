@@ -44,37 +44,37 @@ export default class Canvas {
     }
 
     utils.drawImage({
-      'rowTileCount': this.rowTileCount,
-      'colTileCount': this.colTileCount,
-      'tileset': this.tileset,
-      'ctx': config.ctxGround1,
-      'array': this.ground1
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      tileset: this.tileset,
+      ctx: config.ctxGround1,
+      array: this.ground1
     });
     utils.drawImage({
-      'rowTileCount': this.rowTileCount,
-      'colTileCount': this.colTileCount,
-      'tileset': this.tileset,
-      'ctx': config.ctxGround2,
-      'array': this.ground2
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      tileset: this.tileset,
+      ctx: config.ctxGround2,
+      array: this.ground2
     });
     utils.drawImage({
-      'rowTileCount': this.rowTileCount,
-      'colTileCount': this.colTileCount,
-      'tileset': this.tileset,
-      'ctx': config.ctxTop1,
-      'array': this.top1
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      tileset: this.tileset,
+      ctx: config.ctxTop1,
+      array: this.top1
     });
     if (config.debug) {
       for (let r = 0; r < this.blockedArr.length; r++) {
         for (let c = 0; c < this.blockedArr[0].length; c++) {
           if (this.blockedArr[r][c] === 2) {
             utils.drawSquare({
-              'ctx': config.ctxTop1,
-              'color': 'rgba(0,0,0,0.5)',
-              'width': config.fieldWidth,
-              'height': config.fieldWidth,
-              'x': c * config.fieldWidth,
-              'y': r * config.fieldWidth
+              ctx: config.ctxTop1,
+              color: 'rgba(0,0,0,0.5)',
+              width: config.fieldWidth,
+              height: config.fieldWidth,
+              x: c * config.fieldWidth,
+              y: r * config.fieldWidth
             });
           }
         }
@@ -93,7 +93,6 @@ export default class Canvas {
 
     window.requestAnimationFrame(this.gameLoop.bind(this));
   }
-
 
   update(delta) {
     this.gameTime += delta;
@@ -124,7 +123,10 @@ export default class Canvas {
       // }
 
       // Stop after animation
-      if (unit.skin.frames.length === Math.floor(unit.skin.index) && unit.skin.once) {
+      if (
+        unit.skin.frames.length === Math.floor(unit.skin.index) &&
+        unit.skin.once
+      ) {
         if (unit.attacking) {
           this.checkForHit();
         }
@@ -148,7 +150,7 @@ export default class Canvas {
       console.log('move up', unit.speed, unit.currentStep);
       // unit.pos[1] = path[0][1] + ((1 / unit.speed) * unit.currentStep);
 
-    // Move bottom if next tile is below current
+      // Move bottom if next tile is below current
     } else if (unit.pos[1] < path[0][1]) {
       // unit.pos[1] = path[0][1] - ((1 / unit.steps) * unit.currentStep);
     }
@@ -214,7 +216,10 @@ export default class Canvas {
           playerWidth = 40,
           playerHeight = 50;
 
-        if (playerPosY > enemyPosY - (playerHeight / 2) && playerPosY < enemyPosY + (playerHeight / 2)) {
+        if (
+          playerPosY > enemyPosY - playerHeight / 2 &&
+          playerPosY < enemyPosY + playerHeight / 2
+        ) {
           if (player.direction === 'LEFT') {
             const playerReach = playerPosX - playerWidth - player.range;
 
@@ -225,7 +230,7 @@ export default class Canvas {
 
           if (player.direction === 'RIGHT') {
             const playerReach = playerPosX + playerWidth + player.range;
-            
+
             if (playerReach >= enemyPosX && playerPosX < enemyPosX) {
               console.log('💘');
             }
@@ -267,8 +272,8 @@ export default class Canvas {
     }
 
     config.ctxAnim.translate(
-      (unit.pos[0] * config.fieldWidth) - 64,
-      (unit.pos[1] * config.fieldWidth) - 125
+      unit.pos[0] * config.fieldWidth - 64,
+      unit.pos[1] * config.fieldWidth - 125
     );
 
     for (let i = 0; i < bodyParts.length; i++) {

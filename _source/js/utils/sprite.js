@@ -1,4 +1,4 @@
-export default class Sprite { 
+export default class Sprite {
   constructor(cfg) {
     this.pos = cfg.pos;
     this.size = cfg.size;
@@ -30,7 +30,7 @@ export default class Sprite {
     if (this.speed > 0) {
       const max = this.frames.length,
         idx = Math.floor(this.index);
-      
+
       frame = this.frames[idx % max];
 
       if (this.once && idx >= max) {
@@ -58,11 +58,17 @@ export default class Sprite {
 
     // If it is done and it has to run once, we dont update
     if (!(this.done && this.once)) {
-      ctx.drawImage(resources.get(this.url),
-        x, y,
-        this.size[0], this.size[1],
-        0, 0,
-        this.size[0], this.size[1]);
+      ctx.drawImage(
+        resources.get(this.url),
+        x,
+        y,
+        this.size[0],
+        this.size[1],
+        0,
+        0,
+        this.size[0],
+        this.size[1]
+      );
     }
   }
 }
