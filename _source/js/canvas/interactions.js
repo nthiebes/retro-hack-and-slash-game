@@ -282,7 +282,6 @@ export default class Interactions {
 
     const decimalSeparatedValues = value.toFixed(3).toString().split('.');
     const decimalPlaceValue = parseInt(decimalSeparatedValues[1], 10) / 1000;
-
     // eslint-disable-next-line no-confusing-arrow
     const closest = counts.reduce((prev, curr) =>
       Math.abs(curr - decimalPlaceValue) < Math.abs(prev - decimalPlaceValue)
@@ -300,7 +299,6 @@ export default class Interactions {
         Math.floor(player.pos[1])
       ],
       playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
-
     let enemy,
       i = this.unitsList.length;
 

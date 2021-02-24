@@ -27,7 +27,6 @@ const resourcesList = [
   'images/armor/torso3.png',
   'images/armor/torso4.png'
 ];
-
 const getGameData = () => {
   fetch('data/maps/0.json')
     .then((response) => response.json())

@@ -8,7 +8,9 @@ export default class Utils {
       // Each column
       for (let c = 0; c < config.colTileCount; c++) {
         const tile = config.array[r][c],
+          // eslint-disable-next-line no-bitwise
           tileRow = (tile / imageNumTiles) | 0,
+          // eslint-disable-next-line no-bitwise
           tileCol = tile % imageNumTiles | 0;
 
         config.ctx.drawImage(

@@ -244,7 +244,7 @@ export default class Canvas {
     const tempUnitList = this.getTempUnitList(this.unitsList);
 
     // Clear canvas hack
-    // eslint-disable-next-line
+    // eslint-disable-next-line no-self-assign
     config.canvasAnim.width = config.canvasAnim.width;
     this.renderEntities(tempUnitList);
   }

@@ -54,10 +54,8 @@
         "code": 160
       }
     ],
-    "max-lines": 1,
     "max-nested-callbacks": 1,
     "max-params": 1,
-    "max-statements": 1,
     "new-cap": 1,
     "new-parens": 1,
     "padding-line-between-statements": [
@@ -81,7 +79,6 @@
     "no-case-declarations": 1,
     "no-catch-shadow": 1,
     "no-confusing-arrow": 0,
-    "no-console": 1,
     "no-continue": 1,
     "no-debugger": 1,
     "no-div-regex": 1,
