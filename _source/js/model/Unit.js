@@ -6,7 +6,9 @@ export default class Unit {
     this.moving = false;
     this.attacking = false;
     this.path = [];
-    this.currentStep = this.speed;
+    // this.currentStep = data.speed;
+    this.steps = 20;
+    this.currentStep = 20;
 
     for (const i in data) {
       if (data.hasOwnProperty(i)) {
@@ -44,7 +46,7 @@ export default class Unit {
 
   attack() {
     if (config.debug) {
-      console.log('⚔');
+      console.log('⚔️');
     }
 
     switch (this.direction) {
@@ -98,7 +100,7 @@ export default class Unit {
 
   turn(direction) {
     if (config.debug) {
-      console.log(direction === 'LEFT' ? '↩' : '↪');
+      console.log(direction === 'LEFT' ? '👈' : '👉');
     }
 
     switch (direction.toUpperCase()) {

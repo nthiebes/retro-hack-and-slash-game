@@ -314,8 +314,10 @@ export default class Interactions {
           path2.length === 0
         ) {
           enemy.path = path1;
+          enemy.nextTile = path1[0];
         } else {
           enemy.path = path2;
+          enemy.nextTile = path2[0];
         }
       }
     }

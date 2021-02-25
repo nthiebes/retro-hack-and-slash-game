@@ -89,8 +89,14 @@ export default class Path {
     // Path function, executes AStar algorithm operations
     function calculatePath() {
       // create Nodes from the Start and End x,y coordinates
-      var mypathStart = Node(null, { x: pathStart[0], y: pathStart[1] });
-      var mypathEnd = Node(null, { x: pathEnd[0], y: pathEnd[1] });
+      var mypathStart = Node(null, {
+        x: Math.floor(pathStart[0]),
+        y: Math.floor(pathStart[1])
+      });
+      var mypathEnd = Node(null, {
+        x: Math.floor(pathEnd[0]),
+        y: Math.floor(pathEnd[1])
+      });
       // create an array that will contain all world cells
       var AStar = new Array(worldSize);
       // list of currently open Nodes

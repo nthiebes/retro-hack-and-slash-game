@@ -6,7 +6,8 @@ export default class Map {
 
     // Initial unit positions
     for (let i = 0; i < units.length; i++) {
-      this.map[units[i].pos[1]][units[i].pos[0]] = units[i].id;
+      this.map[Math.floor(units[i].pos[1])][Math.floor(units[i].pos[0])] =
+        units[i].id;
     }
   }
 
