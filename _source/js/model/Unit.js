@@ -18,7 +18,7 @@ export default class Unit {
   }
 
   walk() {
-    if (config.debug) {
+    if (config.debug && this.friendly) {
       console.log('👣');
     }
 
@@ -45,7 +45,7 @@ export default class Unit {
   }
 
   attack() {
-    if (config.debug) {
+    if (config.debug && this.friendly) {
       console.log('⚔️');
     }
 
@@ -77,7 +77,7 @@ export default class Unit {
   }
 
   stop() {
-    if (config.debug) {
+    if (config.debug && this.friendly) {
       console.log('✋');
     }
 
@@ -99,7 +99,7 @@ export default class Unit {
   }
 
   turn(direction) {
-    if (config.debug) {
+    if (config.debug && this.friendly) {
       console.log(direction === 'LEFT' ? '👈' : '👉');
     }
 

@@ -113,7 +113,7 @@ export default class Canvas {
       unit.torso.update(delta);
 
       // Continue walking
-      if (unit.path.length > 0 && !unit.friendly) {
+      if (unit.path.length > 1 && !unit.friendly) {
         this.updateMoveAnimation(unit);
         // // Stop walking
       } else if (unit.moving && !unit.friendly) {
@@ -135,26 +135,32 @@ export default class Canvas {
   }
 
   updateMoveAnimation(unit) {
+    let xNew = unit.pos[0],
+      yNew = unit.pos[1];
+    const centerOffset = 0.5;
+    const walkDistance = (1 / unit.steps) * -(unit.currentStep - 20);
     const path = unit.path;
-
-    unit.moving = true;
+    const xNext = path[1][0];
+    const yNext = path[1][1];
+    const xPath = path[0][0];
+    const yPath = path[0][1];
 
     // Vertical movement
-    if (unit.nextTile[0] === path[0][0]) {
+    if (xNext === xPath) {
       // Move top if next tile is above current
-      if (unit.nextTile[1] > path[0][1]) {
-        unit.pos[1] = path[0][1] + 0.5 + (1 / unit.steps) * unit.currentStep;
+      if (yNext < yPath) {
+        yNew = yPath + centerOffset - walkDistance;
 
         // Move bottom if next tile is below current
-      } else if (unit.nextTile[1] < path[0][1]) {
-        unit.pos[1] = path[0][1] + 0.5 - (1 / unit.steps) * unit.currentStep;
+      } else if (yNext > yPath) {
+        yNew = yPath + centerOffset + walkDistance;
       }
 
       // Horizontal movement
     } else {
       // Move left if next tile is on the left side of the current
-      if (unit.nextTile[0] > path[0][0]) {
-        unit.pos[0] = path[0][0] + 0.5 + (1 / unit.steps) * unit.currentStep;
+      if (xNext < xPath) {
+        xNew = xPath + centerOffset - walkDistance;
 
         if (unit.direction !== 'LEFT') {
           unit.turn('LEFT');
@@ -162,8 +168,8 @@ export default class Canvas {
       }
 
       // Move right if next tile is on the right side of the current
-      if (unit.nextTile[0] < path[0][0]) {
-        unit.pos[0] = path[0][0] + 0.5 - (1 / unit.steps) * unit.currentStep;
+      if (xNext > xPath) {
+        xNew = xPath + centerOffset + walkDistance;
 
         if (unit.direction !== 'RIGHT') {
           unit.turn('RIGHT');
@@ -171,17 +177,17 @@ export default class Canvas {
       }
     }
 
-    unit.walk();
-
     // End of an animation from tile to tile
     if (unit.currentStep === 1) {
-      unit.nextTile = path[0];
       // Remove the first tile in the array
-      path.splice(0, 1);
+      unit.path.splice(0, 1);
+
       // Reset to start animation for next tile
       unit.currentStep = unit.steps;
     }
 
+    unit.pos = [xNew, yNew];
+    unit.walk();
     unit.currentStep--;
   }
 
