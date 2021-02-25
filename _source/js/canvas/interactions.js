@@ -127,7 +127,6 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            id: player.id,
             x: x,
             y: y,
             newX: x,
@@ -153,7 +152,6 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            id: player.id,
             x: x,
             y: y,
             newX: x,
@@ -179,7 +177,6 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            id: player.id,
             x: x,
             y: y,
             newX: newX,
@@ -205,7 +202,6 @@ export default class Interactions {
 
         if (newTile) {
           this.map.updatePosition({
-            id: player.id,
             x: x,
             y: y,
             newX: newX,

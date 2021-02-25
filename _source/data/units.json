@@ -1,5 +1,6 @@
 {
   "player": {
+    "id": "player0",
     "friendly": true,
     "name": "Nico",
     "race": "human",
@@ -18,7 +19,8 @@
     }
   },
 
-  "enemy1": {
+  "enemy": {
+    "id": "enemy0",
     "friendly": false,
     "name": "Orc warrior",
     "race": "orc",

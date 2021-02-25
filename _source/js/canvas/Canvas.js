@@ -115,7 +115,8 @@ export default class Canvas {
       // Continue walking
       if (unit.path.length > 1 && !unit.friendly) {
         this.updateMoveAnimation(unit);
-        // // Stop walking
+
+        // Stop walking
       } else if (unit.moving && !unit.friendly) {
         unit.stop();
       }
@@ -179,6 +180,14 @@ export default class Canvas {
 
     // End of an animation from tile to tile
     if (unit.currentStep === 1) {
+      this.map.updatePosition({
+        blocked: true,
+        x: xPath,
+        y: yPath,
+        newX: xNext,
+        newY: yNext
+      });
+
       // Remove the first tile in the array
       unit.path.splice(0, 1);
 

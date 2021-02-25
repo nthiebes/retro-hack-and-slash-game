@@ -6,17 +6,18 @@ export default class Map {
 
     // Initial unit positions
     for (let i = 0; i < units.length; i++) {
-      this.map[Math.floor(units[i].pos[1])][Math.floor(units[i].pos[0])] =
-        units[i].id;
+      this.map[Math.floor(units[i].pos[1])][
+        Math.floor(units[i].pos[0])
+      ] = units[i].friendly ? 1 : 2;
     }
   }
 
-  updatePosition(config) {
+  updatePosition({ blocked, x, y, newX, newY }) {
     // Delete old position
-    this.map[config.y][config.x] = 0;
+    this.map[y][x] = 0;
 
     // Add new position
-    this.map[config.newY][config.newX] = config.id;
+    this.map[newY][newX] = blocked ? 2 : 1;
   }
 
   showDebugFields(config) {
@@ -45,7 +46,7 @@ export default class Map {
       y: y * 32
     });
 
-    if (config.unit.id === 1) {
+    if (config.unit.id === 'player0') {
       utils.drawSquare({
         ctx: config.ctx,
         color: 'rgba(255,0,0,0.5)',
@@ -62,6 +63,21 @@ export default class Map {
         x: (x - 1) * 32,
         y: y * 32
       });
+    }
+
+    for (let r = 0; r < this.map.length; r++) {
+      for (let c = 0; c < this.map[0].length; c++) {
+        if (this.map[r][c] > 0) {
+          utils.drawSquare({
+            ctx: config.ctx,
+            color: 'rgba(0,0,0,0.5)',
+            width: 32,
+            height: 32,
+            x: c * 32,
+            y: r * 32
+          });
+        }
+      }
     }
   }
 }

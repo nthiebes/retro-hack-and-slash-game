@@ -17,7 +17,6 @@ export default class Units {
       this.list.push(
         new Unit(
           Object.assign({}, unit, {
-            id: i + 1,
             pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
             primary: data.weapons[unit.weapons.primary],
             secondary: data.weapons[unit.weapons.secondary],

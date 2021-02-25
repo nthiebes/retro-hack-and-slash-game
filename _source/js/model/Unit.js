@@ -6,7 +6,6 @@ export default class Unit {
     this.moving = false;
     this.attacking = false;
     this.path = [];
-    // this.currentStep = data.speed;
     this.steps = 20;
     this.currentStep = 20;
 
