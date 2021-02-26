@@ -162,24 +162,17 @@ export default class Canvas {
       // Move left if next tile is on the left side of the current
       if (xNext < xPath) {
         xNew = xPath + centerOffset - walkDistance;
-
-        if (unit.direction !== 'LEFT') {
-          unit.turn('LEFT');
-        }
       }
 
       // Move right if next tile is on the right side of the current
       if (xNext > xPath) {
         xNew = xPath + centerOffset + walkDistance;
-
-        if (unit.direction !== 'RIGHT') {
-          unit.turn('RIGHT');
-        }
       }
     }
 
     // End of an animation from tile to tile
     if (unit.currentStep === 1) {
+      // Update blocked position
       this.map.updatePosition({
         blocked: true,
         x: xPath,
@@ -187,6 +180,16 @@ export default class Canvas {
         newX: xNext,
         newY: yNext
       });
+
+      // Turn enemy
+      if (this.player.pos[0] < xNext && unit.direction !== 'LEFT') {
+        unit.turn('LEFT');
+      }
+      if (this.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
+        unit.turn('RIGHT');
+      }
+
+      // Update next unit tile
       unit.tile = [xNext, yNext];
 
       // Remove the first tile in the array
