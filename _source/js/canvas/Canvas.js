@@ -172,15 +172,6 @@ export default class Canvas {
 
     // End of an animation from tile to tile
     if (unit.currentStep === 1) {
-      // Update blocked position
-      this.map.updatePosition({
-        blocked: true,
-        x: xPath,
-        y: yPath,
-        newX: xNext,
-        newY: yNext
-      });
-
       // Turn enemy
       if (this.player.pos[0] < xNext && unit.direction !== 'LEFT') {
         unit.turn('LEFT');
@@ -197,6 +188,20 @@ export default class Canvas {
 
       // Reset to start animation for next tile
       unit.currentStep = unit.steps;
+
+      // Stop if next tile is blocked
+      if (path[1] && this.map.map[path[1][1]][path[1][0]] > 0) {
+        unit.path = [];
+      }
+
+      // Update blocked position
+      this.map.updatePosition({
+        blocked: true,
+        x: xPath,
+        y: yPath,
+        newX: xNext,
+        newY: yNext
+      });
     }
 
     unit.pos = [xNew, yNew];

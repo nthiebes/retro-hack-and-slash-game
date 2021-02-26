@@ -30,8 +30,28 @@
     "armor": "leather",
     "gear": {
       "head": 0,
+      "torso": 3,
+      "leg": 2
+    },
+    "weapons": {
+      "primary": "fist",
+      "secondary": "fist"
+    }
+  },
+
+  "enemy2": {
+    "id": "enemy1",
+    "friendly": false,
+    "name": "Naked warrior",
+    "race": "human",
+    "skin": 0,
+    "health": 100,
+    "pos": [25, 10],
+    "armor": "none",
+    "gear": {
+      "head": 0,
       "torso": 0,
-      "leg": 3
+      "leg": 0
     },
     "weapons": {
       "primary": "fist",

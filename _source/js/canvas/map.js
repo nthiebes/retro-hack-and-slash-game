@@ -39,6 +39,21 @@ export default class Map {
       }
     }
 
+    // for (let r = 0; r < this.map.length; r++) {
+    //   for (let c = 0; c < this.map[0].length; c++) {
+    //     if (this.map[r][c] === 2) {
+    //       utils.drawSquare({
+    //         ctx: ctx,
+    //         color: 'rgba(0,0,0,0.5)',
+    //         width: 32,
+    //         height: 32,
+    //         x: c * 32,
+    //         y: r * 32
+    //       });
+    //     }
+    //   }
+    // }
+
     utils.drawSquare({
       ctx: ctx,
       color: 'rgba(0,0,255,0.5)',
