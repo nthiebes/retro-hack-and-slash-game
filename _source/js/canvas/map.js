@@ -20,25 +20,27 @@ export default class Map {
     this.map[newY][newX] = blocked ? 2 : 1;
   }
 
-  showDebugFields(config) {
-    const x = Math.floor(config.unit.pos[0]),
-      y = Math.floor(config.unit.pos[1]),
-      path = config.unit.path;
+  showDebugFields({ unit, ctx }) {
+    const x = Math.floor(unit.pos[0]),
+      y = Math.floor(unit.pos[1]),
+      path = unit.path;
     let i = path.length;
 
-    while (i--) {
-      utils.drawSquare({
-        ctx: config.ctx,
-        color: 'rgba(0,255,0,0.5)',
-        width: 32,
-        height: 32,
-        x: path[i][0] * 32,
-        y: path[i][1] * 32
-      });
+    if (!unit.friendly) {
+      while (i--) {
+        utils.drawSquare({
+          ctx: ctx,
+          color: 'rgba(0,255,0,0.5)',
+          width: 32,
+          height: 32,
+          x: path[i][0] * 32,
+          y: path[i][1] * 32
+        });
+      }
     }
 
     utils.drawSquare({
-      ctx: config.ctx,
+      ctx: ctx,
       color: 'rgba(0,0,255,0.5)',
       width: 32,
       height: 32,
@@ -46,9 +48,9 @@ export default class Map {
       y: y * 32
     });
 
-    if (config.unit.id === 'player0') {
+    if (unit.id === 'player0') {
       utils.drawSquare({
-        ctx: config.ctx,
+        ctx: ctx,
         color: 'rgba(255,0,0,0.5)',
         width: 32,
         height: 32,
@@ -56,28 +58,13 @@ export default class Map {
         y: y * 32
       });
       utils.drawSquare({
-        ctx: config.ctx,
+        ctx: ctx,
         color: 'rgba(255,0,0,0.5)',
         width: 32,
         height: 32,
         x: (x - 1) * 32,
         y: y * 32
       });
-    }
-
-    for (let r = 0; r < this.map.length; r++) {
-      for (let c = 0; c < this.map[0].length; c++) {
-        if (this.map[r][c] > 0) {
-          utils.drawSquare({
-            ctx: config.ctx,
-            color: 'rgba(0,0,0,0.5)',
-            width: 32,
-            height: 32,
-            x: c * 32,
-            y: r * 32
-          });
-        }
-      }
     }
   }
 }

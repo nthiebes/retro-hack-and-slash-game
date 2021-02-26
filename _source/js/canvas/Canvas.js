@@ -187,6 +187,7 @@ export default class Canvas {
         newX: xNext,
         newY: yNext
       });
+      unit.tile = [xNext, yNext];
 
       // Remove the first tile in the array
       unit.path.splice(0, 1);

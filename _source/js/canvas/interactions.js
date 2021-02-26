@@ -1,12 +1,11 @@
 import config from '../config.js';
 import Input from '../utils/input.js';
-import Path from './path.js';
+import { getPath } from './path.js';
 
 export default class Interactions {
   constructor(data) {
     this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
-    this.path = new Path();
     this.unitsList = data.unitsList;
     this.player = this.unitsList[0];
     this.offsetX = 0;
@@ -305,8 +304,8 @@ export default class Interactions {
       enemy = this.unitsList[i];
 
       if (enemy.id !== 1) {
-        const path1 = this.path.get(this.map.map, enemy.pos, playerPos1),
-          path2 = this.path.get(this.map.map, enemy.pos, playerPos2);
+        const path1 = getPath(this.map.map, enemy.tile, playerPos1);
+        const path2 = getPath(this.map.map, enemy.tile, playerPos2);
 
         if (
           (path1.length <= path2.length && path1.length !== 0) ||
