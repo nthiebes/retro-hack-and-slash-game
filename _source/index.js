@@ -1,5 +1,5 @@
 import Resources from './js/utils/resources.js';
-import Canvas from './js/canvas/Canvas.js';
+import { Editor } from './js/view/Editor.js';
 
 const gameData = {};
 const resources = new Resources();
@@ -7,9 +7,25 @@ const resourcesList = [
   'images/tileset.png',
   'images/races/human0.png',
   'images/races/human1.png',
+  'images/races/human2.png',
+  'images/races/human4.png',
+  'images/races/human5.png',
+  'images/races/human6.png',
   'images/races/orc0.png',
   'images/races/orc1.png',
+  'images/races/orc2.png',
+  'images/races/orc3.png',
   'images/races/elf0.png',
+  'images/races/ghost0.png',
+  'images/races/vampire0.png',
+  'images/races/zombie0.png',
+  'images/races/zombie1.png',
+  'images/races/zombie2.png',
+  'images/races/zombie3.png',
+  'images/races/zombie4.png',
+  'images/races/zombie5.png',
+  'images/races/zombie6.png',
+  'images/races/wounded.png',
   'images/armor/head0.png',
   'images/armor/head1.png',
   'images/armor/head2.png',
@@ -52,10 +68,11 @@ const getGameData = () => {
     .then((response) => response.json())
     .then((units) => {
       gameData.units = units;
+
       // eslint-disable-next-line
-      const game = new Canvas({
-        ...gameData,
-        resources: resources
+      const editor = new Editor({
+        gameData,
+        resources
       });
     });
 };
