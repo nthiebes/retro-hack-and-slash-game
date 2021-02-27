@@ -1,4 +1,4 @@
-import utils from './utils.js';
+import { drawSquare } from './utils.js';
 
 export default class Map {
   constructor(map, units) {
@@ -28,7 +28,7 @@ export default class Map {
 
     if (!unit.friendly) {
       while (i--) {
-        utils.drawSquare({
+        drawSquare({
           ctx: ctx,
           color: 'rgba(0,255,0,0.5)',
           width: 32,
@@ -42,7 +42,7 @@ export default class Map {
     // for (let r = 0; r < this.map.length; r++) {
     //   for (let c = 0; c < this.map[0].length; c++) {
     //     if (this.map[r][c] === 2) {
-    //       utils.drawSquare({
+    //       drawSquare({
     //         ctx: ctx,
     //         color: 'rgba(0,0,0,0.5)',
     //         width: 32,
@@ -54,7 +54,7 @@ export default class Map {
     //   }
     // }
 
-    utils.drawSquare({
+    drawSquare({
       ctx: ctx,
       color: 'rgba(0,0,255,0.5)',
       width: 32,
@@ -64,7 +64,7 @@ export default class Map {
     });
 
     if (unit.id === 'player0') {
-      utils.drawSquare({
+      drawSquare({
         ctx: ctx,
         color: 'rgba(255,0,0,0.5)',
         width: 32,
@@ -72,7 +72,7 @@ export default class Map {
         x: (x + 1) * 32,
         y: y * 32
       });
-      utils.drawSquare({
+      drawSquare({
         ctx: ctx,
         color: 'rgba(255,0,0,0.5)',
         width: 32,

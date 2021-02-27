@@ -2,7 +2,7 @@ import config from '../config.js';
 import Units from '../view/Units.js';
 import Interactions from './interactions.js';
 import Map from './map.js';
-import utils from './utils.js';
+import { drawImage, drawSquare } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
@@ -43,21 +43,21 @@ export default class Canvas {
       canvas[i].height = this.rowTileCount * config.fieldWidth;
     }
 
-    utils.drawImage({
+    drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       tileset: this.tileset,
       ctx: config.ctxGround1,
       array: this.ground1
     });
-    utils.drawImage({
+    drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       tileset: this.tileset,
       ctx: config.ctxGround2,
       array: this.ground2
     });
-    utils.drawImage({
+    drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       tileset: this.tileset,
@@ -68,7 +68,7 @@ export default class Canvas {
       for (let r = 0; r < this.blockedArr.length; r++) {
         for (let c = 0; c < this.blockedArr[0].length; c++) {
           if (this.blockedArr[r][c] === 2) {
-            utils.drawSquare({
+            drawSquare({
               ctx: config.ctxTop1,
               color: 'rgba(0,0,0,0.5)',
               width: config.fieldWidth,
