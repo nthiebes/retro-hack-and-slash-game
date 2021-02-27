@@ -2,7 +2,7 @@ import config from '../config.js';
 import Input from '../utils/input.js';
 import { getPath } from './path.js';
 
-export default class Interactions {
+class Interactions {
   constructor(data) {
     this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
@@ -319,3 +319,4 @@ export default class Interactions {
     }
   }
 }
+export { Interactions };

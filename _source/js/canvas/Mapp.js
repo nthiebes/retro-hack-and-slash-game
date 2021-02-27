@@ -1,6 +1,6 @@
 import { drawSquare } from './utils.js';
 
-export default class Map {
+class Map {
   constructor(map, units) {
     this.map = map;
 
@@ -83,3 +83,5 @@ export default class Map {
     }
   }
 }
+
+export { Map };
