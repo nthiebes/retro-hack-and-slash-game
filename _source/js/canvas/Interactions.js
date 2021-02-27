@@ -1,5 +1,5 @@
 import config from '../config.js';
-import Input from '../utils/input.js';
+import Input from '../utils/Inputt.js';
 import { getPath } from './path.js';
 
 class Interactions {
