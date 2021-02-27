@@ -1,7 +1,7 @@
 import config from '../config.js';
 import Units from '../view/Units.js';
-import { Interactions } from './Interactionss.js';
-import { Map } from './Mapp.js';
+import { Interactions } from './Interactions.js';
+import { Map } from './Map.js';
 import { drawImage, drawSquare } from './utils.js';
 
 export default class Canvas {
