@@ -1,5 +1,5 @@
 import config from '../config.js';
-import Units from '../view/units.js';
+import Units from '../view/Diesdas.js';
 import Interactions from './interactions.js';
 import Map from './map.js';
 import utils from './utils.js';
