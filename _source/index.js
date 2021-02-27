@@ -1,4 +1,4 @@
-import Resources from './js/utils/resources.js';
+import Resources from './js/utils/Resources.js';
 import { Editor } from './js/view/Editor.js';
 
 const gameData = {};

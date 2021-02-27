@@ -1,5 +1,5 @@
 import config from '../config.js';
-import Sprite from '../utils/Spritee.js';
+import Sprite from '../utils/Sprite.js';
 import Unit from '../model/Unit.js';
 
 export default class Units {
