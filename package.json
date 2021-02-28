@@ -16,7 +16,7 @@
   "author": "Nico Thiebes",
   "license": "SEE LICENSE IN \"LICENSE\"",
   "dependencies": {
-    "whatwg-fetch": "3.6.1"
+    "whatwg-fetch": "3.6.2"
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",
