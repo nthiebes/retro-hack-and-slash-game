@@ -23,7 +23,6 @@ export default class Canvas {
     this.player = this.unitsList[0];
     this.interactions = new Interactions({
       unitsList: this.unitsList,
-      blockedArr: this.blockedArr,
       map: this.map,
       playerSpeed: this.playerSpeed,
       rowTileCount: this.rowTileCount,
@@ -64,22 +63,6 @@ export default class Canvas {
       ctx: config.ctxTop1,
       array: this.top1
     });
-    if (config.debug) {
-      for (let r = 0; r < this.blockedArr.length; r++) {
-        for (let c = 0; c < this.blockedArr[0].length; c++) {
-          if (this.blockedArr[r][c] === 2) {
-            drawSquare({
-              ctx: config.ctxTop1,
-              color: 'rgba(0,0,0,0.5)',
-              width: config.fieldWidth,
-              height: config.fieldWidth,
-              x: c * config.fieldWidth,
-              y: r * config.fieldWidth
-            });
-          }
-        }
-      }
-    }
   }
 
   gameLoop() {
@@ -141,33 +124,44 @@ export default class Canvas {
     const centerOffset = 0.5;
     const walkDistance = (1 / unit.steps) * -(unit.currentStep - 20);
     const path = unit.path;
-    const xNext = path[1][0];
-    const yNext = path[1][1];
-    const xPath = path[0][0];
-    const yPath = path[0][1];
+    const xNext = unit.nextTile ? unit.nextTile[0] : path[1][0];
+    const yNext = unit.nextTile ? unit.nextTile[1] : path[1][1];
+    const xPath = unit.tile[0];
+    const yPath = unit.tile[1];
 
-    // Vertical movement
-    if (xNext === xPath) {
-      // Move top if next tile is above current
-      if (yNext < yPath) {
-        yNew = yPath + centerOffset - walkDistance;
+    if (unit.currentStep === 20) {
+      unit.nextTile = path[1];
 
-        // Move bottom if next tile is below current
-      } else if (yNext > yPath) {
-        yNew = yPath + centerOffset + walkDistance;
-      }
+      // console.log('start anim');
 
-      // Horizontal movement
-    } else {
-      // Move left if next tile is on the left side of the current
-      if (xNext < xPath) {
-        xNew = xPath + centerOffset - walkDistance;
-      }
+      // Update blocked position
+      this.map.updatePosition({
+        x: xPath,
+        y: yPath,
+        newX: unit.nextTile[0],
+        newY: unit.nextTile[1],
+        unitId: unit.id
+      });
+    }
 
-      // Move right if next tile is on the right side of the current
-      if (xNext > xPath) {
-        xNew = xPath + centerOffset + walkDistance;
-      }
+    // Move top if next tile is above current
+    if (yNext < yPath) {
+      yNew = yPath + centerOffset - walkDistance;
+    }
+
+    // Move bottom if next tile is below current
+    if (yNext > yPath) {
+      yNew = yPath + centerOffset + walkDistance;
+    }
+
+    // Move left if next tile is on the left side of the current
+    if (xNext < xPath) {
+      xNew = xPath + centerOffset - walkDistance;
+    }
+
+    // Move right if next tile is on the right side of the current
+    if (xNext > xPath) {
+      xNew = xPath + centerOffset + walkDistance;
     }
 
     // End of an animation from tile to tile
@@ -180,28 +174,30 @@ export default class Canvas {
         unit.turn('RIGHT');
       }
 
-      // Update next unit tile
-      unit.tile = [xNext, yNext];
-
       // Remove the first tile in the array
       unit.path.splice(0, 1);
 
-      // Reset to start animation for next tile
-      unit.currentStep = unit.steps;
-
-      // Stop if next tile is blocked
-      if (path[1] && this.map.map[path[1][1]][path[1][0]] > 0) {
-        unit.path = [];
+      // Reset next tile
+      if (unit.path.length === 1) {
+        unit.nextTile = null;
       }
 
-      // Update blocked position
-      this.map.updatePosition({
-        blocked: true,
-        x: xPath,
-        y: yPath,
-        newX: xNext,
-        newY: yNext
-      });
+      // Reset to start animation for next tile
+      unit.currentStep = unit.steps + 1;
+
+      // Find new path if next tile is blocked
+      if (
+        path.length > 1 &&
+        this.map.map[path[1][1]][path[1][0]] !== 0 &&
+        this.map.map[path[1][1]][path[1][0]] !== unit.id
+      ) {
+        // TODO: buggy
+        unit.tile = [xNext, yNext];
+        this.interactions.setPath(this.player);
+      }
+
+      // Update next unit tile
+      unit.tile = [xNext, yNext];
     }
 
     unit.pos = [xNew, yNew];

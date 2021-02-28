@@ -6,18 +6,26 @@ class Map {
 
     // Initial unit positions
     for (let i = 0; i < units.length; i++) {
-      this.map[Math.floor(units[i].pos[1])][
-        Math.floor(units[i].pos[0])
-      ] = units[i].friendly ? 1 : 2;
+      this.map[Math.floor(units[i].pos[1])][Math.floor(units[i].pos[0])] =
+        units[i].id;
     }
   }
 
-  updatePosition({ blocked, x, y, newX, newY }) {
+  updatePosition({ x, y, newX, newY, unitId }) {
     // Delete old position
     this.map[y][x] = 0;
 
     // Add new position
-    this.map[newY][newX] = blocked ? 2 : 1;
+    this.map[newY][newX] = unitId;
+  }
+
+  resetPosition({ x, y, unitId }) {
+    const position = this.map[y][x];
+
+    // Delete old position
+    if (position === unitId) {
+      this.map[y][x] = 0;
+    }
   }
 
   showDebugFields({ unit, ctx }) {
@@ -39,20 +47,20 @@ class Map {
       }
     }
 
-    // for (let r = 0; r < this.map.length; r++) {
-    //   for (let c = 0; c < this.map[0].length; c++) {
-    //     if (this.map[r][c] === 2) {
-    //       drawSquare({
-    //         ctx: ctx,
-    //         color: 'rgba(0,0,0,0.5)',
-    //         width: 32,
-    //         height: 32,
-    //         x: c * 32,
-    //         y: r * 32
-    //       });
-    //     }
-    //   }
-    // }
+    for (let r = 0; r < this.map.length; r++) {
+      for (let c = 0; c < this.map[0].length; c++) {
+        if (this.map[r][c] !== 0) {
+          drawSquare({
+            ctx: ctx,
+            color: 'rgba(0,0,0,0.5)',
+            width: 32,
+            height: 32,
+            x: c * 32,
+            y: r * 32
+          });
+        }
+      }
+    }
 
     drawSquare({
       ctx: ctx,
@@ -63,7 +71,7 @@ class Map {
       y: y * 32
     });
 
-    if (unit.id === 'player0') {
+    if (unit.id === 'player.596026') {
       drawSquare({
         ctx: ctx,
         color: 'rgba(255,0,0,0.5)',

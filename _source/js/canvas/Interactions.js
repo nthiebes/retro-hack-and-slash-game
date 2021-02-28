@@ -118,9 +118,13 @@ class Interactions {
         newY = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newY > y;
+        newTile = newY > y,
+        mapPosition = this.map.map[newY][x];
 
-      if (this.map.map[newY][x] <= 1) {
+      if (
+        mapPosition === 0 ||
+        (typeof mapPosition === 'string' && mapPosition.includes('player'))
+      ) {
         blockedY = false;
         player.pos[1] = this.getSmoothPixelValue(newPos);
 
@@ -129,7 +133,8 @@ class Interactions {
             x: x,
             y: y,
             newX: x,
-            newY: newY
+            newY: newY,
+            unitId: player.id
           });
           this.setPath(player);
         }
@@ -143,9 +148,13 @@ class Interactions {
         newY = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newY < Math.floor(player.pos[1]);
+        newTile = newY < Math.floor(player.pos[1]),
+        mapPosition = this.map.map[newY][x];
 
-      if (this.map.map[newY][x] <= 1) {
+      if (
+        mapPosition === 0 ||
+        (typeof mapPosition === 'string' && mapPosition.includes('player'))
+      ) {
         blockedY = false;
         player.pos[1] = this.getSmoothPixelValue(newPos);
 
@@ -154,7 +163,8 @@ class Interactions {
             x: x,
             y: y,
             newX: x,
-            newY: newY
+            newY: newY,
+            unitId: player.id
           });
           this.setPath(player);
         }
@@ -168,9 +178,13 @@ class Interactions {
         newX = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newX > Math.floor(player.pos[0]);
+        newTile = newX > Math.floor(player.pos[0]),
+        mapPosition = this.map.map[y][newX];
 
-      if (this.map.map[y][newX] <= 1) {
+      if (
+        mapPosition === 0 ||
+        (typeof mapPosition === 'string' && mapPosition.includes('player'))
+      ) {
         blockedX = false;
         player.pos[0] = this.getSmoothPixelValue(newPos);
 
@@ -179,7 +193,8 @@ class Interactions {
             x: x,
             y: y,
             newX: newX,
-            newY: y
+            newY: y,
+            unitId: player.id
           });
           this.setPath(player);
         }
@@ -193,9 +208,13 @@ class Interactions {
         newX = Math.floor(newPos),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newX < Math.floor(player.pos[0]);
+        newTile = newX < Math.floor(player.pos[0]),
+        mapPosition = this.map.map[y][newX];
 
-      if (this.map.map[y][newX] <= 1) {
+      if (
+        mapPosition === 0 ||
+        (typeof mapPosition === 'string' && mapPosition.includes('player'))
+      ) {
         blockedX = false;
         player.pos[0] = this.getSmoothPixelValue(newPos);
 
@@ -204,7 +223,8 @@ class Interactions {
             x: x,
             y: y,
             newX: newX,
-            newY: y
+            newY: y,
+            unitId: player.id
           });
           this.setPath(player);
         }
@@ -298,14 +318,26 @@ class Interactions {
       ],
       playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
     let enemy,
-      i = this.unitsList.length;
+      i = this.unitsList.length,
+      path1,
+      path2;
 
     while (i--) {
       enemy = this.unitsList[i];
 
-      if (enemy.id !== 1) {
-        const path1 = getPath(this.map.map, enemy.tile, playerPos1);
-        const path2 = getPath(this.map.map, enemy.tile, playerPos2);
+      if (!enemy.id.includes('player')) {
+        path1 = getPath({
+          world: this.map.map,
+          pathStart: enemy.tile,
+          pathEnd: playerPos1,
+          unitId: enemy.id
+        });
+        path2 = getPath({
+          world: this.map.map,
+          pathStart: enemy.tile,
+          pathEnd: playerPos2,
+          unitId: enemy.id
+        });
 
         if (
           (path1.length <= path2.length && path1.length !== 0) ||
@@ -314,6 +346,41 @@ class Interactions {
           enemy.path = path1;
         } else {
           enemy.path = path2;
+        }
+
+        if (
+          enemy.nextTile &&
+          enemy.path.length > 1 &&
+          (enemy.nextTile[0] !== enemy.path[1][0] ||
+            enemy.nextTile[1] !== enemy.path[1][1])
+        ) {
+          path1 = [
+            enemy.tile,
+            ...getPath({
+              world: this.map.map,
+              pathStart: enemy.nextTile,
+              pathEnd: playerPos1,
+              unitId: enemy.id
+            })
+          ];
+          path2 = [
+            enemy.tile,
+            ...getPath({
+              world: this.map.map,
+              pathStart: enemy.nextTile,
+              pathEnd: playerPos2,
+              unitId: enemy.id
+            })
+          ];
+
+          if (
+            (path1.length <= path2.length && path1.length !== 1) ||
+            path2.length === 1
+          ) {
+            enemy.path = path1;
+          } else {
+            enemy.path = path2;
+          }
         }
       }
     }

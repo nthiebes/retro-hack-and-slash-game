@@ -1,7 +1,8 @@
 /* eslint-disable */
-export const getPath = (world, pathStart, pathEnd) => {
+export const getPath = ({ world, pathStart, pathEnd, unitId }) => {
   // Shortcuts for speed
   var abs = Math.abs;
+  var max = Math.max;
 
   // the world data are integers:
   // anything higher than this number is considered blocked
@@ -19,14 +20,23 @@ export const getPath = (world, pathStart, pathEnd) => {
 
   // which heuristic should we use?
   // default: no diagonals (Manhattan)
-  var distanceFunction = ManhattanDistance;
-  var findNeighbours = function () {}; // empty
+  // var distanceFunction = ManhattanDistance;
+  // var findNeighbours = function () {}; // empty
+
+  // diagonals allowed but no sqeezing through cracks:
+  var distanceFunction = DiagonalDistance;
+  var findNeighbours = DiagonalNeighbours;
 
   // distanceFunction functions
   // these return how far away a point is to another
   function ManhattanDistance(Point, Goal) {
     // linear movement - no diagonals - just cardinal directions (NSEW)
     return abs(Point.x - Goal.x) + abs(Point.y - Goal.y);
+  }
+
+  function DiagonalDistance(Point, Goal) {
+    // diagonal movement - assumes diag dist is 1, same as cardinals
+    return max(abs(Point.x - Goal.x), abs(Point.y - Goal.y));
   }
 
   // Neighbours functions, used by findNeighbours function
@@ -53,12 +63,26 @@ export const getPath = (world, pathStart, pathEnd) => {
     return result;
   }
 
+  // returns every available North East, South East,
+  // South West or North West cell - no squeezing through
+  // "cracks" between two diagonals
+  function DiagonalNeighbours(myN, myS, myE, myW, N, S, E, W, result) {
+    if (myN) {
+      if (myE && canWalkHere(E, N)) result.push({ x: E, y: N });
+      if (myW && canWalkHere(W, N)) result.push({ x: W, y: N });
+    }
+    if (myS) {
+      if (myE && canWalkHere(E, S)) result.push({ x: E, y: S });
+      if (myW && canWalkHere(W, S)) result.push({ x: W, y: S });
+    }
+  }
+
   // returns boolean value (world cell is available and open)
   function canWalkHere(x, y) {
     const canwalk =
       world[x] !== null &&
       world[y][x] !== null &&
-      world[y][x] <= maxWalkableTileNum;
+      (world[y][x] === 0 || world[y][x] === unitId);
 
     return canwalk;
   }
