@@ -44,10 +44,11 @@ const resourcesList = [
   'images/armor/torso4.png'
 ];
 const getGameData = () => {
-  fetch('data/maps/0.json')
+  fetch('data/maps/demo.json')
     .then((response) => response.json())
     .then((json) => {
       gameData.map = json.map;
+      gameData.itemPositions = json.itemPositions;
       return fetch('data/weapons.json');
     })
     .then((response) => response.json())

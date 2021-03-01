@@ -19,7 +19,11 @@ export default class Canvas {
     this.units = new Units(data);
     this.unitsList = this.units.list;
     this.playerSpeed = this.unitsList[0].speed;
-    this.map = new Map(this.blockedArr, this.unitsList);
+    this.items = data.itemPositions;
+    this.map = new Map({
+      map: this.blockedArr,
+      units: this.unitsList
+    });
     this.player = this.unitsList[0];
     this.interactions = new Interactions({
       unitsList: this.unitsList,
@@ -27,7 +31,8 @@ export default class Canvas {
       playerSpeed: this.playerSpeed,
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
-      fieldWidth: config.fieldWidth
+      fieldWidth: config.fieldWidth,
+      items: this.items
     });
 
     this.prepareCanvas();

@@ -17,6 +17,7 @@ class Interactions {
     this.fieldWidth = data.fieldWidth;
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
+    this.items = data.items;
 
     this.registerEventHandler();
   }
@@ -74,9 +75,15 @@ class Interactions {
   onMouseDown(e) {
     // Left click
     if (e.button === 0) {
+      const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
+      const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
+      const item = this.checkForItem({ x, y });
+
       if (this.player.attacking) {
         // Continue animation
         this.player.skin.once = false;
+      } else if (item) {
+        this.player.equip(item);
       } else {
         // Start animation
         this.player.attack();
@@ -136,7 +143,7 @@ class Interactions {
             newY: newY,
             unitId: player.id
           });
-          this.setPath(player);
+          this.setPath();
         }
       }
     }
@@ -166,7 +173,7 @@ class Interactions {
             newY: newY,
             unitId: player.id
           });
-          this.setPath(player);
+          this.setPath();
         }
       }
     }
@@ -196,7 +203,7 @@ class Interactions {
             newY: y,
             unitId: player.id
           });
-          this.setPath(player);
+          this.setPath();
         }
       }
     }
@@ -226,7 +233,7 @@ class Interactions {
             newY: y,
             unitId: player.id
           });
-          this.setPath(player);
+          this.setPath();
         }
       }
     }
@@ -311,7 +318,35 @@ class Interactions {
     return newValue;
   }
 
-  setPath(player) {
+  checkForItem({ x, y }) {
+    return this.items.find(
+      (item) =>
+        item.pos[0] === x && item.pos[1] === y && this.itemInRange({ x, y })
+    );
+  }
+
+  itemInRange({ x, y }) {
+    const playerX = Math.floor(this.player.pos[0]);
+    const playerY = Math.floor(this.player.pos[1]);
+
+    if (
+      (x === playerX + 1 && y === playerY) ||
+      (x === playerX + 1 && y === playerY + 1) ||
+      (x === playerX + 1 && y === playerY - 1) ||
+      (x === playerX - 1 && y === playerY) ||
+      (x === playerX - 1 && y === playerY + 1) ||
+      (x === playerX - 1 && y === playerY - 1) ||
+      (x === playerX && y === playerY - 1) ||
+      (x === playerX && y === playerY + 1) ||
+      (x === playerX && y === playerY)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  setPath() {
+    const player = this.player;
     const playerPos1 = [
         Math.floor(player.pos[0] + 1),
         Math.floor(player.pos[1])

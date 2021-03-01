@@ -1,7 +1,7 @@
 import { drawSquare } from './utils.js';
 
 class Map {
-  constructor(map, units) {
+  constructor({ map, units }) {
     this.map = map;
 
     // Initial unit positions

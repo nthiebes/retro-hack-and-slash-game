@@ -1,4 +1,5 @@
 import config from '../config.js';
+import Sprite from '../utils/Sprite.js';
 
 export default class Unit {
   constructor(data) {
@@ -117,6 +118,24 @@ export default class Unit {
         this.leg.pos = [0, 256];
         this.torso.pos = [0, 256];
         this.direction = 'RIGHT';
+    }
+  }
+
+  equip({ gear, type, id }) {
+    if (config.debug) {
+      console.log('🛡');
+    }
+
+    if (gear) {
+      this.gear[gear] = id;
+      this.armor = type;
+      this.head = new Sprite({
+        url: `images/armor/head${id}.png`,
+        pos: [0, this.direction === 'LEFT' ? 384 : 256],
+        size: [128, 128],
+        speed: this.head.speed,
+        frames: [0]
+      });
     }
   }
 }

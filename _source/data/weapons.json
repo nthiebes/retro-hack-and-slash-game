@@ -5,72 +5,72 @@
     "range": 0
   },
 
-  "sword0": {
+  "sword": {
     "name": "Sword",
     "damage": 2,
     "range": 1
   },
 
-  "speer0": {
+  "speer": {
     "name": "Speer",
     "damage": 1,
     "range": 1
   },
 
-  "axe0": {
+  "axe": {
     "name": "Axe",
     "damage": 2,
     "range": 1
   },
 
-  "bow0": {
+  "shortbow": {
     "name": "Shortbow",
     "damage": 1,
     "range": 5,
     "projectile": "arrow"
   },
 
-  "bow1": {
+  "longbow": {
     "name": "Longbow",
     "damage": 2,
     "range": 7,
     "projectile": "arrow"
   },
 
-  "halberd0": {
+  "halberd": {
     "name": "Halberd",
     "damage": 2,
     "range": 1
   },
 
-  "crossbow0": {
+  "crossbow": {
     "name": "Crossbow",
     "damage": 3,
     "range": 6,
     "projectile": "bolt"
   },
 
-  "musket0": {
+  "musket": {
     "name": "Musket",
     "damage": 4,
     "range": 5,
     "projectile": "bullet"
   },
 
-  "rifle0": {
+  "rifle": {
     "name": "Rifle",
     "damage": 4,
     "range": 7,
     "projectile": "bullet"
   },
 
-  "dagger0": {
+  "dagger": {
     "name": "Dagger",
     "damage": 1,
     "range": 1
   },
 
-  "shield0": {
+  "shield": {
     "name": "Shield",
     "defense": 2
   }
