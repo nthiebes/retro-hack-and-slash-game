@@ -151,6 +151,14 @@ export default class Canvas {
         newY: unit.nextTile[1],
         unitId: unit.id
       });
+
+      // Turn enemy
+      if (this.player.pos[0] < xNext && unit.direction !== 'LEFT') {
+        unit.turn('LEFT');
+      }
+      if (this.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
+        unit.turn('RIGHT');
+      }
     }
 
     // Move top if next tile is above current
@@ -175,14 +183,6 @@ export default class Canvas {
 
     // End of an animation from tile to tile
     if (unit.currentStep === 1) {
-      // Turn enemy
-      if (this.player.pos[0] < xNext && unit.direction !== 'LEFT') {
-        unit.turn('LEFT');
-      }
-      if (this.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
-        unit.turn('RIGHT');
-      }
-
       // Remove the first tile in the array
       unit.path.splice(0, 1);
 

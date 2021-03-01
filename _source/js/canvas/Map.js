@@ -19,15 +19,6 @@ class Map {
     this.map[newY][newX] = unitId;
   }
 
-  resetPosition({ x, y, unitId }) {
-    const position = this.map[y][x];
-
-    // Delete old position
-    if (position === unitId) {
-      this.map[y][x] = 0;
-    }
-  }
-
   showDebugFields({ unit, ctx }) {
     const x = Math.floor(unit.pos[0]),
       y = Math.floor(unit.pos[1]),
