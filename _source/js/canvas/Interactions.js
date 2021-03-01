@@ -325,6 +325,7 @@ class Interactions {
     while (i--) {
       enemy = this.unitsList[i];
 
+      // Only enemies
       if (!enemy.id.includes('player')) {
         path1 = getPath({
           world: this.map.map,
@@ -339,6 +340,7 @@ class Interactions {
           unitId: enemy.id
         });
 
+        // Chooose best path
         if (
           (path1.length <= path2.length && path1.length !== 0) ||
           path2.length === 0
@@ -348,6 +350,7 @@ class Interactions {
           enemy.path = path2;
         }
 
+        // Check if next tile has not changed
         if (
           enemy.nextTile &&
           enemy.path.length > 1 &&
@@ -380,6 +383,15 @@ class Interactions {
             enemy.path = path1;
           } else {
             enemy.path = path2;
+          }
+
+          // Check for duplicate first tile
+          if (
+            enemy.path.length > 1 &&
+            enemy.path[0][0] === enemy.path[1][0] &&
+            enemy.path[0][1] === enemy.path[1][1]
+          ) {
+            enemy.path.splice(0, 1);
           }
         }
       }

@@ -130,9 +130,18 @@ export default class Canvas {
     const yPath = unit.tile[1];
 
     if (unit.currentStep === 20) {
-      unit.nextTile = path[1];
+      // Find new path if next tile is blocked
+      if (
+        path.length > 1 &&
+        this.map.map[path[1][1]][path[1][0]] !== 0 &&
+        this.map.map[path[1][1]][path[1][0]] !== unit.id
+      ) {
+        this.interactions.setPath(this.player);
+        return;
+      }
 
-      // console.log('start anim');
+      // Set next tile
+      unit.nextTile = path[1];
 
       // Update blocked position
       this.map.updatePosition({
@@ -184,17 +193,6 @@ export default class Canvas {
 
       // Reset to start animation for next tile
       unit.currentStep = unit.steps + 1;
-
-      // Find new path if next tile is blocked
-      if (
-        path.length > 1 &&
-        this.map.map[path[1][1]][path[1][0]] !== 0 &&
-        this.map.map[path[1][1]][path[1][0]] !== unit.id
-      ) {
-        // TODO: buggy
-        unit.tile = [xNext, yNext];
-        this.interactions.setPath(this.player);
-      }
 
       // Update next unit tile
       unit.tile = [xNext, yNext];
