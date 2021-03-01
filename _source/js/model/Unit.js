@@ -6,8 +6,8 @@ export default class Unit {
     this.moving = false;
     this.attacking = false;
     this.path = [];
-    this.steps = 20;
-    this.currentStep = 20;
+    this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
+    this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 
     for (const i in data) {
       if (data.hasOwnProperty(i)) {

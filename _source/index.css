@@ -49,11 +49,29 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   top: 50%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 .editor__button {
-  margin: 0 auto;
+  margin: 1rem auto;
   display: block;
+  background-color: silver;
+  padding: 1rem;
+}
+
+.attributes {
+  flex-grow: 1;
+  list-style: none;
+}
+
+.attribute--good {
+  color: green;
+}
+
+.attribute--bad {
+  color: red;
 }
 
 .race {

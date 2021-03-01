@@ -2,7 +2,7 @@ import config from '../config.js';
 import Units from '../view/Units.js';
 import { Interactions } from './Interactions.js';
 import { Map } from './Map.js';
-import { drawImage, drawSquare } from './utils.js';
+import { drawImage } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
@@ -122,14 +122,15 @@ export default class Canvas {
     let xNew = unit.pos[0],
       yNew = unit.pos[1];
     const centerOffset = 0.5;
-    const walkDistance = (1 / unit.steps) * -(unit.currentStep - 20);
+    const walkDistance = (1 / unit.steps) * -(unit.currentStep - unit.steps);
     const path = unit.path;
     const xNext = unit.nextTile ? unit.nextTile[0] : path[1][0];
     const yNext = unit.nextTile ? unit.nextTile[1] : path[1][1];
     const xPath = unit.tile[0];
     const yPath = unit.tile[1];
 
-    if (unit.currentStep === 20) {
+    // Start of animation from tile to tile
+    if (unit.currentStep === unit.steps) {
       // Find new path if next tile is blocked
       if (
         path.length > 1 &&

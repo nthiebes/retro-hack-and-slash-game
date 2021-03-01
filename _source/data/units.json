@@ -2,8 +2,8 @@
   "player": {
     "id": "player.596026",
     "friendly": true,
-    "name": "Nico",
-    "race": "human",
+    "name": "Gscheid",
+    "race": null,
     "skin": 0,
     "health": 100,
     "pos": [18, 6],
@@ -22,16 +22,16 @@
   "enemy": {
     "id": "enemy.2245555546",
     "friendly": false,
-    "name": "Orc warrior",
+    "name": "Ork Krieger",
     "race": "orc",
     "skin": 0,
     "health": 100,
     "pos": [20, 5],
-    "armor": "leather",
+    "armor": "none",
     "gear": {
       "head": 0,
-      "torso": 3,
-      "leg": 2
+      "torso": 0,
+      "leg": 0
     },
     "weapons": {
       "primary": "fist",
@@ -42,11 +42,11 @@
   "enemy2": {
     "id": "enemy.68333364",
     "friendly": false,
-    "name": "Naked warrior",
+    "name": "Elfen Bogenschütze",
     "race": "elf",
     "skin": 0,
     "health": 100,
-    "pos": [10, 6],
+    "pos": [25, 10],
     "armor": "none",
     "gear": {
       "head": 0,
