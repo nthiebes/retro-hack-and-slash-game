@@ -3,8 +3,7 @@
     "playerPositions": [[18, 6], [18, 10], [18, 14]],
     "itemPositions": [{
         "gear": "head",
-        "id": 1,
-        "type": "steel",
+        "id": "head1",
         "pos": [27, 4]
     }, {
         "weapon": "secondary",

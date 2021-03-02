@@ -7,11 +7,10 @@
     "skin": 0,
     "health": 100,
     "pos": [18, 6],
-    "armor": "none",
     "gear": {
-      "head": 0,
-      "torso": 0,
-      "leg": 0
+      "head": "head0",
+      "torso": "torso0",
+      "leg": "leg0"
     },
     "weapons": {
       "primary": "sword",
@@ -27,11 +26,10 @@
     "skin": 0,
     "health": 100,
     "pos": [20, 5],
-    "armor": "none",
     "gear": {
-      "head": 0,
-      "torso": 0,
-      "leg": 0
+      "head": "head0",
+      "torso": "torso0",
+      "leg": "leg0"
     },
     "weapons": {
       "primary": "fist",
@@ -47,11 +45,10 @@
     "skin": 0,
     "health": 100,
     "pos": [25, 10],
-    "armor": "none",
     "gear": {
-      "head": 0,
-      "torso": 0,
-      "leg": 0
+      "head": "head0",
+      "torso": "torso0",
+      "leg": "leg0"
     },
     "weapons": {
       "primary": "fist",

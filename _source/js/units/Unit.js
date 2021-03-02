@@ -141,18 +141,18 @@ export default class Unit {
     }
   }
 
-  equip({ gear, weapon, type, id }) {
+  equip({ gear, weapon, id }) {
     if (config.debug) {
       console.log('🛡');
     }
 
     if (gear) {
-      const newSpeed = getSpeed({ race: this.race, armor: type });
-
       this.gear[gear] = id;
-      this.armor = type;
+      this[gear].url = `images/armor/${id}.png`;
+
+      const newSpeed = getSpeed({ race: this.race, gear: this.gear });
+
       this.speed = newSpeed;
-      this[gear].url = `images/armor/${gear}${id}.png`;
       this.skin.speed = newSpeed;
       this.head.speed = newSpeed;
       this.leg.speed = newSpeed;

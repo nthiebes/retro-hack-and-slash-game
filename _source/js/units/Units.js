@@ -26,53 +26,55 @@ export class Units {
   }
 
   static addUnit(unit) {
+    const speed = getSpeed(unit);
+
     this.listData.push(
       new Unit(
         Object.assign({}, unit, {
           pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
           tile: unit.pos,
           range: GameData.weapons[unit.weapons.primary].range,
-          speed: getSpeed(unit),
+          speed,
           skin: new Sprite({
             url: `images/races/${unit.race}${unit.skin}.png`,
             pos: [0, 256],
             size: [128, 128],
-            speed: getSpeed(unit),
+            speed,
             frames: [0]
           }),
           head: new Sprite({
-            url: `images/armor/head${unit.gear.head}.png`,
+            url: `images/armor/${unit.gear.head}.png`,
             pos: [0, 256],
             size: [128, 128],
-            speed: getSpeed(unit),
+            speed,
             frames: [0]
           }),
           leg: new Sprite({
-            url: `images/armor/leg${unit.gear.leg}.png`,
+            url: `images/armor/${unit.gear.leg}.png`,
             pos: [0, 256],
             size: [128, 128],
-            speed: getSpeed(unit),
+            speed,
             frames: [0]
           }),
           torso: new Sprite({
-            url: `images/armor/torso${unit.gear.torso}.png`,
+            url: `images/armor/${unit.gear.torso}.png`,
             pos: [0, 256],
             size: [128, 128],
-            speed: getSpeed(unit),
+            speed,
             frames: [0]
           }),
           primary: new Sprite({
             url: `images/weapons/${unit.weapons.primary}.png`,
             pos: [0, 256],
             size: [128, 128],
-            speed: getSpeed(unit),
+            speed,
             frames: [0]
           }),
           secondary: new Sprite({
             url: `images/weapons/${unit.weapons.secondary}.png`,
             pos: [0, 256],
             size: [128, 128],
-            speed: getSpeed(unit),
+            speed,
             frames: [0]
           })
         }),
