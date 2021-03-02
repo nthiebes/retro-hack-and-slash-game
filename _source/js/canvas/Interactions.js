@@ -1,6 +1,6 @@
 import config from '../config.js';
 import Input from '../utils/Input.js';
-import { Units } from '../units/Units.js';
+import { Units } from '../units/units.js';
 import { getPath } from './path.js';
 
 class Interactions {
