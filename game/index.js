@@ -1,5 +1,5 @@
 import Resources from './js/utils/Resources.js';
-import { Editor } from './js/view/Editor.js';
+import { Character } from './js/view/Character.js';
 import { GameData } from './js/gameData.js';
 
 const gameData = {};
@@ -78,7 +78,7 @@ const getGameData = () => {
       gameData.units = units;
 
       // eslint-disable-next-line
-      const editor = new Editor({
+      const character = new Character({
         gameData,
         resources
       });

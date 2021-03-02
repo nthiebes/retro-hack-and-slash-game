@@ -1,7 +1,7 @@
 coverage/**/*.js
 maps
 *.yml
-_source/images
+game/images
 *.html
 package-lock.json
 *.md

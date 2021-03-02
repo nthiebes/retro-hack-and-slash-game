@@ -5,7 +5,7 @@
   "tabWidth": 2,
   "overrides": [
     {
-      "files": ["_source/**/*.css"],
+      "files": ["game/**/*.css"],
       "options": {
         "singleQuote": false
       }

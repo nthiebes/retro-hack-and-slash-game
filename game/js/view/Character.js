@@ -2,7 +2,7 @@ import Canvas from '../canvas/Canvas.js';
 
 const nextRaceBtn = document.getElementById('race-next');
 const prevRaceBtn = document.getElementById('race-prev');
-const editor = document.getElementById('editor');
+const character = document.getElementById('character');
 const raceImg = document.getElementById('race-img');
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
@@ -34,7 +34,7 @@ const attributesMap = {
   }
 };
 
-class Editor {
+class Character {
   constructor({ gameData, resources }) {
     this.gameData = gameData;
     this.resources = resources;
@@ -44,7 +44,7 @@ class Editor {
 
     nextRaceBtn.addEventListener('click', this.handleNextRace);
     prevRaceBtn.addEventListener('click', this.handlePrevRace);
-    editor.addEventListener('submit', this.startGame);
+    character.addEventListener('submit', this.startGame);
   }
 
   handleNextRace = () => {
@@ -127,8 +127,8 @@ class Editor {
       }
     });
 
-    editor.classList.add('editor--hide');
+    character.classList.add('character--hide');
   };
 }
 
-export { Editor };
+export { Character };
