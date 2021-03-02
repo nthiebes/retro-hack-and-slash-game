@@ -1,4 +1,5 @@
 import config from '../config.js';
+import { getSpeed } from '../utils/getSpeed.js';
 import Sprite from '../utils/Sprite.js';
 
 export default class Unit {
@@ -147,26 +148,24 @@ export default class Unit {
     }
 
     if (gear) {
+      const newSpeed = getSpeed({ race: this.race, armor: type });
+
       this.gear[gear] = id;
       this.armor = type;
-      this.head = new Sprite({
-        url: `images/armor/head${id}.png`,
-        pos: this.head.pos,
-        size: this.head.size,
-        speed: this.head.speed,
-        frames: this.head.frames
-      });
+      this.speed = newSpeed;
+      this[gear].url = `images/armor/${gear}${id}.png`;
+      this.skin.speed = newSpeed;
+      this.head.speed = newSpeed;
+      this.leg.speed = newSpeed;
+      this.torso.speed = newSpeed;
+      this.primary.speed = newSpeed;
+      this.secondary.speed = newSpeed;
     }
 
     if (weapon) {
       this.weapons[weapon] = id;
-      this[weapon] = new Sprite({
-        url: `images/weapons/${id}.png`,
-        pos: this.primary.pos,
-        size: this.primary.size,
-        speed: this.primary.speed,
-        frames: this.primary.frames
-      });
+
+      this[weapon].url = `images/weapons/${id}.png`;
     }
   }
 }

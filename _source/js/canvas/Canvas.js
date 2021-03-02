@@ -16,7 +16,7 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.units = new Units(data);
+    this.units = new Units(data.units);
     this.unitsList = this.units.list;
     this.playerSpeed = this.unitsList[0].speed;
     this.items = data.itemPositions;

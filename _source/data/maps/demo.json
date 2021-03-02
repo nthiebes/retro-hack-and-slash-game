@@ -4,7 +4,7 @@
     "itemPositions": [{
         "gear": "head",
         "id": 1,
-        "type": "leather",
+        "type": "steel",
         "pos": [27, 4]
     }, {
         "weapon": "secondary",

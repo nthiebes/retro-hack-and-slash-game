@@ -1,5 +1,6 @@
 import Resources from './js/utils/Resources.js';
 import { Editor } from './js/view/Editor.js';
+import { GameData } from './js/gameData.js';
 
 const gameData = {};
 const resources = new Resources();
@@ -58,17 +59,18 @@ const getGameData = () => {
     })
     .then((response) => response.json())
     .then((weapons) => {
-      gameData.weapons = weapons;
+      GameData.setWeapons(weapons);
       return fetch('data/armor.json');
     })
     .then((response) => response.json())
     .then((armor) => {
-      gameData.armor = armor;
+      GameData.setArmor(armor);
       return fetch('data/races.json');
     })
     .then((response) => response.json())
     .then((races) => {
       gameData.races = races;
+      GameData.setRaces(races);
       return fetch('data/units.json');
     })
     .then((response) => response.json())
