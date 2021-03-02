@@ -1,6 +1,5 @@
 import config from '../config.js';
 import { getSpeed } from '../utils/getSpeed.js';
-import Sprite from '../utils/Sprite.js';
 
 export default class Unit {
   constructor(data) {

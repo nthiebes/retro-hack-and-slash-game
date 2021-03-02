@@ -1,11 +1,13 @@
 import config from '../config.js';
-import Units from '../view/Units.js';
+import { Units } from '../view/Units.js';
 import { Interactions } from './Interactions.js';
 import { Map } from './Map.js';
 import { drawImage } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
+    Units.addUnits(data.units);
+
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
     this.top1 = data.map[2];
@@ -16,19 +18,13 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.units = new Units(data.units);
-    this.unitsList = this.units.list;
-    this.playerSpeed = this.unitsList[0].speed;
     this.items = data.itemPositions;
     this.map = new Map({
       map: this.blockedArr,
-      units: this.unitsList
+      units: Units.list
     });
-    this.player = this.unitsList[0];
     this.interactions = new Interactions({
-      unitsList: this.unitsList,
       map: this.map,
-      playerSpeed: this.playerSpeed,
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       fieldWidth: config.fieldWidth,
@@ -90,7 +86,7 @@ export default class Canvas {
   }
 
   updateEntities(delta) {
-    const unitsList = this.unitsList;
+    const unitsList = Units.list;
     let unit;
 
     for (let i = 0, length = unitsList.length; i < length; i++) {
@@ -144,7 +140,7 @@ export default class Canvas {
         this.map.map[path[1][1]][path[1][0]] !== 0 &&
         this.map.map[path[1][1]][path[1][0]] !== unit.id
       ) {
-        this.interactions.setPath(this.player);
+        this.interactions.setPath(Units.player);
         return;
       }
 
@@ -161,10 +157,10 @@ export default class Canvas {
       });
 
       // Turn enemy
-      if (this.player.pos[0] < xNext && unit.direction !== 'LEFT') {
+      if (Units.player.pos[0] < xNext && unit.direction !== 'LEFT') {
         unit.turn('LEFT');
       }
-      if (this.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
+      if (Units.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
         unit.turn('RIGHT');
       }
     }
@@ -212,9 +208,9 @@ export default class Canvas {
   }
 
   checkForHit() {
-    const unitsList = this.unitsList,
-      player = this.player;
-    let i = this.unitsList.length;
+    const unitsList = Units.list,
+      player = Units.player;
+    let i = Units.list.length;
 
     while (i--) {
       const unit = unitsList[i];
@@ -252,7 +248,7 @@ export default class Canvas {
   }
 
   render() {
-    const tempUnitList = this.getTempUnitList(this.unitsList);
+    const tempUnitList = this.getTempUnitList(Units.list);
 
     // Clear canvas hack
     // eslint-disable-next-line no-self-assign
@@ -280,7 +276,7 @@ export default class Canvas {
       this.map.showDebugFields({
         ctx: config.ctxAnim,
         unit: unit,
-        units: this.unitsList
+        units: Units.list
       });
     }
 

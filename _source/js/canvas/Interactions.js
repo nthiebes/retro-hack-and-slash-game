@@ -1,17 +1,15 @@
 import config from '../config.js';
 import Input from '../utils/Input.js';
+import { Units } from '../view/Units.js';
 import { getPath } from './path.js';
 
 class Interactions {
   constructor(data) {
     this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
-    this.unitsList = data.unitsList;
-    this.player = this.unitsList[0];
     this.offsetX = 0;
     this.offsetY = 0;
     this.map = data.map;
-    this.playerSpeed = data.playerSpeed;
     this.rowTileCount = data.rowTileCount;
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
@@ -37,7 +35,7 @@ class Interactions {
   }
 
   onMouseMove(e) {
-    const player = this.player;
+    const player = Units.player;
 
     if (player.attacking) {
       return;
@@ -73,20 +71,22 @@ class Interactions {
   }
 
   onMouseDown(e) {
+    const player = Units.player;
+
     // Left click
     if (e.button === 0) {
       const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
       const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
       const item = this.checkForItem({ x, y });
 
-      if (this.player.attacking) {
+      if (player.attacking) {
         // Continue animation
-        this.player.skin.once = false;
+        player.skin.once = false;
       } else if (item) {
-        this.player.equip(item);
+        player.equip(item);
       } else {
         // Start animation
-        this.player.attack();
+        player.attack();
       }
     }
   }
@@ -95,7 +95,7 @@ class Interactions {
     // Left click
     if (e.button === 0) {
       // Finish after current animation
-      this.player.skin.once = true;
+      Units.player.skin.once = true;
     }
   }
 
@@ -106,15 +106,15 @@ class Interactions {
       up = input.isDown('W'),
       right = input.isDown('D'),
       left = input.isDown('A'),
-      player = this.player,
-      playerSpeed = this.playerSpeed,
+      player = Units.player,
+      playerSpeed = player.speed,
       wrapper = this.wrapper;
     let valueX = this.offsetX,
       valueY = this.offsetY,
       blockedX = true,
       blockedY = true;
 
-    if (this.player.attacking) {
+    if (player.attacking) {
       return;
     }
 
@@ -326,8 +326,8 @@ class Interactions {
   }
 
   itemInRange({ x, y }) {
-    const playerX = Math.floor(this.player.pos[0]);
-    const playerY = Math.floor(this.player.pos[1]);
+    const playerX = Math.floor(Units.player.pos[0]);
+    const playerY = Math.floor(Units.player.pos[1]);
 
     if (
       (x === playerX + 1 && y === playerY) ||
@@ -346,19 +346,19 @@ class Interactions {
   }
 
   setPath() {
-    const player = this.player;
+    const player = Units.player;
     const playerPos1 = [
         Math.floor(player.pos[0] + 1),
         Math.floor(player.pos[1])
       ],
       playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
     let enemy,
-      i = this.unitsList.length,
+      i = Units.list.length,
       path1,
       path2;
 
     while (i--) {
-      enemy = this.unitsList[i];
+      enemy = Units.list[i];
 
       // Only enemies
       if (!enemy.id.includes('player')) {
