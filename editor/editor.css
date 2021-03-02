@@ -1,0 +1,39 @@
+@import '../game/styles/base.css';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-columns: auto 530px;
+  grid-template-rows: auto 15rem;
+  grid-template-areas:
+    'canvas tileset'
+    'meta tileset';
+}
+
+.canvas {
+  background-color: skyblue;
+  grid-area: canvas;
+}
+
+.tileset {
+  background-color: grey;
+  grid-area: tileset;
+  overflow-y: scroll;
+  border-left: 4px solid #fff;
+  padding-right: 14px;
+}
+
+.tileset__img {
+  width: 512px;
+  height: 3000px;
+}
+
+.meta {
+  background-color: rosybrown;
+  grid-area: meta;
+  border-top: 4px solid #fff;
+}
