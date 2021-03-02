@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { getSpeed } from '../utils/getSpeed.js';
+import { getSpeed } from './helpers.js';
 
 export default class Unit {
   constructor(data) {

@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { Units } from '../view/Units.js';
+import { Units } from '../units/Units.js';
 import { Interactions } from './Interactions.js';
 import { Map } from './Map.js';
 import { drawImage } from './utils.js';

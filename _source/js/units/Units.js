@@ -1,7 +1,7 @@
 import config from '../config.js';
-import { getSpeed } from '../utils/getSpeed.js';
+import { getSpeed } from './helpers.js';
 import Sprite from '../utils/Sprite.js';
-import Unit from '../model/Unit.js';
+import Unit from './Unit.js';
 import { GameData } from '../gameData.js';
 
 export class Units {
