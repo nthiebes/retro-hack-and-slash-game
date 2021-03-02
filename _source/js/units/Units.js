@@ -30,7 +30,8 @@ export class Units {
 
     this.listData.push(
       new Unit(
-        Object.assign({}, unit, {
+        {
+          ...unit,
           pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
           tile: unit.pos,
           range: GameData.weapons[unit.weapons.primary].range,
@@ -77,7 +78,7 @@ export class Units {
             speed,
             frames: [0]
           })
-        }),
+        },
         config.debug
       )
     );
