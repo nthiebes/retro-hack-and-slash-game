@@ -19,8 +19,6 @@ export default class Units {
           Object.assign({}, unit, {
             pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
             tile: unit.pos,
-            primary: data.weapons[unit.weapons.primary],
-            secondary: data.weapons[unit.weapons.secondary],
             range: data.weapons[unit.weapons.primary].range,
             speed: this.getSpeed(data, unit),
             skin: new Sprite({
@@ -46,6 +44,20 @@ export default class Units {
             }),
             torso: new Sprite({
               url: `images/armor/torso${unit.gear.torso}.png`,
+              pos: [0, 256],
+              size: [128, 128],
+              speed: this.getSpeed(data, unit),
+              frames: [0]
+            }),
+            primary: new Sprite({
+              url: `images/weapons/${unit.weapons.primary}.png`,
+              pos: [0, 256],
+              size: [128, 128],
+              speed: this.getSpeed(data, unit),
+              frames: [0]
+            }),
+            secondary: new Sprite({
+              url: `images/weapons/${unit.weapons.secondary}.png`,
               pos: [0, 256],
               size: [128, 128],
               speed: this.getSpeed(data, unit),

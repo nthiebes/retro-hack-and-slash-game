@@ -41,7 +41,12 @@ const resourcesList = [
   'images/armor/torso1.png',
   'images/armor/torso2.png',
   'images/armor/torso3.png',
-  'images/armor/torso4.png'
+  'images/armor/torso4.png',
+  'images/weapons/fist.png',
+  'images/weapons/sword.png',
+  'images/weapons/axe.png',
+  'images/weapons/spear.png',
+  'images/weapons/shield.png'
 ];
 const getGameData = () => {
   fetch('data/maps/demo.json')

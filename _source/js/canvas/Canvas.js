@@ -95,10 +95,12 @@ export default class Canvas {
 
     for (let i = 0, length = unitsList.length; i < length; i++) {
       unit = unitsList[i];
+      unit.secondary.update(delta);
       unit.skin.update(delta);
       unit.head.update(delta);
       unit.leg.update(delta);
       unit.torso.update(delta);
+      unit.primary.update(delta);
 
       // Continue walking
       if (unit.path.length > 1 && !unit.friendly) {
@@ -261,10 +263,12 @@ export default class Canvas {
   renderEntities(list) {
     for (let i = 0; i < list.length; i++) {
       this.renderEntity(list[i], [
+        list[i].secondary,
         list[i].skin,
         list[i].head,
         list[i].leg,
-        list[i].torso
+        list[i].torso,
+        list[i].primary
       ]);
     }
   }

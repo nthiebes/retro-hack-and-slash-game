@@ -7,7 +7,8 @@
         "type": "leather",
         "pos": [27, 4]
     }, {
-        "id": "sword",
+        "weapon": "secondary",
+        "id": "shield",
         "pos": [30, 4]
     }],
     "map": [[

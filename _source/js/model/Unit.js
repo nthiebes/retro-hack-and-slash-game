@@ -28,6 +28,8 @@ export default class Unit {
         this.head.pos = [0, 128];
         this.leg.pos = [0, 128];
         this.torso.pos = [0, 128];
+        this.primary.pos = [0, 128];
+        this.secondary.pos = [0, 128];
         break;
 
       default:
@@ -35,12 +37,16 @@ export default class Unit {
         this.head.pos = [0, 0];
         this.leg.pos = [0, 0];
         this.torso.pos = [0, 0];
+        this.primary.pos = [0, 0];
+        this.secondary.pos = [0, 0];
     }
 
     this.skin.frames = [0, 1, 2, 3];
     this.head.frames = [0, 1, 2, 3];
     this.leg.frames = [0, 1, 2, 3];
     this.torso.frames = [0, 1, 2, 3];
+    this.primary.frames = [0, 1, 2, 3];
+    this.secondary.frames = [0, 1, 2, 3];
     this.moving = true;
   }
 
@@ -55,6 +61,8 @@ export default class Unit {
         this.head.pos = [0, 384];
         this.leg.pos = [0, 384];
         this.torso.pos = [0, 384];
+        this.primary.pos = [0, 384];
+        this.secondary.pos = [0, 384];
         break;
 
       default:
@@ -62,6 +70,8 @@ export default class Unit {
         this.head.pos = [0, 256];
         this.leg.pos = [0, 256];
         this.torso.pos = [0, 256];
+        this.primary.pos = [0, 256];
+        this.secondary.pos = [0, 256];
     }
 
     this.skin.frames = [0, 1, 2];
@@ -72,6 +82,10 @@ export default class Unit {
     this.leg.index = 0;
     this.torso.frames = [0, 1, 2];
     this.torso.index = 0;
+    this.primary.frames = [0, 1, 2];
+    this.primary.index = 0;
+    this.secondary.frames = [0, 1, 2];
+    this.secondary.index = 0;
     this.moving = false;
     this.attacking = true;
   }
@@ -96,6 +110,8 @@ export default class Unit {
     this.head.frames = [0];
     this.leg.frames = [0];
     this.torso.frames = [0];
+    this.primary.frames = [0];
+    this.secondary.frames = [0];
   }
 
   turn(direction) {
@@ -109,6 +125,8 @@ export default class Unit {
         this.head.pos = [0, 384];
         this.leg.pos = [0, 384];
         this.torso.pos = [0, 384];
+        this.primary.pos = [0, 384];
+        this.secondary.pos = [0, 384];
         this.direction = 'LEFT';
         break;
 
@@ -117,11 +135,13 @@ export default class Unit {
         this.head.pos = [0, 256];
         this.leg.pos = [0, 256];
         this.torso.pos = [0, 256];
+        this.primary.pos = [0, 256];
+        this.secondary.pos = [0, 256];
         this.direction = 'RIGHT';
     }
   }
 
-  equip({ gear, type, id }) {
+  equip({ gear, weapon, type, id }) {
     if (config.debug) {
       console.log('🛡');
     }
@@ -131,10 +151,21 @@ export default class Unit {
       this.armor = type;
       this.head = new Sprite({
         url: `images/armor/head${id}.png`,
-        pos: [0, this.direction === 'LEFT' ? 384 : 256],
-        size: [128, 128],
+        pos: this.head.pos,
+        size: this.head.size,
         speed: this.head.speed,
-        frames: [0]
+        frames: this.head.frames
+      });
+    }
+
+    if (weapon) {
+      this.weapons[weapon] = id;
+      this[weapon] = new Sprite({
+        url: `images/weapons/${id}.png`,
+        pos: this.primary.pos,
+        size: this.primary.size,
+        speed: this.primary.speed,
+        frames: this.primary.frames
       });
     }
   }
