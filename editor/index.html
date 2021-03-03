@@ -9,18 +9,36 @@
 </head>
 
 <body ontouchstart="">
+  <header class="toolbar">
+    <div class="layer" id="layer">
+      <button class="layer__button layer__button--active" id="ground1">Unten 1</button>
+      <button class="layer__button" id="ground2">Unten 2</button>
+      <button class="layer__button" id="anim">Animationen</button>
+      <button class="layer__button" id="top1">Oben 1</button>
+    </div>
+  </header>
   <main class="canvas" id="canvas-wrapper">
     <canvas id="canvas-ground1"></canvas>
     <canvas id="canvas-ground2"></canvas>
     <canvas id="canvas-anim"></canvas>
     <canvas id="canvas-top1"></canvas>
     <canvas id="canvas-blocked"></canvas>
+    <div id="map-tile" class="canvas__active"></div>
+    <form class="new-map" id="new-map">
+      <h1>Neue Karte</h1>
+      <label for="size">Größe:</label>
+      <input name="size" id="size" type="number" required min="0" value="20" />
+      <button>Erstellen</button>
+    </form>
   </main>
   <aside class="tileset">
-    <img class="tileset__img" src="../game/images/tileset.png" />
+    <img id="tileset" class="tileset__img" src="../game/images/tileset.png" />
+    <div id="tileset-tile" class="tileset__active"></div>
   </aside>
   <footer class="meta">
-    
+    <label for="name">Name:</label>
+    <input id="name" type="text" />
+    <button>Karte generieren</button>
   </footer>
 
   <script src="editor.js" type="module" async></script>

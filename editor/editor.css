@@ -6,10 +6,12 @@ body {
 }
 
 body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
   display: grid;
   grid-template-columns: auto 530px;
-  grid-template-rows: auto 15rem;
+  grid-template-rows: 54px auto 15rem;
   grid-template-areas:
+    'toolbar tileset'
     'canvas tileset'
     'meta tileset';
 }
@@ -17,6 +19,14 @@ body {
 .canvas {
   background-color: skyblue;
   grid-area: canvas;
+  position: relative;
+  overflow: scroll;
+}
+
+.toolbar {
+  grid-area: toolbar;
+  background-color: darkseagreen;
+  border-bottom: 4px solid #fff;
 }
 
 .tileset {
@@ -25,6 +35,7 @@ body {
   overflow-y: scroll;
   border-left: 4px solid #fff;
   padding-right: 14px;
+  position: relative;
 }
 
 .tileset__img {
@@ -32,8 +43,84 @@ body {
   height: 3000px;
 }
 
+.tileset__active,
+.canvas__active {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  border: 2px solid #fff;
+  background-color: rgba(255, 255, 255, 0.3);
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.canvas__active {
+  display: none;
+}
+
+.canvas__active--show {
+  display: block;
+}
+
 .meta {
   background-color: rosybrown;
   grid-area: meta;
   border-top: 4px solid #fff;
+  padding: 1rem;
+}
+
+.new-map {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: wheat;
+  padding: 1rem;
+  border: 4px solid #fff;
+}
+
+.new-map--hide {
+  display: none;
+}
+
+.layer {
+  display: none;
+  position: absolute;
+}
+
+.layer--show {
+  display: flex;
+}
+
+.layer__button {
+  margin: 0.5rem;
+}
+
+.layer__button--active {
+  margin: 0.5rem;
+  outline: 2px solid #000;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  padding: 0.5rem;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+}
+
+h1 {
+  margin-bottom: 1rem;
 }
