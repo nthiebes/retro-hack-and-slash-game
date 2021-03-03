@@ -56,7 +56,7 @@ export default class Sprite {
       x += frame * this.size[0];
     }
 
-    // If it is done and it has to run once, we dont update
+    // If it is done and it has to run once, don't update
     if (!(this.done && this.once)) {
       ctx.drawImage(
         resources.get(this.url),

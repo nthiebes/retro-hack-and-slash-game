@@ -1,14 +1,17 @@
 import Resources from '../game/js/utils/Resources.js';
 import config from '../game/js/config.js';
-import { drawImage } from '../game/js/canvas/utils.js';
+import { drawImage, drawSquare } from '../game/js/canvas/utils.js';
 
 const newMapForm = document.getElementById('new-map');
 const canvasWrapper = document.getElementById('canvas-wrapper');
 const layer = document.getElementById('layer');
 const ground1 = document.getElementById('ground1');
 const ground2 = document.getElementById('ground2');
-const anim = document.getElementById('anim');
+// const anim = document.getElementById('anim');
 const top1 = document.getElementById('top1');
+const blocked = document.getElementById('blocked');
+const blockedCanvas = document.getElementById('canvas-blocked');
+const ctxBlocked = blockedCanvas.getContext('2d');
 const canvas = document.querySelectorAll('canvas');
 const size = document.getElementById('size');
 const tileset = document.getElementById('tileset');
@@ -22,7 +25,7 @@ class Editor {
     this.ground1 = data.map.map[0];
     this.ground2 = data.map.map[1];
     this.top1 = data.map.map[2];
-    this.anim = data.map.map[3];
+    this.blocked = data.map.map[3];
     this.rowTileCount = this.ground1.length;
     this.colTileCount = this.ground1[0].length;
     this.resources = data.resources;
@@ -30,16 +33,16 @@ class Editor {
     this.lastTime = Date.now();
     this.gameTime = 0;
     this.tileNumber = 0;
-    this.activeLayer = 'ground1';
     this.mousePressed = false;
     this.x = 0;
     this.y = 0;
+    this.activeLayer = 'ground1';
 
     activeMapTile.classList.add('canvas__active--show');
 
     this.drawMapLayers();
-    this.gameLoop();
     this.addEventListeners();
+    // this.gameLoop();
   }
 
   drawMapLayers() {
@@ -48,6 +51,12 @@ class Editor {
       canvas[i].height = this.rowTileCount * config.fieldWidth;
     }
 
+    this.drawGround1();
+    this.drawGround2();
+    this.drawTop1();
+  }
+
+  drawGround1() {
     drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
@@ -55,6 +64,9 @@ class Editor {
       ctx: config.ctxGround1,
       array: this.ground1
     });
+  }
+
+  drawGround2() {
     drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
@@ -62,6 +74,9 @@ class Editor {
       ctx: config.ctxGround2,
       array: this.ground2
     });
+  }
+
+  drawTop1() {
     drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
@@ -69,6 +84,44 @@ class Editor {
       ctx: config.ctxTop1,
       array: this.top1
     });
+  }
+
+  drawBlocked() {
+    // eslint-disable-next-line no-self-assign
+    blockedCanvas.width = blockedCanvas.width;
+
+    for (let r = 0; r < this.blocked.length; r++) {
+      for (let c = 0; c < this.blocked[0].length; c++) {
+        if (this.blocked[r][c] !== 0) {
+          drawSquare({
+            ctx: ctxBlocked,
+            color: 'rgba(0,0,0,0.5)',
+            width: config.fieldWidth,
+            height: config.fieldWidth,
+            x: c * config.fieldWidth,
+            y: r * config.fieldWidth
+          });
+        }
+      }
+    }
+  }
+
+  drawActiveLayer() {
+    if (this.activeLayer === 'ground1') {
+      this.drawGround1();
+    }
+
+    if (this.activeLayer === 'ground2') {
+      this.drawGround2();
+    }
+
+    if (this.activeLayer === 'top1') {
+      this.drawTop1();
+    }
+
+    if (this.activeLayer === 'blocked') {
+      this.drawBlocked();
+    }
   }
 
   addEventListeners() {
@@ -89,9 +142,11 @@ class Editor {
       const offsetY = event.offsetY;
       const x = Math.floor(offsetX / config.fieldWidth);
       const y = Math.floor(offsetY / config.fieldWidth);
+      const blockedId = this[this.activeLayer][y][x] === 5 ? 0 : 5;
 
-      this[this.activeLayer][y][x] = this.tileNumber;
-      this.drawMapLayers();
+      this[this.activeLayer][y][x] =
+        this.activeLayer === 'blocked' ? blockedId : this.tileNumber;
+      this.drawActiveLayer();
     });
 
     canvasWrapper.addEventListener('mousedown', () => {
@@ -109,10 +164,13 @@ class Editor {
       const y = Math.floor(offsetY / config.fieldWidth);
 
       if (this.mousePressed && (x !== this.x || y !== this.y)) {
+        const blockedId = this[this.activeLayer][y][x] === 5 ? 0 : 5;
+
         this.x = x;
         this.y = y;
-        this[this.activeLayer][y][x] = this.tileNumber;
-        this.drawMapLayers();
+        this[this.activeLayer][y][x] =
+          this.activeLayer === 'blocked' ? blockedId : this.tileNumber;
+        this.drawActiveLayer();
       }
 
       activeMapTile.style.left = `${x * config.fieldWidth}px`;
@@ -121,8 +179,9 @@ class Editor {
 
     ground1.addEventListener('click', this.handleLayerClick);
     ground2.addEventListener('click', this.handleLayerClick);
-    anim.addEventListener('click', this.handleLayerClick);
+    // anim.addEventListener('click', this.handleLayerClick);
     top1.addEventListener('click', this.handleLayerClick);
+    blocked.addEventListener('click', this.handleBlockedClick);
   }
 
   handleLayerClick = (event) => {
@@ -132,7 +191,14 @@ class Editor {
     event.stopPropagation();
     oldLayer.classList.remove('layer__button--active');
     newLayer.classList.add('layer__button--active');
+    blockedCanvas.classList.add('canvas__layer--hide');
     this.activeLayer = newLayer.id;
+  };
+
+  handleBlockedClick = (event) => {
+    this.handleLayerClick(event);
+
+    blockedCanvas.classList.remove('canvas__layer--hide');
   };
 
   gameLoop() {
@@ -167,7 +233,13 @@ window.onload = () => {
       const mapGround1 = new Array(mapSize)
         .fill(0)
         .map(() => new Array(mapSize).fill(1));
-      const map = new Array(mapSize)
+      const mapGround2 = new Array(mapSize)
+        .fill(0)
+        .map(() => new Array(mapSize).fill(0));
+      const mapTop1 = new Array(mapSize)
+        .fill(0)
+        .map(() => new Array(mapSize).fill(0));
+      const mapBlocked = new Array(mapSize)
         .fill(0)
         .map(() => new Array(mapSize).fill(0));
 
@@ -180,7 +252,7 @@ window.onload = () => {
         resources,
         map: {
           name: '',
-          map: [mapGround1, map, map, map]
+          map: [mapGround1, mapGround2, mapTop1, mapBlocked]
         }
       });
     });

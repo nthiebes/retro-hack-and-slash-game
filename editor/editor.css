@@ -23,6 +23,10 @@ body {
   overflow: scroll;
 }
 
+.canvas__layer--hide {
+  display: none;
+}
+
 .toolbar {
   grid-area: toolbar;
   background-color: darkseagreen;
