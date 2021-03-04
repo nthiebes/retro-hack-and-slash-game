@@ -4,31 +4,35 @@ import Sprite from '../utils/Sprite.js';
 import Unit from './Unit.js';
 import { GameData } from '../gameData.js';
 
+const listData = [];
+
 export class Units {
   static get list() {
-    return this.listData;
+    return listData;
   }
 
   static get player() {
-    return this.listData[0];
+    return listData[0];
   }
 
-  static addUnits(units) {
-    const keys = Object.keys(units);
+  static addUnits(player, enemies) {
+    this.addUnit(player);
 
-    this.listData = [];
+    for (let i = 0; i < enemies.length; i++) {
+      const enemy = enemies[i];
+      const unitData = GameData.enemies.list.find(({ id }) => id === enemy.id);
 
-    for (let i = 0; i < keys.length; i++) {
-      const unit = units[keys[i]];
-
-      this.addUnit(unit);
+      this.addUnit({
+        ...unitData,
+        pos: enemy.pos
+      });
     }
   }
 
   static addUnit(unit) {
     const speed = getSpeed(unit);
 
-    this.listData.push(
+    listData.push(
       new Unit(
         {
           ...unit,

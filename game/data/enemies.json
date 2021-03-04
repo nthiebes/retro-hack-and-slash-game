@@ -1,0 +1,38 @@
+{
+  "list": [
+    {
+      "id": "enemy.2245555546",
+      "friendly": false,
+      "name": "Ork Krieger",
+      "race": "orc",
+      "skin": 0,
+      "health": 100,
+      "gear": {
+        "head": "head0",
+        "torso": "torso0",
+        "leg": "leg0"
+      },
+      "weapons": {
+        "primary": "fist",
+        "secondary": "fist"
+      }
+    },
+    {
+      "id": "enemy.68333364",
+      "friendly": false,
+      "name": "Elfen Bogenschütze",
+      "race": "elf",
+      "skin": 0,
+      "health": 100,
+      "gear": {
+        "head": "head0",
+        "torso": "torso0",
+        "leg": "leg0"
+      },
+      "weapons": {
+        "primary": "fist",
+        "secondary": "fist"
+      }
+    }
+  ]
+}

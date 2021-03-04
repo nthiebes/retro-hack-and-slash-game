@@ -114,16 +114,32 @@ class Character {
   startGame = (event) => {
     event.preventDefault();
 
+    const player = {
+      id: 'player.596026',
+      friendly: true,
+      name: 'Gscheid',
+      race: null,
+      skin: 0,
+      health: 100,
+      pos: [18, 6],
+      gear: {
+        head: 'head0',
+        torso: 'torso0',
+        leg: 'leg0'
+      },
+      weapons: {
+        primary: 'sword',
+        secondary: 'fist'
+      }
+    };
+
     // eslint-disable-next-line
     const game = new Canvas({
       ...this.gameData,
       resources: this.resources,
-      units: {
-        ...this.gameData.units,
-        player: {
-          ...this.gameData.units.player,
-          race: this.races[this.currentRace][0]
-        }
+      player: {
+        ...player,
+        race: this.races[this.currentRace][0]
       }
     });
 

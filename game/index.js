@@ -73,11 +73,11 @@ const getGameData = () => {
     .then((races) => {
       gameData.races = races;
       GameData.setRaces(races);
-      return fetch('data/units.json');
+      return fetch('data/enemies.json');
     })
     .then((response) => response.json())
-    .then((units) => {
-      gameData.units = units;
+    .then((enemies) => {
+      GameData.setEnemies(enemies);
 
       // eslint-disable-next-line
       const character = new Character({

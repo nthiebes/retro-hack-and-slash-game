@@ -11,6 +11,10 @@ export class GameData {
     this.racesData = data;
   }
 
+  static setEnemies(data) {
+    this.enemiesData = data;
+  }
+
   static get weapons() {
     return this.weaponsData;
   }
@@ -21,5 +25,9 @@ export class GameData {
 
   static get races() {
     return this.racesData;
+  }
+
+  static get enemies() {
+    return this.enemiesData;
   }
 }
