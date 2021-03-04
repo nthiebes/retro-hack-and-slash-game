@@ -12,11 +12,24 @@ const top1 = document.getElementById('top1');
 const blocked = document.getElementById('blocked');
 const blockedCanvas = document.getElementById('canvas-blocked');
 const ctxBlocked = blockedCanvas.getContext('2d');
+const events = document.getElementById('events');
+const eventsCanvas = document.getElementById('canvas-events');
+const ctxEvents = eventsCanvas.getContext('2d');
 const canvas = document.querySelectorAll('canvas');
 const size = document.getElementById('size');
 const tileset = document.getElementById('tileset');
 const activeTilesetTile = document.getElementById('tileset-tile');
 const activeMapTile = document.getElementById('map-tile');
+const mapJson = document.getElementById('map-json');
+const generate = document.getElementById('generate');
+const name = document.getElementById('name');
+const blockedTiles = document.getElementById('blocked-tiles');
+const eventTiles = document.getElementById('event');
+const opaque = document.getElementById('opaque');
+const obscure = document.getElementById('obscure');
+const eventPlayer = document.getElementById('event-player');
+const eventEnemy = document.getElementById('event-enemy');
+const eventItem = document.getElementById('event-item');
 const resources = new Resources();
 const resourcesList = ['../game/images/tileset.png'];
 
@@ -37,6 +50,9 @@ class Editor {
     this.x = 0;
     this.y = 0;
     this.activeLayer = 'ground1';
+    this.activeEvent = 'player';
+    this.blockedType = 'opaque';
+    this.playerList = [];
 
     activeMapTile.classList.add('canvas__active--show');
 
@@ -57,6 +73,9 @@ class Editor {
   }
 
   drawGround1() {
+    // eslint-disable-next-line no-self-assign
+    config.canvasGround1.width = config.canvasGround1.width;
+
     drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
@@ -67,6 +86,9 @@ class Editor {
   }
 
   drawGround2() {
+    // eslint-disable-next-line no-self-assign
+    config.canvasGround2.width = config.canvasGround2.width;
+
     drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
@@ -77,6 +99,9 @@ class Editor {
   }
 
   drawTop1() {
+    // eslint-disable-next-line no-self-assign
+    config.canvasTop1.width = config.canvasTop1.width;
+
     drawImage({
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
@@ -95,7 +120,10 @@ class Editor {
         if (this.blocked[r][c] !== 0) {
           drawSquare({
             ctx: ctxBlocked,
-            color: 'rgba(0,0,0,0.5)',
+            color:
+              this.blocked[r][c] === 1
+                ? 'rgba(255,255,255,0.5)'
+                : 'rgba(0,0,0,0.5)',
             width: config.fieldWidth,
             height: config.fieldWidth,
             x: c * config.fieldWidth,
@@ -103,6 +131,24 @@ class Editor {
           });
         }
       }
+    }
+  }
+
+  drawEvents() {
+    // eslint-disable-next-line no-self-assign
+    eventsCanvas.width = eventsCanvas.width;
+
+    for (let i = 0; i < this.playerList.length; i++) {
+      const item = this.playerList[i];
+
+      drawSquare({
+        ctx: ctxEvents,
+        color: 'rgba(0,255,0,0.5)',
+        width: config.fieldWidth,
+        height: config.fieldWidth,
+        x: item[0] * config.fieldWidth,
+        y: item[1] * config.fieldWidth
+      });
     }
   }
 
@@ -122,7 +168,37 @@ class Editor {
     if (this.activeLayer === 'blocked') {
       this.drawBlocked();
     }
+
+    if (this.activeLayer === 'events') {
+      this.drawEvents();
+    }
   }
+
+  paintTile = (x, y) => {
+    if (this.activeLayer === 'blocked') {
+      if (this[this.activeLayer][y][x] === 0) {
+        this[this.activeLayer][y][x] = this.blockedType === 'opaque' ? 1 : 2;
+      } else {
+        this[this.activeLayer][y][x] = 0;
+      }
+    } else if (this.activeLayer === 'events') {
+      if (this.activeEvent === 'player') {
+        const playerIndex = this.playerList.findIndex(
+          (player) => player[0] === x && player[1] === y
+        );
+
+        if (playerIndex === -1) {
+          this.playerList.push([x, y]);
+        } else {
+          this.playerList.splice(playerIndex, 1);
+        }
+      }
+    } else {
+      this[this.activeLayer][y][x] = this.tileNumber;
+    }
+
+    this.drawActiveLayer();
+  };
 
   addEventListeners() {
     tileset.addEventListener('click', (event) => {
@@ -142,11 +218,8 @@ class Editor {
       const offsetY = event.offsetY;
       const x = Math.floor(offsetX / config.fieldWidth);
       const y = Math.floor(offsetY / config.fieldWidth);
-      const blockedId = this[this.activeLayer][y][x] === 5 ? 0 : 5;
 
-      this[this.activeLayer][y][x] =
-        this.activeLayer === 'blocked' ? blockedId : this.tileNumber;
-      this.drawActiveLayer();
+      this.paintTile(x, y);
     });
 
     canvasWrapper.addEventListener('mousedown', () => {
@@ -163,26 +236,85 @@ class Editor {
       const x = Math.floor(offsetX / config.fieldWidth);
       const y = Math.floor(offsetY / config.fieldWidth);
 
-      if (this.mousePressed && (x !== this.x || y !== this.y)) {
-        const blockedId = this[this.activeLayer][y][x] === 5 ? 0 : 5;
-
+      if (
+        this.mousePressed &&
+        this.activeLayer !== 'events' &&
+        (x !== this.x || y !== this.y)
+      ) {
         this.x = x;
         this.y = y;
-        this[this.activeLayer][y][x] =
-          this.activeLayer === 'blocked' ? blockedId : this.tileNumber;
-        this.drawActiveLayer();
+        this.paintTile(x, y);
       }
 
       activeMapTile.style.left = `${x * config.fieldWidth}px`;
       activeMapTile.style.top = `${y * config.fieldWidth}px`;
     });
 
-    ground1.addEventListener('click', this.handleLayerClick);
-    ground2.addEventListener('click', this.handleLayerClick);
+    ground1.addEventListener('click', this.handleGround1Click);
+    ground2.addEventListener('click', this.handleGround2Click);
     // anim.addEventListener('click', this.handleLayerClick);
-    top1.addEventListener('click', this.handleLayerClick);
+    top1.addEventListener('click', this.handleTop1Click);
+    events.addEventListener('click', this.handleEventsClick);
     blocked.addEventListener('click', this.handleBlockedClick);
+
+    generate.addEventListener('submit', this.generateMap);
+    obscure.addEventListener('click', this.handleObscure);
+    opaque.addEventListener('click', this.handleOpaque);
+    eventPlayer.addEventListener('click', this.handleEvent);
+    eventEnemy.addEventListener('click', this.handleEvent);
+    eventItem.addEventListener('click', this.handleEvent);
   }
+
+  handleEvent = (event) => {
+    const id = event.target.id;
+
+    eventPlayer.classList.remove('event__item--active');
+    eventEnemy.classList.remove('event__item--active');
+    eventItem.classList.remove('event__item--active');
+
+    if (id === 'event-player') {
+      eventPlayer.classList.add('event__item--active');
+      this.activeEvent = 'player';
+    }
+    if (id === 'event-enemy') {
+      eventEnemy.classList.add('event__item--active');
+      this.activeEvent = 'enemy';
+    }
+    if (id === 'event-item') {
+      eventItem.classList.add('event__item--active');
+      this.activeEvent = 'item';
+    }
+  };
+
+  generateMap = (event) => {
+    const map = {
+      name: name.value,
+      players: this.playerList,
+      enemies: [],
+      items: [],
+      map: [this.ground1, this.ground2, this.top1, this.blocked]
+    };
+    const mapString = JSON.stringify(map);
+
+    event.preventDefault();
+
+    mapJson.value = mapString;
+    navigator.clipboard.writeText(mapString);
+  };
+
+  handleObscure = () => {
+    opaque.classList.remove('blocked-tiles__tile--active');
+    obscure.classList.add('blocked-tiles__tile--active');
+
+    this.blockedType = 'obscure';
+  };
+
+  handleOpaque = () => {
+    opaque.classList.add('blocked-tiles__tile--active');
+    obscure.classList.remove('blocked-tiles__tile--active');
+
+    this.blockedType = 'opaque';
+  };
 
   handleLayerClick = (event) => {
     const newLayer = event.target;
@@ -191,14 +323,55 @@ class Editor {
     event.stopPropagation();
     oldLayer.classList.remove('layer__button--active');
     newLayer.classList.add('layer__button--active');
-    blockedCanvas.classList.add('canvas__layer--hide');
+    config.canvasGround1.classList.add('canvas__layer--show');
+    config.canvasGround2.classList.add('canvas__layer--show');
+    config.canvasTop1.classList.add('canvas__layer--show');
+    eventsCanvas.classList.add('canvas__layer--show');
+    blockedCanvas.classList.add('canvas__layer--show');
+    tileset.classList.remove('tileset--show');
+    eventTiles.classList.remove('event--show');
+    blockedTiles.classList.remove('blocked-tiles--show');
     this.activeLayer = newLayer.id;
+  };
+
+  handleGround1Click = (event) => {
+    this.handleLayerClick(event);
+
+    config.canvasGround2.classList.remove('canvas__layer--show');
+    config.canvasTop1.classList.remove('canvas__layer--show');
+    eventsCanvas.classList.remove('canvas__layer--show');
+    blockedCanvas.classList.remove('canvas__layer--show');
+    tileset.classList.add('tileset--show');
+  };
+
+  handleGround2Click = (event) => {
+    this.handleLayerClick(event);
+
+    config.canvasTop1.classList.remove('canvas__layer--show');
+    eventsCanvas.classList.remove('canvas__layer--show');
+    blockedCanvas.classList.remove('canvas__layer--show');
+    tileset.classList.add('tileset--show');
+  };
+
+  handleTop1Click = (event) => {
+    this.handleLayerClick(event);
+
+    eventsCanvas.classList.remove('canvas__layer--show');
+    blockedCanvas.classList.remove('canvas__layer--show');
+    tileset.classList.add('tileset--show');
+  };
+
+  handleEventsClick = (event) => {
+    this.handleLayerClick(event);
+
+    blockedCanvas.classList.remove('canvas__layer--show');
+    eventTiles.classList.add('event--show');
   };
 
   handleBlockedClick = (event) => {
     this.handleLayerClick(event);
 
-    blockedCanvas.classList.remove('canvas__layer--hide');
+    blockedTiles.classList.add('blocked-tiles--show');
   };
 
   gameLoop() {

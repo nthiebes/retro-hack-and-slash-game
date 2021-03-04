@@ -1,7 +1,7 @@
 {
     "name": "Demo Karte",
-    "playerPositions": [[18, 6], [18, 10], [18, 14]],
-    "itemPositions": [{
+    "players": [[18, 6], [18, 10], [18, 14]],
+    "items": [{
         "gear": "head",
         "id": "head1",
         "pos": [27, 4]

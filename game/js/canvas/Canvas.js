@@ -18,7 +18,7 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.items = data.itemPositions;
+    this.items = data.items;
     this.map = new Map({
       map: this.blockedArr,
       units: Units.list
