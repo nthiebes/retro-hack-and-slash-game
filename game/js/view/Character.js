@@ -139,7 +139,8 @@ class Character {
       resources: this.resources,
       player: {
         ...player,
-        race: this.races[this.currentRace][0]
+        race: this.races[this.currentRace][0],
+        pos: this.gameData.players[0]
       }
     });
 

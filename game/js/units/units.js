@@ -15,7 +15,7 @@ export class Units {
     return listData[0];
   }
 
-  static addUnits(player, enemies) {
+  static addUnits({ player, enemies }) {
     this.addUnit(player);
 
     for (let i = 0; i < enemies.length; i++) {

@@ -6,7 +6,7 @@ import { drawImage } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
-    Units.addUnits(data.player, data.enemies);
+    Units.addUnits({ player: data.player, enemies: data.enemies });
 
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
