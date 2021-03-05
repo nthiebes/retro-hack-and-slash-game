@@ -175,7 +175,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   padding: 0.5rem;
   font-size: 16px;
   display: block;

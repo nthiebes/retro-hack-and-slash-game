@@ -35,6 +35,7 @@ const enemyOptions = document.getElementById('event-options-enemy');
 const itemOptions = document.getElementById('event-options-item');
 const itemIds = document.getElementById('item-ids');
 const loadButton = document.getElementById('load-map');
+const ground = document.getElementById('ground');
 const resources = new Resources();
 const resourcesList = ['../game/images/tileset.png'];
 let enemies = [];
@@ -462,18 +463,31 @@ window.onload = () => {
     });
     newMapForm.addEventListener('submit', (event) => {
       const mapSize = Number(size.value);
+      const groundValue = Number(ground.value);
       const mapGround1 = new Array(mapSize)
         .fill(0)
-        .map(() => new Array(mapSize).fill(1));
+        .map(() => new Array(mapSize).fill(groundValue));
       const mapGround2 = new Array(mapSize)
         .fill(0)
         .map(() => new Array(mapSize).fill(0));
       const mapTop1 = new Array(mapSize)
         .fill(0)
         .map(() => new Array(mapSize).fill(0));
-      const mapBlocked = new Array(mapSize)
-        .fill(0)
-        .map(() => new Array(mapSize).fill(0));
+      let mapBlocked = new Array(mapSize).fill(0);
+
+      mapBlocked = mapBlocked.map((_, index) => {
+        if (index === 0 || index === mapBlocked.length - 1) {
+          return new Array(mapSize).fill(2);
+        }
+        const innerBlocked = new Array(mapSize).fill(0);
+
+        return innerBlocked.map((value, i) => {
+          if (i === 0 || i === innerBlocked.length - 1) {
+            return 2;
+          }
+          return value;
+        });
+      });
 
       event.preventDefault();
       newMapForm.classList.add('new-map--hide');
