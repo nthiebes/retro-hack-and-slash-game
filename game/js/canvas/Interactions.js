@@ -13,8 +13,6 @@ class Interactions {
     this.rowTileCount = data.rowTileCount;
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
-    this.innerWidth = window.innerWidth;
-    this.innerHeight = window.innerHeight;
     this.items = data.items;
 
     this.registerEventHandler();
@@ -239,8 +237,10 @@ class Interactions {
     }
 
     if (down || up || right || left) {
-      const maxOffsetX = this.colTileCount * this.fieldWidth - this.innerWidth,
-        maxOffsetY = this.rowTileCount * this.fieldWidth - this.innerHeight;
+      const innerWidth = window.innerWidth;
+      const innerHeight = window.innerHeight;
+      const maxOffsetX = this.colTileCount * this.fieldWidth - innerWidth,
+        maxOffsetY = this.rowTileCount * this.fieldWidth - innerHeight;
 
       // Horizontal map scrolling
       if (
@@ -248,16 +248,18 @@ class Interactions {
         !(right && left) &&
         valueX < 0 &&
         valueX > maxOffsetX * -1 &&
-        player.pos[0] * this.fieldWidth > this.innerWidth / 2 - playerSpeed && // + next line: player in center
+        player.pos[0] * this.fieldWidth > innerWidth / 2 - playerSpeed && // + next line: player in center
         player.pos[0] * this.fieldWidth <
-          this.colTileCount * this.fieldWidth -
-            this.innerWidth / 2 +
-            playerSpeed
+          this.colTileCount * this.fieldWidth - innerWidth / 2 + playerSpeed
       ) {
         this.offsetX = valueX;
 
         // Limit scrolling - end of the map
-      } else if (valueX < 0 && valueX <= maxOffsetX * -1) {
+      } else if (
+        valueX < 0 &&
+        valueX <= maxOffsetX * -1 &&
+        innerWidth < this.colTileCount * this.fieldWidth
+      ) {
         this.offsetX = maxOffsetX * -1;
 
         // Limit scrolling - start of the map
@@ -271,16 +273,18 @@ class Interactions {
         !(up && down) &&
         valueY < 0 &&
         valueY > maxOffsetY * -1 &&
-        player.pos[1] * this.fieldWidth > this.innerHeight / 2 - playerSpeed && // + next line: player in center
+        player.pos[1] * this.fieldWidth > innerHeight / 2 - playerSpeed && // + next line: player in center
         player.pos[1] * this.fieldWidth <
-          this.rowTileCount * this.fieldWidth -
-            this.innerHeight / 2 +
-            playerSpeed
+          this.rowTileCount * this.fieldWidth - innerHeight / 2 + playerSpeed
       ) {
         this.offsetY = valueY;
 
         // Limit scrolling - end of the map
-      } else if (valueY < 0 && valueY <= maxOffsetY * -1) {
+      } else if (
+        valueY < 0 &&
+        valueY <= maxOffsetY * -1 &&
+        innerHeight < this.rowTileCount * this.fieldWidth
+      ) {
         this.offsetY = maxOffsetY * -1;
 
         // Limit scrolling - start of the map
