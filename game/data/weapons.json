@@ -3,7 +3,7 @@
     {
       "id": "fist",
       "type": "primary",
-      "name": "Fist",
+      "name": "Faust",
       "damage": 1,
       "range": 0
     },
@@ -11,7 +11,7 @@
     {
       "id": "sword",
       "type": "primary",
-      "name": "Sword",
+      "name": "Schwert",
       "damage": 2,
       "range": 1
     },
@@ -27,7 +27,7 @@
     {
       "id": "axe",
       "type": "primary",
-      "name": "Axe",
+      "name": "Axt",
       "damage": 2,
       "range": 1
     },
@@ -35,7 +35,7 @@
     {
       "id": "shortbow",
       "type": "twohanded",
-      "name": "Shortbow",
+      "name": "Kurzbogen",
       "damage": 1,
       "range": 5,
       "projectile": "arrow"
@@ -44,7 +44,7 @@
     {
       "id": "longbow",
       "type": "twohanded",
-      "name": "Longbow",
+      "name": "Langbogen",
       "damage": 2,
       "range": 7,
       "projectile": "arrow"
@@ -53,7 +53,7 @@
     {
       "id": "halberd",
       "type": "twohanded",
-      "name": "Halberd",
+      "name": "Hellebarde",
       "damage": 2,
       "range": 1
     },
@@ -61,7 +61,7 @@
     {
       "id": "crossbow",
       "type": "twohanded",
-      "name": "Crossbow",
+      "name": "Armbrust",
       "damage": 3,
       "range": 6,
       "projectile": "bolt"
@@ -70,7 +70,7 @@
     {
       "id": "musket",
       "type": "twohanded",
-      "name": "Musket",
+      "name": "Muskete",
       "damage": 4,
       "range": 5,
       "projectile": "bullet"
@@ -79,7 +79,7 @@
     {
       "id": "rifle",
       "type": "twohanded",
-      "name": "Rifle",
+      "name": "Gewehr",
       "damage": 4,
       "range": 7,
       "projectile": "bullet"
@@ -88,7 +88,7 @@
     {
       "id": "dagger",
       "type": "primary",
-      "name": "Dagger",
+      "name": "Dolch",
       "damage": 1,
       "range": 1
     },
@@ -96,7 +96,7 @@
     {
       "id": "shield",
       "type": "secondary",
-      "name": "Shield",
+      "name": "Schild",
       "defense": 2
     }
   ]

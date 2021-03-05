@@ -34,6 +34,7 @@ const enemyIds = document.getElementById('enemy-ids');
 const enemyOptions = document.getElementById('event-options-enemy');
 const itemOptions = document.getElementById('event-options-item');
 const itemIds = document.getElementById('item-ids');
+const loadButton = document.getElementById('load-map');
 const resources = new Resources();
 const resourcesList = ['../game/images/tileset.png'];
 let enemies = [];
@@ -41,10 +42,10 @@ let items = [];
 
 class Editor {
   constructor(data) {
-    this.ground1 = data.map.map[0];
-    this.ground2 = data.map.map[1];
-    this.top1 = data.map.map[2];
-    this.blocked = data.map.map[3];
+    this.ground1 = data.map[0];
+    this.ground2 = data.map[1];
+    this.top1 = data.map[2];
+    this.blocked = data.map[3];
     this.rowTileCount = this.ground1.length;
     this.colTileCount = this.ground1[0].length;
     this.resources = data.resources;
@@ -58,15 +59,14 @@ class Editor {
     this.activeLayer = 'ground1';
     this.activeEvent = 'player';
     this.blockedType = 'opaque';
-    this.playerList = [];
-    this.enemyList = [];
-    this.itemList = [];
+    this.playerList = data.playerList || [];
+    this.enemyList = data.enemyList || [];
+    this.itemList = data.itemList || [];
 
     activeMapTile.classList.add('canvas__active--show');
 
     this.drawMapLayers();
     this.addEventListeners();
-    // this.gameLoop();
   }
 
   drawMapLayers() {
@@ -78,6 +78,8 @@ class Editor {
     this.drawGround1();
     this.drawGround2();
     this.drawTop1();
+    this.drawBlocked();
+    this.drawEvents();
   }
 
   drawGround1() {
@@ -431,34 +433,33 @@ class Editor {
 
     blockedTiles.classList.add('blocked-tiles--show');
   };
-
-  gameLoop() {
-    const now = Date.now(),
-      delta = (now - this.lastTime) / 1000.0;
-
-    this.update(delta);
-    this.render();
-
-    this.lastTime = now;
-
-    window.requestAnimationFrame(this.gameLoop.bind(this));
-  }
-
-  update(delta) {
-    this.gameTime += delta;
-  }
-
-  render() {
-    // Clear canvas hack
-    // eslint-disable-next-line no-self-assign
-    config.canvasAnim.width = config.canvasAnim.width;
-  }
 }
 
 window.onload = () => {
   resources.load(resourcesList);
 
   resources.onReady(() => {
+    loadButton.addEventListener('click', () => {
+      const {
+        map,
+        enemies: enemyList,
+        items: itemList,
+        players,
+        name: mapName
+      } = JSON.parse(mapJson.value);
+      // eslint-disable-next-line no-unused-vars
+      const editor = new Editor({
+        resources,
+        enemyList,
+        playerList: players,
+        itemList,
+        map: [map[0], map[1], map[2], map[3]]
+      });
+
+      name.value = mapName;
+      newMapForm.classList.add('new-map--hide');
+      layer.classList.add('layer--show');
+    });
     newMapForm.addEventListener('submit', (event) => {
       const mapSize = Number(size.value);
       const mapGround1 = new Array(mapSize)
@@ -481,10 +482,7 @@ window.onload = () => {
       // eslint-disable-next-line no-unused-vars
       const editor = new Editor({
         resources,
-        map: {
-          name: '',
-          map: [mapGround1, mapGround2, mapTop1, mapBlocked]
-        }
+        map: [mapGround1, mapGround2, mapTop1, mapBlocked]
       });
     });
 
