@@ -115,7 +115,7 @@ class Character {
     event.preventDefault();
 
     const player = {
-      id: 'player.596026',
+      id: 'player.0',
       friendly: true,
       name: 'Gscheid',
       race: null,

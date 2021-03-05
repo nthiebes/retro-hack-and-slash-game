@@ -1,7 +1,7 @@
 {
   "list": [
     {
-      "id": "enemy.2245555546",
+      "id": "orc0",
       "friendly": false,
       "name": "Ork Krieger",
       "race": "orc",
@@ -18,7 +18,7 @@
       }
     },
     {
-      "id": "enemy.68333364",
+      "id": "elf0",
       "friendly": false,
       "name": "Elfen Bogenschütze",
       "race": "elf",

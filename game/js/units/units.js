@@ -24,7 +24,8 @@ export class Units {
 
       this.addUnit({
         ...unitData,
-        pos: enemy.pos
+        pos: enemy.pos,
+        id: `enemy.${i}`
       });
     }
   }
