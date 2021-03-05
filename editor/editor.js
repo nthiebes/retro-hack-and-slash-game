@@ -1,6 +1,6 @@
 import Resources from '../game/js/utils/Resources.js';
 import config from '../game/js/config.js';
-import { drawImage, drawSquare } from '../game/js/canvas/utils.js';
+import { drawImage, drawSquare, drawText } from '../game/js/canvas/utils.js';
 
 const newMapForm = document.getElementById('new-map');
 const canvasWrapper = document.getElementById('canvas-wrapper');
@@ -160,6 +160,13 @@ class Editor {
         x: player[0] * config.fieldWidth,
         y: player[1] * config.fieldWidth
       });
+      drawText({
+        ctx: ctxEvents,
+        x: player[0] * config.fieldWidth + 12,
+        y: player[1] * config.fieldWidth + 22,
+        text: i,
+        color: '#fff'
+      });
     }
 
     for (let i = 0; i < this.enemyList.length; i++) {
@@ -173,6 +180,13 @@ class Editor {
         x: enemy.pos[0] * config.fieldWidth,
         y: enemy.pos[1] * config.fieldWidth
       });
+      drawText({
+        ctx: ctxEvents,
+        x: enemy.pos[0] * config.fieldWidth + 2,
+        y: enemy.pos[1] * config.fieldWidth + 22,
+        text: enemy.id,
+        color: '#fff'
+      });
     }
 
     for (let i = 0; i < this.itemList.length; i++) {
@@ -185,6 +199,13 @@ class Editor {
         height: config.fieldWidth,
         x: item.pos[0] * config.fieldWidth,
         y: item.pos[1] * config.fieldWidth
+      });
+      drawText({
+        ctx: ctxEvents,
+        x: item.pos[0] * config.fieldWidth + 2,
+        y: item.pos[1] * config.fieldWidth + 22,
+        text: item.id,
+        color: '#fff'
       });
     }
   }
@@ -509,7 +530,7 @@ window.onload = () => {
           const option = document.createElement('option');
 
           option.value = enemies[i].id;
-          option.innerHTML = enemies[i].name;
+          option.innerHTML = `${enemies[i].name} (${enemies[i].id})`;
           enemyIds.append(option);
         }
       });
@@ -522,7 +543,7 @@ window.onload = () => {
           const option = document.createElement('option');
 
           option.value = items[i].id;
-          option.innerHTML = items[i].name;
+          option.innerHTML = `${items[i].name} (${items[i].id})`;
           itemIds.append(option);
         }
       });
@@ -535,7 +556,7 @@ window.onload = () => {
           const option = document.createElement('option');
 
           option.value = items[i].id;
-          option.innerHTML = items[i].name;
+          option.innerHTML = `${items[i].name} (${items[i].id})`;
           itemIds.append(option);
         }
       });

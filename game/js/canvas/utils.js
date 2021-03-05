@@ -27,6 +27,13 @@ export const drawImage = (config) => {
   }
 };
 
+export const drawText = ({ ctx, x, y, text, color }) => {
+  ctx.font = '16px sans-serif';
+  ctx.fillStyle = color;
+  ctx.textAlign = 'start';
+  ctx.fillText(text, x, y);
+};
+
 export const drawSquare = (config) => {
   config.ctx.fillStyle = config.color;
   config.ctx.beginPath();
