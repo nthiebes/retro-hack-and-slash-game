@@ -1,5 +1,6 @@
 import config from '../config.js';
 import { getSpeed } from './helpers.js';
+import { GameData } from '../gameData.js';
 
 export default class Unit {
   constructor(data) {
@@ -141,14 +142,17 @@ export default class Unit {
     }
   }
 
-  equip({ gear, weapon, id }) {
+  equip({ id }) {
+    const armor = GameData.getArmor(id);
+    const weapon = GameData.getWeapon(id);
+
     if (config.debug) {
       console.log('🛡');
     }
 
-    if (gear) {
-      this.gear[gear] = id;
-      this[gear].url = `images/armor/${id}.png`;
+    if (armor) {
+      this.gear[armor.gear] = id;
+      this[armor.gear].url = `images/armor/${id}.png`;
 
       const newSpeed = getSpeed({ race: this.race, gear: this.gear });
 
@@ -162,9 +166,9 @@ export default class Unit {
     }
 
     if (weapon) {
-      this.weapons[weapon] = id;
+      this.weapons[weapon.type] = id;
 
-      this[weapon].url = `images/weapons/${id}.png`;
+      this[weapon.type].url = `images/weapons/${id}.png`;
     }
   }
 }

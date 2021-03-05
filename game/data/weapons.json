@@ -1,77 +1,103 @@
 {
-  "fist": {
-    "name": "Fist",
-    "damage": 1,
-    "range": 0
-  },
+  "list": [
+    {
+      "id": "fist",
+      "type": "primary",
+      "name": "Fist",
+      "damage": 1,
+      "range": 0
+    },
 
-  "sword": {
-    "name": "Sword",
-    "damage": 2,
-    "range": 1
-  },
+    {
+      "id": "sword",
+      "type": "primary",
+      "name": "Sword",
+      "damage": 2,
+      "range": 1
+    },
 
-  "spear": {
-    "name": "Speer",
-    "damage": 1,
-    "range": 1
-  },
+    {
+      "id": "spear",
+      "type": "primary",
+      "name": "Speer",
+      "damage": 1,
+      "range": 1
+    },
 
-  "axe": {
-    "name": "Axe",
-    "damage": 2,
-    "range": 1
-  },
+    {
+      "id": "axe",
+      "type": "primary",
+      "name": "Axe",
+      "damage": 2,
+      "range": 1
+    },
 
-  "shortbow": {
-    "name": "Shortbow",
-    "damage": 1,
-    "range": 5,
-    "projectile": "arrow"
-  },
+    {
+      "id": "shortbow",
+      "type": "twohanded",
+      "name": "Shortbow",
+      "damage": 1,
+      "range": 5,
+      "projectile": "arrow"
+    },
 
-  "longbow": {
-    "name": "Longbow",
-    "damage": 2,
-    "range": 7,
-    "projectile": "arrow"
-  },
+    {
+      "id": "longbow",
+      "type": "twohanded",
+      "name": "Longbow",
+      "damage": 2,
+      "range": 7,
+      "projectile": "arrow"
+    },
 
-  "halberd": {
-    "name": "Halberd",
-    "damage": 2,
-    "range": 1
-  },
+    {
+      "id": "halberd",
+      "type": "twohanded",
+      "name": "Halberd",
+      "damage": 2,
+      "range": 1
+    },
 
-  "crossbow": {
-    "name": "Crossbow",
-    "damage": 3,
-    "range": 6,
-    "projectile": "bolt"
-  },
+    {
+      "id": "crossbow",
+      "type": "twohanded",
+      "name": "Crossbow",
+      "damage": 3,
+      "range": 6,
+      "projectile": "bolt"
+    },
 
-  "musket": {
-    "name": "Musket",
-    "damage": 4,
-    "range": 5,
-    "projectile": "bullet"
-  },
+    {
+      "id": "musket",
+      "type": "twohanded",
+      "name": "Musket",
+      "damage": 4,
+      "range": 5,
+      "projectile": "bullet"
+    },
 
-  "rifle": {
-    "name": "Rifle",
-    "damage": 4,
-    "range": 7,
-    "projectile": "bullet"
-  },
+    {
+      "id": "rifle",
+      "type": "twohanded",
+      "name": "Rifle",
+      "damage": 4,
+      "range": 7,
+      "projectile": "bullet"
+    },
 
-  "dagger": {
-    "name": "Dagger",
-    "damage": 1,
-    "range": 1
-  },
+    {
+      "id": "dagger",
+      "type": "primary",
+      "name": "Dagger",
+      "damage": 1,
+      "range": 1
+    },
 
-  "shield": {
-    "name": "Shield",
-    "defense": 2
-  }
+    {
+      "id": "shield",
+      "type": "secondary",
+      "name": "Shield",
+      "defense": 2
+    }
+  ]
 }

@@ -39,7 +39,7 @@ export class Units {
           ...unit,
           pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
           tile: unit.pos,
-          range: GameData.weapons[unit.weapons.primary].range,
+          range: GameData.getWeapon(unit.weapons.primary).range,
           speed,
           skin: new Sprite({
             url: `images/races/${unit.race}${unit.skin}.png`,

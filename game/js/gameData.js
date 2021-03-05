@@ -30,4 +30,12 @@ export class GameData {
   static get enemies() {
     return this.enemiesData;
   }
+
+  static getWeapon(id) {
+    return this.weaponsData.list.find((weapon) => weapon.id === id);
+  }
+
+  static getArmor(id) {
+    return this.armorData.list.find((armor) => armor.id === id);
+  }
 }

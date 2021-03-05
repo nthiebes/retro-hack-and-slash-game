@@ -1,6 +1,8 @@
 {
     "name": "Demo Karte",
     "players": [[18, 6], [18, 10], [18, 14]],
+    "enemies":[{
+    "pos":[9,3],"id":"orc0"},{"pos":[5,3],"id":"elf0"}],
     "items": [{
         "gear": "head",
         "id": "head1",

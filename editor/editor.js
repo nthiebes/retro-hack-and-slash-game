@@ -32,9 +32,12 @@ const eventEnemy = document.getElementById('event-enemy');
 const eventItem = document.getElementById('event-item');
 const enemyIds = document.getElementById('enemy-ids');
 const enemyOptions = document.getElementById('event-options-enemy');
+const itemOptions = document.getElementById('event-options-item');
+const itemIds = document.getElementById('item-ids');
 const resources = new Resources();
 const resourcesList = ['../game/images/tileset.png'];
 let enemies = [];
+let items = [];
 
 class Editor {
   constructor(data) {
@@ -57,6 +60,7 @@ class Editor {
     this.blockedType = 'opaque';
     this.playerList = [];
     this.enemyList = [];
+    this.itemList = [];
 
     activeMapTile.classList.add('canvas__active--show');
 
@@ -167,6 +171,19 @@ class Editor {
         y: enemy.pos[1] * config.fieldWidth
       });
     }
+
+    for (let i = 0; i < this.itemList.length; i++) {
+      const item = this.itemList[i];
+
+      drawSquare({
+        ctx: ctxEvents,
+        color: 'rgba(0,0,255,0.5)',
+        width: config.fieldWidth,
+        height: config.fieldWidth,
+        x: item.pos[0] * config.fieldWidth,
+        y: item.pos[1] * config.fieldWidth
+      });
+    }
   }
 
   drawActiveLayer() {
@@ -218,6 +235,16 @@ class Editor {
           this.enemyList.push({ pos: [x, y], id: enemyIds.value });
         } else {
           this.enemyList.splice(enemyIndex, 1);
+        }
+      } else if (this.activeEvent === 'item') {
+        const itemIndex = this.itemList.findIndex(
+          ({ pos }) => pos[0] === x && pos[1] === y
+        );
+
+        if (itemIndex === -1) {
+          this.itemList.push({ pos: [x, y], id: itemIds.value });
+        } else {
+          this.itemList.splice(itemIndex, 1);
         }
       }
     } else {
@@ -299,6 +326,7 @@ class Editor {
     eventEnemy.classList.remove('event__item--active');
     eventItem.classList.remove('event__item--active');
     enemyOptions.classList.remove('event__options--show');
+    itemOptions.classList.remove('event__options--show');
 
     if (id === 'event-player') {
       eventPlayer.classList.add('event__item--active');
@@ -311,6 +339,7 @@ class Editor {
     }
     if (id === 'event-item') {
       eventItem.classList.add('event__item--active');
+      itemOptions.classList.add('event__options--show');
       this.activeEvent = 'item';
     }
   };
@@ -320,7 +349,7 @@ class Editor {
       name: name.value,
       players: this.playerList,
       enemies: this.enemyList,
-      items: [],
+      items: this.itemList,
       map: [this.ground1, this.ground2, this.top1, this.blocked]
     };
     const mapString = JSON.stringify(map);
@@ -470,6 +499,32 @@ window.onload = () => {
           option.value = enemies[i].id;
           option.innerHTML = enemies[i].name;
           enemyIds.append(option);
+        }
+      });
+    fetch('../game/data/armor.json')
+      .then((response) => response.json())
+      .then((data) => {
+        items = data.list.filter(({ type }) => type !== 'none');
+
+        for (let i = 0; i < items.length; i++) {
+          const option = document.createElement('option');
+
+          option.value = items[i].id;
+          option.innerHTML = items[i].name;
+          itemIds.append(option);
+        }
+      });
+    fetch('../game/data/weapons.json')
+      .then((response) => response.json())
+      .then((data) => {
+        items = data.list.filter(({ id }) => id !== 'first');
+
+        for (let i = 0; i < items.length; i++) {
+          const option = document.createElement('option');
+
+          option.value = items[i].id;
+          option.innerHTML = items[i].name;
+          itemIds.append(option);
         }
       });
   });

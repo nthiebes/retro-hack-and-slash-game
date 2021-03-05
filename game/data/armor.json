@@ -1,46 +1,55 @@
 {
-  "items": [
+  "list": [
     {
+      "gear": "head",
       "id": "head0",
       "name": "Luft",
       "type": "none"
     },
     {
+      "gear": "head",
       "id": "head1",
       "name": "Eisenkappe",
       "type": "iron"
     },
     {
+      "gear": "head",
       "id": "head2",
       "name": "Stahlhelm",
       "type": "steel"
     },
     {
+      "gear": "torso",
       "id": "torso0",
       "name": "Luft",
       "type": "none"
     },
     {
+      "gear": "torso",
       "id": "torso1",
       "name": "Eisenrüstung",
       "type": "iron"
     },
     {
+      "gear": "torso",
       "id": "torso2",
       "name": "Stahlrüstung",
       "type": "steel"
     },
     {
+      "gear": "leg",
       "id": "leg0",
       "name": "Luft",
       "type": "none"
     },
     {
+      "gear": "leg",
       "id": "leg1",
       "name": "Eisenbeine",
       "type": "iron"
     },
     {
+      "gear": "leg",
       "id": "leg2",
       "name": "Stahlbeine",
       "type": "steel"
