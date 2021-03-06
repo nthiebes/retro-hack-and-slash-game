@@ -36,7 +36,7 @@ class Interactions {
     const player = Units.player;
 
     if (player.attacking) {
-      return;
+      // return;
     }
 
     // Left screen half
