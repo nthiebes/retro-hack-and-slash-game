@@ -18,7 +18,7 @@ const ctxEvents = eventsCanvas.getContext('2d');
 const canvas = document.querySelectorAll('canvas');
 const size = document.getElementById('size');
 const tileset = document.getElementById('tileset');
-const activeTilesetTile = document.getElementById('tileset-tile');
+const tilesetTiles = document.getElementById('tileset-tiles');
 const activeMapTile = document.getElementById('map-tile');
 const mapJson = document.getElementById('map-json');
 const generate = document.getElementById('generate');
@@ -53,8 +53,14 @@ class Editor {
     this.tileset = this.resources.get('../game/images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.tileNumber = 0;
+    this.tileNumbers = [
+      {
+        pos: [0, 0],
+        tile: 0
+      }
+    ];
     this.mousePressed = false;
+    this.shiftKey = false;
     this.x = 0;
     this.y = 0;
     this.activeLayer = 'ground1';
@@ -272,7 +278,13 @@ class Editor {
         }
       }
     } else {
-      this[this.activeLayer][y][x] = this.tileNumber;
+      for (let i = 0; i < this.tileNumbers.length; i++) {
+        const tileData = this.tileNumbers[i];
+        const newX = i === 0 ? x : x + tileData.pos[0];
+        const newY = i === 0 ? y : y + tileData.pos[1];
+
+        this[this.activeLayer][newY][newX] = tileData.tile;
+      }
     }
 
     this.drawActiveLayer();
@@ -284,11 +296,41 @@ class Editor {
       const offsetY = event.offsetY;
       const x = Math.floor(offsetX / config.fieldWidth);
       const y = Math.floor(offsetY / config.fieldWidth);
+      const activeTile = document.createElement('div');
 
-      this.tileNumber = x + y * 16;
+      if (this.shiftKey) {
+        const firstPos = this.tileNumbers[0].pos;
+        const xNew = (firstPos[0] - x) * -1;
+        const yNew = (firstPos[1] - y) * -1;
 
-      activeTilesetTile.style.left = `${x * config.fieldWidth}px`;
-      activeTilesetTile.style.top = `${y * config.fieldWidth}px`;
+        this.tileNumbers.push({
+          pos: [xNew, yNew],
+          tile: x + y * 16
+        });
+      } else {
+        this.tileNumbers = [
+          {
+            pos: [x, y],
+            tile: x + y * 16
+          }
+        ];
+
+        activeTile.classList.add('tileset__active--first');
+        tilesetTiles.innerHTML = '';
+      }
+
+      activeTile.classList.add('tileset__active');
+      activeTile.style.left = `${x * config.fieldWidth}px`;
+      activeTile.style.top = `${y * config.fieldWidth}px`;
+      tilesetTiles.append(activeTile);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      this.shiftKey = event.shiftKey;
+    });
+
+    document.addEventListener('keyup', (event) => {
+      this.shiftKey = event.shiftKey;
     });
 
     canvasWrapper.addEventListener('click', (event) => {

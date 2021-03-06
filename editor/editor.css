@@ -113,11 +113,17 @@ body {
   width: 32px;
   height: 32px;
   position: absolute;
-  border: 2px solid #fff;
-  background-color: rgba(255, 255, 255, 0.3);
+  border: 2px solid #999;
+  background-color: rgba(200, 200, 200, 0.3);
   top: 0;
   left: 0;
   pointer-events: none;
+}
+
+.tileset__active--first,
+.canvas__active {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .canvas__active {
