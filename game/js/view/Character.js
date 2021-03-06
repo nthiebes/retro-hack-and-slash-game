@@ -128,7 +128,7 @@ class Character {
         leg: 'none'
       },
       weapons: {
-        primary: 'spear',
+        primary: 'fist',
         secondary: 'fist'
       }
     };
