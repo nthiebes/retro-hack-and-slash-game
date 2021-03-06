@@ -123,9 +123,9 @@ class Character {
       health: 100,
       pos: [18, 6],
       gear: {
-        head: 'head0',
-        torso: 'torso0',
-        leg: 'leg0'
+        head: 'none',
+        torso: 'none',
+        leg: 'none'
       },
       weapons: {
         primary: 'spear',

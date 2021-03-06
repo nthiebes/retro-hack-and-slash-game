@@ -8,9 +8,9 @@
       "skin": 0,
       "health": 100,
       "gear": {
-        "head": "head0",
-        "torso": "torso0",
-        "leg": "leg0"
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
       },
       "weapons": {
         "primary": "fist",
@@ -25,9 +25,9 @@
       "skin": 0,
       "health": 100,
       "gear": {
-        "head": "head0",
-        "torso": "torso0",
-        "leg": "leg0"
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
       },
       "weapons": {
         "primary": "fist",

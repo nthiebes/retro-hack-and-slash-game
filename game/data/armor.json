@@ -2,79 +2,67 @@
   "list": [
     {
       "gear": "head",
-      "id": "head0",
+      "id": "none",
       "name": "Luft",
       "type": "none"
     },
     {
       "gear": "head",
-      "id": "head1",
+      "id": "head_iron_0",
       "name": "Eisenkappe",
       "type": "iron"
     },
     {
       "gear": "head",
-      "id": "head2",
+      "id": "head_iron_1",
       "name": "Eisenhelm",
       "type": "iron"
     },
     {
       "gear": "head",
-      "id": "head3",
+      "id": "head_cloth_0",
       "name": "Kapuze",
       "type": "cloth"
     },
     {
       "gear": "head",
-      "id": "head5",
+      "id": "head_steel_0",
       "name": "Stahlhelm",
       "type": "steel"
     },
     {
       "gear": "torso",
-      "id": "torso0",
-      "name": "Luft",
-      "type": "none"
-    },
-    {
-      "gear": "torso",
-      "id": "torso1",
+      "id": "torso_iron_0",
       "name": "Eisenrüstung",
       "type": "iron"
     },
     {
       "gear": "torso",
-      "id": "torso2",
+      "id": "torso_cloth_0",
       "name": "Stoffrüstung",
       "type": "cloth"
     },
     {
       "gear": "torso",
-      "id": "torso3",
+      "id": "torso_leather_0",
       "name": "Lederrüstung",
       "type": "leather"
     },
     {
       "gear": "leg",
-      "id": "leg0",
-      "name": "Luft",
-      "type": "none"
-    },
-    {
-      "gear": "leg",
-      "id": "leg1",
+      "id": "leg_iron_0",
       "name": "Eisenbeine",
       "type": "iron"
     },
     {
       "gear": "leg",
-      "id": "leg2",
+      "id": "leg_cloth_0",
       "name": "Stoffbeine",
       "type": "cloth"
     },
     {
       "gear": "leg",
-      "id": "leg3",
+      "id": "leg_leather_0",
       "name": "Lederbeine",
       "type": "leather"
     }
