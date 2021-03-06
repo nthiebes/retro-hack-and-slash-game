@@ -192,9 +192,25 @@ export default class Unit {
     }
 
     if (weapon) {
-      this.weapons[weapon.type] = id;
-      this[weapon.type].url = `images/weapons/${id}.png`;
+      const isTwohanded = weapon.type === 'twohanded';
+      const weaponType = isTwohanded ? 'primary' : weapon.type;
+
+      // Drop item in second hand
+      if (isTwohanded) {
+        this.weapons.secondary = 'fist';
+        this.secondary.url = 'images/weapons/fist.png';
+      }
+
+      // Don't equip secondary if twohanded
+      if (this.weaponType === 'twohanded' && weaponType === 'secondary') {
+        return;
+      }
+
+      // Order matters!
+      this.weapons[weaponType] = id;
+      this[weaponType].url = `images/weapons/${id}.png`;
       this.animation = GameData.getWeapon(this.weapons.primary).animation;
+      this.weaponType = GameData.getWeapon(this.weapons.primary).type;
       this.stop();
     }
   }

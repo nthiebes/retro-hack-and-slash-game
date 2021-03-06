@@ -41,6 +41,7 @@ export class Units {
           pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
           tile: unit.pos,
           range: GameData.getWeapon(unit.weapons.primary).range,
+          weaponType: GameData.getWeapon(unit.weapons.primary).type,
           speed,
           animation: animation,
           skin: new Sprite({
