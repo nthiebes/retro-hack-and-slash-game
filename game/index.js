@@ -50,7 +50,7 @@ const resourcesList = [
   'images/weapons/shield.png'
 ];
 const getGameData = () => {
-  fetch('data/maps/editor.json')
+  fetch('data/maps/items.json')
     .then((response) => response.json())
     .then((json) => {
       gameData.map = json.map;

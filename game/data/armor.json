@@ -15,6 +15,18 @@
     {
       "gear": "head",
       "id": "head2",
+      "name": "Eisenhelm",
+      "type": "iron"
+    },
+    {
+      "gear": "head",
+      "id": "head3",
+      "name": "Hoodie",
+      "type": "cloth"
+    },
+    {
+      "gear": "head",
+      "id": "head5",
       "name": "Stahlhelm",
       "type": "steel"
     },
