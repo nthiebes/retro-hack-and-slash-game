@@ -52,27 +52,40 @@ export default class Unit {
   }
 
   attack() {
+    let animationPositionLeft, animationPositionRight;
+
     if (config.debug && this.friendly) {
       console.log('⚔️');
     }
 
-    switch (this.direction) {
-      case 'LEFT':
-        this.skin.pos = [0, 384];
-        this.head.pos = [0, 384];
-        this.leg.pos = [0, 384];
-        this.torso.pos = [0, 384];
-        this.primary.pos = [0, 384];
-        this.secondary.pos = [0, 384];
+    switch (this.animation) {
+      case 'stab':
+        animationPositionLeft = 640;
+        animationPositionRight = 512;
         break;
 
       default:
-        this.skin.pos = [0, 256];
-        this.head.pos = [0, 256];
-        this.leg.pos = [0, 256];
-        this.torso.pos = [0, 256];
-        this.primary.pos = [0, 256];
-        this.secondary.pos = [0, 256];
+        animationPositionLeft = 384;
+        animationPositionRight = 256;
+    }
+
+    switch (this.direction) {
+      case 'LEFT':
+        this.skin.pos = [0, animationPositionLeft];
+        this.head.pos = [0, animationPositionLeft];
+        this.leg.pos = [0, animationPositionLeft];
+        this.torso.pos = [0, animationPositionLeft];
+        this.primary.pos = [0, animationPositionLeft];
+        this.secondary.pos = [0, animationPositionLeft];
+        break;
+
+      default:
+        this.skin.pos = [0, animationPositionRight];
+        this.head.pos = [0, animationPositionRight];
+        this.leg.pos = [0, animationPositionRight];
+        this.torso.pos = [0, animationPositionRight];
+        this.primary.pos = [0, animationPositionRight];
+        this.secondary.pos = [0, animationPositionRight];
     }
 
     this.skin.frames = [0, 1, 2];
@@ -116,28 +129,41 @@ export default class Unit {
   }
 
   turn(direction) {
+    let animationPositionLeft, animationPositionRight;
+
     if (config.debug && this.friendly) {
       console.log(direction === 'LEFT' ? '👈' : '👉');
     }
 
+    switch (this.animation) {
+      case 'stab':
+        animationPositionLeft = 640;
+        animationPositionRight = 512;
+        break;
+
+      default:
+        animationPositionLeft = 384;
+        animationPositionRight = 256;
+    }
+
     switch (direction.toUpperCase()) {
       case 'LEFT':
-        this.skin.pos = [0, 384];
-        this.head.pos = [0, 384];
-        this.leg.pos = [0, 384];
-        this.torso.pos = [0, 384];
-        this.primary.pos = [0, 384];
-        this.secondary.pos = [0, 384];
+        this.skin.pos = [0, animationPositionLeft];
+        this.head.pos = [0, animationPositionLeft];
+        this.leg.pos = [0, animationPositionLeft];
+        this.torso.pos = [0, animationPositionLeft];
+        this.primary.pos = [0, animationPositionLeft];
+        this.secondary.pos = [0, animationPositionLeft];
         this.direction = 'LEFT';
         break;
 
       default:
-        this.skin.pos = [0, 256];
-        this.head.pos = [0, 256];
-        this.leg.pos = [0, 256];
-        this.torso.pos = [0, 256];
-        this.primary.pos = [0, 256];
-        this.secondary.pos = [0, 256];
+        this.skin.pos = [0, animationPositionRight];
+        this.head.pos = [0, animationPositionRight];
+        this.leg.pos = [0, animationPositionRight];
+        this.torso.pos = [0, animationPositionRight];
+        this.primary.pos = [0, animationPositionRight];
+        this.secondary.pos = [0, animationPositionRight];
         this.direction = 'RIGHT';
     }
   }
@@ -167,8 +193,9 @@ export default class Unit {
 
     if (weapon) {
       this.weapons[weapon.type] = id;
-
       this[weapon.type].url = `images/weapons/${id}.png`;
+      this.animation = GameData.getWeapon(this.weapons.primary).animation;
+      this.stop();
     }
   }
 }

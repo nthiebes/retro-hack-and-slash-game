@@ -47,6 +47,7 @@ const resourcesList = [
   'images/weapons/sword.png',
   'images/weapons/axe.png',
   'images/weapons/spear.png',
+  'images/weapons/halberd.png',
   'images/weapons/shield.png'
 ];
 const getGameData = () => {

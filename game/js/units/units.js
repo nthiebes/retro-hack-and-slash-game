@@ -32,6 +32,7 @@ export class Units {
 
   static addUnit(unit) {
     const speed = getSpeed(unit);
+    const animation = GameData.getWeapon(unit.weapons.primary).animation;
 
     listData.push(
       new Unit(
@@ -41,6 +42,7 @@ export class Units {
           tile: unit.pos,
           range: GameData.getWeapon(unit.weapons.primary).range,
           speed,
+          animation: animation,
           skin: new Sprite({
             url: `images/races/${unit.race}${unit.skin}.png`,
             pos: [0, 256],

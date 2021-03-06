@@ -21,7 +21,7 @@
     {
       "gear": "head",
       "id": "head3",
-      "name": "Hoodie",
+      "name": "Kapuze",
       "type": "cloth"
     },
     {
@@ -45,8 +45,14 @@
     {
       "gear": "torso",
       "id": "torso2",
-      "name": "Stahlrüstung",
-      "type": "steel"
+      "name": "Stoffrüstung",
+      "type": "cloth"
+    },
+    {
+      "gear": "torso",
+      "id": "torso3",
+      "name": "Lederrüstung",
+      "type": "leather"
     },
     {
       "gear": "leg",
@@ -63,8 +69,14 @@
     {
       "gear": "leg",
       "id": "leg2",
-      "name": "Stahlbeine",
-      "type": "steel"
+      "name": "Stoffbeine",
+      "type": "cloth"
+    },
+    {
+      "gear": "leg",
+      "id": "leg3",
+      "name": "Lederbeine",
+      "type": "leather"
     }
   ],
   "types": {

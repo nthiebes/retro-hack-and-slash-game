@@ -90,10 +90,14 @@ class Interactions {
   }
 
   onMouseUp(e) {
+    const player = Units.player;
+
     // Left click
     if (e.button === 0) {
       // Finish after current animation
-      Units.player.skin.once = true;
+      if (player.attacking) {
+        player.skin.once = true;
+      }
     }
   }
 

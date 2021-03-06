@@ -4,15 +4,15 @@
       "id": "fist",
       "type": "primary",
       "name": "Faust",
-      "damage": 1,
-      "range": 0
+      "damage": 0,
+      "range": 1
     },
 
     {
       "id": "sword",
       "type": "primary",
       "name": "Schwert",
-      "damage": 2,
+      "damage": 3,
       "range": 1
     },
 
@@ -20,15 +20,16 @@
       "id": "spear",
       "type": "primary",
       "name": "Speer",
-      "damage": 1,
-      "range": 1
+      "damage": 2,
+      "range": 2,
+      "animation": "stab"
     },
 
     {
       "id": "axe",
       "type": "primary",
       "name": "Axt",
-      "damage": 2,
+      "damage": 3,
       "range": 1
     },
 
@@ -54,8 +55,9 @@
       "id": "halberd",
       "type": "twohanded",
       "name": "Hellebarde",
-      "damage": 2,
-      "range": 1
+      "damage": 3,
+      "range": 2,
+      "animation": "stab"
     },
 
     {
@@ -97,7 +99,7 @@
       "id": "shield",
       "type": "secondary",
       "name": "Schild",
-      "defense": 2
+      "defense": 4
     }
   ]
 }
