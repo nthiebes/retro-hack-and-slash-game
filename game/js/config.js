@@ -3,9 +3,9 @@ const canvasGround2 = document.getElementById('canvas-ground2');
 const canvasAnim = document.getElementById('canvas-anim');
 const canvasTop1 = document.getElementById('canvas-top1');
 const config = {
-  debug: true,
+  debug: false,
   fieldWidth: 32,
-  visibility: 5,
+  visibility: 7,
   canvasGround1,
   canvasGround2,
   canvasAnim,
