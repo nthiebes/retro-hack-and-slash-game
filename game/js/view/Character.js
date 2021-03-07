@@ -6,6 +6,7 @@ const character = document.getElementById('character');
 const raceImg = document.getElementById('race-img');
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
+const map = document.getElementById('map');
 const attributesMap = {
   strength: {
     good: 'Muskelbepackt',
@@ -133,18 +134,27 @@ class Character {
       }
     };
 
-    // eslint-disable-next-line
-    const game = new Canvas({
-      ...this.gameData,
-      resources: this.resources,
-      player: {
-        ...player,
-        race: this.races[this.currentRace][0],
-        pos: this.gameData.players[0]
-      }
-    });
+    fetch(`data/maps/${map.value}.json`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.gameData.map = json.map;
+        this.gameData.items = json.items;
+        this.gameData.players = json.players;
+        this.gameData.enemies = json.enemies;
 
-    character.classList.add('character--hide');
+        // eslint-disable-next-line
+        const game = new Canvas({
+          ...this.gameData,
+          resources: this.resources,
+          player: {
+            ...player,
+            race: this.races[this.currentRace][0],
+            pos: this.gameData.players[0]
+          }
+        });
+
+        character.classList.add('character--hide');
+      });
   };
 }
 

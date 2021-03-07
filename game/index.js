@@ -2,7 +2,6 @@ import Resources from './js/utils/Resources.js';
 import { Character } from './js/view/Character.js';
 import { GameData } from './js/gameData.js';
 
-const map = document.getElementById('map');
 const gameData = {};
 const resources = new Resources();
 const resourcesList = [
@@ -48,15 +47,7 @@ const resourcesList = [
   'images/weapons/shortbow.png'
 ];
 const getGameData = () => {
-  fetch(`data/maps/${map.value}.json`)
-    .then((response) => response.json())
-    .then((json) => {
-      gameData.map = json.map;
-      gameData.items = json.items;
-      gameData.players = json.players;
-      gameData.enemies = json.enemies;
-      return fetch('data/weapons.json');
-    })
+  fetch('data/weapons.json')
     .then((response) => response.json())
     .then((weapons) => {
       GameData.setWeapons(weapons);
