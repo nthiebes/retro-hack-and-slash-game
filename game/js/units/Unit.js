@@ -1,7 +1,6 @@
 import config from '../config.js';
 import { getSpeed } from './helpers.js';
 import { GameData } from '../gameData.js';
-import { getFieldsInSight } from '../canvas/range.js';
 
 export default class Unit {
   constructor(data) {
@@ -9,7 +8,7 @@ export default class Unit {
     this.moving = false;
     this.attacking = false;
     this.path = [];
-    this.fieldsInSight = getFieldsInSight(data.pos);
+    this.fieldsInSight = [];
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 

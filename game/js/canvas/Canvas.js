@@ -1,6 +1,5 @@
 import config from '../config.js';
 import { Units } from '../units/units.js';
-import { getFieldsInSight } from './range.js';
 import { Interactions } from './Interactions.js';
 import { Map } from './Map.js';
 import { drawImage } from './utils.js';
@@ -31,6 +30,13 @@ export default class Canvas {
       fieldWidth: config.fieldWidth,
       items: this.items
     });
+
+    // Fill fields in sight for all units
+    for (let i = 0; i < Units.list.length; i++) {
+      const unit = Units.list[i];
+
+      unit.fieldsInSight = this.map.getFieldsInSight(unit.pos);
+    }
 
     this.prepareCanvas();
     this.gameLoop();
@@ -203,7 +209,7 @@ export default class Canvas {
       unit.tile = [xNext, yNext];
 
       // Update fields in sight
-      unit.fieldsInSight = getFieldsInSight(unit.tile);
+      unit.fieldsInSight = this.map.getFieldsInSight(unit.tile);
 
       // New path if enemy stops and player is in range again
       if (unit.isPlayerInRange(Units.player.pos) && unit.path.length === 1) {

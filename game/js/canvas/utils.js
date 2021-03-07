@@ -59,6 +59,7 @@ export const getCircle = (x0, y0, radius) => {
     fields.push([x0 + x, y0 - y]);
     fields.push([x0 + y, y0 + x]);
 
+    // eslint-disable-next-line no-param-reassign
     radius = err;
     if (radius <= y) {
       y++;
@@ -74,7 +75,8 @@ export const getCircle = (x0, y0, radius) => {
 };
 
 // Bresenham ray casting algorithm
-export const bline = ({ x0, y0, x1, y1, map }) => {
+// eslint-disable-next-line max-params
+export const bline = (x0, y0, x1, y1, map) => {
   const dx = Math.abs(x1 - x0);
   const sx = x0 < x1 ? 1 : -1;
   const dy = Math.abs(y1 - y0);
@@ -82,6 +84,7 @@ export const bline = ({ x0, y0, x1, y1, map }) => {
   const fields = [];
   let err = (dx > dy ? dx : -dy) / 2;
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     if (map[y0][x0] === 0 || typeof map[y0][x0] === 'string') {
       fields.push([x0, y0]);
@@ -110,6 +113,7 @@ export const uniq = (array) => {
   const seen = {};
 
   return array.filter(function (item) {
+    // eslint-disable-next-line no-prototype-builtins
     return seen.hasOwnProperty(item) ? false : (seen[item] = true);
   });
 };
