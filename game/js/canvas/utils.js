@@ -86,7 +86,7 @@ export const bline = (x0, y0, x1, y1, map) => {
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    if (map[y0][x0] === 0 || typeof map[y0][x0] === 'string') {
+    if (map[y0][x0] <= 1 || typeof map[y0][x0] === 'string') {
       fields.push([x0, y0]);
     } else {
       break;
