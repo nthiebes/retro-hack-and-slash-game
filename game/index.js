@@ -1,5 +1,5 @@
 import Resources from './js/utils/Resources.js';
-import { Character } from './js/view/Character.js';
+import { Character } from './js/interface/Character.js';
 import { GameData } from './js/gameData.js';
 
 const gameData = {};
