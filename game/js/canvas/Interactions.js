@@ -354,88 +354,97 @@ class Interactions {
   }
 
   setPath() {
-    const player = Units.player;
-    const playerPos1 = [
-        Math.floor(player.pos[0] + 1),
-        Math.floor(player.pos[1])
-      ],
-      playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
-    let enemy,
-      i = Units.list.length,
-      path1,
-      path2;
+    let i = Units.list.length;
 
     while (i--) {
-      enemy = Units.list[i];
+      const enemy = Units.list[i];
+      const player = Units.player;
+      const playerInRange = enemy.isPlayerInRange(player.pos);
 
-      // Only enemies
-      if (!enemy.id.includes('player')) {
-        path1 = getPath({
-          world: this.map.map,
-          pathStart: enemy.tile,
-          pathEnd: playerPos1,
-          unitId: enemy.id
-        });
-        path2 = getPath({
-          world: this.map.map,
-          pathStart: enemy.tile,
-          pathEnd: playerPos2,
-          unitId: enemy.id
-        });
+      if (enemy.id.includes('player')) {
+        return;
+      }
 
-        // Chooose best path
+      if (!playerInRange) {
+        return;
+      }
+
+      const playerPos1 = [
+          Math.floor(player.pos[0] + 1),
+          Math.floor(player.pos[1])
+        ],
+        playerPos2 = [Math.floor(player.pos[0] - 1), Math.floor(player.pos[1])];
+      let path1, path2;
+
+      if (config.debug) {
+        console.log('👹 🚶‍♂️');
+      }
+
+      path1 = getPath({
+        world: this.map.map,
+        pathStart: enemy.tile,
+        pathEnd: playerPos1,
+        unitId: enemy.id
+      });
+      path2 = getPath({
+        world: this.map.map,
+        pathStart: enemy.tile,
+        pathEnd: playerPos2,
+        unitId: enemy.id
+      });
+
+      // Chooose best path
+      if (
+        (path1.length <= path2.length && path1.length !== 0) ||
+        path2.length === 0
+      ) {
+        enemy.path = path1;
+      } else {
+        enemy.path = path2;
+      }
+
+      // Check if next tile has not changed
+      if (
+        enemy.nextTile &&
+        enemy.path.length > 1 &&
+        (enemy.nextTile[0] !== enemy.path[1][0] ||
+          enemy.nextTile[1] !== enemy.path[1][1])
+      ) {
+        path1 = [
+          enemy.tile,
+          ...getPath({
+            world: this.map.map,
+            pathStart: enemy.nextTile,
+            pathEnd: playerPos1,
+            unitId: enemy.id
+          })
+        ];
+        path2 = [
+          enemy.tile,
+          ...getPath({
+            world: this.map.map,
+            pathStart: enemy.nextTile,
+            pathEnd: playerPos2,
+            unitId: enemy.id
+          })
+        ];
+
         if (
-          (path1.length <= path2.length && path1.length !== 0) ||
-          path2.length === 0
+          (path1.length <= path2.length && path1.length !== 1) ||
+          path2.length === 1
         ) {
           enemy.path = path1;
         } else {
           enemy.path = path2;
         }
 
-        // Check if next tile has not changed
+        // Check for duplicate first tile
         if (
-          enemy.nextTile &&
           enemy.path.length > 1 &&
-          (enemy.nextTile[0] !== enemy.path[1][0] ||
-            enemy.nextTile[1] !== enemy.path[1][1])
+          enemy.path[0][0] === enemy.path[1][0] &&
+          enemy.path[0][1] === enemy.path[1][1]
         ) {
-          path1 = [
-            enemy.tile,
-            ...getPath({
-              world: this.map.map,
-              pathStart: enemy.nextTile,
-              pathEnd: playerPos1,
-              unitId: enemy.id
-            })
-          ];
-          path2 = [
-            enemy.tile,
-            ...getPath({
-              world: this.map.map,
-              pathStart: enemy.nextTile,
-              pathEnd: playerPos2,
-              unitId: enemy.id
-            })
-          ];
-
-          if (
-            (path1.length <= path2.length && path1.length !== 1) ||
-            path2.length === 1
-          ) {
-            enemy.path = path1;
-          } else {
-            enemy.path = path2;
-          }
-
-          // Check for duplicate first tile
-          if (
-            enemy.path.length > 1 &&
-            enemy.path[0][0] === enemy.path[1][0] &&
-            enemy.path[0][1] === enemy.path[1][1]
-          ) {
-            enemy.path.splice(0, 1);
-          }
+          enemy.path.splice(0, 1);
         }
       }
     }

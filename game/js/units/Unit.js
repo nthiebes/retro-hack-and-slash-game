@@ -1,6 +1,7 @@
 import config from '../config.js';
 import { getSpeed } from './helpers.js';
 import { GameData } from '../gameData.js';
+import { getFieldsInSight } from '../canvas/range.js';
 
 export default class Unit {
   constructor(data) {
@@ -8,6 +9,7 @@ export default class Unit {
     this.moving = false;
     this.attacking = false;
     this.path = [];
+    this.fieldsInSight = getFieldsInSight(data.pos);
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 
@@ -20,7 +22,7 @@ export default class Unit {
 
   walk() {
     if (config.debug && this.friendly) {
-      console.log('👣');
+      console.log('🚶‍♂️');
     }
 
     switch (this.direction) {
@@ -214,4 +216,13 @@ export default class Unit {
       this.stop();
     }
   }
+
+  isPlayerInRange = (playerPos) => {
+    const playerX = Math.floor(playerPos[0]);
+    const playerY = Math.floor(playerPos[1]);
+
+    return this.fieldsInSight.find(
+      (pos) => pos[0] === playerX && pos[1] === playerY
+    );
+  };
 }

@@ -1,5 +1,6 @@
 import config from '../config.js';
 import { Units } from '../units/units.js';
+import { getFieldsInSight } from './range.js';
 import { Interactions } from './Interactions.js';
 import { Map } from './Map.js';
 import { drawImage } from './utils.js';
@@ -200,6 +201,14 @@ export default class Canvas {
 
       // Update next unit tile
       unit.tile = [xNext, yNext];
+
+      // Update fields in sight
+      unit.fieldsInSight = getFieldsInSight(unit.tile);
+
+      // New path if enemy stops and player is in range again
+      if (unit.isPlayerInRange(Units.player.pos) && unit.path.length === 1) {
+        this.interactions.setPath(Units.player);
+      }
     }
 
     unit.pos = [xNew, yNew];

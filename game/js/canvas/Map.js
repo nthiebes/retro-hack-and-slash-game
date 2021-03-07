@@ -22,8 +22,10 @@ class Map {
   showDebugFields({ unit, ctx }) {
     const x = Math.floor(unit.pos[0]),
       y = Math.floor(unit.pos[1]),
-      path = unit.path;
+      path = unit.path,
+      fieldsInSight = unit.fieldsInSight;
     let i = path.length;
+    let j = fieldsInSight.length;
 
     if (!unit.friendly) {
       while (i--) {
@@ -34,6 +36,19 @@ class Map {
           height: 32,
           x: path[i][0] * 32,
           y: path[i][1] * 32
+        });
+      }
+    }
+
+    if (!unit.friendly) {
+      while (j--) {
+        drawSquare({
+          ctx: ctx,
+          color: 'rgba(255,0,0,0.2)',
+          width: 32,
+          height: 32,
+          x: fieldsInSight[j][0] * 32,
+          y: fieldsInSight[j][1] * 32
         });
       }
     }

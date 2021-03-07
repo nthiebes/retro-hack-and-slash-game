@@ -5,6 +5,7 @@ const canvasTop1 = document.getElementById('canvas-top1');
 const config = {
   debug: true,
   fieldWidth: 32,
+  visibility: 5,
   canvasGround1,
   canvasGround2,
   canvasAnim,
