@@ -32,11 +32,6 @@ class Map {
       fieldsInSight = fieldsInSight.concat(getCircle(posX, posY, l));
     }
 
-    // Remove tiles that are out of the map
-    fieldsInSight = fieldsInSight.filter(
-      (field) => field[0] >= 0 && field[1] >= 0
-    );
-
     // Fill gaps
     for (let i = 0; i < fieldsInSight.length; i++) {
       const y = fieldsInSight[i][0],
@@ -51,8 +46,16 @@ class Map {
       }
     }
 
+    // Remove tiles that are out of the map
+    fieldsInSight = fieldsInSight.filter(
+      (field) => field[0] >= 0 && field[1] >= 0
+    );
+
     // Merge the new array
     fieldsInSight = fieldsInSight.concat(newFields);
+
+    // Remove duplicates
+    fieldsInSight = uniq(fieldsInSight);
 
     // Remove fields that are out of the viewport
     for (let j = 0; j < fieldsInSight.length; j++) {
