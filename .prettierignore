@@ -1,5 +1,4 @@
 coverage/**/*.js
-maps
 *.yml
 game/images
 *.html
