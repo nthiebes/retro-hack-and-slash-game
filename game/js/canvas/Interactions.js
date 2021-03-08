@@ -128,7 +128,7 @@ class Interactions {
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
         newTile = newY > y,
-        mapPosition = this.map.map[newY][x];
+        mapPosition = this.map.map[newY] ? this.map.map[newY][x] : 2;
 
       if (
         mapPosition === 0 ||
@@ -158,7 +158,7 @@ class Interactions {
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
         newTile = newY < Math.floor(player.pos[1]),
-        mapPosition = this.map.map[newY][x];
+        mapPosition = this.map.map[newY] ? this.map.map[newY][x] : 2;
 
       if (
         mapPosition === 0 ||
