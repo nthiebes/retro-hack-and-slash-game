@@ -124,7 +124,7 @@ class Interactions {
       valueY = this.offsetY - playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[1] + playerSpeed * delta,
-        newY = Math.floor(newPos),
+        newY = Math.floor(newPos + 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
         newTile = newY > y,
@@ -142,7 +142,7 @@ class Interactions {
             x: x,
             y: y,
             newX: x,
-            newY: newY,
+            newY: Math.floor(newPos),
             unitId: player.id
           });
           this.setPath();
@@ -154,7 +154,7 @@ class Interactions {
       valueY = this.offsetY + playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[1] - playerSpeed * delta,
-        newY = Math.floor(newPos),
+        newY = Math.floor(newPos - 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
         newTile = newY < Math.floor(player.pos[1]),
@@ -172,7 +172,7 @@ class Interactions {
             x: x,
             y: y,
             newX: x,
-            newY: newY,
+            newY: Math.floor(newPos),
             unitId: player.id
           });
           this.setPath();
@@ -184,7 +184,7 @@ class Interactions {
       valueX = this.offsetX - playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[0] + playerSpeed * delta,
-        newX = Math.floor(newPos),
+        newX = Math.floor(newPos + 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
         newTile = newX > Math.floor(player.pos[0]),
@@ -201,7 +201,7 @@ class Interactions {
           this.map.updatePosition({
             x: x,
             y: y,
-            newX: newX,
+            newX: Math.floor(newPos),
             newY: y,
             unitId: player.id
           });
@@ -214,7 +214,7 @@ class Interactions {
       valueX = this.offsetX + playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[0] - playerSpeed * delta,
-        newX = Math.floor(newPos),
+        newX = Math.floor(newPos - 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
         newTile = newX < Math.floor(player.pos[0]),
@@ -231,7 +231,7 @@ class Interactions {
           this.map.updatePosition({
             x: x,
             y: y,
-            newX: newX,
+            newX: Math.floor(newPos),
             newY: y,
             unitId: player.id
           });
