@@ -7,14 +7,25 @@ class Interactions {
   constructor(data) {
     this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
-    this.offsetX = 0;
-    this.offsetY = 0;
     this.map = data.map;
     this.rowTileCount = data.rowTileCount;
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
     this.items = data.items;
+    this.offsetX =
+      Units.player.pos[0] * this.fieldWidth * -1 + window.innerWidth / 2;
+    this.offsetY =
+      Units.player.pos[1] * this.fieldWidth * -1 + window.innerHeight / 2;
 
+    if (this.offsetX >= 0) {
+      this.offsetX = 0;
+    }
+
+    if (this.offsetY >= 0) {
+      this.offsetY = 0;
+    }
+
+    this.wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
     this.registerEventHandler();
   }
 
