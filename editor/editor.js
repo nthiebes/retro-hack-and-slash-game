@@ -527,9 +527,6 @@ window.onload = () => {
     newMapForm.addEventListener('submit', (event) => {
       const mapSize = Number(size.value);
       const groundValue = Number(ground.value);
-      const mapGround1 = new Array(mapSize)
-        .fill(0)
-        .map(() => new Array(mapSize).fill(groundValue));
       const mapGround2 = new Array(mapSize)
         .fill(0)
         .map(() => new Array(mapSize).fill(0));
@@ -537,6 +534,27 @@ window.onload = () => {
         .fill(0)
         .map(() => new Array(mapSize).fill(0));
       let mapBlocked = new Array(mapSize).fill(0);
+      let mapGround1;
+
+      if (groundValue === 32) {
+        mapGround1 = new Array(mapSize).fill(0).map((_, index) => {
+          const innerGround1 = new Array(mapSize).fill(0);
+
+          if (index % 2) {
+            return innerGround1.map((__, innerIndex) =>
+              innerIndex % 2 ? 143 : 142
+            );
+          }
+
+          return innerGround1.map((__, innerIndex) =>
+            innerIndex % 2 ? 127 : 126
+          );
+        });
+      } else {
+        mapGround1 = new Array(mapSize)
+          .fill(0)
+          .map(() => new Array(mapSize).fill(groundValue));
+      }
 
       mapBlocked = mapBlocked.map((_, index) => {
         if (index === 0 || index === mapBlocked.length - 1) {
