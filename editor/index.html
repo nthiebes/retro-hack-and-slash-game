@@ -52,6 +52,7 @@
       <button id="event-player" class="event__item event__item--active">Spieler</button>
       <button id="event-enemy" class="event__item">Gegner</button>
       <button id="event-item" class="event__item">Gegenstand</button>
+      <button id="event-map" class="event__item">Map</button>
       <div id="event-options-enemy" class="event__options">
         <label for="enemy-ids">Name:</label>
         <select required id="enemy-ids"></select>
@@ -59,6 +60,15 @@
       <div id="event-options-item" class="event__options">
         <label for="item-ids">Name:</label>
         <select required id="item-ids"></select>
+      </div>
+      <div id="event-options-map" class="event__options">
+        <label for="map-ids">Name:</label>
+        <select required id="map-ids">
+          <option value="island" selected>Insel</option>
+          <option value="camp">Camp</option>
+          <option value="turn-based">Turn-based</option>
+          <option value="items">Alle Gegenstände</option>
+        </select>
       </div>
     </div>
     <div class="blocked-tiles" id="blocked-tiles">

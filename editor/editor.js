@@ -30,10 +30,13 @@ const obscure = document.getElementById('obscure');
 const eventPlayer = document.getElementById('event-player');
 const eventEnemy = document.getElementById('event-enemy');
 const eventItem = document.getElementById('event-item');
+const eventMap = document.getElementById('event-map');
 const enemyIds = document.getElementById('enemy-ids');
 const enemyOptions = document.getElementById('event-options-enemy');
 const itemOptions = document.getElementById('event-options-item');
 const itemIds = document.getElementById('item-ids');
+const mapOptions = document.getElementById('event-options-map');
+const mapIds = document.getElementById('map-ids');
 const loadButton = document.getElementById('load-map');
 const ground = document.getElementById('ground');
 const resources = new Resources();
@@ -69,6 +72,7 @@ class Editor {
     this.playerList = data.playerList || [];
     this.enemyList = data.enemyList || [];
     this.itemList = data.itemList || [];
+    this.mapList = data.mapList || [];
 
     activeMapTile.classList.add('canvas__active--show');
 
@@ -214,6 +218,26 @@ class Editor {
         color: '#fff'
       });
     }
+
+    for (let i = 0; i < this.mapList.length; i++) {
+      const map = this.mapList[i];
+
+      drawSquare({
+        ctx: ctxEvents,
+        color: 'rgba(0,255,255,0.5)',
+        width: config.fieldWidth,
+        height: config.fieldWidth,
+        x: map.pos[0] * config.fieldWidth,
+        y: map.pos[1] * config.fieldWidth
+      });
+      drawText({
+        ctx: ctxEvents,
+        x: map.pos[0] * config.fieldWidth + 2,
+        y: map.pos[1] * config.fieldWidth + 22,
+        text: map.id,
+        color: '#fff'
+      });
+    }
   }
 
   drawActiveLayer() {
@@ -275,6 +299,16 @@ class Editor {
           this.itemList.push({ pos: [x, y], id: itemIds.value });
         } else {
           this.itemList.splice(itemIndex, 1);
+        }
+      } else if (this.activeEvent === 'map') {
+        const mapIndex = this.mapList.findIndex(
+          ({ pos }) => pos[0] === x && pos[1] === y
+        );
+
+        if (mapIndex === -1) {
+          this.mapList.push({ pos: [x, y], id: mapIds.value });
+        } else {
+          this.mapList.splice(mapIndex, 1);
         }
       }
     } else {
@@ -383,6 +417,7 @@ class Editor {
     eventPlayer.addEventListener('click', this.handleEvent);
     eventEnemy.addEventListener('click', this.handleEvent);
     eventItem.addEventListener('click', this.handleEvent);
+    eventMap.addEventListener('click', this.handleEvent);
   }
 
   handleEvent = (event) => {
@@ -391,8 +426,10 @@ class Editor {
     eventPlayer.classList.remove('event__item--active');
     eventEnemy.classList.remove('event__item--active');
     eventItem.classList.remove('event__item--active');
+    eventMap.classList.remove('event__item--active');
     enemyOptions.classList.remove('event__options--show');
     itemOptions.classList.remove('event__options--show');
+    mapOptions.classList.remove('event__options--show');
 
     if (id === 'event-player') {
       eventPlayer.classList.add('event__item--active');
@@ -408,6 +445,11 @@ class Editor {
       itemOptions.classList.add('event__options--show');
       this.activeEvent = 'item';
     }
+    if (id === 'event-map') {
+      eventMap.classList.add('event__item--active');
+      mapOptions.classList.add('event__options--show');
+      this.activeEvent = 'map';
+    }
   };
 
   generateMap = (event) => {
@@ -416,6 +458,7 @@ class Editor {
       players: this.playerList,
       enemies: this.enemyList,
       items: this.itemList,
+      maps: this.mapList,
       map: [this.ground1, this.ground2, this.top1, this.blocked]
     };
     const mapString = JSON.stringify(map);
@@ -508,6 +551,7 @@ window.onload = () => {
         map,
         enemies: enemyList,
         items: itemList,
+        maps: mapList,
         players,
         name: mapName
       } = JSON.parse(mapJson.value);
@@ -517,6 +561,7 @@ window.onload = () => {
         enemyList,
         playerList: players,
         itemList,
+        mapList,
         map: [map[0], map[1], map[2], map[3]]
       });
 

@@ -12,6 +12,7 @@ class Interactions {
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
     this.items = data.items;
+    this.mapItems = data.mapItems;
     this.offsetX =
       Units.player.pos[0] * this.fieldWidth * -1 + window.innerWidth / 2;
     this.offsetY =
@@ -138,7 +139,7 @@ class Interactions {
         newY = Math.floor(newPos + 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newY > y,
+        newTile = Math.floor(newPos) > y,
         mapPosition = this.map.map[newY] ? this.map.map[newY][x] : 2;
 
       if (
@@ -157,6 +158,12 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+
+          const mapItem = this.checkMap({ x, y: Math.floor(newPos) });
+
+          if (mapItem) {
+            this.loadMap(mapItem);
+          }
         }
       }
     }
@@ -168,7 +175,7 @@ class Interactions {
         newY = Math.floor(newPos - 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newY < Math.floor(player.pos[1]),
+        newTile = Math.floor(newPos) < y,
         mapPosition = this.map.map[newY] ? this.map.map[newY][x] : 2;
 
       if (
@@ -187,6 +194,12 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+
+          const mapItem = this.checkMap({ x, y: Math.floor(newPos) });
+
+          if (mapItem) {
+            this.loadMap(mapItem);
+          }
         }
       }
     }
@@ -198,7 +211,7 @@ class Interactions {
         newX = Math.floor(newPos + 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newX > Math.floor(player.pos[0]),
+        newTile = Math.floor(newPos) > x,
         mapPosition = this.map.map[y][newX];
 
       if (
@@ -217,6 +230,12 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+
+          const mapItem = this.checkMap({ x: Math.floor(newPos), y });
+
+          if (mapItem) {
+            this.loadMap(mapItem);
+          }
         }
       }
     }
@@ -228,7 +247,7 @@ class Interactions {
         newX = Math.floor(newPos - 0.5),
         x = Math.floor(player.pos[0]),
         y = Math.floor(player.pos[1]),
-        newTile = newX < Math.floor(player.pos[0]),
+        newTile = Math.floor(newPos) < x,
         mapPosition = this.map.map[y][newX];
 
       if (
@@ -247,6 +266,12 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+
+          const mapItem = this.checkMap({ x: Math.floor(newPos), y });
+
+          if (mapItem) {
+            this.loadMap(mapItem);
+          }
         }
       }
     }
@@ -344,6 +369,13 @@ class Interactions {
     );
   }
 
+  checkMap({ x, y }) {
+    return this.mapItems.find(
+      (map) =>
+        map.pos[0] === x && map.pos[1] === y && this.itemInRange({ x, y })
+    );
+  }
+
   itemInRange({ x, y }) {
     const playerX = Math.floor(Units.player.pos[0]);
     const playerY = Math.floor(Units.player.pos[1]);
@@ -362,6 +394,10 @@ class Interactions {
       return true;
     }
     return false;
+  }
+
+  loadMap(mapItem) {
+    console.log(mapItem);
   }
 
   setPath() {

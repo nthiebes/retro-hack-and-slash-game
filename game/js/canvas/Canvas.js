@@ -19,6 +19,7 @@ export default class Canvas {
     this.lastTime = Date.now();
     this.gameTime = 0;
     this.items = data.items;
+    this.mapItems = data.mapItems;
     this.map = new Map({
       map: this.blockedArr,
       units: Units.list
@@ -28,7 +29,8 @@ export default class Canvas {
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       fieldWidth: config.fieldWidth,
-      items: this.items
+      items: this.items,
+      mapItems: this.mapItems
     });
 
     // Fill fields in sight for all units

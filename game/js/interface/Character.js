@@ -141,6 +141,7 @@ class Character {
         this.gameData.items = json.items;
         this.gameData.players = json.players;
         this.gameData.enemies = json.enemies;
+        this.gameData.mapItems = json.maps;
 
         // eslint-disable-next-line
         const game = new Canvas({
