@@ -17,4 +17,5 @@ html,
 body {
   overflow: hidden;
   font-size: 16px;
+  background-color: gray;
 }
