@@ -81,10 +81,14 @@ export default class Unit {
   }
 
   takeDamage(direction) {
-    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
+    const directionOffset = direction === 'LEFT' ? 896 : 768;
 
     if (config.debug) {
       console.log('💘');
+    }
+
+    if (this.attacking) {
+      return;
     }
 
     this.turn(direction);

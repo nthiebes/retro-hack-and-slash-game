@@ -47,8 +47,8 @@ class Interactions {
   onMouseMove(e) {
     const player = Units.player;
 
-    if (player.attacking) {
-      // return;
+    if (player.dead) {
+      return;
     }
 
     // Left screen half
@@ -83,6 +83,10 @@ class Interactions {
   onMouseDown(e) {
     const player = Units.player;
 
+    if (player.dead) {
+      return;
+    }
+
     // Left click
     if (e.button === 0) {
       const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
@@ -103,6 +107,10 @@ class Interactions {
 
   onMouseUp(e) {
     const player = Units.player;
+
+    if (player.dead) {
+      return;
+    }
 
     // Left click
     if (e.button === 0) {
@@ -128,7 +136,7 @@ class Interactions {
       blockedX = true,
       blockedY = true;
 
-    if (player.attacking) {
+    if (player.attacking || player.dead) {
       return;
     }
 
@@ -408,7 +416,7 @@ class Interactions {
       const player = Units.player;
       const playerInRange = enemy.isPlayerInSight(player.pos);
 
-      if (!enemy.id.includes('player') && playerInRange) {
+      if (!enemy.dead && !enemy.id.includes('player') && playerInRange) {
         const playerPos1 = [
             Math.floor(player.pos[0] + 1),
             Math.floor(player.pos[1])

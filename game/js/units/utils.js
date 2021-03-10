@@ -40,8 +40,14 @@ const fight = (attacker, defender) => {
 };
 
 export const combat = ({ units, map, attacker }) => {
+  const player = units.player;
+
   // Check for hits
   units.list.forEach((unit) => {
+    if (unit.dead && attacker.id !== player.id) {
+      attacker.stop();
+    }
+
     if (
       unit.id !== attacker.id &&
       !unit.dead &&
@@ -79,11 +85,13 @@ export const combat = ({ units, map, attacker }) => {
 
   // Clear blocked field for dead units
   units.list.forEach((unit) => {
-    if (unit.dead) {
+    if (unit.dead && unit.id !== player.id) {
       const x = Math.floor(unit.pos[0]);
       const y = Math.floor(unit.pos[1]);
 
       map.resetPosition({ x, y });
+    } else if (unit.dead) {
+      console.log('player dead');
     }
   });
 };
