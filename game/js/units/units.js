@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { getSpeed } from './helpers.js';
+import { getSpeed } from './utils.js';
 import Sprite from '../utils/Sprite.js';
 import Unit from './Unit.js';
 import { GameData } from '../gameData.js';

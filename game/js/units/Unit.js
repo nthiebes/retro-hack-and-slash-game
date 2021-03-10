@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { getSpeed } from './helpers.js';
+import { getSpeed } from './utils.js';
 import { GameData } from '../gameData.js';
 
 export default class Unit {
@@ -7,6 +7,7 @@ export default class Unit {
     this.direction = 'RIGHT';
     this.moving = false;
     this.attacking = false;
+    this.dead = false;
     this.path = [];
     this.fieldsInSight = [];
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
@@ -20,29 +21,18 @@ export default class Unit {
   }
 
   walk() {
+    const directionOffset = this.direction === 'LEFT' ? 128 : 0;
+
     if (config.debug && this.friendly) {
       console.log('🚶‍♂️');
     }
 
-    switch (this.direction) {
-      case 'LEFT':
-        this.skin.pos = [0, 128];
-        this.head.pos = [0, 128];
-        this.leg.pos = [0, 128];
-        this.torso.pos = [0, 128];
-        this.primary.pos = [0, 128];
-        this.secondary.pos = [0, 128];
-        break;
-
-      default:
-        this.skin.pos = [0, 0];
-        this.head.pos = [0, 0];
-        this.leg.pos = [0, 0];
-        this.torso.pos = [0, 0];
-        this.primary.pos = [0, 0];
-        this.secondary.pos = [0, 0];
-    }
-
+    this.skin.pos = [0, directionOffset];
+    this.head.pos = [0, directionOffset];
+    this.leg.pos = [0, directionOffset];
+    this.torso.pos = [0, directionOffset];
+    this.primary.pos = [0, directionOffset];
+    this.secondary.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2, 3];
     this.head.frames = [0, 1, 2, 3];
     this.leg.frames = [0, 1, 2, 3];
@@ -53,42 +43,27 @@ export default class Unit {
   }
 
   attack() {
-    let animationPositionLeft, animationPositionRight;
+    let directionOffset;
 
-    if (config.debug && this.friendly) {
+    if (config.debug) {
       console.log('⚔️');
     }
 
     switch (this.animation) {
       case 'stab':
-        animationPositionLeft = 640;
-        animationPositionRight = 512;
+        directionOffset = this.direction === 'LEFT' ? 640 : 512;
         break;
 
       default:
-        animationPositionLeft = 384;
-        animationPositionRight = 256;
+        directionOffset = this.direction === 'LEFT' ? 384 : 256;
     }
 
-    switch (this.direction) {
-      case 'LEFT':
-        this.skin.pos = [0, animationPositionLeft];
-        this.head.pos = [0, animationPositionLeft];
-        this.leg.pos = [0, animationPositionLeft];
-        this.torso.pos = [0, animationPositionLeft];
-        this.primary.pos = [0, animationPositionLeft];
-        this.secondary.pos = [0, animationPositionLeft];
-        break;
-
-      default:
-        this.skin.pos = [0, animationPositionRight];
-        this.head.pos = [0, animationPositionRight];
-        this.leg.pos = [0, animationPositionRight];
-        this.torso.pos = [0, animationPositionRight];
-        this.primary.pos = [0, animationPositionRight];
-        this.secondary.pos = [0, animationPositionRight];
-    }
-
+    this.skin.pos = [0, directionOffset];
+    this.head.pos = [0, directionOffset];
+    this.leg.pos = [0, directionOffset];
+    this.torso.pos = [0, directionOffset];
+    this.primary.pos = [0, directionOffset];
+    this.secondary.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2];
     this.skin.index = 0;
     this.head.frames = [0, 1, 2];
@@ -105,6 +80,69 @@ export default class Unit {
     this.attacking = true;
   }
 
+  takeDamage(direction) {
+    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
+
+    if (config.debug) {
+      console.log('💘');
+    }
+
+    this.turn(direction);
+
+    this.skin.pos = [0, directionOffset];
+    this.head.pos = [0, 896];
+    this.torso.pos = [0, directionOffset];
+    this.leg.pos = [0, directionOffset];
+    this.primary.pos = [0, directionOffset];
+    this.secondary.pos = [0, directionOffset];
+    this.skin.once = true;
+    this.skin.frames = [0, 0];
+    this.head.frames = [0, 0];
+    this.torso.frames = [0, 0];
+    this.leg.frames = [0, 0];
+    this.primary.frames = [0, 0];
+    this.secondary.frames = [0, 0];
+  }
+
+  die() {
+    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
+
+    if (config.debug) {
+      console.log('😵');
+    }
+
+    this.skin.pos = [0, directionOffset];
+    this.head.pos = [0, directionOffset];
+    this.torso.pos = [0, directionOffset];
+    this.leg.pos = [0, directionOffset];
+    this.primary.pos = [0, directionOffset];
+    this.secondary.pos = [0, directionOffset];
+    this.skin.once = true;
+    this.skin.frames = [0, 1];
+    this.secondary.frames = [0, 1];
+    this.head.frames = [0, 1];
+    this.torso.frames = [0, 1];
+    this.leg.frames = [0, 1];
+    this.primary.frames = [0, 1];
+    this.secondary.frames = [0, 1];
+    this.dead = true;
+  }
+
+  stayDead() {
+    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
+
+    if (config.debug) {
+      console.log('💀');
+    }
+
+    this.skin.pos = [128, directionOffset];
+    this.head.pos = [128, directionOffset];
+    this.torso.pos = [128, directionOffset];
+    this.leg.pos = [128, directionOffset];
+    this.primary.pos = [128, directionOffset];
+    this.secondary.pos = [128, directionOffset];
+  }
+
   stop() {
     if (config.debug && this.friendly) {
       console.log('✋');
@@ -113,13 +151,6 @@ export default class Unit {
     this.moving = false;
     this.attacking = false;
     this.skin.once = false;
-    this.skin.done = false;
-    // this.head.once = false;
-    // this.head.done = false;
-    // this.leg.once = false;
-    // this.leg.done = false;
-    // this.torso.once = false;
-    // this.torso.done = false;
     this.turn(this.direction);
     this.skin.frames = [0];
     this.head.frames = [0];
@@ -212,11 +243,12 @@ export default class Unit {
       this[weaponType].url = `images/weapons/${id}.png`;
       this.animation = GameData.getWeapon(this.weapons.primary).animation;
       this.weaponType = GameData.getWeapon(this.weapons.primary).type;
+      this.range = GameData.getWeapon(this.weapons.primary).range;
       this.stop();
     }
   }
 
-  isPlayerInRange = (playerPos) => {
+  isPlayerInSight = (playerPos) => {
     const playerX = Math.floor(playerPos[0]);
     const playerY = Math.floor(playerPos[1]);
 

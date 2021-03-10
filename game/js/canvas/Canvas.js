@@ -1,7 +1,8 @@
 import config from '../config.js';
 import { Units } from '../units/units.js';
+import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
-import { Map } from './Map.js';
+import { Map } from '../map/Map.js';
 import { drawImage } from './utils.js';
 
 export default class Canvas {
@@ -117,19 +118,23 @@ export default class Canvas {
       }
 
       // Stop after animation
-      if (
-        unit.skin.frames.length === Math.floor(unit.skin.index) &&
-        unit.skin.once
-      ) {
+      if (unit.skin.frames.length === Math.floor(unit.skin.index)) {
         if (unit.attacking) {
-          this.checkForHit();
+          combat({ units: Units, map: this.map, attacker: unit });
         }
 
-        unit.stop();
+        if (unit.skin.once) {
+          unit.stop();
+        }
+
+        if (unit.dead) {
+          unit.stayDead();
+        }
       }
     }
   }
 
+  // eslint-disable-next-line complexity
   updateMoveAnimation(unit) {
     let xNew = unit.pos[0],
       yNew = unit.pos[1];
@@ -172,6 +177,8 @@ export default class Canvas {
       if (Units.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
         unit.turn('RIGHT');
       }
+
+      unit.walk();
     }
 
     // Move top if next tile is above current
@@ -213,55 +220,26 @@ export default class Canvas {
       // Update fields in sight
       unit.fieldsInSight = this.map.getFieldsInSight(unit.tile);
 
-      // New path if enemy stops and player is in range again
-      if (unit.isPlayerInRange(Units.player.pos) && unit.path.length === 1) {
+      // Attack if player is in range
+      if (
+        yNext === Math.floor(Units.player.pos[1]) &&
+        unit.path.length === 1 &&
+        (xNext === Math.floor(Units.player.pos[0]) + 1 ||
+          xNext === Math.floor(Units.player.pos[0]) - 1)
+      ) {
+        unit.attack();
+      }
+      // New path if enemy stops and player is in sight again
+      else if (
+        unit.isPlayerInSight(Units.player.pos) &&
+        unit.path.length === 1
+      ) {
         this.interactions.setPath(Units.player);
       }
     }
 
     unit.pos = [xNew, yNew];
-    unit.walk();
     unit.currentStep--;
-  }
-
-  checkForHit() {
-    const unitsList = Units.list,
-      player = Units.player;
-    let i = Units.list.length;
-
-    while (i--) {
-      const unit = unitsList[i];
-
-      if (unit.id !== player.id) {
-        const playerPosX = Math.round(config.fieldWidth * player.pos[0]),
-          enemyPosX = Math.round(config.fieldWidth * unit.pos[0]),
-          playerPosY = Math.round(config.fieldWidth * player.pos[1]),
-          enemyPosY = Math.round(config.fieldWidth * unit.pos[1]),
-          playerWidth = 40,
-          playerHeight = 50;
-
-        if (
-          playerPosY > enemyPosY - playerHeight / 2 &&
-          playerPosY < enemyPosY + playerHeight / 2
-        ) {
-          if (player.direction === 'LEFT') {
-            const playerReach = playerPosX - playerWidth - player.range;
-
-            if (playerReach <= enemyPosX && playerPosX > enemyPosX) {
-              console.log('💘');
-            }
-          }
-
-          if (player.direction === 'RIGHT') {
-            const playerReach = playerPosX + playerWidth + player.range;
-
-            if (playerReach >= enemyPosX && playerPosX < enemyPosX) {
-              console.log('💘');
-            }
-          }
-        }
-      }
-    }
   }
 
   render() {

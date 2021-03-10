@@ -1,7 +1,7 @@
 import config from '../config.js';
 import Input from '../utils/Input.js';
 import { Units } from '../units/units.js';
-import { getPath } from './path.js';
+import { getPath } from '../map/path.js';
 
 class Interactions {
   constructor(data) {
@@ -406,7 +406,7 @@ class Interactions {
     while (i--) {
       const enemy = Units.list[i];
       const player = Units.player;
-      const playerInRange = enemy.isPlayerInRange(player.pos);
+      const playerInRange = enemy.isPlayerInSight(player.pos);
 
       if (!enemy.id.includes('player') && playerInRange) {
         const playerPos1 = [

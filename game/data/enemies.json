@@ -39,7 +39,7 @@
       "friendly": false,
       "name": "Ork Krieger mit Axt und Schild",
       "race": "orc",
-      "skin": 0,
+      "skin": 1,
       "health": 100,
       "gear": {
         "head": "none",
@@ -49,6 +49,57 @@
       "weapons": {
         "primary": "axe",
         "secondary": "shield"
+      }
+    },
+    {
+      "id": "orc3",
+      "friendly": false,
+      "name": "Stahlork",
+      "race": "orc",
+      "skin": 1,
+      "health": 100,
+      "gear": {
+        "head": "head_steel_0",
+        "torso": "torso_iron_0",
+        "leg": "leg_iron_0"
+      },
+      "weapons": {
+        "primary": "axe",
+        "secondary": "shield"
+      }
+    },
+    {
+      "id": "human0",
+      "friendly": false,
+      "name": "Eisenmensch",
+      "race": "human",
+      "skin": 2,
+      "health": 100,
+      "gear": {
+        "head": "head_iron_0",
+        "torso": "torso_iron_0",
+        "leg": "leg_iron_0"
+      },
+      "weapons": {
+        "primary": "sword",
+        "secondary": "fist"
+      }
+    },
+    {
+      "id": "human2",
+      "friendly": false,
+      "name": "Stoffmensch",
+      "race": "human",
+      "skin": 4,
+      "health": 100,
+      "gear": {
+        "head": "head_cloth_0",
+        "torso": "torso_cloth_0",
+        "leg": "leg_cloth_0"
+      },
+      "weapons": {
+        "primary": "spear",
+        "secondary": "fist"
       }
     },
     {

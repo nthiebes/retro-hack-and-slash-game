@@ -1,4 +1,5 @@
-import { drawSquare, getCircle, uniq, bline } from './utils.js';
+import { drawSquare } from '../canvas/utils.js';
+import { getCircle, uniq, bline } from './utils.js';
 import config from '../config.js';
 
 class Map {
@@ -18,6 +19,10 @@ class Map {
 
     // Add new position
     this.map[newY][newX] = unitId;
+  }
+
+  resetPosition({ x, y }) {
+    this.map[y][x] = 0;
   }
 
   getFieldsInSight(pos, range = config.visibility) {
