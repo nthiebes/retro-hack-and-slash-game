@@ -5,6 +5,9 @@ import Unit from './Unit.js';
 import { GameData } from '../gameData.js';
 
 const listData = [];
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * Math.floor(max));
+};
 
 export class Units {
   static get list() {
@@ -33,6 +36,8 @@ export class Units {
   static addUnit(unit) {
     const speed = getSpeed(unit);
     const animation = GameData.getWeapon(unit.weapons.primary).animation;
+    const skinCount = GameData.races[unit.race].skins;
+    const randomSkin = getRandomInt(skinCount - 1);
 
     listData.push(
       new Unit(
@@ -45,7 +50,7 @@ export class Units {
           speed,
           animation: animation,
           skin: new Sprite({
-            url: `images/races/${unit.race}${unit.skin}.png`,
+            url: `images/races/${unit.race}${randomSkin}.png`,
             pos: [0, 256],
             size: [128, 128],
             speed,

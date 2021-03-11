@@ -4,7 +4,8 @@
     "dexterity": 3,
     "intelligence": 3,
     "defense": 3,
-    "speed": 4
+    "speed": 4,
+    "skins": 7
   },
 
   "orc": {
@@ -12,7 +13,8 @@
     "dexterity": 2,
     "intelligence": 1,
     "defense": 4,
-    "speed": 3
+    "speed": 3,
+    "skins": 4
   },
 
   "elf": {
@@ -20,7 +22,8 @@
     "dexterity": 4,
     "intelligence": 4,
     "defense": 2,
-    "speed": 4
+    "speed": 4,
+    "skins": 1
   },
 
   "vampire": {
@@ -28,7 +31,8 @@
     "dexterity": 3,
     "intelligence": 2,
     "defense": 2,
-    "speed": 5
+    "speed": 5,
+    "skins": 1
   },
 
   "ghost": {
@@ -36,7 +40,8 @@
     "dexterity": 1,
     "intelligence": 1,
     "defense": 4,
-    "speed": 5
+    "speed": 5,
+    "skins": 1
   },
 
   "zombie": {
@@ -44,6 +49,7 @@
     "dexterity": 1,
     "intelligence": 0,
     "defense": 1,
-    "speed": 1
+    "speed": 1,
+    "skins": 7
   }
 }

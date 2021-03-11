@@ -9,6 +9,7 @@ const resourcesList = [
   'images/races/human0.png',
   'images/races/human1.png',
   'images/races/human2.png',
+  'images/races/human3.png',
   'images/races/human4.png',
   'images/races/human5.png',
   'images/races/human6.png',

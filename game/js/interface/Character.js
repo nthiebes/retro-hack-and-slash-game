@@ -77,14 +77,14 @@ class Character {
   };
 
   setRaceAttributes = (race) => {
-    const attributes = Object.entries(race[1]);
-    let i = attributes.length;
+    const attributes = Object.entries(race[1]).filter(
+      (attribute) => attribute[0] !== 'skins'
+    );
 
     raceAttributes.innerHTML = '';
     raceName.innerHTML = race[0];
 
-    while (i--) {
-      const attribute = attributes[i];
+    attributes.forEach((attribute) => {
       const li = document.createElement('li');
       const attributeValue = attribute[1];
       const attributeData = attributesMap[attribute[0]];
@@ -94,12 +94,9 @@ class Character {
         li.append(attributeData.good);
         raceAttributes.append(li);
       }
-    }
+    });
 
-    i = attributes.length;
-
-    while (i--) {
-      const attribute = attributes[i];
+    attributes.forEach((attribute) => {
       const li = document.createElement('li');
       const attributeValue = attribute[1];
       const attributeData = attributesMap[attribute[0]];
@@ -109,7 +106,7 @@ class Character {
         li.append(attributeData.bad);
         raceAttributes.append(li);
       }
-    }
+    });
   };
 
   startGame = (event) => {
