@@ -80,8 +80,8 @@ export default class Unit {
     this.attacking = true;
   }
 
-  takeDamage(direction) {
-    const directionOffset = direction === 'LEFT' ? 896 : 768;
+  takeDamage() {
+    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
 
     if (config.debug) {
       console.log('💘');
@@ -91,10 +91,8 @@ export default class Unit {
       return;
     }
 
-    this.turn(direction);
-
     this.skin.pos = [0, directionOffset];
-    this.head.pos = [0, 896];
+    this.head.pos = [0, directionOffset];
     this.torso.pos = [0, directionOffset];
     this.leg.pos = [0, directionOffset];
     this.primary.pos = [0, directionOffset];

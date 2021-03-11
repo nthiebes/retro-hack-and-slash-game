@@ -32,10 +32,8 @@ const fight = (attacker, defender) => {
 
   if (defender.health === 0) {
     defender.die();
-  } else if (attacker.direction === 'LEFT') {
-    defender.takeDamage('RIGHT');
   } else {
-    defender.takeDamage('LEFT');
+    defender.takeDamage();
   }
 };
 
