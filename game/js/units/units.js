@@ -38,6 +38,11 @@ export class Units {
     const animation = GameData.getWeapon(unit.weapons.primary).animation;
     const skinCount = GameData.races[unit.race].skins;
     const randomSkin = getRandomInt(skinCount - 1);
+    const hair = `head_hair_${getRandomInt(config.hairCount - 1)}`;
+
+    if (unit.gear.head === 'none') {
+      unit.gear.head = hair;
+    }
 
     listData.push(
       new Unit(

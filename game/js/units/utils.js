@@ -5,7 +5,9 @@ const getDefense = (defender) => {
   const defense =
     GameData.getWeapon(defender.weapons.secondary).defense +
     GameData.races[defender.race].defense;
-  const headGearType = GameData.getArmor(defender.gear.head).type;
+  const headGearType = (
+    GameData.getArmor(defender.gear.head) || { type: 'none' }
+  ).type;
   const torsoGearType = GameData.getArmor(defender.gear.torso).type;
   const legGearType = GameData.getArmor(defender.gear.leg).type;
   const headDefense = GameData.armor.types[headGearType].defense;
