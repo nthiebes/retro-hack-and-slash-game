@@ -67,7 +67,7 @@ export class Units {
         leg
       }
     });
-    const attackSpeed = getAttackSpeed(unit);
+    const attackSpeed = getAttackSpeed(primary);
     const direction = getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT';
     const directionOffset = direction === 'LEFT' ? 128 : 0;
 

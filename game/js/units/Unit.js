@@ -10,6 +10,7 @@ export default class Unit {
     this.dead = false;
     this.path = [];
     this.fieldsInSight = [];
+    this.attackSpeed = 0;
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 
@@ -65,18 +66,18 @@ export default class Unit {
         directionOffset = this.direction === 'LEFT' ? 384 : 256;
     }
 
-    this.skin.pos = [0, directionOffset];
-    this.head.pos = [0, directionOffset];
-    this.leg.pos = [0, directionOffset];
-    this.torso.pos = [0, directionOffset];
-    this.primary.pos = [0, directionOffset];
-    this.secondary.pos = [0, directionOffset];
     this.skin.speed = this.attackSpeed;
     this.head.speed = this.attackSpeed;
     this.torso.speed = this.attackSpeed;
     this.leg.speed = this.attackSpeed;
     this.primary.speed = this.attackSpeed;
     this.secondary.speed = this.attackSpeed;
+    this.skin.pos = [0, directionOffset];
+    this.head.pos = [0, directionOffset];
+    this.leg.pos = [0, directionOffset];
+    this.torso.pos = [0, directionOffset];
+    this.primary.pos = [0, directionOffset];
+    this.secondary.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2];
     this.skin.index = 0;
     this.head.frames = [0, 1, 2];
@@ -256,7 +257,7 @@ export default class Unit {
       // Order matters!
       this.weapons[weaponType] = id;
       this[weaponType].url = `images/weapons/${id}.png`;
-      this.attackSpeed = getAttackSpeed({ weapons: this.weapons });
+      this.attackSpeed = getAttackSpeed(this.weapons.primary);
       this.animation = GameData.getWeapon(this.weapons.primary).animation;
       this.weaponType = GameData.getWeapon(this.weapons.primary).type;
       this.range = GameData.getWeapon(this.weapons.primary).range;
