@@ -101,7 +101,7 @@ export const combat = ({ units, map, attacker }) => {
 };
 
 export const getSpeed = ({ race, gear }) => {
-  const headGearType = GameData.getArmor(gear.head).type;
+  const headGearType = (GameData.getArmor(gear.head) || { type: 'none' }).type;
   const torsoGearType = GameData.getArmor(gear.torso).type;
   const legGearType = GameData.getArmor(gear.leg).type;
   const headSpeedModifier = GameData.armor.types[headGearType].speedModifier;
