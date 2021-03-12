@@ -245,10 +245,10 @@ export default class Canvas {
 
   render() {
     const tempUnitList = this.getTempUnitList(Units.list);
+    const ctx = config.ctxAnim;
 
-    // Clear canvas hack
-    // eslint-disable-next-line no-self-assign
-    config.canvasAnim.width = config.canvasAnim.width;
+    // Clear canvas
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     this.renderEntities(tempUnitList);
   }
 

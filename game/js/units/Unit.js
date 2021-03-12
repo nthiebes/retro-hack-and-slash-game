@@ -134,7 +134,6 @@ export default class Unit {
     this.secondary.pos = [0, directionOffset];
     this.skin.once = true;
     this.skin.frames = [0, 1];
-    this.secondary.frames = [0, 1];
     this.head.frames = [0, 1];
     this.torso.frames = [0, 1];
     this.leg.frames = [0, 1];
