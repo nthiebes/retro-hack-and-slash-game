@@ -222,8 +222,9 @@ export default class Canvas {
 
       // Attack if player is in range
       if (
-        yNext === Math.floor(Units.player.pos[1]) &&
+        !Units.player.dead &&
         unit.path.length === 1 &&
+        yNext === Math.floor(Units.player.pos[1]) &&
         (xNext === Math.floor(Units.player.pos[0]) + 1 ||
           xNext === Math.floor(Units.player.pos[0]) - 1)
       ) {
