@@ -34,6 +34,10 @@ const fight = (attacker, defender) => {
 
   if (defender.health === 0) {
     defender.die();
+
+    if (!attacker.friendly) {
+      attacker.stop();
+    }
   } else {
     defender.takeDamage();
   }

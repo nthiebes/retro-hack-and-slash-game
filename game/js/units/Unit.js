@@ -128,6 +128,7 @@ export default class Unit {
     this.primary.frames = [0, 1];
     this.secondary.frames = [0, 1];
     this.dead = true;
+    this.attacking = false;
   }
 
   stayDead() {

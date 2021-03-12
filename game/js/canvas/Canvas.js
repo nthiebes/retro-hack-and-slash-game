@@ -20,7 +20,7 @@ export default class Canvas {
     this.lastTime = Date.now();
     this.gameTime = 0;
     this.items = data.items;
-    this.mapItems = data.mapItems;
+    this.mapItems = data.mapItems || [];
     this.map = new Map({
       map: this.blockedArr,
       units: Units.list
