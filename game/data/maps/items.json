@@ -2,12 +2,12 @@
   "name": "Items",
   "players": [[11, 4]],
   "enemies": [
-    { "pos": [18, 4], "id": "orc0" },
-    { "pos": [18, 7], "id": "orc1" },
-    { "pos": [14, 10], "id": "human0" },
-    { "pos": [11, 10], "id": "human2" },
-    { "pos": [3, 10], "id": "elf0" },
-    { "pos": [18, 9], "id": "orc2" }
+    { "pos": [23, 4], "id": "orc0" },
+    { "pos": [22, 7], "id": "orc1" },
+    { "pos": [28, 6], "id": "orc2" },
+    { "pos": [16, 13], "id": "human0" },
+    { "pos": [11, 13], "id": "human2" },
+    { "pos": [3, 13], "id": "elf0" }
   ],
   "items": [
     { "pos": [4, 6], "id": "sword" },
