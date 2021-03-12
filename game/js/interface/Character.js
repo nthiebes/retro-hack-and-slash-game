@@ -117,7 +117,6 @@ class Character {
       friendly: true,
       name: 'Gscheid',
       race: null,
-      skin: 0,
       health: 100,
       gear: {
         head: 'none',
