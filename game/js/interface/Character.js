@@ -119,7 +119,6 @@ class Character {
       race: null,
       skin: 0,
       health: 100,
-      pos: [18, 6],
       gear: {
         head: 'none',
         torso: 'none',

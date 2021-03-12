@@ -56,7 +56,9 @@ export class Units {
 
     const animation = GameData.getWeapon(primary).animation;
     const skinCount = GameData.races[unit.race].skins;
-    const randomSkin = getRandomInt(skinCount - 1);
+    const skin = Number.isInteger(unit.skin)
+      ? unit.skin
+      : getRandomInt(skinCount - 1);
     const speed = getSpeed({
       ...unit,
       gear: {
@@ -89,7 +91,7 @@ export class Units {
             secondary
           },
           skin: new Sprite({
-            url: `images/races/${unit.race}${randomSkin}.png`,
+            url: `images/races/${unit.race}${skin}.png`,
             pos: [0, 256 + directionOffset],
             size: [128, 128],
             speed,
