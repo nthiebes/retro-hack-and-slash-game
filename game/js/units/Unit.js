@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { getSpeed } from './utils.js';
+import { getAttackSpeed, getWalkSpeed } from './utils.js';
 import { GameData } from '../gameData.js';
 
 export default class Unit {
@@ -14,6 +14,7 @@ export default class Unit {
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 
     for (const i in data) {
+      // eslint-disable-next-line no-prototype-builtins
       if (data.hasOwnProperty(i)) {
         this[i] = data[i];
       }
@@ -27,6 +28,12 @@ export default class Unit {
       console.log('🚶‍♂️');
     }
 
+    this.skin.speed = this.speed;
+    this.head.speed = this.speed;
+    this.torso.speed = this.speed;
+    this.leg.speed = this.speed;
+    this.primary.speed = this.speed;
+    this.secondary.speed = this.speed;
     this.skin.pos = [0, directionOffset];
     this.head.pos = [0, directionOffset];
     this.leg.pos = [0, directionOffset];
@@ -64,6 +71,12 @@ export default class Unit {
     this.torso.pos = [0, directionOffset];
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
+    this.skin.speed = this.attackSpeed;
+    this.head.speed = this.attackSpeed;
+    this.torso.speed = this.attackSpeed;
+    this.leg.speed = this.attackSpeed;
+    this.primary.speed = this.attackSpeed;
+    this.secondary.speed = this.attackSpeed;
     this.skin.frames = [0, 1, 2];
     this.skin.index = 0;
     this.head.frames = [0, 1, 2];
@@ -215,7 +228,7 @@ export default class Unit {
       this.gear[armor.gear] = id;
       this[armor.gear].url = `images/armor/${id}.png`;
 
-      const newSpeed = getSpeed({ race: this.race, gear: this.gear });
+      const newSpeed = getWalkSpeed({ race: this.race, gear: this.gear });
 
       this.speed = newSpeed;
       this.skin.speed = newSpeed;
@@ -244,6 +257,7 @@ export default class Unit {
       // Order matters!
       this.weapons[weaponType] = id;
       this[weaponType].url = `images/weapons/${id}.png`;
+      this.attackSpeed = getAttackSpeed({ weapons: this.weapons });
       this.animation = GameData.getWeapon(this.weapons.primary).animation;
       this.weaponType = GameData.getWeapon(this.weapons.primary).type;
       this.range = GameData.getWeapon(this.weapons.primary).range;

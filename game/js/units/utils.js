@@ -100,7 +100,7 @@ export const combat = ({ units, map, attacker }) => {
   });
 };
 
-export const getSpeed = ({ race, gear }) => {
+export const getWalkSpeed = ({ race, gear }) => {
   const headGearType = (GameData.getArmor(gear.head) || { type: 'none' }).type;
   const torsoGearType = GameData.getArmor(gear.torso).type;
   const legGearType = GameData.getArmor(gear.leg).type;
@@ -111,4 +111,8 @@ export const getSpeed = ({ race, gear }) => {
     1 - headSpeedModifier - torsoSpeedModifier - legSpeedModifier;
 
   return GameData.races[race].speed * speedModifier;
+};
+
+export const getAttackSpeed = ({ weapons }) => {
+  return (GameData.getWeapon(weapons.primary) || { type: 'fist' }).speed;
 };

@@ -1,5 +1,5 @@
 import config from '../config.js';
-import { getSpeed } from './utils.js';
+import { getAttackSpeed, getWalkSpeed } from './utils.js';
 import Sprite from '../utils/Sprite.js';
 import { getRandomInt } from '../utils/number.js';
 import Unit from './Unit.js';
@@ -59,7 +59,7 @@ export class Units {
     const skin = Number.isInteger(unit.skin)
       ? unit.skin
       : getRandomInt(skinCount - 1);
-    const speed = getSpeed({
+    const speed = getWalkSpeed({
       ...unit,
       gear: {
         head,
@@ -67,6 +67,7 @@ export class Units {
         leg
       }
     });
+    const attackSpeed = getAttackSpeed(unit);
     const direction = getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT';
     const directionOffset = direction === 'LEFT' ? 128 : 0;
 
@@ -79,6 +80,7 @@ export class Units {
           range: GameData.getWeapon(primary).range,
           weaponType: GameData.getWeapon(primary).type,
           speed,
+          attackSpeed,
           animation,
           direction,
           gear: {
