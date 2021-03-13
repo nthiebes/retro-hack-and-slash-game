@@ -25,7 +25,7 @@ class Map {
     this.map[y][x] = 0;
   }
 
-  getFieldsInSight(pos, range = config.visibility) {
+  getFieldsInSight(pos, direction, range = config.visibility) {
     const posX = Math.floor(pos[0]);
     const posY = Math.floor(pos[1]);
     const newFields = [];
@@ -71,6 +71,17 @@ class Map {
 
     // Remove duplicates
     visibleFields = uniq(visibleFields);
+
+    // Remove all fields behind unit
+    visibleFields = visibleFields.filter((field) => {
+      if (direction === 'RIGHT' && field[0] < pos[0]) {
+        return false;
+      }
+      if (direction === 'LEFT' && field[0] > pos[0]) {
+        return false;
+      }
+      return true;
+    });
 
     return visibleFields;
   }

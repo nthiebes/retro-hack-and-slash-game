@@ -38,7 +38,7 @@ export default class Canvas {
     for (let i = 0; i < Units.list.length; i++) {
       const unit = Units.list[i];
 
-      unit.fieldsInSight = this.map.getFieldsInSight(unit.pos);
+      unit.fieldsInSight = this.map.getFieldsInSight(unit.pos, unit.direction);
     }
 
     this.prepareCanvas();
@@ -224,7 +224,7 @@ export default class Canvas {
       unit.tile = [xNext, yNext];
 
       // Update fields in sight
-      unit.fieldsInSight = this.map.getFieldsInSight(unit.tile);
+      unit.fieldsInSight = this.map.getFieldsInSight(unit.tile, unit.direction);
 
       // Attack if player is in range
       if (
