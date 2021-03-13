@@ -92,6 +92,7 @@ export default class Unit {
     this.secondary.index = 0;
     this.moving = false;
     this.attacking = true;
+    this.skin.once = false;
   }
 
   takeDamage() {

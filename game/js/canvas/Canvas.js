@@ -154,7 +154,12 @@ export default class Canvas {
         this.map.map[path[1][1]][path[1][0]] !== 0 &&
         this.map.map[path[1][1]][path[1][0]] !== unit.id
       ) {
-        this.interactions.setPath(Units.player);
+        if (Units.player.dead) {
+          unit.path = [];
+        }
+
+        this.interactions.setPath(unit.id);
+
         return;
       }
 
@@ -235,7 +240,7 @@ export default class Canvas {
         unit.isPlayerInSight(Units.player.pos) &&
         unit.path.length === 1
       ) {
-        this.interactions.setPath(Units.player);
+        this.interactions.setPath(unit.id);
       }
     }
 

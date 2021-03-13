@@ -408,7 +408,8 @@ class Interactions {
     console.log(mapItem);
   }
 
-  setPath() {
+  // eslint-disable-next-line complexity
+  setPath(unitId) {
     let i = Units.list.length;
 
     while (i--) {
@@ -416,7 +417,12 @@ class Interactions {
       const player = Units.player;
       const playerInRange = enemy.isPlayerInSight(player.pos);
 
-      if (!enemy.dead && !enemy.id.includes('player') && playerInRange) {
+      if (
+        !enemy.dead &&
+        !enemy.id.includes('player') &&
+        playerInRange &&
+        (!unitId || enemy.id === unitId)
+      ) {
         const playerPos1 = [
             Math.floor(player.pos[0] + 1),
             Math.floor(player.pos[1])

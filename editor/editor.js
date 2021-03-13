@@ -94,8 +94,9 @@ class Editor {
   }
 
   drawGround1() {
-    // eslint-disable-next-line no-self-assign
-    config.canvasGround1.width = config.canvasGround1.width;
+    const ctx = config.ctxGround1;
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     drawImage({
       rowTileCount: this.rowTileCount,
@@ -107,8 +108,9 @@ class Editor {
   }
 
   drawGround2() {
-    // eslint-disable-next-line no-self-assign
-    config.canvasGround2.width = config.canvasGround2.width;
+    const ctx = config.ctxGround2;
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     drawImage({
       rowTileCount: this.rowTileCount,
@@ -120,8 +122,9 @@ class Editor {
   }
 
   drawTop1() {
-    // eslint-disable-next-line no-self-assign
-    config.canvasTop1.width = config.canvasTop1.width;
+    const ctx = config.ctxTop1;
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     drawImage({
       rowTileCount: this.rowTileCount,
@@ -133,8 +136,9 @@ class Editor {
   }
 
   drawBlocked() {
-    // eslint-disable-next-line no-self-assign
-    blockedCanvas.width = blockedCanvas.width;
+    const ctx = ctxBlocked;
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     for (let r = 0; r < this.blocked.length; r++) {
       for (let c = 0; c < this.blocked[0].length; c++) {
@@ -156,8 +160,9 @@ class Editor {
   }
 
   drawEvents() {
-    // eslint-disable-next-line no-self-assign
-    eventsCanvas.width = eventsCanvas.width;
+    const ctx = ctxEvents;
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     for (let i = 0; i < this.playerList.length; i++) {
       const player = this.playerList[i];
