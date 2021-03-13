@@ -32,6 +32,10 @@ const fight = (attacker, defender) => {
 
   defender.health = newHealth < 0 ? 0 : newHealth;
 
+  if (defender.health <= 50) {
+    defender.wound();
+  }
+
   if (defender.health === 0) {
     defender.die();
 
@@ -48,7 +52,7 @@ export const combat = ({ units, map, attacker }) => {
 
   // Check for hits
   units.list.forEach((unit) => {
-    if (unit.dead && attacker.id !== player.id) {
+    if (player.dead && attacker.id !== player.id) {
       attacker.stop();
     }
 

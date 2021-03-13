@@ -41,12 +41,14 @@ export default class Unit {
     this.torso.pos = [0, directionOffset];
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
+    this.special.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2, 3];
     this.head.frames = [0, 1, 2, 3];
     this.leg.frames = [0, 1, 2, 3];
     this.torso.frames = [0, 1, 2, 3];
     this.primary.frames = [0, 1, 2, 3];
     this.secondary.frames = [0, 1, 2, 3];
+    this.special.frames = [0, 1, 2, 3];
     this.moving = true;
   }
 
@@ -72,12 +74,14 @@ export default class Unit {
     this.leg.speed = this.attackSpeed;
     this.primary.speed = this.attackSpeed;
     this.secondary.speed = this.attackSpeed;
+    this.special.speed = this.attackSpeed;
     this.skin.pos = [0, directionOffset];
     this.head.pos = [0, directionOffset];
     this.leg.pos = [0, directionOffset];
     this.torso.pos = [0, directionOffset];
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
+    this.special.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2];
     this.skin.index = 0;
     this.head.frames = [0, 1, 2];
@@ -90,6 +94,8 @@ export default class Unit {
     this.primary.index = 0;
     this.secondary.frames = [0, 1, 2];
     this.secondary.index = 0;
+    this.special.frames = [0, 1, 2];
+    this.special.index = 0;
     this.moving = false;
     this.attacking = true;
     this.skin.once = false;
@@ -112,6 +118,7 @@ export default class Unit {
     this.leg.pos = [0, directionOffset];
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
+    this.special.pos = [0, directionOffset];
     this.skin.once = true;
     this.skin.frames = [0, 0];
     this.head.frames = [0, 0];
@@ -119,6 +126,7 @@ export default class Unit {
     this.leg.frames = [0, 0];
     this.primary.frames = [0, 0];
     this.secondary.frames = [0, 0];
+    this.special.frames = [0, 0];
   }
 
   die() {
@@ -134,6 +142,7 @@ export default class Unit {
     this.leg.pos = [0, directionOffset];
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
+    this.special.pos = [0, directionOffset];
     this.skin.once = true;
     this.skin.frames = [0, 1];
     this.head.frames = [0, 1];
@@ -141,6 +150,7 @@ export default class Unit {
     this.leg.frames = [0, 1];
     this.primary.frames = [0, 1];
     this.secondary.frames = [0, 1];
+    this.special.frames = [0, 1];
     this.dead = true;
     this.attacking = false;
   }
@@ -158,6 +168,7 @@ export default class Unit {
     this.leg.pos = [128, directionOffset];
     this.primary.pos = [128, directionOffset];
     this.secondary.pos = [128, directionOffset];
+    this.special.pos = [128, directionOffset];
   }
 
   stop() {
@@ -175,6 +186,7 @@ export default class Unit {
     this.torso.frames = [0];
     this.primary.frames = [0];
     this.secondary.frames = [0];
+    this.special.frames = [0];
   }
 
   turn(direction) {
@@ -203,6 +215,7 @@ export default class Unit {
         this.torso.pos = [0, animationPositionLeft];
         this.primary.pos = [0, animationPositionLeft];
         this.secondary.pos = [0, animationPositionLeft];
+        this.special.pos = [0, animationPositionLeft];
         this.direction = 'LEFT';
         break;
 
@@ -213,6 +226,7 @@ export default class Unit {
         this.torso.pos = [0, animationPositionRight];
         this.primary.pos = [0, animationPositionRight];
         this.secondary.pos = [0, animationPositionRight];
+        this.special.pos = [0, animationPositionRight];
         this.direction = 'RIGHT';
     }
   }
@@ -238,6 +252,7 @@ export default class Unit {
       this.torso.speed = newSpeed;
       this.primary.speed = newSpeed;
       this.secondary.speed = newSpeed;
+      this.special.speed = newSpeed;
     }
 
     if (weapon) {
@@ -273,5 +288,9 @@ export default class Unit {
     return this.fieldsInSight.find(
       (pos) => pos[0] === playerX && pos[1] === playerY
     );
+  };
+
+  wound = () => {
+    this.special.url = 'images/races/wounded.png';
   };
 }

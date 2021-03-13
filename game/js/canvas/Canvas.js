@@ -107,6 +107,7 @@ export default class Canvas {
       unit.leg.update(delta);
       unit.torso.update(delta);
       unit.primary.update(delta);
+      unit.special.update(delta);
 
       // Continue walking
       if (unit.path.length > 1 && !unit.friendly) {
@@ -117,7 +118,7 @@ export default class Canvas {
         unit.stop();
       }
 
-      // Stop after animation
+      // End of animation
       if (unit.skin.frames.length === Math.floor(unit.skin.index)) {
         if (unit.attacking) {
           combat({ units: Units, map: this.map, attacker: unit });
@@ -265,7 +266,8 @@ export default class Canvas {
         list[i].head,
         list[i].leg,
         list[i].torso,
-        list[i].primary
+        list[i].primary,
+        list[i].special
       ]);
     }
   }

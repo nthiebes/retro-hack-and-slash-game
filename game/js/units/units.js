@@ -133,6 +133,13 @@ export class Units {
             size: [128, 128],
             speed,
             frames: [0]
+          }),
+          special: new Sprite({
+            url: 'images/armor/none.png',
+            pos: [0, 256 + directionOffset],
+            size: [128, 128],
+            speed,
+            frames: [0]
           })
         },
         config.debug
