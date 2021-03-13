@@ -245,7 +245,10 @@ export default class Canvas {
       }
     }
 
-    unit.pos = [xNew, yNew];
+    unit.pos = [
+      this.interactions.getSmoothPixelValue(xNew),
+      this.interactions.getSmoothPixelValue(yNew)
+    ];
     unit.currentStep--;
   }
 
