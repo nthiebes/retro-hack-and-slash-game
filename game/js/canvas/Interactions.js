@@ -3,6 +3,8 @@ import Input from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { getPath } from '../map/path.js';
 
+const body = document.getElementsByTagName('body')[0];
+
 class Interactions {
   constructor(data) {
     this.wrapper = document.getElementById('canvas-wrapper');
@@ -51,6 +53,21 @@ class Interactions {
       return;
     }
 
+    const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
+    const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
+    const item = this.checkForItem({ x, y });
+
+    if (item && this.itemInRange({ x, y })) {
+      body.classList.add('cursor--use');
+      body.classList.remove('cursor--info');
+    } else if (item && !this.itemInRange({ x, y })) {
+      body.classList.add('cursor--info');
+      body.classList.remove('cursor--use');
+    } else {
+      body.classList.remove('cursor--use');
+      body.classList.remove('cursor--info');
+    }
+
     // Left screen half
     if (
       e.pageX + this.offsetX * -1 < player.pos[0] * this.fieldWidth &&
@@ -62,7 +79,7 @@ class Interactions {
       if (player.moving) {
         player.walk();
       }
-      // Right screen halfdd
+      // Right screen half
     } else if (
       e.pageX + this.offsetX * -1 >= player.pos[0] * this.fieldWidth &&
       player.direction === 'LEFT'
@@ -96,8 +113,10 @@ class Interactions {
       if (player.attacking) {
         // Continue animation
         player.skin.once = false;
-      } else if (item) {
+      } else if (item && this.itemInRange({ x, y })) {
         player.equip(item);
+        body.classList.add('cursor--use');
+        body.classList.remove('cursor--info');
       } else {
         // Start animation
         player.attack();
@@ -371,10 +390,7 @@ class Interactions {
   }
 
   checkForItem({ x, y }) {
-    return this.items.find(
-      (item) =>
-        item.pos[0] === x && item.pos[1] === y && this.itemInRange({ x, y })
-    );
+    return this.items.find((item) => item.pos[0] === x && item.pos[1] === y);
   }
 
   checkMap({ x, y }) {

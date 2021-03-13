@@ -8,6 +8,18 @@
   width: 100%;
 }
 
+body {
+  cursor: url("../images/cursors/default.png"), default;
+}
+
+.cursor--use {
+  cursor: url("../images/cursors/use.png"), pointer;
+}
+
+.cursor--info {
+  cursor: url("../images/cursors/info.png"), pointer;
+}
+
 .button {
   background-color: transparent;
 }
