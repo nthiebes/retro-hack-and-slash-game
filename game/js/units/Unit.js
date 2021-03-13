@@ -121,12 +121,19 @@ export default class Unit {
     this.special.pos = [0, directionOffset];
     this.skin.once = true;
     this.skin.frames = [0, 0];
+    this.skin.index = 0;
     this.head.frames = [0, 0];
+    this.head.index = 0;
     this.torso.frames = [0, 0];
+    this.torso.index = 0;
     this.leg.frames = [0, 0];
+    this.leg.index = 0;
     this.primary.frames = [0, 0];
+    this.primary.index = 0;
     this.secondary.frames = [0, 0];
+    this.secondary.index = 0;
     this.special.frames = [0, 0];
+    this.special.index = 0;
   }
 
   die() {
@@ -145,12 +152,19 @@ export default class Unit {
     this.special.pos = [0, directionOffset];
     this.skin.once = true;
     this.skin.frames = [0, 1];
+    this.skin.index = 0;
     this.head.frames = [0, 1];
+    this.head.index = 0;
     this.torso.frames = [0, 1];
+    this.torso.index = 0;
     this.leg.frames = [0, 1];
+    this.leg.index = 0;
     this.primary.frames = [0, 1];
+    this.primary.index = 0;
     this.secondary.frames = [0, 1];
+    this.secondary.index = 0;
     this.special.frames = [0, 1];
+    this.special.index = 0;
     this.dead = true;
     this.attacking = false;
   }
