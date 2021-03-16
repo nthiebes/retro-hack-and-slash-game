@@ -1,5 +1,6 @@
 import config from '../config.js';
 import { Units } from '../units/units.js';
+import { Animations } from '../animations/animations.js';
 import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
@@ -8,6 +9,12 @@ import { drawImage } from './utils.js';
 export default class Canvas {
   constructor(data) {
     Units.addUnits({ player: data.player, enemies: data.enemies });
+    Animations.addAnimations([
+      {
+        id: 'campfire',
+        mapPos: [36, 5]
+      }
+    ]);
 
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
@@ -98,6 +105,10 @@ export default class Canvas {
   updateEntities(delta) {
     const unitsList = Units.list;
     let unit;
+
+    for (let i = 0, length = Animations.list.length; i < length; i++) {
+      Animations.list[i].sprite.update(delta);
+    }
 
     for (let i = 0, length = unitsList.length; i < length; i++) {
       unit = unitsList[i];
@@ -261,21 +272,37 @@ export default class Canvas {
     this.renderEntities(tempUnitList);
   }
 
-  renderEntities(list) {
-    for (let i = 0; i < list.length; i++) {
-      this.renderEntity(list[i], [
-        list[i].secondary,
-        list[i].skin,
-        list[i].head,
-        list[i].leg,
-        list[i].torso,
-        list[i].primary,
-        list[i].special
+  renderEntities(unitList) {
+    for (let i = 0; i < Animations.list.length; i++) {
+      this.renderAnimation(Animations.list[i]);
+    }
+
+    for (let i = 0; i < unitList.length; i++) {
+      this.renderUnit(unitList[i], [
+        unitList[i].secondary,
+        unitList[i].skin,
+        unitList[i].head,
+        unitList[i].leg,
+        unitList[i].torso,
+        unitList[i].primary,
+        unitList[i].special
       ]);
     }
   }
 
-  renderEntity(unit, bodyParts) {
+  renderAnimation(animation) {
+    config.ctxAnim.save();
+
+    config.ctxAnim.translate(
+      animation.pos[0] * config.fieldWidth,
+      animation.pos[1] * config.fieldWidth
+    );
+    animation.sprite.render(config.ctxAnim, this.resources);
+
+    config.ctxAnim.restore();
+  }
+
+  renderUnit(unit, bodyParts) {
     config.ctxAnim.save();
 
     if (config.debug) {

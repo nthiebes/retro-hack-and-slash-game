@@ -6,6 +6,7 @@ const gameData = {};
 const resources = new Resources();
 const resourcesList = [
   'images/tileset.png',
+  'images/animations.png',
   'images/races/human0.png',
   'images/races/human1.png',
   'images/races/human2.png',
@@ -73,6 +74,11 @@ const getGameData = () => {
     .then((response) => response.json())
     .then((enemies) => {
       GameData.setEnemies(enemies);
+      return fetch('data/animations.json');
+    })
+    .then((response) => response.json())
+    .then((animations) => {
+      GameData.setAnimations(animations);
 
       // eslint-disable-next-line
       const character = new Character({

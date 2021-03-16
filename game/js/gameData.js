@@ -15,6 +15,10 @@ export class GameData {
     this.enemiesData = data;
   }
 
+  static setAnimations(data) {
+    this.animationsData = data;
+  }
+
   static get weapons() {
     return this.weaponsData;
   }
@@ -29,6 +33,14 @@ export class GameData {
 
   static get enemies() {
     return this.enemiesData;
+  }
+
+  static get animations() {
+    return this.animationsData;
+  }
+
+  static getAnimation(id) {
+    return this.animationsData.list.find((animation) => animation.id === id);
   }
 
   static getWeapon(id) {
