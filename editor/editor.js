@@ -7,7 +7,6 @@ const canvasWrapper = document.getElementById('canvas-wrapper');
 const layer = document.getElementById('layer');
 const ground1 = document.getElementById('ground1');
 const ground2 = document.getElementById('ground2');
-// const anim = document.getElementById('anim');
 const top1 = document.getElementById('top1');
 const blocked = document.getElementById('blocked');
 const blockedCanvas = document.getElementById('canvas-blocked');
@@ -31,12 +30,15 @@ const eventPlayer = document.getElementById('event-player');
 const eventEnemy = document.getElementById('event-enemy');
 const eventItem = document.getElementById('event-item');
 const eventMap = document.getElementById('event-map');
+const eventAnimation = document.getElementById('event-animation');
 const enemyIds = document.getElementById('enemy-ids');
 const enemyOptions = document.getElementById('event-options-enemy');
 const itemOptions = document.getElementById('event-options-item');
 const itemIds = document.getElementById('item-ids');
 const mapOptions = document.getElementById('event-options-map');
 const mapIds = document.getElementById('map-ids');
+const animationOptions = document.getElementById('event-options-animation');
+const animationIds = document.getElementById('animation-ids');
 const loadButton = document.getElementById('load-map');
 const ground = document.getElementById('ground');
 const resources = new Resources();
@@ -54,8 +56,6 @@ class Editor {
     this.colTileCount = this.ground1[0].length;
     this.resources = data.resources;
     this.tileset = this.resources.get('../game/images/tileset.png');
-    this.lastTime = Date.now();
-    this.gameTime = 0;
     this.tileNumbers = [
       {
         pos: [0, 0],
@@ -73,6 +73,7 @@ class Editor {
     this.enemyList = data.enemyList || [];
     this.itemList = data.itemList || [];
     this.mapList = data.mapList || [];
+    this.animationList = data.animationList || [];
 
     activeMapTile.classList.add('canvas__active--show');
 
@@ -243,6 +244,26 @@ class Editor {
         color: '#fff'
       });
     }
+
+    for (let i = 0; i < this.animationList.length; i++) {
+      const animation = this.animationList[i];
+
+      drawSquare({
+        ctx: ctxEvents,
+        color: 'rgba(255,255,0,0.5)',
+        width: config.fieldWidth,
+        height: config.fieldWidth,
+        x: animation.pos[0] * config.fieldWidth,
+        y: animation.pos[1] * config.fieldWidth
+      });
+      drawText({
+        ctx: ctxEvents,
+        x: animation.pos[0] * config.fieldWidth + 2,
+        y: animation.pos[1] * config.fieldWidth + 22,
+        text: animation.id,
+        color: '#fff'
+      });
+    }
   }
 
   drawActiveLayer() {
@@ -314,6 +335,16 @@ class Editor {
           this.mapList.push({ pos: [x, y], id: mapIds.value });
         } else {
           this.mapList.splice(mapIndex, 1);
+        }
+      } else if (this.activeEvent === 'animation') {
+        const animationIndex = this.animationList.findIndex(
+          ({ pos }) => pos[0] === x && pos[1] === y
+        );
+
+        if (animationIndex === -1) {
+          this.animationList.push({ pos: [x, y], id: animationIds.value });
+        } else {
+          this.animationList.splice(animationIndex, 1);
         }
       }
     } else {
@@ -423,6 +454,7 @@ class Editor {
     eventEnemy.addEventListener('click', this.handleEvent);
     eventItem.addEventListener('click', this.handleEvent);
     eventMap.addEventListener('click', this.handleEvent);
+    eventAnimation.addEventListener('click', this.handleEvent);
   }
 
   handleEvent = (event) => {
@@ -432,9 +464,11 @@ class Editor {
     eventEnemy.classList.remove('event__item--active');
     eventItem.classList.remove('event__item--active');
     eventMap.classList.remove('event__item--active');
+    eventAnimation.classList.remove('event__item--active');
     enemyOptions.classList.remove('event__options--show');
     itemOptions.classList.remove('event__options--show');
     mapOptions.classList.remove('event__options--show');
+    animationOptions.classList.remove('event__options--show');
 
     if (id === 'event-player') {
       eventPlayer.classList.add('event__item--active');
@@ -455,6 +489,11 @@ class Editor {
       mapOptions.classList.add('event__options--show');
       this.activeEvent = 'map';
     }
+    if (id === 'event-animation') {
+      eventAnimation.classList.add('event__item--active');
+      animationOptions.classList.add('event__options--show');
+      this.activeEvent = 'animation';
+    }
   };
 
   generateMap = (event) => {
@@ -463,6 +502,7 @@ class Editor {
       players: this.playerList,
       enemies: this.enemyList,
       items: this.itemList,
+      animations: this.animationList,
       maps: this.mapList,
       map: [this.ground1, this.ground2, this.top1, this.blocked]
     };
@@ -557,6 +597,7 @@ window.onload = () => {
         enemies: enemyList,
         items: itemList,
         maps: mapList,
+        animations: animationList,
         players,
         name: mapName
       } = JSON.parse(mapJson.value);
@@ -567,6 +608,7 @@ window.onload = () => {
         playerList: players,
         itemList,
         mapList,
+        animationList,
         map: [map[0], map[1], map[2], map[3]]
       });
 
@@ -668,6 +710,19 @@ window.onload = () => {
           option.value = items[i].id;
           option.innerHTML = `${items[i].name} (${items[i].id})`;
           itemIds.append(option);
+        }
+      });
+    fetch('../game/data/animations.json')
+      .then((response) => response.json())
+      .then((data) => {
+        items = data.list;
+
+        for (let i = 0; i < items.length; i++) {
+          const option = document.createElement('option');
+
+          option.value = items[i].id;
+          option.innerHTML = `${items[i].name} (${items[i].id})`;
+          animationIds.append(option);
         }
       });
   });

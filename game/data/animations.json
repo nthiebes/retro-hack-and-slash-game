@@ -2,11 +2,14 @@
   "list": [
     {
       "id": "campfire",
-      "frames": [0, 1, 2, 3, 4, 5],
-      "pos": [0, 0],
-      "size": [32, 64],
+      "name": "Lagerfeuer 1x2",
       "autoplay": true,
-      "speed": 7
+      "sprite": {
+        "frames": [0, 1, 2, 3, 4, 5],
+        "pos": [0, 0],
+        "size": [32, 64],
+        "speed": 7
+      }
     }
   ]
 }

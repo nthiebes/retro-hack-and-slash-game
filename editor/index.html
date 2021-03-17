@@ -13,7 +13,7 @@
     <div class="layer" id="layer">
       <button class="layer__button layer__button--active" id="ground1">Unten 1</button>
       <button class="layer__button" id="ground2">Unten 2</button>
-      <!-- <button class="layer__button" id="anim">Animationen</button> -->
+      <button class="layer__button" id="anim">Animationen</button>
       <button class="layer__button" id="top1">Oben 1</button>
       <button class="layer__button" id="events">Events</button>
       <button class="layer__button" id="blocked">Blockiert</button>
@@ -52,7 +52,8 @@
       <button id="event-player" class="event__item event__item--active">Spieler</button>
       <button id="event-enemy" class="event__item">Gegner</button>
       <button id="event-item" class="event__item">Gegenstand</button>
-      <button id="event-map" class="event__item">Map</button>
+      <button id="event-animation" class="event__item">Animation</button>
+      <button id="event-map" class="event__item">Karte</button>
       <div id="event-options-enemy" class="event__options">
         <label for="enemy-ids">Name:</label>
         <select required id="enemy-ids"></select>
@@ -69,6 +70,10 @@
           <option value="turn-based">Turn-based</option>
           <option value="items">Alle Gegenstände</option>
         </select>
+      </div>
+      <div id="event-options-animation" class="event__options">
+        <label for="animation-ids">Name:</label>
+        <select required id="animation-ids"></select>
       </div>
     </div>
     <div class="blocked-tiles" id="blocked-tiles">

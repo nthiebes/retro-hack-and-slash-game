@@ -9,12 +9,7 @@ import { drawImage } from './utils.js';
 export default class Canvas {
   constructor(data) {
     Units.addUnits({ player: data.player, enemies: data.enemies });
-    Animations.addAnimations([
-      {
-        id: 'campfire',
-        mapPos: [36, 5]
-      }
-    ]);
+    Animations.addAnimations(data.animations);
 
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];

@@ -17,7 +17,7 @@ export class Animations {
 
       this.addAnimation({
         ...animationData,
-        mapPos: animation.mapPos,
+        pos: animation.pos,
         id: `${animation.id}.${i}`
       });
     }
@@ -30,10 +30,10 @@ export class Animations {
           ...animation,
           sprite: new Sprite({
             url: 'images/animations.png',
-            pos: animation.pos,
-            size: animation.size,
-            speed: animation.speed,
-            frames: animation.frames
+            pos: animation.sprite.pos,
+            size: animation.sprite.size,
+            speed: animation.sprite.speed,
+            frames: animation.sprite.frames
           })
         },
         config.debug
