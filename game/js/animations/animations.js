@@ -10,6 +10,12 @@ export class Animations {
     return listData;
   }
 
+  static getAnimation({ x, y }) {
+    return listData.find(
+      (animation) => animation.pos[0] === x && animation.pos[1] === y
+    );
+  }
+
   static addAnimations(animations) {
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
@@ -33,7 +39,9 @@ export class Animations {
             pos: animation.sprite.pos,
             size: animation.sprite.size,
             speed: animation.sprite.speed,
-            frames: animation.sprite.frames
+            frames: animation.sprite.frames,
+            once: animation.sprite.once,
+            stay: animation.sprite.stay
           })
         },
         config.debug

@@ -13,7 +13,10 @@
     { "pos": [36, 1], "id": "torso_iron_0" },
     { "pos": [37, 1], "id": "leg_iron_0" }
   ],
-  "animations": [{ "pos": [36, 5], "id": "campfire" }],
+  "animations": [
+    { "pos": [36, 5], "id": "campfire" },
+    { "pos": [26, 10], "id": "axe" }
+  ],
   "maps": [],
   "map": [
     [
@@ -3166,7 +3169,7 @@
         0,
         0,
         0,
-        708,
+        0,
         0,
         0,
         0,

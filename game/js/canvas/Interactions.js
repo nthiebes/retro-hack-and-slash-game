@@ -1,6 +1,7 @@
 import config from '../config.js';
 import Input from '../utils/Input.js';
 import { Units } from '../units/units.js';
+import { Animations } from '../animations/animations.js';
 import { getPath } from '../map/path.js';
 
 const body = document.getElementsByTagName('body')[0];
@@ -115,6 +116,8 @@ class Interactions {
         player.skin.once = false;
       } else if (item && this.itemInRange({ x, y })) {
         player.equip(item);
+        Animations.getAnimation({ x, y }).play();
+
         body.classList.add('cursor--use');
         body.classList.remove('cursor--info');
       } else {

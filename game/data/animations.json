@@ -10,6 +10,18 @@
         "size": [32, 64],
         "speed": 7
       }
+    },
+    {
+      "id": "axe",
+      "name": "Baumstamm Axt 1x1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 64],
+        "size": [32, 32],
+        "speed": 7,
+        "stay": true
+      }
     }
   ]
 }
