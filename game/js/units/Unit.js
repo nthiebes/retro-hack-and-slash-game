@@ -150,7 +150,6 @@ export default class Unit {
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
     this.special.pos = [0, directionOffset];
-    this.skin.once = true;
     this.skin.frames = [0, 1];
     this.skin.index = 0;
     this.head.frames = [0, 1];
@@ -167,22 +166,13 @@ export default class Unit {
     this.special.index = 0;
     this.dead = true;
     this.attacking = false;
-  }
-
-  stayDead() {
-    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
-
-    if (config.debug) {
-      console.log('💀');
-    }
-
-    this.skin.pos = [128, directionOffset];
-    this.head.pos = [128, directionOffset];
-    this.torso.pos = [128, directionOffset];
-    this.leg.pos = [128, directionOffset];
-    this.primary.pos = [128, directionOffset];
-    this.secondary.pos = [128, directionOffset];
-    this.special.pos = [128, directionOffset];
+    this.skin.stay = true;
+    this.head.stay = true;
+    this.torso.stay = true;
+    this.leg.stay = true;
+    this.primary.stay = true;
+    this.secondary.stay = true;
+    this.special.stay = true;
   }
 
   stop() {

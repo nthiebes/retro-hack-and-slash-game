@@ -132,10 +132,7 @@ export default class Canvas {
 
         if (unit.skin.once) {
           unit.stop();
-        }
-
-        if (unit.dead) {
-          unit.stayDead();
+          console.log('stop');
         }
       }
     }

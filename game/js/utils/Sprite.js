@@ -14,7 +14,6 @@ export default class Sprite {
   }
 
   update(delta) {
-    // Stay not yet working correct
     if (!(this.stay && this.done)) {
       this.index += this.speed * delta;
 
