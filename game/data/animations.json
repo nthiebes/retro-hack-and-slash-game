@@ -19,7 +19,7 @@
         "frames": [0, 1],
         "pos": [0, 64],
         "size": [32, 32],
-        "speed": 7,
+        "speed": 20,
         "stay": true
       }
     }

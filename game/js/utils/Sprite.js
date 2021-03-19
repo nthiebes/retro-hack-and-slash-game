@@ -17,6 +17,7 @@ export default class Sprite {
     // Stay not yet working correct
     if (!(this.stay && this.done)) {
       this.index += this.speed * delta;
+
       // Always start with first frame
       if (this.frames.length === 1) {
         this.index = 0;
@@ -33,7 +34,13 @@ export default class Sprite {
 
       frame = this.frames[idx % max];
 
+      // Stop after running once
       if (this.once && idx >= max) {
+        this.done = true;
+      }
+
+      // Stop at last frame
+      if (this.stay && idx === max - 1 && max > 1) {
         this.done = true;
       }
 

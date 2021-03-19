@@ -115,8 +115,12 @@ class Interactions {
         // Continue animation
         player.skin.once = false;
       } else if (item && this.itemInRange({ x, y })) {
+        const animation = Animations.getAnimation({ x, y });
+
+        if (animation) {
+          animation.play();
+        }
         player.equip(item);
-        Animations.getAnimation({ x, y }).play();
 
         body.classList.add('cursor--use');
         body.classList.remove('cursor--info');

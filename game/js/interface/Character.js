@@ -117,15 +117,15 @@ class Character {
       friendly: true,
       name: 'Gscheid',
       race: null,
-      health: 100,
+      health: 1000,
       gear: {
         head: 'none',
         torso: 'none',
         leg: 'none'
       },
       weapons: {
-        primary: 'fist',
-        secondary: 'fist'
+        primary: 'sword',
+        secondary: 'shield'
       }
     };
 
@@ -137,6 +137,7 @@ class Character {
         this.gameData.players = json.players;
         this.gameData.enemies = json.enemies;
         this.gameData.mapItems = json.maps;
+        this.gameData.animations = json.animations;
 
         // eslint-disable-next-line
         const game = new Canvas({
