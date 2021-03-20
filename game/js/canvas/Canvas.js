@@ -9,7 +9,7 @@ import { drawImage } from './utils.js';
 export default class Canvas {
   constructor(data) {
     Units.addUnits({ player: data.player, enemies: data.enemies });
-    Animations.addAnimations(data.animations || []);
+    Animations.addAnimations(data.animations);
 
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
@@ -22,7 +22,7 @@ export default class Canvas {
     this.lastTime = Date.now();
     this.gameTime = 0;
     this.items = data.items;
-    this.mapItems = data.mapItems || [];
+    this.mapItems = data.mapItems;
     this.map = new Map({
       map: this.blockedArr,
       units: Units.list

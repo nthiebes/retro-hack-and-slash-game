@@ -21,37 +21,24 @@ body {
 }
 
 .button {
-  background-color: transparent;
+  background-color: gray;
+  padding: 1rem;
 }
 
-.character {
-  background-color: rgba(0, 0, 0, 0.5);
+.window {
   position: fixed;
-  width: 100%;
-  height: 100%;
-}
-
-.character--hide {
   display: none;
-}
-
-.character__inner {
   background-color: #fff;
-  position: absolute;
   padding: 1rem;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   top: 50%;
   height: 400px;
-  display: flex;
   flex-direction: column;
 }
 
-.character__button {
-  margin: 1rem auto;
-  display: block;
-  background-color: silver;
-  padding: 1rem;
+.window--show {
+  display: flex;
 }
 
 .attributes {

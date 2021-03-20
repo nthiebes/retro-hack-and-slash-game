@@ -15,7 +15,9 @@
   },
   "author": "Nico Thiebes",
   "license": "SEE LICENSE IN \"LICENSE\"",
-  "dependencies": {},
+  "dependencies": {
+    "socket.io-client": "4.0.0"
+  },
   "devDependencies": {
     "babel-eslint": "10.1.0",
     "eslint": "7.20.0",

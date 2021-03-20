@@ -16,33 +16,42 @@
     <canvas id="canvas-top1"></canvas>
   </main>
 
-  <form class="character" id="character">
-    <div class="character__inner">
-      <h1>Dein Charakter</h1>
-      <h2>Rasse:</h2>
-      <div class="race">
-        <button class="button" id="race-prev" type="button">⬅️</button>
-        <div class="race__img race__img--human0" id="race-img"></div>
-        <button class="button" id="race-next" type="button">➡️</button>
-      </div>
-      <h2 id="race-name"></h2>
-      <ul class="attributes" id="race-attributes"></ul>
-      <select id="map">
-        <option value="arena">Arena</option>
-        <option value="distribute">Verteiler</option>
-        <option value="demo">Demo</option>
-        <option value="items">Alle Gegenstände</option>
-        <option value="island">Insel</option>
-        <option value="turn-based">Turn-based</option>
-        <option value="big">Groß</option>
-        <option value="medium">Mittel</option>
-        <option value="small">Klein</option>
-        <option value="camp" selected>Camp</option>
-        <option value="ridane-old">Ridane old</option>
-        <option value="survival">Survival</option>
-      </select>
-      <button class="button character__button" type="submit">Spiel beitreten</button>
+  <aside class="window window--show" id="menu">
+    <h1>Ridane</h1>
+    <button class="button" id="menu-new">Neues Spiel</button>
+    <button class="button" id="menu-join">Spiel beitreten</button>
+    <button class="button" id="menu-options">Optionen</button>
+  </aside>
+
+  <form class="window" id="new">
+    <h1>Karte wählen</h1>
+    <select id="map">
+      <option value="arena">Arena</option>
+      <option value="distribute">Verteiler</option>
+      <option value="demo">Demo</option>
+      <option value="items">Alle Gegenstände</option>
+      <option value="island">Insel</option>
+      <option value="turn-based">Turn-based</option>
+      <option value="big">Groß</option>
+      <option value="medium">Mittel</option>
+      <option value="small">Klein</option>
+      <option value="camp" selected>Camp</option>
+      <option value="ridane-old">Ridane old</option>
+      <option value="survival">Survival</option>
+    </select>
+    <button class="button" type="submit">Spiel erstellen</button>
+  </form>
+
+  <form class="window" id="character">
+    <h1>Dein Charakter</h1>
+    <div class="race">
+      <button id="race-prev" type="button">⬅️</button>
+      <div class="race__img race__img--human0" id="race-img"></div>
+      <button id="race-next" type="button">➡️</button>
     </div>
+    <h2 id="race-name"></h2>
+    <ul class="attributes" id="race-attributes"></ul>
+    <button class="button" type="submit">Spiel beitreten</button>
   </form>
 
   <script src="index.js" type="module" async></script>

@@ -1,5 +1,5 @@
 import Resources from './js/utils/Resources.js';
-import { Character } from './js/interface/Character.js';
+import { Menu } from './js/interface/menu.js';
 import { GameData } from './js/gameData.js';
 
 const gameData = {};
@@ -80,8 +80,7 @@ const getGameData = () => {
     .then((animations) => {
       GameData.setAnimations(animations);
 
-      // eslint-disable-next-line
-      const character = new Character({
+      Menu.start({
         gameData,
         resources
       });

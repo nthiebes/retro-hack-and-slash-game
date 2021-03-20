@@ -176,5 +176,7 @@
     "yield-star-spacing": 1,
     "yoda": 1
   },
-  "globals": {}
+  "globals": {
+    "io": true
+  }
 }

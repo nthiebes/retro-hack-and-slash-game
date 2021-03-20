@@ -2,11 +2,11 @@ import Canvas from '../canvas/Canvas.js';
 
 const nextRaceBtn = document.getElementById('race-next');
 const prevRaceBtn = document.getElementById('race-prev');
-const character = document.getElementById('character');
+const characterWindow = document.getElementById('character');
 const raceImg = document.getElementById('race-img');
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
-const map = document.getElementById('map');
+const newWindow = document.getElementById('new');
 const attributesMap = {
   strength: {
     good: 'Muskelbepackt',
@@ -35,8 +35,8 @@ const attributesMap = {
   }
 };
 
-class Character {
-  constructor({ gameData, resources }) {
+export class Editor {
+  static start({ gameData, resources }) {
     this.gameData = gameData;
     this.resources = resources;
     this.races = Object.entries(gameData.races);
@@ -45,10 +45,13 @@ class Character {
 
     nextRaceBtn.addEventListener('click', this.handleNextRace);
     prevRaceBtn.addEventListener('click', this.handlePrevRace);
-    character.addEventListener('submit', this.startGame);
+    characterWindow.addEventListener('submit', this.startGame);
+
+    newWindow.classList.remove('window--show');
+    characterWindow.classList.add('window--show');
   }
 
-  handleNextRace = () => {
+  static handleNextRace = () => {
     raceImg.classList.remove(`race__img--${this.races[this.currentRace][0]}0`);
 
     if (!this.races[this.currentRace + 1]) {
@@ -62,7 +65,7 @@ class Character {
     this.currentRace++;
   };
 
-  handlePrevRace = () => {
+  static handlePrevRace = () => {
     raceImg.classList.remove(`race__img--${this.races[this.currentRace][0]}0`);
 
     if (!this.races[this.currentRace - 1]) {
@@ -76,7 +79,7 @@ class Character {
     this.currentRace--;
   };
 
-  setRaceAttributes = (race) => {
+  static setRaceAttributes = (race) => {
     const attributes = Object.entries(race[1]).filter(
       (attribute) => attribute[0] !== 'skins'
     );
@@ -109,7 +112,7 @@ class Character {
     });
   };
 
-  startGame = (event) => {
+  static startGame = (event) => {
     event.preventDefault();
 
     const player = {
@@ -129,30 +132,17 @@ class Character {
       }
     };
 
-    fetch(`data/maps/${map.value}.json`)
-      .then((response) => response.json())
-      .then((json) => {
-        this.gameData.map = json.map;
-        this.gameData.items = json.items;
-        this.gameData.players = json.players;
-        this.gameData.enemies = json.enemies;
-        this.gameData.mapItems = json.maps;
-        this.gameData.animations = json.animations;
+    // eslint-disable-next-line
+    const game = new Canvas({
+      ...this.gameData,
+      resources: this.resources,
+      player: {
+        ...player,
+        race: this.races[this.currentRace][0],
+        pos: this.gameData.players[0]
+      }
+    });
 
-        // eslint-disable-next-line
-        const game = new Canvas({
-          ...this.gameData,
-          resources: this.resources,
-          player: {
-            ...player,
-            race: this.races[this.currentRace][0],
-            pos: this.gameData.players[0]
-          }
-        });
-
-        character.classList.add('character--hide');
-      });
+    characterWindow.classList.remove('window--show');
   };
 }
-
-export { Character };

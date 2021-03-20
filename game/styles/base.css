@@ -19,3 +19,7 @@ body {
   font-size: 16px;
   background-color: gray;
 }
+
+button {
+  background-color: transparent;
+}
