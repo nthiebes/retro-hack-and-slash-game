@@ -2,7 +2,6 @@ import Resources from './js/utils/Resources.js';
 import { Menu } from './js/interface/menu.js';
 import { GameData } from './js/gameData.js';
 
-const gameData = {};
 const resources = new Resources();
 const resourcesList = [
   'images/tileset.png',
@@ -58,17 +57,13 @@ const getGameData = () => {
     .then((response) => response.json())
     .then((weapons) => {
       GameData.setWeapons(weapons);
+
       return fetch('data/armor.json');
     })
     .then((response) => response.json())
     .then((armor) => {
       GameData.setArmor(armor);
-      return fetch('data/races.json');
-    })
-    .then((response) => response.json())
-    .then((races) => {
-      gameData.races = races;
-      GameData.setRaces(races);
+
       return fetch('data/enemies.json');
     })
     .then((response) => response.json())
@@ -80,10 +75,13 @@ const getGameData = () => {
     .then((animations) => {
       GameData.setAnimations(animations);
 
-      Menu.start({
-        gameData,
-        resources
-      });
+      return fetch('data/races.json');
+    })
+    .then((response) => response.json())
+    .then((races) => {
+      GameData.setRaces(races);
+
+      Menu.start(resources);
     });
 };
 

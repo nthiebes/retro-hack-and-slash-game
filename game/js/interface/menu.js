@@ -6,45 +6,68 @@ const ENDPOINT =
     ? 'http://localhost:4001'
     : 'https://ridane.com';
 const socket = io(ENDPOINT);
-const newGame = document.getElementById('menu-new');
-const map = document.getElementById('map');
+const mapField = document.getElementById('map');
+const menuNew = document.getElementById('menu-new');
+const menuJoin = document.getElementById('menu-join');
 const menuWindow = document.getElementById('menu');
 const newWindow = document.getElementById('new');
 
 export class Menu {
-  static start({ gameData, resources }) {
-    this.gameData = gameData;
+  static start = (resources) => {
     this.resources = resources;
+    this.id = null;
 
-    newGame.addEventListener('click', this.showMap);
-    newWindow.addEventListener('submit', this.loadMap);
+    menuNew.addEventListener('click', this.selectMap);
+    menuJoin.addEventListener('click', this.joinGame);
+    newWindow.addEventListener('submit', this.createGame);
 
     // Connect player
-    socket.emit('id', (myId) => {
-      // console.log(myId);
+    socket.emit('id', (id) => {
+      this.id = id;
     });
-  }
+  };
 
-  static showMap() {
+  static selectMap() {
     menuWindow.classList.remove('window--show');
     newWindow.classList.add('window--show');
   }
 
-  static loadMap = (event) => {
+  static joinGame = () => {
+    socket.emit('game', ({ map }) => {
+      if (map) {
+        menuWindow.classList.remove('window--show');
+        this.loadMap(map);
+      } else {
+        console.log('No game started');
+      }
+    });
+  };
+
+  static createGame = (event) => {
     event.preventDefault();
 
-    fetch(`/game/data/maps/${map.value}.json`)
+    socket.emit('new', {
+      map: mapField.value
+    });
+
+    this.loadMap(mapField.value);
+  };
+
+  static loadMap = (map) => {
+    fetch(`/game/data/maps/${map}.json`)
       .then((response) => response.json())
       .then((json) => {
-        this.gameData.map = json.map;
-        this.gameData.items = json.items || [];
-        this.gameData.players = json.players || [];
-        this.gameData.enemies = json.enemies || [];
-        this.gameData.mapItems = json.maps || [];
-        this.gameData.animations = json.animations || [];
+        const gameData = {
+          map: json.map,
+          items: json.items || [],
+          players: json.players || [],
+          enemies: json.enemies || [],
+          mapItems: json.maps || [],
+          animations: json.animations || []
+        };
 
         Editor.start({
-          gameData: this.gameData,
+          gameData,
           resources: this.resources
         });
       });

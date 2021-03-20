@@ -1,4 +1,5 @@
 import Canvas from '../canvas/Canvas.js';
+import { GameData } from '../gameData.js';
 
 const nextRaceBtn = document.getElementById('race-next');
 const prevRaceBtn = document.getElementById('race-prev');
@@ -39,7 +40,7 @@ export class Editor {
   static start({ gameData, resources }) {
     this.gameData = gameData;
     this.resources = resources;
-    this.races = Object.entries(gameData.races);
+    this.races = Object.entries(GameData.races);
     this.currentRace = 0;
     this.setRaceAttributes(this.races[0]);
 
