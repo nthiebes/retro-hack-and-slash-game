@@ -22,6 +22,30 @@
         "speed": 20,
         "stay": true
       }
+    },
+    {
+      "id": "barrel",
+      "name": "Fass 1x1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 96],
+        "size": [32, 32],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "jug",
+      "name": "Krug 1x1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 128],
+        "size": [32, 32],
+        "speed": 20,
+        "stay": true
+      }
     }
   ]
 }

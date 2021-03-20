@@ -10,12 +10,14 @@
   "items": [
     { "pos": [26, 10], "id": "axe" },
     { "pos": [38, 5], "id": "head_steel_0" },
-    { "pos": [36, 1], "id": "torso_iron_0" },
-    { "pos": [37, 1], "id": "leg_iron_0" }
+    { "pos": [31, 5], "id": "shield" },
+    { "pos": [33, 11], "id": "leg_leather_0" }
   ],
   "animations": [
     { "pos": [36, 5], "id": "campfire" },
-    { "pos": [26, 10], "id": "axe" }
+    { "pos": [26, 10], "id": "axe" },
+    { "pos": [31, 5], "id": "barrel" },
+    { "pos": [33, 11], "id": "jug" }
   ],
   "maps": [],
   "map": [
@@ -2914,7 +2916,7 @@
         436,
         0,
         0,
-        654,
+        0,
         0,
         0,
         0,

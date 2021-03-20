@@ -121,6 +121,7 @@ class Interactions {
           animation.play();
         }
         player.equip(item);
+        this.items = this.items.filter((banana) => banana.id !== item.id);
 
         body.classList.add('cursor--use');
         body.classList.remove('cursor--info');
