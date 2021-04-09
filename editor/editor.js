@@ -615,6 +615,7 @@ window.onload = () => {
       name.value = mapName;
       newMapForm.classList.add('new-map--hide');
       layer.classList.add('layer--show');
+      tileset.classList.add('tileset--show');
     });
     newMapForm.addEventListener('submit', (event) => {
       const mapSize = Number(size.value);
@@ -665,6 +666,7 @@ window.onload = () => {
       event.preventDefault();
       newMapForm.classList.add('new-map--hide');
       layer.classList.add('layer--show');
+      tileset.classList.add('tileset--show');
 
       // eslint-disable-next-line no-unused-vars
       const editor = new Editor({
