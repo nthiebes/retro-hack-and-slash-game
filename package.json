@@ -6,7 +6,7 @@
   "email": "nico.thiebes@gmail.com",
   "private": true,
   "engines": {
-    "npm": ">=9"
+    "npm": "9.0.0-pre.2"
   },
   "scripts": {
     "start": "python -m SimpleHTTPServer 1337",
