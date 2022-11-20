@@ -1,7 +1,7 @@
 {
   "name": "ridane-server",
   "engines": {
-    "node": "14.6.x"
+    "node": "14.21.x"
   },
   "version": "0.1.0",
   "private": true,
