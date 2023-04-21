@@ -11,19 +11,26 @@ const io = socketIO(server, {
   }
 });
 let game = null;
+let playerId = null;
 
 io.on('connection', (socket) => {
   console.log('New client connected');
 
-  // Player connects
+  /**
+   * Player connects
+   */
   socket.on('id', (callback) => {
+    playerId = `player.${socket.id}`;
+
     callback({
-      playerId: socket.id,
+      playerId: playerId,
       gameId: game?.id
     });
   });
 
-  // Player starts new game
+  /**
+   * Player starts new game
+   */
   socket.on('new-game', ({ mapId }) => {
     console.log('New game created');
 
@@ -51,7 +58,9 @@ io.on('connection', (socket) => {
     };
   });
 
-  // Player joins a game
+  /**
+   * Player joins a game
+   */
   socket.on('join-game', ({ player }, callback) => {
     console.log('Player joined game');
 
@@ -63,15 +72,19 @@ io.on('connection', (socket) => {
     callback(game);
   });
 
-  // Player disconnects
+  /**
+   * Player disconnects
+   */
   socket.on('disconnect', () => {
     console.log('Client disconnected');
 
     if (game) {
-      game.players = game.players.filter(({ id }) => id !== socket.id);
+      game.players = game.players.filter(({ id }) => id !== playerId);
 
       // Reset game after last player left
       if (game.players.length <= 0) {
+        console.log('Game reset');
+
         game = null;
       }
     }

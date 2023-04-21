@@ -68,6 +68,11 @@ export class Menu {
         menuNew.removeAttribute('disabled');
       }
     });
+
+    // Server disconnects
+    socket.on('disconnect', () => {
+      window.location.reload();
+    });
   };
 
   static selectMap() {
