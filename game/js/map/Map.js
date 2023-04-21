@@ -125,7 +125,7 @@ class Map {
         if (this.map[r][c] === 2) {
           drawSquare({
             ctx: ctx,
-            color: 'rgba(0,0,0,0.5)',
+            color: 'rgba(0,0,0,0.2)',
             width: 32,
             height: 32,
             x: c * 32,
@@ -135,7 +135,7 @@ class Map {
         if (this.map[r][c] === 1) {
           drawSquare({
             ctx: ctx,
-            color: 'rgba(255,255,255,0.5)',
+            color: 'rgba(255,255,255,0.2)',
             width: 32,
             height: 32,
             x: c * 32,
@@ -153,25 +153,6 @@ class Map {
       x: x * 32,
       y: y * 32
     });
-
-    if (unit.id === 'player.596026') {
-      drawSquare({
-        ctx: ctx,
-        color: 'rgba(255,0,0,0.5)',
-        width: 32,
-        height: 32,
-        x: (x + 1) * 32,
-        y: y * 32
-      });
-      drawSquare({
-        ctx: ctx,
-        color: 'rgba(255,0,0,0.5)',
-        width: 32,
-        height: 32,
-        x: (x - 1) * 32,
-        y: y * 32
-      });
-    }
   }
 }
 

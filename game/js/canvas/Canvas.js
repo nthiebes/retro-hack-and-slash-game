@@ -54,7 +54,7 @@ export default class Canvas {
     socket.on('player-joined', ({ newPlayer }) => {
       if (Units.player.id !== newPlayer.id) {
         if (config.debug) {
-          console.log('👤➕', newPlayer, Units.player);
+          console.log('👤➕');
         }
 
         Units.addUnit(newPlayer);

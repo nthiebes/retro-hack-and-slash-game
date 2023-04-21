@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
    * Player joins a game
    */
   socket.on('join-game', ({ player }, callback) => {
-    console.log('Player joined game', player);
+    console.log('Player joined game');
 
     const newPlayer = {
       ...player,
@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
    * Player moves
    */
   socket.on('move', ({ path }) => {
-    console.log('Player moves', path);
+    console.log('Player moves');
 
     game.players.find(({ id }) => id === playerId).path = path;
 
