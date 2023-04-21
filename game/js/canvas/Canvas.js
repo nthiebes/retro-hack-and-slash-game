@@ -8,6 +8,7 @@ import { drawImage } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
+    console.log('data', data);
     Units.addUnits({ player: data.player, enemies: data.enemies });
     Animations.addAnimations(data.animations);
 

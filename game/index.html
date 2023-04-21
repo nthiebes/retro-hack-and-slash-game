@@ -6,6 +6,7 @@
   <title>Ridane</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
   <link rel="stylesheet" type="text/css" href="styles/game.css">
+  <meta name="”robots”" content="”noindex”" />
 </head>
 
 <body ontouchstart="">
@@ -18,14 +19,15 @@
 
   <aside class="window window--show" id="menu">
     <h1>Ridane</h1>
-    <button class="button" id="menu-new">Neues Spiel</button>
-    <button class="button" id="menu-join">Spiel beitreten</button>
-    <button class="button" id="menu-options">Optionen</button>
+    <button class="button" id="menu-new" disabled>Neues Spiel</button>
+    <button class="button" id="menu-join" disabled>Spiel beitreten</button>
+    <button class="button" id="menu-options" disabled>Optionen</button>
   </aside>
 
   <form class="window" id="new">
     <h1>Karte wählen</h1>
     <select id="map">
+      <option value="generated">Generierte Karte</option>
       <option value="arena">Arena</option>
       <option value="distribute">Verteiler</option>
       <option value="demo">Demo</option>
