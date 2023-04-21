@@ -16,8 +16,19 @@ export class Units {
     return listData[0];
   }
 
-  static addUnits({ player, enemies }) {
+  static addUnits({ player, players, enemies }) {
     this.addUnit(player);
+
+    for (let i = 0; i < players.length; i++) {
+      const otherPlayer = players[i];
+
+      if (player.id !== otherPlayer.id) {
+        this.addUnit({
+          ...otherPlayer,
+          friendly: true
+        });
+      }
+    }
 
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];

@@ -8,8 +8,11 @@ import { drawImage } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
-    console.log('data', data);
-    Units.addUnits({ player: data.player, enemies: data.enemies });
+    Units.addUnits({
+      player: data.player,
+      players: data.players,
+      enemies: data.enemies
+    });
     Animations.addAnimations(data.animations);
 
     this.ground1 = data.map[0];

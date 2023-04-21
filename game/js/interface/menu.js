@@ -49,10 +49,10 @@ const attributesMap = {
 
 export class Menu {
   static start = (resources) => {
-    this.resources = resources;
-    this.playerId = null;
-    this.races = Object.entries(GameData.races);
-    this.currentRace = 0;
+    Menu.resources = resources;
+    Menu.playerId = null;
+    Menu.races = Object.entries(GameData.races);
+    Menu.currentRace = 0;
 
     menuNew.addEventListener('click', Menu.selectMap);
     menuJoin.addEventListener('click', Menu.showCharacterEditor);
@@ -60,7 +60,7 @@ export class Menu {
 
     // Connect player
     socket.emit('id', ({ playerId, gameId }) => {
-      this.playerId = playerId;
+      Menu.playerId = playerId;
 
       if (gameId) {
         menuJoin.removeAttribute('disabled');
@@ -89,11 +89,11 @@ export class Menu {
 
     newWindow.classList.add('window--show');
 
-    this.showCharacterEditor();
+    Menu.showCharacterEditor();
   };
 
   static showCharacterEditor() {
-    this.setRaceAttributes(this.races[0]);
+    Menu.setRaceAttributes(Menu.races[0]);
 
     nextRaceBtn.addEventListener('click', Menu.handleNextRace);
     prevRaceBtn.addEventListener('click', Menu.handlePrevRace);
@@ -104,31 +104,31 @@ export class Menu {
   }
 
   static handleNextRace = () => {
-    raceImg.classList.remove(`race__img--${this.races[this.currentRace][0]}0`);
+    raceImg.classList.remove(`race__img--${Menu.races[Menu.currentRace][0]}0`);
 
-    if (!this.races[this.currentRace + 1]) {
-      this.currentRace = -1;
+    if (!Menu.races[Menu.currentRace + 1]) {
+      Menu.currentRace = -1;
     }
 
-    const race = this.races[this.currentRace + 1];
+    const race = Menu.races[Menu.currentRace + 1];
 
-    this.setRaceAttributes(race);
+    Menu.setRaceAttributes(race);
     raceImg.classList.add(`race__img--${race[0]}0`);
-    this.currentRace++;
+    Menu.currentRace++;
   };
 
   static handlePrevRace = () => {
-    raceImg.classList.remove(`race__img--${this.races[this.currentRace][0]}0`);
+    raceImg.classList.remove(`race__img--${Menu.races[Menu.currentRace][0]}0`);
 
-    if (!this.races[this.currentRace - 1]) {
-      this.currentRace = this.races.length;
+    if (!Menu.races[Menu.currentRace - 1]) {
+      Menu.currentRace = Menu.races.length;
     }
 
-    const race = this.races[this.currentRace - 1];
+    const race = Menu.races[Menu.currentRace - 1];
 
-    this.setRaceAttributes(race);
+    Menu.setRaceAttributes(race);
     raceImg.classList.add(`race__img--${race[0]}0`);
-    this.currentRace--;
+    Menu.currentRace--;
   };
 
   static setRaceAttributes = (race) => {
@@ -168,10 +168,10 @@ export class Menu {
     event.preventDefault();
 
     const player = {
-      id: this.playerId,
+      id: Menu.playerId,
       friendly: true,
       name: 'Gscheid',
-      race: this.races[this.currentRace][0],
+      race: Menu.races[Menu.currentRace][0],
       health: 1000,
       gear: {
         head: 'none',
@@ -198,10 +198,10 @@ export class Menu {
           enemies,
           mapItems: mapTransitions,
           animations,
-          resources: this.resources,
+          resources: Menu.resources,
           player: {
             ...player,
-            pos: players.find(({ id }) => this.playerId === id).pos
+            pos: players.find(({ id }) => Menu.playerId === id).pos
           }
         });
 
@@ -213,7 +213,7 @@ export class Menu {
 }
 
 //   static loadMap = () => {
-//     fetch(`/game/data/maps/${this.mapId}.json`)
+//     fetch(`/game/data/maps/${Menu.mapId}.json`)
 //       .then((response) => response.json())
 //       .then((json) => {
 //         const gameData = {

@@ -11,10 +11,11 @@ const io = socketIO(server, {
   }
 });
 let game = null;
-let playerId = null;
 
 io.on('connection', (socket) => {
   console.log('New client connected');
+
+  let playerId = null;
 
   /**
    * Player connects
