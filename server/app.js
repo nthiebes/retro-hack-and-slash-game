@@ -82,9 +82,56 @@ io.on('connection', (socket) => {
   socket.on('move', ({ path }) => {
     console.log('Player moves');
 
-    game.players.find(({ id }) => id === playerId).path = path;
+    game.players.forEach((player) => {
+      if (player.id === playerId) {
+        player.pos = path[0];
+        player.path = path;
+      }
+    });
 
     io.sockets.emit('player-moved', { path, playerId });
+  });
+
+  /**
+   * Player turns
+   */
+  socket.on('turn', ({ direction }) => {
+    console.log('Player turns');
+
+    game.players.forEach((player) => {
+      if (player.id === playerId) {
+        player.direction = direction;
+      }
+    });
+
+    io.sockets.emit('player-turned', { direction, playerId });
+  });
+
+  /**
+   * Player attacks
+   */
+  socket.on('attack', () => {
+    console.log('Player attacks');
+
+    io.sockets.emit('player-attacked', { playerId });
+  });
+
+  /**
+   * Player stopps attacking
+   */
+  socket.on('player-stop-attack', () => {
+    console.log('Player stopps attacking');
+
+    io.sockets.emit('player-stopped-attack', { playerId });
+  });
+
+  /**
+   * Player equips item
+   */
+  socket.on('equip', ({ item }) => {
+    console.log('Player equips item');
+
+    io.sockets.emit('player-equipped', { item, playerId });
   });
 
   /**

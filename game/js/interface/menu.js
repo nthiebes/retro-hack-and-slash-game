@@ -3,6 +3,7 @@ import '../../../node_modules/socket.io-client/dist/socket.io.min.js';
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
+import { getRandomInt } from '../utils/number.js';
 
 const mapField = document.getElementById('map');
 const menuNew = document.getElementById('menu-new');
@@ -163,11 +164,15 @@ export class Menu {
   static joinGame = (event) => {
     event.preventDefault();
 
+    const race = Menu.races[Menu.currentRace][0];
+    const skinCount = GameData.races[race].skins;
+    const skin = getRandomInt(skinCount - 1);
     const player = {
       id: Menu.playerId,
       friendly: true,
       name: 'Gscheid',
-      race: Menu.races[Menu.currentRace][0],
+      race,
+      skin,
       health: 1000,
       gear: {
         head: 'none',

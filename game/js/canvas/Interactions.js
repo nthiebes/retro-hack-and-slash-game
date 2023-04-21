@@ -77,6 +77,10 @@ class Interactions {
     ) {
       player.turn('LEFT');
 
+      socket.emit('turn', {
+        direction: 'LEFT'
+      });
+
       // Continue animation
       if (player.moving) {
         player.walk();
@@ -87,6 +91,10 @@ class Interactions {
       player.direction === 'LEFT'
     ) {
       player.turn('RIGHT');
+
+      socket.emit('turn', {
+        direction: 'RIGHT'
+      });
 
       // Continue animation
       if (player.moving) {
@@ -115,6 +123,8 @@ class Interactions {
       if (player.attacking) {
         // Continue animation
         player.skin.once = false;
+
+        socket.emit('attack');
       } else if (item && this.itemInRange({ x, y })) {
         const animation = Animations.getAnimation({ x, y });
 
@@ -122,13 +132,17 @@ class Interactions {
           animation.play();
         }
         player.equip(item);
-        this.items = this.items.filter((banana) => banana.id !== item.id);
+        this.items = this.items.filter((mapItem) => mapItem.id !== item.id);
+
+        socket.emit('equip', { item });
 
         body.classList.add('cursor--use');
         body.classList.remove('cursor--info');
       } else {
         // Start animation
         player.attack();
+
+        socket.emit('attack');
       }
     }
   }
@@ -145,6 +159,8 @@ class Interactions {
       // Finish after current animation
       if (player.attacking) {
         player.skin.once = true;
+
+        socket.emit('player-stop-attack');
       }
     }
   }

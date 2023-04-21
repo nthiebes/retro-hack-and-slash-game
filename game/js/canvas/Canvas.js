@@ -69,13 +69,63 @@ export default class Canvas {
       Units.list = Units.list.filter(({ id }) => id !== playerId);
     });
 
-    socket.on('player-moved', ({ path, playerId }) => {
-      if (config.debug) {
-        console.log('👤🚶‍♂️');
-      }
-
+    socket.on('player-moved', ({ playerId, path }) => {
       if (Units.player.id !== playerId) {
+        if (config.debug) {
+          console.log('👤🚶‍♂️');
+        }
+
         Units.list.find(({ id }) => id === playerId).path = path;
+      }
+    });
+
+    socket.on('player-turned', ({ playerId, direction }) => {
+      if (Units.player.id !== playerId) {
+        if (config.debug) {
+          console.log('👤👈👉');
+        }
+
+        Units.list.find(({ id }) => id === playerId).turn(direction);
+      }
+    });
+
+    socket.on('player-attacked', ({ playerId }) => {
+      if (Units.player.id !== playerId) {
+        if (config.debug) {
+          console.log('👤⚔');
+        }
+
+        Units.list.find(({ id }) => id === playerId).attack();
+      }
+    });
+
+    socket.on('player-stopped-attack', ({ playerId }) => {
+      if (Units.player.id !== playerId) {
+        if (config.debug) {
+          console.log('👤✋');
+        }
+
+        Units.list.find(({ id }) => id === playerId).skin.once = true;
+      }
+    });
+
+    socket.on('player-equipped', ({ playerId, item }) => {
+      if (Units.player.id !== playerId) {
+        if (config.debug) {
+          console.log('👤🛡️');
+        }
+
+        const animation = Animations.getAnimation({
+          x: item.pos[0],
+          y: item.pos[1]
+        });
+
+        if (animation) {
+          animation.play();
+        }
+        Units.list.find(({ id }) => id === playerId).equip({ id: item.id });
+
+        // this.items = this.items.filter((mapItem) => mapItem.id !== item.id);
       }
     });
   }
@@ -212,10 +262,18 @@ export default class Canvas {
       });
 
       // Turn enemy
-      if (Units.player.pos[0] < xNext && unit.direction !== 'LEFT') {
+      if (
+        Units.player.pos[0] < xNext &&
+        unit.direction !== 'LEFT' &&
+        !unit.friendly
+      ) {
         unit.turn('LEFT');
       }
-      if (Units.player.pos[0] > xNext && unit.direction !== 'RIGHT') {
+      if (
+        Units.player.pos[0] > xNext &&
+        unit.direction !== 'RIGHT' &&
+        !unit.friendly
+      ) {
         unit.turn('RIGHT');
       }
 
