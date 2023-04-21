@@ -3,6 +3,7 @@ import Input from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
 import { getPath } from '../map/path.js';
+import { socket } from '../utils/socket.js';
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -194,6 +195,13 @@ class Interactions {
           });
           this.setPath();
 
+          socket.emit('move', {
+            path: [
+              [x, y],
+              [x, Math.floor(newPos)]
+            ]
+          });
+
           const mapItem = this.checkMap({ x, y: Math.floor(newPos) });
 
           if (mapItem) {
@@ -229,6 +237,13 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+
+          socket.emit('move', {
+            path: [
+              [x, y],
+              [x, Math.floor(newPos)]
+            ]
+          });
 
           const mapItem = this.checkMap({ x, y: Math.floor(newPos) });
 
@@ -266,6 +281,13 @@ class Interactions {
           });
           this.setPath();
 
+          socket.emit('move', {
+            path: [
+              [x, y],
+              [Math.floor(newPos), y]
+            ]
+          });
+
           const mapItem = this.checkMap({ x: Math.floor(newPos), y });
 
           if (mapItem) {
@@ -301,6 +323,13 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+
+          socket.emit('move', {
+            path: [
+              [x, y],
+              [Math.floor(newPos), y]
+            ]
+          });
 
           const mapItem = this.checkMap({ x: Math.floor(newPos), y });
 

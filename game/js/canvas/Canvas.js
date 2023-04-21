@@ -4,6 +4,7 @@ import { Animations } from '../animations/animations.js';
 import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
+import { socket } from '../utils/socket.js';
 import { drawImage } from './utils.js';
 
 export default class Canvas {
@@ -49,6 +50,34 @@ export default class Canvas {
 
     this.prepareCanvas();
     this.gameLoop();
+
+    socket.on('player-joined', ({ newPlayer }) => {
+      if (Units.player.id !== newPlayer.id) {
+        if (config.debug) {
+          console.log('👤➕', newPlayer, Units.player);
+        }
+
+        Units.addUnit(newPlayer);
+      }
+    });
+
+    socket.on('player-left', ({ playerId }) => {
+      if (config.debug) {
+        console.log('👤➖');
+      }
+
+      Units.list = Units.list.filter(({ id }) => id !== playerId);
+    });
+
+    socket.on('player-moved', ({ path, playerId }) => {
+      if (config.debug) {
+        console.log('👤🚶‍♂️');
+      }
+
+      if (Units.player.id !== playerId) {
+        Units.list.find(({ id }) => id === playerId).path = path;
+      }
+    });
   }
 
   prepareCanvas() {
@@ -120,11 +149,11 @@ export default class Canvas {
       unit.special.update(delta);
 
       // Continue walking
-      if (unit.path.length > 1 && !unit.friendly) {
+      if (unit.path.length > 1) {
         this.updateMoveAnimation(unit);
 
         // Stop walking
-      } else if (unit.moving && !unit.friendly) {
+      } else if (unit.moving && unit.id !== Units.player.id) {
         unit.stop();
       }
 
@@ -236,6 +265,7 @@ export default class Canvas {
       if (
         !Units.player.dead &&
         unit.path.length === 1 &&
+        !unit.friendly &&
         yNext === Math.floor(Units.player.pos[1]) &&
         (xNext === Math.floor(Units.player.pos[0]) + 1 ||
           xNext === Math.floor(Units.player.pos[0]) - 1)

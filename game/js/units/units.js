@@ -5,28 +5,31 @@ import { getRandomInt } from '../utils/number.js';
 import Unit from './Unit.js';
 import { GameData } from '../gameData.js';
 
-const listData = [];
+let listData = [];
+let playerId;
 
 export class Units {
   static get list() {
     return listData;
   }
 
+  static set list(list) {
+    listData = list;
+  }
+
   static get player() {
-    return listData[0];
+    return listData.find(({ id }) => id === playerId);
   }
 
   static addUnits({ player, players, enemies }) {
     this.addUnit(player);
+    playerId = player.id;
 
     for (let i = 0; i < players.length; i++) {
       const otherPlayer = players[i];
 
       if (player.id !== otherPlayer.id) {
-        this.addUnit({
-          ...otherPlayer,
-          friendly: true
-        });
+        this.addUnit(otherPlayer);
       }
     }
 

@@ -63,14 +63,28 @@ io.on('connection', (socket) => {
    * Player joins a game
    */
   socket.on('join-game', ({ player }, callback) => {
-    console.log('Player joined game');
+    console.log('Player joined game', player);
 
-    game.players.push({
+    const newPlayer = {
       ...player,
       pos: game.playerStartPositions[0]
-    });
+    };
+
+    game.players.push(newPlayer);
 
     callback(game);
+    io.sockets.emit('player-joined', { newPlayer });
+  });
+
+  /**
+   * Player moves
+   */
+  socket.on('move', ({ path }) => {
+    console.log('Player moves', path);
+
+    game.players.find(({ id }) => id === playerId).path = path;
+
+    io.sockets.emit('player-moved', { path, playerId });
   });
 
   /**
@@ -90,6 +104,6 @@ io.on('connection', (socket) => {
       }
     }
 
-    io.sockets.emit('game-data', game);
+    io.sockets.emit('player-left', { playerId });
   });
 });

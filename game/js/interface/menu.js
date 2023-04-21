@@ -2,12 +2,8 @@ import '../../../node_modules/socket.io-client/dist/socket.io.min.js';
 
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
+import { socket } from '../utils/socket.js';
 
-const ENDPOINT =
-  document.location.hostname === 'localhost'
-    ? 'http://localhost:4001'
-    : 'https://ridane.com';
-const socket = io(ENDPOINT);
 const mapField = document.getElementById('map');
 const menuNew = document.getElementById('menu-new');
 const menuJoin = document.getElementById('menu-join');
