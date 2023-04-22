@@ -11,6 +11,7 @@ export default class Unit {
     this.path = [];
     this.fieldsInSight = [];
     this.attackSpeed = 0;
+    this.speed = data.speed;
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 

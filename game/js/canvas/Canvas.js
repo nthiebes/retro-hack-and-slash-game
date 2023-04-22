@@ -83,9 +83,20 @@ export default class Canvas {
         }
 
         const player = Units.list.find((unit) => unit.id === playerId);
-
-        player.path =
+        const newPath =
           player.path.length > 0 ? [...player.path, pos] : [player.pos, pos];
+
+        if (
+          newPath.length > 2 &&
+          newPath[newPath.length - 1][1] ===
+            newPath[newPath.length - 3][1] + 1 &&
+          newPath[newPath.length - 1][0] + 1 === newPath[newPath.length - 3][0]
+        ) {
+          //   console.log('unten links');
+          //   newPath.splice(newPath[newPath.length - 2], 1);
+        }
+
+        player.path = newPath;
       }
     });
 
