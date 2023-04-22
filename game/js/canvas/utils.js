@@ -28,9 +28,9 @@ export const drawImage = (config) => {
 };
 
 export const drawText = ({ ctx, x, y, text, color }) => {
-  ctx.font = '16px sans-serif';
+  ctx.font = '14px sans-serif';
   ctx.fillStyle = color;
-  ctx.textAlign = 'start';
+  ctx.textAlign = 'center';
   ctx.fillText(text, x, y);
 };
 

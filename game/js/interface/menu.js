@@ -6,6 +6,7 @@ import { socket } from '../utils/socket.js';
 import { getRandomInt } from '../utils/number.js';
 
 const mapField = document.getElementById('map');
+const nameField = document.getElementById('name');
 const menuNew = document.getElementById('menu-new');
 const menuJoin = document.getElementById('menu-join');
 const menuWindow = document.getElementById('menu');
@@ -170,7 +171,7 @@ export class Menu {
     const player = {
       id: Menu.playerId,
       friendly: true,
-      name: 'Gscheid',
+      name: nameField.value,
       direction: 'RIGHT',
       race,
       skin,

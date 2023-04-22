@@ -6,7 +6,7 @@ import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
 import { socket } from '../utils/socket.js';
-import { drawImage } from './utils.js';
+import { drawImage, drawText } from './utils.js';
 
 export default class Canvas {
   constructor(data) {
@@ -436,6 +436,16 @@ export default class Canvas {
 
     for (let i = 0; i < bodyParts.length; i++) {
       bodyParts[i].render(config.ctxAnim, this.resources);
+    }
+
+    if (unit.id !== Units.player.id) {
+      drawText({
+        ctx: config.ctxAnim,
+        x: unit.pos[0] + 48,
+        y: unit.pos[1] + 50,
+        text: unit.name,
+        color: '#fff'
+      });
     }
 
     config.ctxAnim.restore();
