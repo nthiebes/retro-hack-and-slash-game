@@ -1,6 +1,7 @@
 import config from '../config.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
+import { Items } from '../items/items.js';
 import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
@@ -15,6 +16,7 @@ export default class Canvas {
       enemies: data.enemies
     });
     Animations.addAnimations(data.animations);
+    Items.addItems(data.items);
 
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
@@ -26,7 +28,6 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.items = data.items;
     this.mapItems = data.mapItems;
     this.map = new Map({
       map: this.blockedArr,
@@ -37,7 +38,6 @@ export default class Canvas {
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       fieldWidth: config.fieldWidth,
-      items: this.items,
       mapItems: this.mapItems
     });
 
@@ -47,6 +47,13 @@ export default class Canvas {
 
       unit.fieldsInSight = this.map.getFieldsInSight(unit.pos, unit.direction);
     }
+
+    // Play item animations that already ran
+    Animations.list.forEach((animation) => {
+      if (!Items.getItemByPos({ x: animation.pos[0], y: animation.pos[1] })) {
+        animation.play();
+      }
+    });
 
     this.prepareCanvas();
     this.gameLoop();
@@ -124,8 +131,7 @@ export default class Canvas {
           animation.play();
         }
         Units.list.find(({ id }) => id === playerId).equip({ id: item.id });
-
-        // this.items = this.items.filter((mapItem) => mapItem.id !== item.id);
+        Items.removeItem(item);
       }
     });
   }

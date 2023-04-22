@@ -235,7 +235,8 @@ export default class Unit {
     }
   }
 
-  equip({ id }) {
+  equip(item) {
+    const id = item.id.split('.')[0];
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
 

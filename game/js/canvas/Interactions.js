@@ -2,6 +2,7 @@ import config from '../config.js';
 import Input from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
+import { Items } from '../items/items.js';
 import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
 
@@ -15,7 +16,6 @@ class Interactions {
     this.rowTileCount = data.rowTileCount;
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
-    this.items = data.items;
     this.mapItems = data.mapItems;
     this.offsetX =
       Units.player.pos[0] * this.fieldWidth * -1 + window.innerWidth / 2;
@@ -57,7 +57,7 @@ class Interactions {
 
     const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
     const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
-    const item = this.checkForItem({ x, y });
+    const item = Items.getItemByPos({ x, y });
 
     if (item && this.itemInRange({ x, y })) {
       body.classList.add('cursor--use');
@@ -118,7 +118,7 @@ class Interactions {
     if (e.button === 0) {
       const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
       const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
-      const item = this.checkForItem({ x, y });
+      const item = Items.getItemByPos({ x, y });
 
       if (player.attacking) {
         // Continue animation
@@ -132,7 +132,7 @@ class Interactions {
           animation.play();
         }
         player.equip(item);
-        this.items = this.items.filter((mapItem) => mapItem.id !== item.id);
+        Items.removeItem(item);
 
         socket.emit('equip', { item });
 
@@ -440,10 +440,6 @@ class Interactions {
     const newValue = Math.floor(value) + closest;
 
     return newValue;
-  }
-
-  checkForItem({ x, y }) {
-    return this.items.find((item) => item.pos[0] === x && item.pos[1] === y);
   }
 
   checkMap({ x, y }) {

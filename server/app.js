@@ -52,7 +52,12 @@ io.on('connection', (socket) => {
       mapData,
       mapTransitions: mapTransitions || [],
       playerStartPositions,
-      items: items || [],
+      items: items
+        ? items.map((item) => ({
+            ...item,
+            id: `${item.id}.${Math.random().toString()}`
+          }))
+        : [],
       animations: animations || [],
       enemies: enemies || [],
       players: []
@@ -130,6 +135,8 @@ io.on('connection', (socket) => {
    */
   socket.on('equip', ({ item }) => {
     console.log('Player equips item');
+
+    game.items = game.items.filter(({ id }) => item.id !== id);
 
     io.sockets.emit('player-equipped', { item, playerId });
   });
