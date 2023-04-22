@@ -557,6 +557,13 @@ class Interactions {
             enemy.path.splice(0, 1);
           }
         }
+
+        enemy.target = player.id;
+
+        socket.emit('ai-move', {
+          path: enemy.path,
+          id: enemy.id
+        });
       }
     }
   }

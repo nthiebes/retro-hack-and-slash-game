@@ -21,6 +21,10 @@ export class Units {
     return listData.find(({ id }) => id === playerId);
   }
 
+  static getUnit(unitId) {
+    return listData.find(({ id }) => id === unitId);
+  }
+
   static addUnits({ player, players, enemies }) {
     this.addUnit(player);
     playerId = player.id;
@@ -39,7 +43,7 @@ export class Units {
 
       this.addUnit({
         ...unitData,
-        pos: enemy.pos,
+        ...enemy,
         id: `enemy.${i}`
       });
     }
@@ -82,8 +86,7 @@ export class Units {
       }
     });
     const attackSpeed = getAttackSpeed(primary);
-    const direction = getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT';
-    const directionOffset = direction === 'LEFT' ? 128 : 0;
+    const directionOffset = unit.direction === 'LEFT' ? 128 : 0;
 
     listData.push(
       new Unit(
@@ -96,7 +99,7 @@ export class Units {
           speed,
           attackSpeed,
           animation,
-          direction,
+          direction: unit.direction,
           gear: {
             head,
             torso,

@@ -148,6 +148,16 @@ export default class Canvas {
         Items.removeItem(item);
       }
     });
+
+    socket.on('ai-moved', ({ id, path }) => {
+      if (config.debug) {
+        console.log('🤖🚶‍♂️');
+      }
+
+      const enemy = Units.list.find((unit) => unit.id === id);
+
+      enemy.path = path;
+    });
   }
 
   prepareCanvas() {
@@ -242,6 +252,7 @@ export default class Canvas {
 
   // eslint-disable-next-line complexity
   updateMoveAnimation(unit) {
+    const targetUnit = Units.getUnit(unit.target) || Units.player;
     let xNew = unit.pos[0],
       yNew = unit.pos[1];
     const centerOffset = 0.5;
@@ -261,7 +272,7 @@ export default class Canvas {
         this.map.map[path[1][1]][path[1][0]] !== unit.id &&
         !unit.friendly
       ) {
-        if (Units.player.dead) {
+        if (targetUnit.dead) {
           unit.path = [];
         }
 
@@ -284,14 +295,14 @@ export default class Canvas {
 
       // Turn enemy
       if (
-        Units.player.pos[0] < xNext &&
+        targetUnit.pos[0] < xNext &&
         unit.direction !== 'LEFT' &&
         !unit.friendly
       ) {
         unit.turn('LEFT');
       }
       if (
-        Units.player.pos[0] > xNext &&
+        targetUnit.pos[0] > xNext &&
         unit.direction !== 'RIGHT' &&
         !unit.friendly
       ) {
@@ -342,18 +353,18 @@ export default class Canvas {
 
       // Attack if player is in range
       if (
-        !Units.player.dead &&
+        !targetUnit.dead &&
         unit.path.length === 1 &&
         !unit.friendly &&
-        yNext === Math.floor(Units.player.pos[1]) &&
-        (xNext === Math.floor(Units.player.pos[0]) + 1 ||
-          xNext === Math.floor(Units.player.pos[0]) - 1)
+        yNext === Math.floor(targetUnit.pos[1]) &&
+        (xNext === Math.floor(targetUnit.pos[0]) + 1 ||
+          xNext === Math.floor(targetUnit.pos[0]) - 1)
       ) {
         unit.attack();
       }
       // New path if enemy stops and player is in sight again
       else if (
-        unit.isPlayerInSight(Units.player.pos) &&
+        unit.isPlayerInSight(targetUnit.pos) &&
         unit.path.length === 1 &&
         !unit.friendly
       ) {

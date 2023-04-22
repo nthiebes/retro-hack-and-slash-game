@@ -171,6 +171,7 @@ export class Menu {
       id: Menu.playerId,
       friendly: true,
       name: 'Gscheid',
+      direction: 'RIGHT',
       race,
       skin,
       health: 1000,

@@ -1,5 +1,6 @@
 const express = require('express');
 const socketIO = require('socket.io');
+const { getRandomInt } = require('./utils/number.js');
 const PORT = process.env.PORT || 4001;
 const server = express().listen(PORT, () =>
   console.log(`Listening on ${PORT}`)
@@ -59,7 +60,12 @@ io.on('connection', (socket) => {
           }))
         : [],
       animations: animations || [],
-      enemies: enemies || [],
+      enemies: enemies
+        ? enemies.map((enemy) => ({
+            ...enemy,
+            direction: getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT'
+          }))
+        : [],
       players: []
     };
   });
@@ -85,7 +91,7 @@ io.on('connection', (socket) => {
    * Player moves
    */
   socket.on('move', ({ pos }) => {
-    console.log('Player moves');
+    // console.log('Player moves');
 
     game.players.find((player) => player.id === playerId).pos = pos;
 
@@ -96,13 +102,9 @@ io.on('connection', (socket) => {
    * Player turns
    */
   socket.on('turn', ({ direction }) => {
-    console.log('Player turns');
+    // console.log('Player turns');
 
-    game.players.forEach((player) => {
-      if (player.id === playerId) {
-        player.direction = direction;
-      }
-    });
+    game.players.find((player) => player.id === playerId).direction = direction;
 
     io.sockets.emit('player-turned', { direction, playerId });
   });
@@ -111,7 +113,7 @@ io.on('connection', (socket) => {
    * Player attacks
    */
   socket.on('attack', () => {
-    console.log('Player attacks');
+    // console.log('Player attacks');
 
     io.sockets.emit('player-attacked', { playerId });
   });
@@ -120,7 +122,7 @@ io.on('connection', (socket) => {
    * Player stopps attacking
    */
   socket.on('player-stop-attack', () => {
-    console.log('Player stopps attacking');
+    // console.log('Player stopps attacking');
 
     io.sockets.emit('player-stopped-attack', { playerId });
   });
@@ -129,11 +131,26 @@ io.on('connection', (socket) => {
    * Player equips item
    */
   socket.on('equip', ({ item }) => {
-    console.log('Player equips item');
+    // console.log('Player equips item');
 
     game.items = game.items.filter(({ id }) => item.id !== id);
 
     io.sockets.emit('player-equipped', { item, playerId });
+  });
+
+  /**
+   * AI moves
+   */
+  socket.on('ai-move', ({ path, id }) => {
+    // console.log('AI moves');
+
+    game.enemies.forEach((enemy) => {
+      if (enemy.id === id) {
+        enemy.path = path;
+      }
+    });
+
+    io.sockets.emit('ai-moved', { path, id });
   });
 
   /**
