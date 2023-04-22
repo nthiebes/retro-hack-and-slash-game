@@ -76,13 +76,16 @@ export default class Canvas {
       Units.list = Units.list.filter(({ id }) => id !== playerId);
     });
 
-    socket.on('player-moved', ({ playerId, path }) => {
+    socket.on('player-moved', ({ playerId, pos }) => {
       if (Units.player.id !== playerId) {
         if (config.debug) {
           console.log('👤🚶‍♂️');
         }
 
-        Units.list.find(({ id }) => id === playerId).path = path;
+        const player = Units.list.find((unit) => unit.id === playerId);
+
+        player.path =
+          player.path.length > 0 ? [...player.path, pos] : [player.pos, pos];
       }
     });
 
@@ -244,7 +247,8 @@ export default class Canvas {
       if (
         path.length > 1 &&
         this.map.map[path[1][1]][path[1][0]] !== 0 &&
-        this.map.map[path[1][1]][path[1][0]] !== unit.id
+        this.map.map[path[1][1]][path[1][0]] !== unit.id &&
+        !unit.friendly
       ) {
         if (Units.player.dead) {
           unit.path = [];
@@ -339,7 +343,8 @@ export default class Canvas {
       // New path if enemy stops and player is in sight again
       else if (
         unit.isPlayerInSight(Units.player.pos) &&
-        unit.path.length === 1
+        unit.path.length === 1 &&
+        !unit.friendly
       ) {
         this.interactions.setPath(unit.id);
       }

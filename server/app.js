@@ -84,17 +84,12 @@ io.on('connection', (socket) => {
   /**
    * Player moves
    */
-  socket.on('move', ({ path }) => {
+  socket.on('move', ({ pos }) => {
     console.log('Player moves');
 
-    game.players.forEach((player) => {
-      if (player.id === playerId) {
-        player.pos = path[0];
-        player.path = path;
-      }
-    });
+    game.players.find((player) => player.id === playerId).pos = pos;
 
-    io.sockets.emit('player-moved', { path, playerId });
+    io.sockets.emit('player-moved', { pos, playerId });
   });
 
   /**

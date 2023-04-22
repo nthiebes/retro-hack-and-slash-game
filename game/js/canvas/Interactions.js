@@ -212,10 +212,7 @@ class Interactions {
           this.setPath();
 
           socket.emit('move', {
-            path: [
-              [x, y],
-              [x, Math.floor(newPos)]
-            ]
+            pos: [x, Math.floor(newPos)]
           });
 
           const mapItem = this.checkMap({ x, y: Math.floor(newPos) });
@@ -255,10 +252,7 @@ class Interactions {
           this.setPath();
 
           socket.emit('move', {
-            path: [
-              [x, y],
-              [x, Math.floor(newPos)]
-            ]
+            pos: [x, Math.floor(newPos)]
           });
 
           const mapItem = this.checkMap({ x, y: Math.floor(newPos) });
@@ -298,10 +292,7 @@ class Interactions {
           this.setPath();
 
           socket.emit('move', {
-            path: [
-              [x, y],
-              [Math.floor(newPos), y]
-            ]
+            pos: [Math.floor(newPos), y]
           });
 
           const mapItem = this.checkMap({ x: Math.floor(newPos), y });
@@ -341,10 +332,7 @@ class Interactions {
           this.setPath();
 
           socket.emit('move', {
-            path: [
-              [x, y],
-              [Math.floor(newPos), y]
-            ]
+            pos: [Math.floor(newPos), y]
           });
 
           const mapItem = this.checkMap({ x: Math.floor(newPos), y });
