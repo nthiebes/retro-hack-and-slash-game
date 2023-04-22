@@ -385,6 +385,8 @@ class Editor {
           }
         ];
 
+        console.log('Tile:', x + y * 16);
+
         activeTile.classList.add('tileset__active--first');
         tilesetTiles.innerHTML = '';
       }

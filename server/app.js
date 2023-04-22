@@ -1,6 +1,7 @@
 const express = require('express');
 const socketIO = require('socket.io');
 const { getRandomInt } = require('./utils/number.js');
+const { generateMap } = require('./map/generate.js');
 const PORT = process.env.PORT || 4001;
 const server = express().listen(PORT, () =>
   console.log(`Listening on ${PORT}`)
@@ -35,6 +36,13 @@ io.on('connection', (socket) => {
    */
   socket.on('new-game', ({ mapId }) => {
     console.log('New game created');
+    let map;
+
+    if (mapId === 'generated') {
+      map = generateMap();
+    } else {
+      map = require(`../game/data/maps/${mapId}.json`);
+    }
 
     const {
       name: mapName,
@@ -44,7 +52,7 @@ io.on('connection', (socket) => {
       animations,
       maps: mapTransitions,
       map: mapData
-    } = require(`../game/data/maps/${mapId}.json`);
+    } = map;
 
     game = {
       id: Math.random().toString(),
