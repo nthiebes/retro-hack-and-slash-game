@@ -1,8 +1,7 @@
-const { biomes } = require('../../game/data/biomes.js');
-const { blocks } = require('../../game/data/mapBlocks.js');
+const { biomes } = require('./data/biomes.js');
+const { blocks } = require('./data/blocks.js');
 const { getRandomInt } = require('../utils/number.js');
 const mapSize = 50;
-const groundValue = 32;
 const getRandomPositions = (max) => {
   const count = max || mapSize;
   const randomPositions = [];
@@ -13,8 +12,7 @@ const getRandomPositions = (max) => {
 
   return randomPositions;
 };
-const generateMap = () => {
-  const biome = 'forest';
+const generateChunk = (biome) => {
   const mapGround2 = new Array(mapSize)
     .fill(0)
     .map(() => new Array(mapSize).fill(0));
@@ -26,7 +24,7 @@ const generateMap = () => {
     .map(() => new Array(mapSize).fill(0));
   let mapGround1;
 
-  if (groundValue === 32) {
+  if (biome.ground === 32) {
     mapGround1 = new Array(mapSize).fill(0).map((_, index) => {
       const innerGround1 = new Array(mapSize).fill(0);
 
@@ -41,12 +39,12 @@ const generateMap = () => {
   } else {
     mapGround1 = new Array(mapSize)
       .fill(0)
-      .map(() => new Array(mapSize).fill(groundValue));
+      .map(() => new Array(mapSize).fill(biome.ground));
   }
 
   // Blocks
-  biomes[biome].blocks.forEach((block) => {
-    getRandomPositions(block.amount * mapSize).forEach((pos) => {
+  biome.blocks.forEach((block) => {
+    getRandomPositions(block.amount * (mapSize / 50)).forEach((pos) => {
       let tileOccupied = false;
 
       // Check for occupied tiles
@@ -114,31 +112,158 @@ const generateMap = () => {
   });
 
   // Small grass
-  getRandomPositions(biomes[biome].grassAmount * mapSize).forEach((pos) => {
+  getRandomPositions(biome.grassAmount * (mapSize / 50)).forEach((pos) => {
     if (mapGround2[pos[0]][pos[1]] === 0) {
       mapGround2[pos[0]][pos[1]] =
-        biomes[biome].grass[getRandomInt(biomes[biome].grass.length)];
+        biome.grass[getRandomInt(biome.grass.length)];
     }
   });
 
   // Larger bushes
-  getRandomPositions(biomes[biome].grassAmount * mapSize).forEach((pos) => {
+  getRandomPositions(biome.grassAmount * (mapSize / 50)).forEach((pos) => {
     if (mapGround2[pos[0]][pos[1]] === 0) {
       mapGround2[pos[0]][pos[1]] =
-        biomes[biome].bushes[getRandomInt(biomes[biome].bushes.length)];
+        biome.bushes[getRandomInt(biome.bushes.length)];
       mapBlocked[pos[0]][pos[1]] = 1;
     }
   });
 
+  console.log([mapGround1, mapGround2, mapTop1, mapBlocked]);
+
+  return [mapGround1, mapGround2, mapTop1, mapBlocked];
+};
+const generateMap = ({ chunks }) => {
+  const biome = biomes[chunks[0].biomeMap.center];
+
+  //   chunks.forEach((chunk) => {});
+
   return {
-    name: 'whatever',
     players: [[10, 10]],
     enemies: [],
     items: [],
     animations: [],
     maps: [],
-    map: [mapGround1, mapGround2, mapTop1, mapBlocked]
+    map: generateChunk(biome)
   };
+};
+const getRandomBiome = () => {
+  const possibleBiomes = ['plain', 'forest'];
+
+  return possibleBiomes[getRandomInt(possibleBiomes.length)];
+};
+const getSurroundingChunks = ({ centerChunk }) => {
+  const top = {
+    center: getRandomBiome(),
+    top: getRandomBiome(),
+    right: getRandomBiome(),
+    bottom: centerChunk,
+    left: getRandomBiome()
+  };
+  const topRight = {
+    center: getRandomBiome(),
+    top: getRandomBiome(),
+    right: getRandomBiome(),
+    bottom: getRandomBiome(),
+    left: top.right
+  };
+  const right = {
+    center: getRandomBiome(),
+    top: topRight.bottom,
+    right: getRandomBiome(),
+    bottom: getRandomBiome(),
+    left: centerChunk
+  };
+  const bottomRight = {
+    center: getRandomBiome(),
+    top: right.bottom,
+    right: getRandomBiome(),
+    bottom: getRandomBiome(),
+    left: getRandomBiome()
+  };
+  const bottom = {
+    center: getRandomBiome(),
+    top: centerChunk,
+    right: bottomRight.left,
+    bottom: getRandomBiome(),
+    left: getRandomBiome()
+  };
+  const bottomLeft = {
+    center: getRandomBiome(),
+    top: getRandomBiome(),
+    right: bottom.left,
+    bottom: centerChunk,
+    left: getRandomBiome()
+  };
+  const left = {
+    center: getRandomBiome(),
+    top: getRandomBiome(),
+    right: centerChunk,
+    bottom: bottomLeft.top,
+    left: getRandomBiome()
+  };
+  const topLeft = {
+    center: getRandomBiome(),
+    top: getRandomBiome(),
+    right: top.left,
+    bottom: left.top,
+    left: getRandomBiome()
+  };
+
+  return [
+    {
+      pos: [0, -1],
+      biomeMap: top
+    },
+    {
+      pos: [1, -1],
+      biomeMap: topRight
+    },
+    {
+      pos: [1, 0],
+      biomeMap: right
+    },
+    {
+      pos: [1, 1],
+      biomeMap: bottomRight
+    },
+    {
+      pos: [0, 1],
+      biomeMap: bottom
+    },
+    {
+      pos: [-1, 1],
+      biomeMap: bottomLeft
+    },
+    {
+      pos: [-1, 0],
+      biomeMap: left
+    },
+    {
+      pos: [-1, -1],
+      biomeMap: topLeft
+    }
+  ];
+};
+const generateChunks = ({ newGame }) => {
+  const mapChunks = [
+    {
+      pos: [0, 0],
+      biomeMap: {
+        center: 'plain',
+        top: 'plain',
+        right: 'plain',
+        bottom: 'plain',
+        left: 'plain'
+      }
+    }
+  ];
+
+  if (newGame) {
+    mapChunks.push(...getSurroundingChunks({ centerChunk: 'plain' }));
+  }
+
+  return mapChunks;
 };
 
 exports.generateMap = generateMap;
+exports.generateChunks = generateChunks;

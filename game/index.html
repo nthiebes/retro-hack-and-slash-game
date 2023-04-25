@@ -11,18 +11,18 @@
 
 <body ontouchstart="">
   <main id="canvas-wrapper">
-    <canvas id="canvas-ground1"></canvas>
-    <canvas id="canvas-ground2"></canvas>
-    <canvas id="canvas-anim"></canvas>
-    <canvas id="canvas-top1"></canvas>
+    <canvas class="map-layer" id="canvas-ground1"></canvas>
+    <canvas class="map-layer" id="canvas-ground2"></canvas>
+    <canvas class="map-layer" id="canvas-anim"></canvas>
+    <canvas class="map-layer" id="canvas-top1"></canvas>
   </main>
 
-  <aside class="window window--show" id="menu">
+  <section class="window window--show" id="menu">
     <h1>Ridane</h1>
     <button class="button" id="menu-new" disabled>Neues Spiel</button>
     <button class="button" id="menu-join" disabled>Spiel beitreten</button>
     <button class="button" id="menu-options" disabled>Optionen</button>
-  </aside>
+  </section>
 
   <form class="window" id="new">
     <h1>Karte wählen</h1>
@@ -56,6 +56,8 @@
     <ul class="attributes" id="race-attributes"></ul>
     <button class="button" type="submit">Spiel beitreten</button>
   </form>
+
+  <canvas class="minimap" id="minimap" height="320" width="320"></canvas>
 
   <script src="index.js" type="module" async></script>
 </body>

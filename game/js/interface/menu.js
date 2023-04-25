@@ -192,7 +192,15 @@ export class Menu {
       {
         player
       },
-      ({ mapData, items, players, enemies, mapTransitions, animations }) => {
+      ({
+        mapData,
+        items,
+        players,
+        enemies,
+        mapTransitions,
+        animations,
+        chunks
+      }) => {
         // eslint-disable-next-line
         const game = new Canvas({
           map: mapData,
@@ -205,7 +213,8 @@ export class Menu {
           player: {
             ...player,
             pos: players.find(({ id }) => Menu.playerId === id).pos
-          }
+          },
+          chunks
         });
 
         menuWindow.classList.remove('window--show');

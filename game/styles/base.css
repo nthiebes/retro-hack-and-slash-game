@@ -6,13 +6,6 @@
   padding: 0;
 }
 
-canvas {
-  display: block;
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-
 html,
 body {
   overflow: hidden;

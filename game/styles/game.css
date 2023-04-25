@@ -1,5 +1,9 @@
 @import "base.css";
 
+body {
+  cursor: url("../images/cursors/default.png"), default;
+}
+
 #canvas-wrapper {
   height: 100%;
   left: 0;
@@ -8,8 +12,11 @@
   width: 100%;
 }
 
-body {
-  cursor: url("../images/cursors/default.png"), default;
+.map-layer {
+  display: block;
+  left: 0;
+  position: absolute;
+  top: 0;
 }
 
 .cursor--use {
@@ -99,4 +106,12 @@ body {
 
 .race__img--skeleton0 {
   background-image: url("/game/images/races/skeleton0.png");
+}
+
+.minimap {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  background-color: #fff;
+  border: 2px solid #000;
 }

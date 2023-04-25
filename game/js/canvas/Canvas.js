@@ -28,6 +28,8 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
+    this.chunks = data.chunks;
+    this.currentChunk = data.chunks[0];
     this.mapItems = data.mapItems;
     this.map = new Map({
       map: this.blockedArr,
@@ -56,6 +58,7 @@ export default class Canvas {
     });
 
     this.prepareCanvas();
+    this.drawMinimap();
     this.gameLoop();
 
     socket.on('player-joined', ({ newPlayer }) => {
@@ -161,7 +164,7 @@ export default class Canvas {
   }
 
   prepareCanvas() {
-    const canvas = document.querySelectorAll('canvas');
+    const canvas = document.querySelectorAll('.map-layer');
 
     for (let i = 0; i < canvas.length; i++) {
       canvas[i].width = this.colTileCount * config.fieldWidth;
@@ -188,6 +191,30 @@ export default class Canvas {
       tileset: this.tileset,
       ctx: config.ctxTop1,
       array: this.top1
+    });
+  }
+
+  drawMinimap() {
+    this.chunks.forEach((chunk) => {
+      const tileSize = 32,
+        imageNumTiles = 16;
+      const tile = chunk.biomeMap.center === 'plain' ? 275 : 950,
+        // eslint-disable-next-line no-bitwise
+        tileRow = (tile / imageNumTiles) | 0,
+        // eslint-disable-next-line no-bitwise
+        tileCol = tile % imageNumTiles | 0;
+
+      config.ctxMinimap.drawImage(
+        this.tileset,
+        tileCol * tileSize,
+        tileRow * tileSize,
+        tileSize,
+        tileSize,
+        chunk.pos[0] * tileSize + 138,
+        chunk.pos[1] * tileSize + 138,
+        tileSize,
+        tileSize
+      );
     });
   }
 
