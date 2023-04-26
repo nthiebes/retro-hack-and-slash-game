@@ -1,11 +1,15 @@
 const biomes = {
   plain: {
     ground: 32,
-    grass: [672, 673, 674, 688, 533],
+    grass: [672, 673, 674, 688, 533, 944, 945, 946, 947, 928, 929, 931, 1010],
     grassAmount: 100,
-    bushes: [689, 690, 691],
+    bushes: [689, 690, 691, 773, 997, 692, 693],
     bushesAmount: 15,
     blocks: [
+      {
+        id: 'tree1',
+        amount: 3
+      },
       {
         id: 'tree3',
         amount: 3
@@ -69,8 +73,24 @@ const biomes = {
       }
     ]
   },
+  desert: {
+    ground: 1,
+    grass: [983, 999, 963],
+    grassAmount: 100,
+    bushes: [982, 837, 838, 839, 993],
+    bushesAmount: 15,
+    blocks: [
+      {
+        id: 'deadTree0',
+        amount: 5
+      },
+      {
+        id: 'deadTree1',
+        amount: 3
+      }
+    ]
+  },
   swamp: {},
-  desert: {},
   mountains: {},
   savannah: {},
   cave: {}

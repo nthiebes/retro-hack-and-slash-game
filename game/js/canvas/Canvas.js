@@ -196,11 +196,27 @@ export default class Canvas {
 
   drawMinimap() {
     this.chunks.forEach((chunk) => {
+      let tile = 0;
+
+      switch (chunk.biomeMap.center) {
+        case 'plain':
+          tile = 275;
+          break;
+        case 'forest':
+          tile = 950;
+          break;
+        case 'desert':
+          tile = 982;
+          break;
+
+        default:
+          break;
+      }
+
       const tileSize = 32,
         imageNumTiles = 16;
-      const tile = chunk.biomeMap.center === 'plain' ? 275 : 950,
-        // eslint-disable-next-line no-bitwise
-        tileRow = (tile / imageNumTiles) | 0,
+      // eslint-disable-next-line no-bitwise
+      const tileRow = (tile / imageNumTiles) | 0,
         // eslint-disable-next-line no-bitwise
         tileCol = tile % imageNumTiles | 0;
 

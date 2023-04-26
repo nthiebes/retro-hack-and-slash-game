@@ -2,7 +2,7 @@ const { getRandomInt } = require('../utils/number.js');
 const { config } = require('../config.js');
 const { biomes } = require('./data/biomes.js');
 const { generateChunk } = require('./generateChunk.js');
-const { chunkSize } = config;
+const { chunkSize, possibleBiomes } = config;
 
 const generateMap = ({ chunks }) => {
   const centerBiome = biomes[chunks[0].biomeMap.center];
@@ -175,8 +175,6 @@ const generateMap = ({ chunks }) => {
 };
 
 const getRandomBiome = () => {
-  const possibleBiomes = ['plain', 'forest'];
-
   return possibleBiomes[getRandomInt(possibleBiomes.length)];
 };
 
