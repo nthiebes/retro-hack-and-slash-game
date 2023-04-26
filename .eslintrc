@@ -57,19 +57,19 @@
     "max-params": 1,
     "new-cap": 1,
     "new-parens": 1,
-    "padding-line-between-statements": [
-      1,
-      {
-        "blankLine": "always",
-        "prev": ["const", "let", "var"],
-        "next": "*"
-      },
-      {
-        "blankLine": "never",
-        "prev": ["const", "let", "var"],
-        "next": ["const", "let", "var"]
-      }
-    ],
+    // "padding-line-between-statements": [
+    //   1,
+    //   {
+    //     "blankLine": "always",
+    //     "prev": ["const", "let", "var"],
+    //     "next": "*"
+    //   },
+    //   {
+    //     "blankLine": "never",
+    //     "prev": ["const", "let", "var"],
+    //     "next": ["const", "let", "var"]
+    //   }
+    // ],
     "no-alert": 1,
     "no-array-constructor": 1,
     "no-bitwise": 1,

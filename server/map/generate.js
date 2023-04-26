@@ -1,156 +1,155 @@
-const { biomes } = require('./data/biomes.js');
-const { blocks } = require('./data/blocks.js');
 const { getRandomInt } = require('../utils/number.js');
-const mapSize = 50;
-const getRandomPositions = (max) => {
-  const count = max || mapSize;
-  const randomPositions = [];
+const { config } = require('../config.js');
+const { biomes } = require('./data/biomes.js');
+const { generateChunk } = require('./generateChunk.js');
+const { chunkSize } = config;
 
-  for (let i = 0; i < count; i++) {
-    randomPositions.push([getRandomInt(mapSize), getRandomInt(mapSize)]);
-  }
-
-  return randomPositions;
-};
-const generateChunk = (biome) => {
-  const mapGround2 = new Array(mapSize)
-    .fill(0)
-    .map(() => new Array(mapSize).fill(0));
-  const mapTop1 = new Array(mapSize)
-    .fill(0)
-    .map(() => new Array(mapSize).fill(0));
-  const mapBlocked = new Array(mapSize)
-    .fill(0)
-    .map(() => new Array(mapSize).fill(0));
-  let mapGround1;
-
-  if (biome.ground === 32) {
-    mapGround1 = new Array(mapSize).fill(0).map((_, index) => {
-      const innerGround1 = new Array(mapSize).fill(0);
-
-      if (index % 2) {
-        return innerGround1.map((__, innerIndex) =>
-          innerIndex % 2 ? 143 : 142
-        );
-      }
-
-      return innerGround1.map((__, innerIndex) => (innerIndex % 2 ? 127 : 126));
-    });
-  } else {
-    mapGround1 = new Array(mapSize)
-      .fill(0)
-      .map(() => new Array(mapSize).fill(biome.ground));
-  }
-
-  // Blocks
-  biome.blocks.forEach((block) => {
-    getRandomPositions(block.amount * (mapSize / 50)).forEach((pos) => {
-      let tileOccupied = false;
-
-      // Check for occupied tiles
-      blocks[block.id].forEach((mapLayer, mapLayerIndex) => {
-        mapLayer.forEach((tiles, x) => {
-          tiles.forEach((value, y) => {
-            const randomX = pos[0];
-            const randomY = pos[1];
-            const inChunkBorder =
-              x + randomX < mapSize && y + randomY < mapSize;
-
-            // Ground 2
-            if (
-              mapLayerIndex === 1 &&
-              value &&
-              inChunkBorder &&
-              mapGround2[x + randomX][y + randomY] > 0
-            ) {
-              tileOccupied = true;
-            }
-            // Top 1
-            if (
-              mapLayerIndex === 2 &&
-              value &&
-              inChunkBorder &&
-              mapTop1[x + randomX][y + randomY] > 0
-            ) {
-              tileOccupied = true;
-            }
-          });
-        });
-      });
-
-      // Place block
-      if (!tileOccupied) {
-        blocks[block.id].forEach((mapLayer, mapLayerIndex) => {
-          mapLayer.forEach((tiles, x) => {
-            tiles.forEach((value, y) => {
-              const randomX = pos[0];
-              const randomY = pos[1];
-              const inChunkBorder =
-                x + randomX < mapSize && y + randomY < mapSize;
-
-              // Ground 1
-              if (mapLayerIndex === 0 && value && inChunkBorder) {
-                mapGround1[x + randomX][y + randomY] = value;
-              }
-              // Ground 2
-              if (mapLayerIndex === 1 && value && inChunkBorder) {
-                mapGround2[x + randomX][y + randomY] = value;
-              }
-              // Top 1
-              if (mapLayerIndex === 2 && value && inChunkBorder) {
-                mapTop1[x + randomX][y + randomY] = value;
-              }
-              // Blocked
-              if (mapLayerIndex === 3 && value && inChunkBorder) {
-                mapBlocked[x + randomX][y + randomY] = value;
-              }
-            });
-          });
-        });
-      }
-    });
-  });
-
-  // Small grass
-  getRandomPositions(biome.grassAmount * (mapSize / 50)).forEach((pos) => {
-    if (mapGround2[pos[0]][pos[1]] === 0) {
-      mapGround2[pos[0]][pos[1]] =
-        biome.grass[getRandomInt(biome.grass.length)];
-    }
-  });
-
-  // Larger bushes
-  getRandomPositions(biome.grassAmount * (mapSize / 50)).forEach((pos) => {
-    if (mapGround2[pos[0]][pos[1]] === 0) {
-      mapGround2[pos[0]][pos[1]] =
-        biome.bushes[getRandomInt(biome.bushes.length)];
-      mapBlocked[pos[0]][pos[1]] = 1;
-    }
-  });
-
-  console.log([mapGround1, mapGround2, mapTop1, mapBlocked]);
-
-  return [mapGround1, mapGround2, mapTop1, mapBlocked];
-};
 const generateMap = ({ chunks }) => {
-  const biome = biomes[chunks[0].biomeMap.center];
+  const centerBiome = biomes[chunks[0].biomeMap.center];
+  const topBiome = biomes[chunks[1].biomeMap.center];
+  const topRightBiome = biomes[chunks[2].biomeMap.center];
+  const rightBiome = biomes[chunks[3].biomeMap.center];
+  const bottomRightBiome = biomes[chunks[4].biomeMap.center];
+  const bottomBiome = biomes[chunks[5].biomeMap.center];
+  const bottomLeftBiome = biomes[chunks[6].biomeMap.center];
+  const leftBiome = biomes[chunks[7].biomeMap.center];
+  const topLeftBiome = biomes[chunks[8].biomeMap.center];
+  const centerChunk = generateChunk(centerBiome);
+  const topChunk = generateChunk(topBiome);
+  const topRightChunk = generateChunk(topRightBiome);
+  const rightChunk = generateChunk(rightBiome);
+  const bottomRightChunk = generateChunk(bottomRightBiome);
+  const bottomChunk = generateChunk(bottomBiome);
+  const bottomLeftChunk = generateChunk(bottomLeftBiome);
+  const leftChunk = generateChunk(leftBiome);
+  const topLeftChunk = generateChunk(topLeftBiome);
 
-  //   chunks.forEach((chunk) => {});
+  // Ground 1
+  const topChunksGround1 = topLeftChunk.mapGround1;
+  const centerChunksGround1 = leftChunk.mapGround1;
+  const bottomChunksGround1 = bottomLeftChunk.mapGround1;
+
+  topChunksGround1.forEach((row, index) => {
+    row.push(
+      ...[...topChunk.mapGround1[index], ...topRightChunk.mapGround1[index]]
+    );
+  });
+  centerChunksGround1.forEach((row, index) => {
+    row.push(
+      ...[...centerChunk.mapGround1[index], ...rightChunk.mapGround1[index]]
+    );
+  });
+  bottomChunksGround1.forEach((row, index) => {
+    row.push(
+      ...[
+        ...bottomChunk.mapGround1[index],
+        ...bottomRightChunk.mapGround1[index]
+      ]
+    );
+  });
+
+  const mapGround1 = [
+    ...topChunksGround1,
+    ...centerChunksGround1,
+    ...bottomChunksGround1
+  ];
+
+  // Ground 2
+  const topChunksGround2 = topLeftChunk.mapGround2;
+  const centerChunksGround2 = leftChunk.mapGround2;
+  const bottomChunksGround2 = bottomLeftChunk.mapGround2;
+
+  topChunksGround2.forEach((row, index) => {
+    row.push(
+      ...[...topChunk.mapGround2[index], ...topRightChunk.mapGround2[index]]
+    );
+  });
+  centerChunksGround2.forEach((row, index) => {
+    row.push(
+      ...[...centerChunk.mapGround2[index], ...rightChunk.mapGround2[index]]
+    );
+  });
+  bottomChunksGround2.forEach((row, index) => {
+    row.push(
+      ...[
+        ...bottomChunk.mapGround2[index],
+        ...bottomRightChunk.mapGround2[index]
+      ]
+    );
+  });
+
+  const mapGround2 = [
+    ...topChunksGround2,
+    ...centerChunksGround2,
+    ...bottomChunksGround2
+  ];
+
+  // Top 1
+  const topChunksTop1 = topLeftChunk.mapTop1;
+  const centerChunksTop1 = leftChunk.mapTop1;
+  const bottomChunksTop1 = bottomLeftChunk.mapTop1;
+
+  topChunksTop1.forEach((row, index) => {
+    row.push(...[...topChunk.mapTop1[index], ...topRightChunk.mapTop1[index]]);
+  });
+  centerChunksTop1.forEach((row, index) => {
+    row.push(...[...centerChunk.mapTop1[index], ...rightChunk.mapTop1[index]]);
+  });
+  bottomChunksTop1.forEach((row, index) => {
+    row.push(
+      ...[...bottomChunk.mapTop1[index], ...bottomRightChunk.mapTop1[index]]
+    );
+  });
+
+  const mapTop1 = [...topChunksTop1, ...centerChunksTop1, ...bottomChunksTop1];
+
+  // Blocked
+  const topChunksBlocked = topLeftChunk.mapBlocked;
+  const centerChunksBlocked = leftChunk.mapBlocked;
+  const bottomChunksBlocked = bottomLeftChunk.mapBlocked;
+
+  topChunksBlocked.forEach((row, index) => {
+    row.push(
+      ...[...topChunk.mapBlocked[index], ...topRightChunk.mapBlocked[index]]
+    );
+  });
+  centerChunksBlocked.forEach((row, index) => {
+    row.push(
+      ...[...centerChunk.mapBlocked[index], ...rightChunk.mapBlocked[index]]
+    );
+  });
+  bottomChunksBlocked.forEach((row, index) => {
+    row.push(
+      ...[
+        ...bottomChunk.mapBlocked[index],
+        ...bottomRightChunk.mapBlocked[index]
+      ]
+    );
+  });
+
+  const mapBlocked = [
+    ...topChunksBlocked,
+    ...centerChunksBlocked,
+    ...bottomChunksBlocked
+  ];
+  const playerPosition = Math.round((chunkSize * 3) / 2);
 
   return {
-    players: [[10, 10]],
+    players: [[playerPosition, playerPosition]],
     enemies: [],
     items: [],
     animations: [],
     maps: [],
-    map: generateChunk(biome)
+    map: [mapGround1, mapGround2, mapTop1, mapBlocked]
   };
 };
+
 const getRandomBiome = () => {
   const possibleBiomes = ['plain', 'forest'];
 
   return possibleBiomes[getRandomInt(possibleBiomes.length)];
 };
+
 const getSurroundingChunks = ({ centerChunk }) => {
   const top = {
     center: getRandomBiome(),
@@ -244,6 +243,7 @@ const getSurroundingChunks = ({ centerChunk }) => {
     }
   ];
 };
+
 const generateChunks = ({ newGame }) => {
   const mapChunks = [
     {

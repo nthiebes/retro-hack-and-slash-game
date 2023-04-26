@@ -66,7 +66,12 @@ const biomes = {
         amount: 5
       }
     ]
-  }
+  },
+  swamp: {},
+  desert: {},
+  mountains: {},
+  savannah: {},
+  cave: {}
 };
 
 exports.biomes = biomes;
