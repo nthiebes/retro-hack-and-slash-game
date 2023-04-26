@@ -76,6 +76,10 @@ const generateChunk = (biome) => {
             ) {
               tileOccupied = true;
             }
+
+            if (!inChunkBorder) {
+              tileOccupied = true;
+            }
           });
         });
       });
@@ -122,7 +126,7 @@ const generateChunk = (biome) => {
   });
 
   // Larger bushes
-  getRandomPositions(biome.grassAmount).forEach((pos) => {
+  getRandomPositions(biome.bushesAmount).forEach((pos) => {
     if (mapGround2[pos[0]][pos[1]] === 0) {
       mapGround2[pos[0]][pos[1]] =
         biome.bushes[getRandomInt(biome.bushes.length)];

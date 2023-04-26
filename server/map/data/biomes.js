@@ -2,19 +2,21 @@ const biomes = {
   plain: {
     ground: 32,
     grass: [672, 673, 674, 688, 533],
+    grassAmount: 100,
     bushes: [689, 690, 724, 691],
+    bushesAmount: 15,
     blocks: [
       {
         id: 'tree0',
-        amount: 5
+        amount: 3
       },
       {
         id: 'tree1',
-        amount: 5
+        amount: 3
       },
       {
         id: 'tree2',
-        amount: 5
+        amount: 3
       }
     ]
   },
@@ -41,29 +43,29 @@ const biomes = {
       486,
       487
     ],
-    grassAmount: 100,
+    grassAmount: 75,
     bushes: [689, 690, 724, 691, 706, 707, 772, 773, 995],
-    bushesAmount: 50,
+    bushesAmount: 40,
     blocks: [
       {
         id: 'tree0',
-        amount: 50
+        amount: 25
       },
       {
         id: 'tree1',
-        amount: 75
+        amount: 50
       },
       {
         id: 'tree2',
-        amount: 100
+        amount: 75
       },
       {
         id: 'stump0',
-        amount: 5
+        amount: 3
       },
       {
         id: 'stump1',
-        amount: 5
+        amount: 3
       }
     ]
   },
