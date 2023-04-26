@@ -136,9 +136,39 @@ const generateMap = ({ chunks }) => {
 
   return {
     players: [[playerPosition, playerPosition]],
-    enemies: [],
-    items: [],
-    animations: [],
+    enemies: [
+      ...centerChunk.enemies,
+      ...topChunk.enemies,
+      ...topRightChunk.enemies,
+      ...rightChunk.enemies,
+      ...bottomRightChunk.enemies,
+      ...bottomChunk.enemies,
+      ...bottomLeftChunk.enemies,
+      ...leftChunk.enemies,
+      ...topLeftChunk.enemies
+    ],
+    items: [
+      ...centerChunk.items,
+      ...topChunk.items,
+      ...topRightChunk.items,
+      ...rightChunk.items,
+      ...bottomRightChunk.items,
+      ...bottomChunk.items,
+      ...bottomLeftChunk.items,
+      ...leftChunk.items,
+      ...topLeftChunk.items
+    ],
+    animations: [
+      ...centerChunk.animations,
+      ...topChunk.animations,
+      ...topRightChunk.animations,
+      ...rightChunk.animations,
+      ...bottomRightChunk.animations,
+      ...bottomChunk.animations,
+      ...bottomLeftChunk.animations,
+      ...leftChunk.animations,
+      ...topLeftChunk.animations
+    ],
     maps: [],
     map: [mapGround1, mapGround2, mapTop1, mapBlocked]
   };

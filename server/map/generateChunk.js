@@ -25,6 +25,9 @@ const generateChunk = (biome) => {
     .fill(0)
     .map(() => new Array(chunkSize).fill(0));
   let mapGround1;
+  const animations = [];
+  const items = [];
+  const enemies = [];
 
   if (biome.ground === 32) {
     mapGround1 = new Array(chunkSize).fill(0).map((_, index) => {
@@ -47,14 +50,14 @@ const generateChunk = (biome) => {
   // Blocks
   biome.blocks.forEach((block) => {
     getRandomPositions(block.amount).forEach((pos) => {
+      const randomX = pos[0];
+      const randomY = pos[1];
       let tileOccupied = false;
 
       // Check for occupied tiles
-      blocks[block.id].forEach((mapLayer, mapLayerIndex) => {
+      blocks[block.id].map.forEach((mapLayer, mapLayerIndex) => {
         mapLayer.forEach((tiles, x) => {
           tiles.forEach((value, y) => {
-            const randomX = pos[0];
-            const randomY = pos[1];
             const inChunkBorder =
               x + randomX < chunkSize && y + randomY < chunkSize;
 
@@ -86,11 +89,9 @@ const generateChunk = (biome) => {
 
       // Place block
       if (!tileOccupied) {
-        blocks[block.id].forEach((mapLayer, mapLayerIndex) => {
+        blocks[block.id].map.forEach((mapLayer, mapLayerIndex) => {
           mapLayer.forEach((tiles, x) => {
             tiles.forEach((value, y) => {
-              const randomX = pos[0];
-              const randomY = pos[1];
               const inChunkBorder =
                 x + randomX < chunkSize && y + randomY < chunkSize;
 
@@ -113,6 +114,32 @@ const generateChunk = (biome) => {
             });
           });
         });
+
+        // Fill other fields
+        if (blocks[block.id].animations) {
+          animations.push(
+            ...blocks[block.id].animations.map((animation) => ({
+              ...animation,
+              pos: [animation.pos[0] + randomX, animation.pos[1] + randomY]
+            }))
+          );
+        }
+        if (blocks[block.id].items) {
+          items.push(
+            ...blocks[block.id].items.map((item) => ({
+              ...item,
+              pos: [item.pos[0] + randomX, item.pos[1] + randomY]
+            }))
+          );
+        }
+        if (blocks[block.id].enemies) {
+          enemies.push(
+            ...blocks[block.id].enemies.map((enemy) => ({
+              ...enemy,
+              pos: [enemy.pos[0] + randomX, enemy.pos[1] + randomY]
+            }))
+          );
+        }
       }
     });
   });
@@ -134,7 +161,15 @@ const generateChunk = (biome) => {
     }
   });
 
-  return { mapGround1, mapGround2, mapTop1, mapBlocked };
+  return {
+    mapGround1,
+    mapGround2,
+    mapTop1,
+    mapBlocked,
+    enemies,
+    animations,
+    items
+  };
 };
 
 exports.generateChunk = generateChunk;
