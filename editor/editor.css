@@ -29,6 +29,7 @@ body {
   position: absolute;
   top: 0;
   opacity: 0.5;
+  outline: 1px solid #fff;
 }
 
 #canvas-blocked,

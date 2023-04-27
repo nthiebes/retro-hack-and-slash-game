@@ -1,8 +1,7 @@
-const { getRandomInt } = require('../utils/number.js');
 const { config } = require('../config.js');
 const { biomes } = require('./data/biomes.js');
 const { generateChunk } = require('./generateChunk.js');
-const { chunkSize, possibleBiomes } = config;
+const { chunkSize } = config;
 
 const generateMap = ({ chunks }) => {
   const centerBiome = biomes[chunks[0].biomeMap.center];
@@ -14,15 +13,33 @@ const generateMap = ({ chunks }) => {
   const bottomLeftBiome = biomes[chunks[6].biomeMap.center];
   const leftBiome = biomes[chunks[7].biomeMap.center];
   const topLeftBiome = biomes[chunks[8].biomeMap.center];
-  const centerChunk = generateChunk(centerBiome);
-  const topChunk = generateChunk(topBiome);
-  const topRightChunk = generateChunk(topRightBiome);
-  const rightChunk = generateChunk(rightBiome);
-  const bottomRightChunk = generateChunk(bottomRightBiome);
-  const bottomChunk = generateChunk(bottomBiome);
-  const bottomLeftChunk = generateChunk(bottomLeftBiome);
-  const leftChunk = generateChunk(leftBiome);
-  const topLeftChunk = generateChunk(topLeftBiome);
+  const centerChunk = generateChunk({
+    biome: centerBiome,
+    offset: [chunkSize, chunkSize]
+  });
+  const topChunk = generateChunk({ biome: topBiome, offset: [chunkSize, 0] });
+  const topRightChunk = generateChunk({
+    biome: topRightBiome,
+    offset: [chunkSize * 2, 0]
+  });
+  const rightChunk = generateChunk({
+    biome: rightBiome,
+    offset: [chunkSize * 2, chunkSize]
+  });
+  const bottomRightChunk = generateChunk({
+    biome: bottomRightBiome,
+    offset: [chunkSize * 2, chunkSize * 2]
+  });
+  const bottomChunk = generateChunk({
+    biome: bottomBiome,
+    offset: [chunkSize, chunkSize * 2]
+  });
+  const bottomLeftChunk = generateChunk({
+    biome: bottomLeftBiome,
+    offset: [0, chunkSize * 2]
+  });
+  const leftChunk = generateChunk({ biome: leftBiome, offset: [0, chunkSize] });
+  const topLeftChunk = generateChunk({ biome: topLeftBiome, offset: [0, 0] });
 
   // Ground 1
   const topChunksGround1 = topLeftChunk.mapGround1;
@@ -174,124 +191,4 @@ const generateMap = ({ chunks }) => {
   };
 };
 
-const getRandomBiome = () => {
-  return possibleBiomes[getRandomInt(possibleBiomes.length)];
-};
-
-const getSurroundingChunks = ({ centerChunk }) => {
-  const top = {
-    center: getRandomBiome(),
-    top: getRandomBiome(),
-    right: getRandomBiome(),
-    bottom: centerChunk,
-    left: getRandomBiome()
-  };
-  const topRight = {
-    center: getRandomBiome(),
-    top: getRandomBiome(),
-    right: getRandomBiome(),
-    bottom: getRandomBiome(),
-    left: top.right
-  };
-  const right = {
-    center: getRandomBiome(),
-    top: topRight.bottom,
-    right: getRandomBiome(),
-    bottom: getRandomBiome(),
-    left: centerChunk
-  };
-  const bottomRight = {
-    center: getRandomBiome(),
-    top: right.bottom,
-    right: getRandomBiome(),
-    bottom: getRandomBiome(),
-    left: getRandomBiome()
-  };
-  const bottom = {
-    center: getRandomBiome(),
-    top: centerChunk,
-    right: bottomRight.left,
-    bottom: getRandomBiome(),
-    left: getRandomBiome()
-  };
-  const bottomLeft = {
-    center: getRandomBiome(),
-    top: getRandomBiome(),
-    right: bottom.left,
-    bottom: centerChunk,
-    left: getRandomBiome()
-  };
-  const left = {
-    center: getRandomBiome(),
-    top: getRandomBiome(),
-    right: centerChunk,
-    bottom: bottomLeft.top,
-    left: getRandomBiome()
-  };
-  const topLeft = {
-    center: getRandomBiome(),
-    top: getRandomBiome(),
-    right: top.left,
-    bottom: left.top,
-    left: getRandomBiome()
-  };
-
-  return [
-    {
-      pos: [0, -1],
-      biomeMap: top
-    },
-    {
-      pos: [1, -1],
-      biomeMap: topRight
-    },
-    {
-      pos: [1, 0],
-      biomeMap: right
-    },
-    {
-      pos: [1, 1],
-      biomeMap: bottomRight
-    },
-    {
-      pos: [0, 1],
-      biomeMap: bottom
-    },
-    {
-      pos: [-1, 1],
-      biomeMap: bottomLeft
-    },
-    {
-      pos: [-1, 0],
-      biomeMap: left
-    },
-    {
-      pos: [-1, -1],
-      biomeMap: topLeft
-    }
-  ];
-};
-
-const generateChunks = ({ newGame }) => {
-  const mapChunks = [
-    {
-      pos: [0, 0],
-      biomeMap: {
-        center: 'plain',
-        top: 'plain',
-        right: 'plain',
-        bottom: 'plain',
-        left: 'plain'
-      }
-    }
-  ];
-
-  if (newGame) {
-    mapChunks.push(...getSurroundingChunks({ centerChunk: 'plain' }));
-  }
-
-  return mapChunks;
-};
-
 exports.generateMap = generateMap;
-exports.generateChunks = generateChunks;

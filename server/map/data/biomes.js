@@ -7,8 +7,20 @@ const biomes = {
     bushesAmount: 15,
     blocks: [
       {
+        id: 'choppedTrees',
+        amount: 1
+      },
+      {
+        id: 'grasPatch0',
+        amount: 1
+      },
+      {
+        id: 'tree0',
+        amount: 2
+      },
+      {
         id: 'tree1',
-        amount: 3
+        amount: 1
       },
       {
         id: 'tree3',
@@ -17,10 +29,6 @@ const biomes = {
       {
         id: 'tree4',
         amount: 2
-      },
-      {
-        id: 'choppedTrees',
-        amount: 1
       }
     ]
   },

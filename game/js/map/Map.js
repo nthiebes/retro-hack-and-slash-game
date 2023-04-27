@@ -86,6 +86,7 @@ class Map {
     return visibleFields;
   }
 
+  // eslint-disable-next-line complexity
   showDebugFields({ unit, ctx }) {
     const x = Math.floor(unit.pos[0]),
       y = Math.floor(unit.pos[1]),
@@ -136,6 +137,30 @@ class Map {
           drawSquare({
             ctx: ctx,
             color: 'rgba(255,255,255,0.2)',
+            width: 32,
+            height: 32,
+            x: c * 32,
+            y: r * 32
+          });
+        }
+
+        if (
+          r === 0 ||
+          r === this.map.length - 1 ||
+          c === 0 ||
+          c === this.map.length - 1 ||
+          r === config.chunkSize - 1 ||
+          r === config.chunkSize * 2 - 1 ||
+          r === config.chunkSize ||
+          r === config.chunkSize * 2 ||
+          c === config.chunkSize - 1 ||
+          c === config.chunkSize * 2 - 1 ||
+          c === config.chunkSize ||
+          c === config.chunkSize * 2
+        ) {
+          drawSquare({
+            ctx: ctx,
+            color: 'rgba(0,255,255,0.2)',
             width: 32,
             height: 32,
             x: c * 32,

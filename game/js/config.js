@@ -4,7 +4,7 @@ const canvasAnim = document.getElementById('canvas-anim');
 const canvasTop1 = document.getElementById('canvas-top1');
 const canvasMinimap = document.getElementById('minimap');
 const config = {
-  debug: false,
+  debug: true,
   fieldWidth: 32,
   visibility: 7,
   canvasGround1,
@@ -17,7 +17,8 @@ const config = {
   ctxAnim: canvasAnim.getContext('2d'),
   ctxTop1: canvasTop1.getContext('2d'),
   ctxMinimap: canvasMinimap?.getContext('2d'),
-  hairCount: 11
+  hairCount: 11,
+  chunkSize: 30
 };
 
 export default config;

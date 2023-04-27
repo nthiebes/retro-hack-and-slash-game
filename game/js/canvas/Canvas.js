@@ -487,7 +487,7 @@ export default class Canvas {
         x: unit.pos[0] + 48,
         y: unit.pos[1] + 50,
         text: unit.name,
-        color: '#fff'
+        color: unit.friendly ? '#fff' : '#f99'
       });
     }
 

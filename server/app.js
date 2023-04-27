@@ -1,7 +1,10 @@
 const express = require('express');
 const socketIO = require('socket.io');
 const { getRandomInt } = require('./utils/number.js');
-const { generateMap, generateChunks } = require('./map/generate.js');
+const { generateMap } = require('./map/generateMap.js');
+const { generateChunks } = require('./map/generateChunks.js');
+const { config } = require('./config.js');
+const { chunkSize } = config;
 const PORT = process.env.PORT || 4001;
 const server = express().listen(PORT, () =>
   console.log(`Listening on ${PORT}`)
@@ -38,6 +41,7 @@ io.on('connection', (socket) => {
     console.log('New game created');
 
     const chunks = generateChunks({
+      chunks: [],
       newGame: true
     });
     let map;
@@ -93,7 +97,8 @@ io.on('connection', (socket) => {
 
     const newPlayer = {
       ...player,
-      pos: game.playerStartPositions[0]
+      pos: game.playerStartPositions[0],
+      chunk: [0, 0]
     };
 
     game.players.push(newPlayer);
@@ -108,7 +113,31 @@ io.on('connection', (socket) => {
   socket.on('move', ({ pos }) => {
     // console.log('Player moves');
 
-    game.players.find((player) => player.id === playerId).pos = pos;
+    const player = game.players.find(({ id }) => id === playerId);
+
+    player.pos = pos;
+
+    if (pos[0] > chunkSize * 2 - 1) {
+      console.log('load right chunk');
+
+      game.chunks = generateChunks({
+        chunks: game.chunks,
+        centerChunk: game.chunks.find(
+          (chunk) =>
+            chunk.pos[0] === player.chunk[0] + 1 &&
+            chunk.pos[1] === player.chunk[1]
+        )
+      });
+
+      console.log(game.chunks);
+      //   io.sockets.emit('new-chunks', {});
+    } else if (pos[0] < chunkSize) {
+      console.log('load left chunk');
+    } else if (pos[1] > chunkSize * 2 - 1) {
+      console.log('load bottom chunk');
+    } else if (pos[1] < chunkSize) {
+      console.log('load top chunk');
+    }
 
     io.sockets.emit('player-moved', { pos, playerId });
   });

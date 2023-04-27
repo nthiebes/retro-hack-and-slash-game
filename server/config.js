@@ -1,6 +1,6 @@
 const config = {
   chunkSize: 30,
-  possibleBiomes: ['plain', 'forest', 'desert']
+  possibleBiomes: ['plain', 'forest']
 };
 
 exports.config = config;

@@ -14,7 +14,7 @@ const getRandomPositions = (max) => {
   return randomPositions;
 };
 
-const generateChunk = (biome) => {
+const generateChunk = ({ biome, offset }) => {
   const mapGround2 = new Array(chunkSize)
     .fill(0)
     .map(() => new Array(chunkSize).fill(0));
@@ -92,23 +92,20 @@ const generateChunk = (biome) => {
         blocks[block.id].map.forEach((mapLayer, mapLayerIndex) => {
           mapLayer.forEach((tiles, x) => {
             tiles.forEach((value, y) => {
-              const inChunkBorder =
-                x + randomX < chunkSize && y + randomY < chunkSize;
-
               // Ground 1
-              if (mapLayerIndex === 0 && value && inChunkBorder) {
+              if (mapLayerIndex === 0 && value) {
                 mapGround1[x + randomX][y + randomY] = value;
               }
               // Ground 2
-              if (mapLayerIndex === 1 && value && inChunkBorder) {
+              if (mapLayerIndex === 1 && value) {
                 mapGround2[x + randomX][y + randomY] = value;
               }
               // Top 1
-              if (mapLayerIndex === 2 && value && inChunkBorder) {
+              if (mapLayerIndex === 2 && value) {
                 mapTop1[x + randomX][y + randomY] = value;
               }
               // Blocked
-              if (mapLayerIndex === 3 && value && inChunkBorder) {
+              if (mapLayerIndex === 3 && value) {
                 mapBlocked[x + randomX][y + randomY] = value;
               }
             });
@@ -128,7 +125,10 @@ const generateChunk = (biome) => {
           items.push(
             ...blocks[block.id].items.map((item) => ({
               ...item,
-              pos: [item.pos[0] + randomX, item.pos[1] + randomY]
+              pos: [
+                item.pos[0] + offset[0] + randomX,
+                item.pos[1] + offset[1] + randomY
+              ]
             }))
           );
         }
@@ -136,7 +136,10 @@ const generateChunk = (biome) => {
           enemies.push(
             ...blocks[block.id].enemies.map((enemy) => ({
               ...enemy,
-              pos: [enemy.pos[0] + randomX, enemy.pos[1] + randomY]
+              pos: [
+                enemy.pos[0] + offset[0] + randomX,
+                enemy.pos[1] + offset[1] + randomY
+              ]
             }))
           );
         }
