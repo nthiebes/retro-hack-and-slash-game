@@ -1,4 +1,13 @@
 {
+  "dwarf": {
+    "strength": 4,
+    "dexterity": 3,
+    "intelligence": 3,
+    "defense": 4,
+    "speed": 3,
+    "skins": 1
+  },
+
   "human": {
     "strength": 3,
     "dexterity": 3,

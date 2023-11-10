@@ -6,6 +6,7 @@ const resources = new Resources();
 const resourcesList = [
   'images/tileset.png',
   'images/animations.png',
+  'images/races/dwarf0.png',
   'images/races/human0.png',
   'images/races/human1.png',
   'images/races/human2.png',

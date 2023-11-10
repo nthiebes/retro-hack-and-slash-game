@@ -84,6 +84,10 @@ body {
   background-image: url("/game/images/races/human0.png");
 }
 
+.race__img--dwarf0 {
+  background-image: url("/game/images/races/dwarf0.png");
+}
+
 .race__img--orc0 {
   background-image: url("/game/images/races/orc0.png");
 }
