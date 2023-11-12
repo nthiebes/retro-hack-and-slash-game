@@ -100,10 +100,10 @@ class Map {
         drawSquare({
           ctx: ctx,
           color: 'rgba(0,255,0,0.5)',
-          width: 32,
-          height: 32,
-          x: path[i][0] * 32,
-          y: path[i][1] * 32
+          width: config.fieldWidth,
+          height: config.fieldWidth,
+          x: path[i][0] * config.fieldWidth,
+          y: path[i][1] * config.fieldWidth
         });
       }
     }
@@ -113,10 +113,10 @@ class Map {
         drawSquare({
           ctx: ctx,
           color: 'rgba(255,0,0,0.2)',
-          width: 32,
-          height: 32,
-          x: fieldsInSight[j][0] * 32,
-          y: fieldsInSight[j][1] * 32
+          width: config.fieldWidth,
+          height: config.fieldWidth,
+          x: fieldsInSight[j][0] * config.fieldWidth,
+          y: fieldsInSight[j][1] * config.fieldWidth
         });
       }
     }
@@ -127,20 +127,20 @@ class Map {
           drawSquare({
             ctx: ctx,
             color: 'rgba(0,0,0,0.2)',
-            width: 32,
-            height: 32,
-            x: c * 32,
-            y: r * 32
+            width: config.fieldWidth,
+            height: config.fieldWidth,
+            x: c * config.fieldWidth,
+            y: r * config.fieldWidth
           });
         }
         if (this.map[r][c] === 1) {
           drawSquare({
             ctx: ctx,
             color: 'rgba(255,255,255,0.2)',
-            width: 32,
-            height: 32,
-            x: c * 32,
-            y: r * 32
+            width: config.fieldWidth,
+            height: config.fieldWidth,
+            x: c * config.fieldWidth,
+            y: r * config.fieldWidth
           });
         }
 
@@ -161,10 +161,10 @@ class Map {
           drawSquare({
             ctx: ctx,
             color: 'rgba(0,255,255,0.2)',
-            width: 32,
-            height: 32,
-            x: c * 32,
-            y: r * 32
+            width: config.fieldWidth,
+            height: config.fieldWidth,
+            x: c * config.fieldWidth,
+            y: r * config.fieldWidth
           });
         }
       }
@@ -173,10 +173,10 @@ class Map {
     drawSquare({
       ctx: ctx,
       color: 'rgba(0,0,255,0.5)',
-      width: 32,
-      height: 32,
-      x: x * 32,
-      y: y * 32
+      width: config.fieldWidth,
+      height: config.fieldWidth,
+      x: x * config.fieldWidth,
+      y: y * config.fieldWidth
     });
   }
 }

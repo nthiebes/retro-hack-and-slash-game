@@ -155,11 +155,11 @@ const generateChunks = ({ newGame, chunks, centerChunk }) => {
     const initialChunk = {
       pos: [0, 0],
       biomeMap: {
-        center: 'plain',
-        top: 'plain',
-        right: 'plain',
-        bottom: 'plain',
-        left: 'plain'
+        center: 'desert',
+        top: 'desert',
+        right: 'desert',
+        bottom: 'desert',
+        left: 'desert'
       }
     };
 

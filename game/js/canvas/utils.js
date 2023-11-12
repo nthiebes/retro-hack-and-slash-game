@@ -1,5 +1,7 @@
+import globalConfig from '../config.js';
+
 export const drawImage = (config) => {
-  const tileSize = 32,
+  const tileSize = 64,
     imageNumTiles = 16;
 
   // Each row
@@ -12,16 +14,17 @@ export const drawImage = (config) => {
         // eslint-disable-next-line no-bitwise
         tileCol = tile % imageNumTiles | 0;
 
+      config.ctx.imageSmoothingEnabled = false;
       config.ctx.drawImage(
         config.tileset,
         tileCol * tileSize,
         tileRow * tileSize,
         tileSize,
         tileSize,
-        c * tileSize,
-        r * tileSize,
-        tileSize,
-        tileSize
+        c * globalConfig.fieldWidth,
+        r * globalConfig.fieldWidth,
+        globalConfig.fieldWidth,
+        globalConfig.fieldWidth
       );
     }
   }

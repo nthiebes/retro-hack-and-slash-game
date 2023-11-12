@@ -83,17 +83,25 @@ const biomes = {
   },
   desert: {
     ground: 1,
-    grass: [983, 999, 963],
-    grassAmount: 100,
-    bushes: [982, 837, 838, 839, 993],
-    bushesAmount: 15,
+    grass: [64],
+    grassAmount: 10,
+    bushes: [],
+    bushesAmount: 0,
     blocks: [
       {
+        id: 'lake0',
+        amount: 1
+      },
+      {
         id: 'deadTree0',
-        amount: 5
+        amount: 4
       },
       {
         id: 'deadTree1',
+        amount: 3
+      },
+      {
+        id: 'cactus0',
         amount: 3
       }
     ]

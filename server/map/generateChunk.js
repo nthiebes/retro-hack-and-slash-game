@@ -41,6 +41,60 @@ const generateChunk = ({ biome, offset }) => {
 
       return innerGround1.map((__, innerIndex) => (innerIndex % 2 ? 127 : 126));
     });
+  } else if (biome.ground === 1) {
+    mapGround1 = new Array(chunkSize).fill(0).map((_, index) => {
+      const innerGround1 = new Array(chunkSize).fill(0);
+
+      if (index % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 4;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 3;
+          }
+          return 2;
+        });
+      }
+
+      if ((index + 1) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 49;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 52;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 51;
+          }
+          return 50;
+        });
+      }
+
+      if ((index + 2) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 33;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 36;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 35;
+          }
+          return 34;
+        });
+      }
+
+      return innerGround1.map((__, innerIndex) => {
+        if (innerIndex % 4 === 0) {
+          return 17;
+        } else if ((innerIndex + 1) % 4 === 0) {
+          return 20;
+        } else if ((innerIndex + 2) % 4 === 0) {
+          return 19;
+        }
+        return 18;
+      });
+    });
   } else {
     mapGround1 = new Array(chunkSize)
       .fill(0)
@@ -163,6 +217,8 @@ const generateChunk = ({ biome, offset }) => {
       mapBlocked[pos[0]][pos[1]] = 1;
     }
   });
+
+  //   console.log(mapGround2);
 
   return {
     mapGround1,

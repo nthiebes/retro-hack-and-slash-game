@@ -1,3 +1,5 @@
+import config from '../config.js';
+
 export default class Sprite {
   constructor(cfg) {
     this.pos = cfg.pos;
@@ -64,17 +66,22 @@ export default class Sprite {
 
     // If it is done and it has to run once, don't update
     if (!(this.done && this.once)) {
+      //   ctx.scale(-1, 1);
+
+      ctx.imageSmoothingEnabled = false;
       ctx.drawImage(
         resources.get(this.url),
         x,
         y,
         this.size[0],
         this.size[1],
-        0,
-        0,
-        this.size[0],
-        this.size[1]
+        config.unitScale === 2 ? -64 : 0,
+        config.unitScale === 2 ? -128 : 0,
+        this.size[0] * config.unitScale,
+        this.size[1] * config.unitScale
       );
+
+      //   ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
   }
 }

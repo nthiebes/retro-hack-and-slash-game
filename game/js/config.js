@@ -5,7 +5,8 @@ const canvasTop1 = document.getElementById('canvas-top1');
 const canvasMinimap = document.getElementById('minimap');
 const config = {
   debug: true,
-  fieldWidth: 32,
+  fieldWidth: 64,
+  unitScale: 1,
   visibility: 7,
   canvasGround1,
   canvasGround2,
