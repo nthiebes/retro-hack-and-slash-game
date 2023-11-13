@@ -21,7 +21,9 @@ const tilesetTiles = document.getElementById('tileset-tiles');
 const activeMapTile = document.getElementById('map-tile');
 const mapJson = document.getElementById('map-json');
 const generate = document.getElementById('generate');
+const generateBlock = document.getElementById('generate-block');
 const name = document.getElementById('name');
+const nameBlock = document.getElementById('name-block');
 const blockedTiles = document.getElementById('blocked-tiles');
 const eventTiles = document.getElementById('event');
 const opaque = document.getElementById('opaque');
@@ -450,6 +452,7 @@ class Editor {
     blocked.addEventListener('click', this.handleBlockedClick);
 
     generate.addEventListener('submit', this.generateMap);
+    generateBlock.addEventListener('submit', this.generateBlock);
     obscure.addEventListener('click', this.handleObscure);
     opaque.addEventListener('click', this.handleOpaque);
     eventPlayer.addEventListener('click', this.handleEvent);
@@ -509,6 +512,18 @@ class Editor {
       map: [this.ground1, this.ground2, this.top1, this.blocked]
     };
     const mapString = JSON.stringify(map);
+
+    event.preventDefault();
+
+    mapJson.value = mapString;
+    navigator.clipboard.writeText(mapString);
+  };
+
+  generateBlock = (event) => {
+    const block = {
+      map: [this.ground1, this.ground2, this.top1, this.blocked]
+    };
+    const mapString = `${nameBlock.value}:${JSON.stringify(block)},`;
 
     event.preventDefault();
 
@@ -628,7 +643,9 @@ window.onload = () => {
       const mapTop1 = new Array(mapSize)
         .fill(0)
         .map(() => new Array(mapSize).fill(0));
-      let mapBlocked = new Array(mapSize).fill(0);
+      let mapBlocked = new Array(mapSize)
+        .fill(0)
+        .map(() => new Array(mapSize).fill(0));
       let mapGround1;
 
       if (groundValue === 32) {
@@ -705,19 +722,19 @@ window.onload = () => {
           .map(() => new Array(mapSize).fill(groundValue));
       }
 
-      mapBlocked = mapBlocked.map((_, index) => {
-        if (index === 0 || index === mapBlocked.length - 1) {
-          return new Array(mapSize).fill(2);
-        }
-        const innerBlocked = new Array(mapSize).fill(0);
+      //   mapBlocked = mapBlocked.map((_, index) => {
+      //   if (index === 0 || index === mapBlocked.length - 1) {
+      //     return new Array(mapSize).fill(2);
+      //   }
+      //   const innerBlocked = new Array(mapSize).fill(0);
 
-        return innerBlocked.map((value, i) => {
-          if (i === 0 || i === innerBlocked.length - 1) {
-            return 2;
-          }
-          return value;
-        });
-      });
+      //   return innerBlocked.map((value, i) => {
+      //     if (i === 0 || i === innerBlocked.length - 1) {
+      //       return 2;
+      //     }
+      //     return value;
+      //   });
+      //   });
 
       event.preventDefault();
       newMapForm.classList.add('new-map--hide');

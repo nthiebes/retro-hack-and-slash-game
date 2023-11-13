@@ -102,6 +102,8 @@ body {
 
 .tileset {
   display: none;
+  transform: scale(0.5);
+  transform-origin: top left;
 }
 
 .tileset--show {

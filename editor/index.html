@@ -29,13 +29,13 @@
     <form class="new-map" id="new-map">
       <h1>Neue Karte</h1>
       <label for="size">Größe:</label>
-      <input name="size" id="size" type="number" required min="0" value="100" />
+      <input name="size" id="size" type="number" required min="0" value="2" />
       <select id="ground">
-        <option value="32" selected>Gras</option>
+        <option value="0" selected>Leer</option>
+        <option value="32">Gras</option>
         <option value="1">Sand</option>
         <option value="17">Dunkles Wasser</option>
         <option value="16">Helles Wasser</option>
-        <option value="0">Leer</option>
       </select>
       <button>Erstellen</button>
     </form>
@@ -86,10 +86,15 @@
       <input id="name" type="text" required />
       <button>Karte generieren</button>
     </form>
+    <form id="generate-block">
+      <label for="name-block">Name:</label>
+      <input id="name-block" type="text" required />
+      <button>Block generieren</button>
+    </form>
     <div>
-      <label for="map-json">Kartendaten:</label>
-      <textarea id="map-json" class="meta__json" rows="6"></textarea>
-      <button id="load-map">Karte laden</button>
+        <label for="map-json">Kartendaten:</label>
+        <textarea id="map-json" class="meta__json" rows="6"></textarea>
+      <button type="submit" id="load-map">Karte laden</button>
     </div>
   </footer>
 
