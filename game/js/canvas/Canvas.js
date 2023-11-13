@@ -200,36 +200,37 @@ export default class Canvas {
 
       switch (chunk.biomeMap.center) {
         case 'plain':
-          tile = 275;
+          tile = 67;
           break;
         case 'forest':
-          tile = 950;
+          tile = 226;
           break;
         case 'desert':
-          tile = 982;
+          tile = 64;
+          break;
+        case 'savannah':
+          tile = 189;
           break;
 
         default:
           break;
       }
 
-      const tileSize = 32,
-        imageNumTiles = 16;
       // eslint-disable-next-line no-bitwise
-      const tileRow = (tile / imageNumTiles) | 0,
+      const tileRow = (tile / config.imageNumTiles) | 0,
         // eslint-disable-next-line no-bitwise
-        tileCol = tile % imageNumTiles | 0;
+        tileCol = tile % config.imageNumTiles | 0;
 
       config.ctxMinimap.drawImage(
         this.tileset,
-        tileCol * tileSize,
-        tileRow * tileSize,
-        tileSize,
-        tileSize,
-        chunk.pos[0] * tileSize + 138,
-        chunk.pos[1] * tileSize + 138,
-        tileSize,
-        tileSize
+        tileCol * config.tileSize,
+        tileRow * config.tileSize,
+        config.tileSize,
+        config.tileSize,
+        chunk.pos[0] * config.tileSize + 138,
+        chunk.pos[1] * config.tileSize + 138,
+        config.tileSize,
+        config.tileSize
       );
     });
   }

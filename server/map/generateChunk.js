@@ -218,8 +218,6 @@ const generateChunk = ({ biome, offset }) => {
     }
   });
 
-  //   console.log(mapGround2);
-
   return {
     mapGround1,
     mapGround2,

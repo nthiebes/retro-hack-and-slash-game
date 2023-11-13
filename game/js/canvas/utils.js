@@ -1,25 +1,22 @@
 import globalConfig from '../config.js';
 
 export const drawImage = (config) => {
-  const tileSize = 64,
-    imageNumTiles = 16;
-
   // Each row
   for (let r = 0; r < config.rowTileCount; r++) {
     // Each column
     for (let c = 0; c < config.colTileCount; c++) {
       const tile = config.array[r][c],
         // eslint-disable-next-line no-bitwise
-        tileRow = (tile / imageNumTiles) | 0,
+        tileRow = (tile / globalConfig.imageNumTiles) | 0,
         // eslint-disable-next-line no-bitwise
-        tileCol = tile % imageNumTiles | 0;
+        tileCol = tile % globalConfig.imageNumTiles | 0;
 
       config.ctx.drawImage(
         config.tileset,
-        tileCol * tileSize,
-        tileRow * tileSize,
-        tileSize,
-        tileSize,
+        tileCol * globalConfig.tileSize,
+        tileRow * globalConfig.tileSize,
+        globalConfig.tileSize,
+        globalConfig.tileSize,
         c * globalConfig.fieldWidth,
         r * globalConfig.fieldWidth,
         globalConfig.fieldWidth,
