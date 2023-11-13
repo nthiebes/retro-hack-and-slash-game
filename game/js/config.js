@@ -3,10 +3,11 @@ const canvasGround2 = document.getElementById('canvas-ground2');
 const canvasAnim = document.getElementById('canvas-anim');
 const canvasTop1 = document.getElementById('canvas-top1');
 const canvasMinimap = document.getElementById('minimap');
+const scale = 1;
 const config = {
   debug: true,
-  fieldWidth: 64,
-  unitScale: 1,
+  fieldWidth: 32 * scale,
+  unitScale: scale,
   visibility: 7,
   canvasGround1,
   canvasGround2,

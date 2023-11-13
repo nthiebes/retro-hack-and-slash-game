@@ -14,7 +14,6 @@ export const drawImage = (config) => {
         // eslint-disable-next-line no-bitwise
         tileCol = tile % imageNumTiles | 0;
 
-      config.ctx.imageSmoothingEnabled = false;
       config.ctx.drawImage(
         config.tileset,
         tileCol * tileSize,

@@ -25,7 +25,7 @@ export default class Unit {
   }
 
   walk() {
-    const directionOffset = this.direction === 'LEFT' ? 128 : 0;
+    const directionOffset = 0;
 
     if (config.debug && this.friendly) {
       console.log('🚶‍♂️');
@@ -63,11 +63,11 @@ export default class Unit {
 
     switch (this.animation) {
       case 'stab':
-        directionOffset = this.direction === 'LEFT' ? 640 : 512;
+        directionOffset = 512;
         break;
 
       default:
-        directionOffset = this.direction === 'LEFT' ? 384 : 256;
+        directionOffset = 256;
     }
 
     this.skin.speed = this.attackSpeed;
@@ -104,7 +104,7 @@ export default class Unit {
   }
 
   takeDamage() {
-    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
+    const directionOffset = 768;
 
     if (config.debug) {
       console.log('💘');
@@ -139,7 +139,7 @@ export default class Unit {
   }
 
   die() {
-    const directionOffset = this.direction === 'LEFT' ? 896 : 768;
+    const directionOffset = 768;
 
     if (config.debug) {
       console.log('😵');
@@ -196,7 +196,7 @@ export default class Unit {
   }
 
   turn(direction) {
-    let animationPositionLeft, animationPositionRight;
+    let animationPositionRight;
 
     if (config.debug && this.friendly) {
       console.log(direction === 'LEFT' ? '👈' : '👉');
@@ -204,37 +204,21 @@ export default class Unit {
 
     switch (this.animation) {
       case 'stab':
-        animationPositionLeft = 640;
         animationPositionRight = 512;
         break;
 
       default:
-        animationPositionLeft = 384;
         animationPositionRight = 256;
     }
 
-    switch (direction.toUpperCase()) {
-      case 'LEFT':
-        this.skin.pos = [0, animationPositionLeft];
-        this.head.pos = [0, animationPositionLeft];
-        this.leg.pos = [0, animationPositionLeft];
-        this.torso.pos = [0, animationPositionLeft];
-        this.primary.pos = [0, animationPositionLeft];
-        this.secondary.pos = [0, animationPositionLeft];
-        this.special.pos = [0, animationPositionLeft];
-        this.direction = 'LEFT';
-        break;
-
-      default:
-        this.skin.pos = [0, animationPositionRight];
-        this.head.pos = [0, animationPositionRight];
-        this.leg.pos = [0, animationPositionRight];
-        this.torso.pos = [0, animationPositionRight];
-        this.primary.pos = [0, animationPositionRight];
-        this.secondary.pos = [0, animationPositionRight];
-        this.special.pos = [0, animationPositionRight];
-        this.direction = 'RIGHT';
-    }
+    this.skin.pos = [0, animationPositionRight];
+    this.head.pos = [0, animationPositionRight];
+    this.leg.pos = [0, animationPositionRight];
+    this.torso.pos = [0, animationPositionRight];
+    this.primary.pos = [0, animationPositionRight];
+    this.secondary.pos = [0, animationPositionRight];
+    this.special.pos = [0, animationPositionRight];
+    this.direction = direction;
   }
 
   equip(item) {

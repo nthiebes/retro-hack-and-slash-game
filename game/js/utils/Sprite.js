@@ -26,7 +26,7 @@ export default class Sprite {
     }
   }
 
-  render(ctx, resources) {
+  render(ctx, resources, direction) {
     let frame;
 
     if (this.speed > 0) {
@@ -66,22 +66,29 @@ export default class Sprite {
 
     // If it is done and it has to run once, don't update
     if (!(this.done && this.once)) {
-      //   ctx.scale(-1, 1);
-
+      ctx.save();
       ctx.imageSmoothingEnabled = false;
+
+      if (direction === 'LEFT') {
+        ctx.scale(-1, 1);
+      }
+
+      const dx = config.unitScale === 2 ? -64 : 0;
+      const dy = config.unitScale === 2 ? -128 : 0;
+
       ctx.drawImage(
         resources.get(this.url),
         x,
         y,
         this.size[0],
         this.size[1],
-        config.unitScale === 2 ? -64 : 0,
-        config.unitScale === 2 ? -128 : 0,
+        direction === 'LEFT' ? dx - this.size[0] : dx,
+        dy,
         this.size[0] * config.unitScale,
         this.size[1] * config.unitScale
       );
 
-      //   ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.restore();
     }
   }
 }

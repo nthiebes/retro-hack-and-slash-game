@@ -4,7 +4,7 @@ const { config } = require('../config.js');
 const { chunkSize } = config;
 
 const getRandomPositions = (max) => {
-  const count = max || chunkSize;
+  const count = max;
   const randomPositions = [];
 
   for (let i = 0; i < count; i++) {

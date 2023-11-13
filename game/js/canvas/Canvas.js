@@ -478,7 +478,7 @@ export default class Canvas {
     );
 
     for (let i = 0; i < bodyParts.length; i++) {
-      bodyParts[i].render(config.ctxAnim, this.resources);
+      bodyParts[i].render(config.ctxAnim, this.resources, unit.direction);
     }
 
     if (unit.id !== Units.player.id) {
