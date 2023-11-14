@@ -1,4 +1,5 @@
 const { blocks } = require('./data/blocks.js');
+const { biomes } = require('./data/biomes.js');
 const { getRandomInt } = require('../utils/number.js');
 const { config } = require('../config.js');
 const { chunkSize } = config;
@@ -14,7 +15,8 @@ const getRandomPositions = (max) => {
   return randomPositions;
 };
 
-const generateChunk = ({ biome, offset }) => {
+const generateChunk = ({ biome: biomeName, offset }) => {
+  const biome = biomes[biomeName];
   const mapGround2 = new Array(chunkSize)
     .fill(0)
     .map(() => new Array(chunkSize).fill(0));

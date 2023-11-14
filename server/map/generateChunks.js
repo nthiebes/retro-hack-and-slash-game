@@ -1,6 +1,7 @@
 const { getRandomInt } = require('../utils/number.js');
 const { config } = require('../config.js');
-const { possibleBiomes } = config;
+const { generateChunk } = require('./generateChunk.js');
+const { possibleBiomes, chunkSize, startBiome } = config;
 
 const getRandomBiome = () => {
   return possibleBiomes[getRandomInt(possibleBiomes.length)];
@@ -8,7 +9,6 @@ const getRandomBiome = () => {
 
 const getSurroundingChunks = ({ centerChunk, chunks }) => {
   const centerChunkBiome = centerChunk.biomeMap.center;
-  console.log('centerChunkBiome', centerChunkBiome);
   const surroundingChunks = [];
   const top = {
     pos: [centerChunk.pos[0], centerChunk.pos[1] - 1],
@@ -121,27 +121,59 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
   );
 
   if (!topExists) {
+    top.map = generateChunk({
+      biome: top.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(top);
   }
   if (!topRightExists) {
+    topRight.map = generateChunk({
+      biome: topRight.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(topRight);
   }
   if (!rightExists) {
+    right.map = generateChunk({
+      biome: right.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(right);
   }
   if (!bottomRightExists) {
+    bottomRight.map = generateChunk({
+      biome: bottomRight.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(bottomRight);
   }
   if (!bottomExists) {
+    bottom.map = generateChunk({
+      biome: bottom.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(bottom);
   }
   if (!bottomLeftExists) {
+    bottomLeft.map = generateChunk({
+      biome: bottomLeft.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(bottomLeft);
   }
   if (!leftExists) {
+    left.map = generateChunk({
+      biome: left.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(left);
   }
   if (!topLeftExists) {
+    topLeft.map = generateChunk({
+      biome: topLeft.biomeMap.center,
+      offset: [chunkSize, chunkSize]
+    });
     surroundingChunks.push(topLeft);
   }
 
@@ -155,12 +187,16 @@ const generateChunks = ({ newGame, chunks, centerChunk }) => {
     const initialChunk = {
       pos: [0, 0],
       biomeMap: {
-        center: 'desert',
-        top: 'desert',
-        right: 'desert',
-        bottom: 'desert',
-        left: 'desert'
-      }
+        center: startBiome,
+        top: startBiome,
+        right: startBiome,
+        bottom: startBiome,
+        left: startBiome
+      },
+      map: generateChunk({
+        biome: startBiome,
+        offset: [chunkSize, chunkSize]
+      })
     };
 
     mapChunks.push(

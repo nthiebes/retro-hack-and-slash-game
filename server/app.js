@@ -48,7 +48,8 @@ io.on('connection', (socket) => {
 
     if (mapId === 'generated') {
       map = generateMap({
-        chunks
+        chunks,
+        centerChunkPos: [0, 0]
       });
     } else {
       map = require(`../game/data/maps/${mapId}.json`);
@@ -111,33 +112,77 @@ io.on('connection', (socket) => {
    * Player moves
    */
   socket.on('move', ({ pos }) => {
-    // console.log('Player moves');
-
     const player = game.players.find(({ id }) => id === playerId);
-
-    player.pos = pos;
+    let centerChunk, direction;
 
     if (pos[0] > chunkSize * 2 - 1) {
-      console.log('load right chunk');
+      centerChunk = game.chunks.find(
+        (chunk) =>
+          chunk.pos[0] === player.chunk[0] + 1 &&
+          chunk.pos[1] === player.chunk[1]
+      );
+
+      direction = 'right';
 
       game.chunks = generateChunks({
         chunks: game.chunks,
-        centerChunk: game.chunks.find(
-          (chunk) =>
-            chunk.pos[0] === player.chunk[0] + 1 &&
-            chunk.pos[1] === player.chunk[1]
-        )
+        centerChunk
+      });
+    } else if (pos[0] < chunkSize) {
+      centerChunk = game.chunks.find(
+        (chunk) =>
+          chunk.pos[0] === player.chunk[0] - 1 &&
+          chunk.pos[1] === player.chunk[1]
+      );
+
+      direction = 'left';
+
+      game.chunks = generateChunks({
+        chunks: game.chunks,
+        centerChunk
+      });
+    } else if (pos[1] > chunkSize * 2 - 1) {
+      centerChunk = game.chunks.find(
+        (chunk) =>
+          chunk.pos[0] === player.chunk[0] &&
+          chunk.pos[1] === player.chunk[1] + 1
+      );
+
+      direction = 'bottom';
+
+      game.chunks = generateChunks({
+        chunks: game.chunks,
+        centerChunk
+      });
+    } else if (pos[1] < chunkSize) {
+      centerChunk = game.chunks.find(
+        (chunk) =>
+          chunk.pos[0] === player.chunk[0] &&
+          chunk.pos[1] === player.chunk[1] - 1
+      );
+
+      direction = 'top';
+
+      game.chunks = generateChunks({
+        chunks: game.chunks,
+        centerChunk
+      });
+    }
+
+    if (direction) {
+      console.log('load new chunks');
+
+      const mapData = generateMap({
+        chunks: game.chunks,
+        centerChunkPos: centerChunk.pos
       });
 
-      console.log(game.chunks);
-      //   io.sockets.emit('new-chunks', {});
-    } else if (pos[0] < chunkSize) {
-      console.log('load left chunk');
-    } else if (pos[1] > chunkSize * 2 - 1) {
-      console.log('load bottom chunk');
-    } else if (pos[1] < chunkSize) {
-      console.log('load top chunk');
+      player.chunk = centerChunk.pos;
+
+      io.sockets.emit('map-data', { mapData, direction });
     }
+
+    player.pos = pos;
 
     io.sockets.emit('player-moved', { pos, playerId });
   });

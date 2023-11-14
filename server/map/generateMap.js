@@ -1,45 +1,51 @@
 const { config } = require('../config.js');
-const { biomes } = require('./data/biomes.js');
-const { generateChunk } = require('./generateChunk.js');
 const { chunkSize } = config;
 
-const generateMap = ({ chunks }) => {
-  const centerBiome = biomes[chunks[0].biomeMap.center];
-  const topBiome = biomes[chunks[1].biomeMap.center];
-  const topRightBiome = biomes[chunks[2].biomeMap.center];
-  const rightBiome = biomes[chunks[3].biomeMap.center];
-  const bottomRightBiome = biomes[chunks[4].biomeMap.center];
-  const bottomBiome = biomes[chunks[5].biomeMap.center];
-  const bottomLeftBiome = biomes[chunks[6].biomeMap.center];
-  const leftBiome = biomes[chunks[7].biomeMap.center];
-  const topLeftBiome = biomes[chunks[8].biomeMap.center];
-  const centerChunk = generateChunk({
-    biome: centerBiome,
-    offset: [chunkSize, chunkSize]
-  });
-  const topChunk = generateChunk({ biome: topBiome, offset: [chunkSize, 0] });
-  const topRightChunk = generateChunk({
-    biome: topRightBiome,
-    offset: [chunkSize * 2, 0]
-  });
-  const rightChunk = generateChunk({
-    biome: rightBiome,
-    offset: [chunkSize * 2, chunkSize]
-  });
-  const bottomRightChunk = generateChunk({
-    biome: bottomRightBiome,
-    offset: [chunkSize * 2, chunkSize * 2]
-  });
-  const bottomChunk = generateChunk({
-    biome: bottomBiome,
-    offset: [chunkSize, chunkSize * 2]
-  });
-  const bottomLeftChunk = generateChunk({
-    biome: bottomLeftBiome,
-    offset: [0, chunkSize * 2]
-  });
-  const leftChunk = generateChunk({ biome: leftBiome, offset: [0, chunkSize] });
-  const topLeftChunk = generateChunk({ biome: topLeftBiome, offset: [0, 0] });
+const generateMap = ({ chunks, centerChunkPos }) => {
+  const centerChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] && chunk.pos[1] === centerChunkPos[1]
+  ).map;
+  const topChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] &&
+      chunk.pos[1] === centerChunkPos[1] - 1
+  ).map;
+  const topRightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] + 1 &&
+      chunk.pos[1] === centerChunkPos[1] - 1
+  ).map;
+  const rightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] + 1 &&
+      chunk.pos[1] === centerChunkPos[1]
+  ).map;
+  const bottomRightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] + 1 &&
+      chunk.pos[1] === centerChunkPos[1] + 1
+  ).map;
+  const bottomChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] &&
+      chunk.pos[1] === centerChunkPos[1] + 1
+  ).map;
+  const bottomLeftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] - 1 &&
+      chunk.pos[1] === centerChunkPos[1] + 1
+  ).map;
+  const leftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] - 1 &&
+      chunk.pos[1] === centerChunkPos[1]
+  ).map;
+  const topLeftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] - 1 &&
+      chunk.pos[1] === centerChunkPos[1] - 1
+  ).map;
 
   // Ground 1
   const topChunksGround1 = topLeftChunk.mapGround1;

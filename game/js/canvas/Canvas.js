@@ -21,18 +21,15 @@ export default class Canvas {
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
     this.top1 = data.map[2];
-    this.blockedArr = data.map[3];
     this.rowTileCount = this.ground1.length;
     this.colTileCount = this.ground1[0].length;
     this.resources = data.resources;
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.chunks = data.chunks;
-    this.currentChunk = data.chunks[0];
     this.mapItems = data.mapItems;
     this.map = new Map({
-      map: this.blockedArr,
+      map: data.map[3],
       units: Units.list
     });
     this.interactions = new Interactions({
@@ -58,7 +55,7 @@ export default class Canvas {
     });
 
     this.prepareCanvas();
-    this.drawMinimap();
+    // this.drawMinimap();
     this.gameLoop();
 
     socket.on('player-joined', ({ newPlayer }) => {
@@ -161,6 +158,56 @@ export default class Canvas {
 
       enemy.path = path;
     });
+
+    socket.on('map-data', ({ direction, mapData }) => {
+      if (config.debug) {
+        console.log('🗺️');
+      }
+
+      switch (direction) {
+        case 'right': {
+          Units.player.pos = [Units.player.pos[0] - 30, Units.player.pos[1]];
+          this.interactions.updateOffset({
+            offsetX: this.interactions.offsetX + 30 * config.fieldWidth,
+            offsetY: this.interactions.offsetY
+          });
+          break;
+        }
+        case 'left': {
+          this.interactions.updateOffset({
+            offsetX: this.interactions.offsetX - 30 * config.fieldWidth,
+            offsetY: this.interactions.offsetY
+          });
+          Units.player.pos = [Units.player.pos[0] + 30, Units.player.pos[1]];
+          break;
+        }
+        case 'bottom': {
+          this.interactions.updateOffset({
+            offsetX: this.interactions.offsetX,
+            offsetY: this.interactions.offsetY + 30 * config.fieldWidth
+          });
+          Units.player.pos = [Units.player.pos[0], Units.player.pos[1] - 30];
+          break;
+        }
+        default: {
+          this.interactions.updateOffset({
+            offsetX: this.interactions.offsetX,
+            offsetY: this.interactions.offsetY - 30 * config.fieldWidth
+          });
+          Units.player.pos = [Units.player.pos[0], Units.player.pos[1] + 30];
+        }
+      }
+
+      this.ground1 = mapData.map[0];
+      this.ground2 = mapData.map[1];
+      this.top1 = mapData.map[2];
+      this.map = new Map({
+        map: mapData.map[3],
+        units: Units.list
+      });
+      this.interactions.updateMap(this.map);
+      this.drawMap();
+    });
   }
 
   prepareCanvas() {
@@ -170,6 +217,30 @@ export default class Canvas {
       canvas[i].width = this.colTileCount * config.fieldWidth;
       canvas[i].height = this.rowTileCount * config.fieldWidth;
     }
+
+    this.drawMap();
+  }
+
+  drawMap() {
+    // Clear canvas
+    config.ctxGround1.clearRect(
+      0,
+      0,
+      config.ctxGround1.canvas.width,
+      config.ctxGround1.canvas.height
+    );
+    config.ctxGround2.clearRect(
+      0,
+      0,
+      config.ctxGround2.canvas.width,
+      config.ctxGround2.canvas.height
+    );
+    config.ctxTop1.clearRect(
+      0,
+      0,
+      config.ctxTop1.canvas.width,
+      config.ctxTop1.canvas.height
+    );
 
     drawImage({
       rowTileCount: this.rowTileCount,

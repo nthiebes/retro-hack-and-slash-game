@@ -7,7 +7,9 @@ const scale = 1;
 const config = {
   debug: true,
   fieldWidth: 32 * scale,
-  unitScale: scale,
+  unitScale: 2,
+  tileSize: 64,
+  imageNumTiles: 16,
   visibility: 7,
   canvasGround1,
   canvasGround2,

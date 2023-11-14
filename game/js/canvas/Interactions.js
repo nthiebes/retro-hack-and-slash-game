@@ -273,7 +273,6 @@ class Interactions {
         y = Math.floor(player.pos[1]),
         newTile = Math.floor(newPos) > x,
         mapPosition = this.map.map[y][newX];
-
       if (
         mapPosition === 0 ||
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
@@ -455,6 +454,16 @@ class Interactions {
       return true;
     }
     return false;
+  }
+
+  updateOffset({ offsetX, offsetY }) {
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
+    this.wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+  }
+
+  updateMap(map) {
+    this.map = map;
   }
 
   loadMap(mapItem) {
