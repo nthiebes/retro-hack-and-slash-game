@@ -167,6 +167,10 @@ const biomes = {
       {
         id: 'pyramid0',
         amount: 1
+      },
+      {
+        id: 'bush0',
+        amount: 5
       }
     ]
   },
