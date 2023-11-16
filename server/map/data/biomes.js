@@ -89,6 +89,10 @@ const biomes = {
     bushesAmount: 5,
     blocks: [
       {
+        id: 'camp0',
+        amount: 1
+      },
+      {
         id: 'palm4',
         amount: 2
       },

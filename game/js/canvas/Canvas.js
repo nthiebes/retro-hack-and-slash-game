@@ -342,6 +342,8 @@ export default class Canvas {
       unit.torso.update(delta);
       unit.primary.update(delta);
       unit.special.update(delta);
+      unit.hair.update(delta);
+      unit.face.update(delta);
 
       // Continue walking
       if (unit.path.length > 1) {
@@ -510,13 +512,15 @@ export default class Canvas {
 
     for (let i = 0; i < unitList.length; i++) {
       this.renderUnit(unitList[i], [
-        unitList[i].secondary,
-        unitList[i].skin,
-        unitList[i].head,
-        unitList[i].leg,
-        unitList[i].torso,
         unitList[i].primary,
-        unitList[i].special
+        unitList[i].skin,
+        unitList[i].face,
+        unitList[i].hair,
+        unitList[i].torso,
+        unitList[i].leg,
+        unitList[i].head,
+        unitList[i].special,
+        unitList[i].secondary
       ]);
     }
   }

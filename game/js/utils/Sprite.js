@@ -67,14 +67,14 @@ export default class Sprite {
     // If it is done and it has to run once, don't update
     if (!(this.done && this.once)) {
       ctx.save();
-      ctx.imageSmoothingEnabled = false;
+      //   ctx.imageSmoothingEnabled = false;
 
       if (direction === 'LEFT') {
         ctx.scale(-1, 1);
       }
 
-      const dx = config.unitScale === 2 ? -64 : 0;
-      const dy = config.unitScale === 2 ? -128 : 0;
+      const dx = config.unitScale === 2 ? -64 : -32;
+      const dy = config.unitScale === 2 ? -128 : -60;
 
       ctx.drawImage(
         resources.get(this.url),
@@ -82,7 +82,7 @@ export default class Sprite {
         y,
         this.size[0],
         this.size[1],
-        direction === 'LEFT' ? dx - this.size[0] : dx,
+        direction === 'LEFT' ? dx - this.size[0] + 128 : dx,
         dy,
         this.size[0] * config.unitScale,
         this.size[1] * config.unitScale

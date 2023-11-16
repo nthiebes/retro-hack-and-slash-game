@@ -44,6 +44,8 @@ export default class Unit {
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
     this.special.pos = [0, directionOffset];
+    this.hair.pos = [0, directionOffset];
+    this.face.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2, 3];
     this.head.frames = [0, 1, 2, 3];
     this.leg.frames = [0, 1, 2, 3];
@@ -51,6 +53,8 @@ export default class Unit {
     this.primary.frames = [0, 1, 2, 3];
     this.secondary.frames = [0, 1, 2, 3];
     this.special.frames = [0, 1, 2, 3];
+    this.hair.frames = [0, 1, 2, 3];
+    this.face.frames = [0, 1, 2, 3];
     this.moving = true;
   }
 
@@ -63,7 +67,7 @@ export default class Unit {
 
     switch (this.animation) {
       case 'stab':
-        directionOffset = 512;
+        // directionOffset = 512;
         break;
 
       default:
@@ -77,6 +81,8 @@ export default class Unit {
     this.primary.speed = this.attackSpeed;
     this.secondary.speed = this.attackSpeed;
     this.special.speed = this.attackSpeed;
+    this.hair.speed = this.attackSpeed;
+    this.face.speed = this.attackSpeed;
     this.skin.pos = [0, directionOffset];
     this.head.pos = [0, directionOffset];
     this.leg.pos = [0, directionOffset];
@@ -84,6 +90,8 @@ export default class Unit {
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
     this.special.pos = [0, directionOffset];
+    this.hair.pos = [0, directionOffset];
+    this.face.pos = [0, directionOffset];
     this.skin.frames = [0, 1, 2];
     this.skin.index = 0;
     this.head.frames = [0, 1, 2];
@@ -98,13 +106,17 @@ export default class Unit {
     this.secondary.index = 0;
     this.special.frames = [0, 1, 2];
     this.special.index = 0;
+    this.hair.frames = [0, 1, 2];
+    this.hair.index = 0;
+    this.face.frames = [0, 1, 2];
+    this.face.index = 0;
     this.moving = false;
     this.attacking = true;
     this.skin.once = false;
   }
 
   takeDamage() {
-    const directionOffset = 768;
+    const directionOffset = 512;
 
     if (config.debug) {
       console.log('💘');
@@ -121,6 +133,8 @@ export default class Unit {
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
     this.special.pos = [0, directionOffset];
+    this.hair.pos = [0, directionOffset];
+    this.face.pos = [0, directionOffset];
     this.skin.once = true;
     this.skin.frames = [0, 0];
     this.skin.index = 0;
@@ -136,10 +150,14 @@ export default class Unit {
     this.secondary.index = 0;
     this.special.frames = [0, 0];
     this.special.index = 0;
+    this.hair.frames = [0, 0];
+    this.hair.index = 0;
+    this.face.frames = [0, 0];
+    this.face.index = 0;
   }
 
   die() {
-    const directionOffset = 768;
+    const directionOffset = 512;
 
     if (config.debug) {
       console.log('😵');
@@ -152,6 +170,8 @@ export default class Unit {
     this.primary.pos = [0, directionOffset];
     this.secondary.pos = [0, directionOffset];
     this.special.pos = [0, directionOffset];
+    this.hair.pos = [0, directionOffset];
+    this.face.pos = [0, directionOffset];
     this.skin.frames = [0, 1];
     this.skin.index = 0;
     this.head.frames = [0, 1];
@@ -166,6 +186,10 @@ export default class Unit {
     this.secondary.index = 0;
     this.special.frames = [0, 1];
     this.special.index = 0;
+    this.hair.frames = [0, 1];
+    this.hair.index = 0;
+    this.face.frames = [0, 1];
+    this.face.index = 0;
     this.dead = true;
     this.attacking = false;
     this.skin.stay = true;
@@ -175,6 +199,8 @@ export default class Unit {
     this.primary.stay = true;
     this.secondary.stay = true;
     this.special.stay = true;
+    this.hair.stay = true;
+    this.face.stay = true;
   }
 
   stop() {
@@ -193,6 +219,8 @@ export default class Unit {
     this.primary.frames = [0];
     this.secondary.frames = [0];
     this.special.frames = [0];
+    this.hair.frames = [0];
+    this.face.frames = [0];
   }
 
   turn(direction) {
@@ -204,7 +232,7 @@ export default class Unit {
 
     switch (this.animation) {
       case 'stab':
-        animationPositionRight = 512;
+        // animationPositionRight = 512;
         break;
 
       default:
@@ -218,6 +246,8 @@ export default class Unit {
     this.primary.pos = [0, animationPositionRight];
     this.secondary.pos = [0, animationPositionRight];
     this.special.pos = [0, animationPositionRight];
+    this.hair.pos = [0, animationPositionRight];
+    this.face.pos = [0, animationPositionRight];
     this.direction = direction;
   }
 
@@ -244,6 +274,8 @@ export default class Unit {
       this.primary.speed = newSpeed;
       this.secondary.speed = newSpeed;
       this.special.speed = newSpeed;
+      this.hair.speed = newSpeed;
+      this.face.speed = newSpeed;
     }
 
     if (weapon) {

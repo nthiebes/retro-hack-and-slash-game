@@ -19,26 +19,31 @@ const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
 const attributesMap = {
   strength: {
-    good: 'Muskelbepackt',
+    best: 'Extrem stark',
+    good: 'Stark',
     bad: 'Schwächlich',
     average: 3
   },
   dexterity: {
+    best: 'Extrem geschickt',
     good: 'Geschickt',
     bad: 'Tollpatschig',
     average: 3
   },
   intelligence: {
+    best: 'Sehr clever',
     good: 'Clever',
     bad: 'Einfach gestrickt',
     average: 3
   },
   defense: {
+    best: 'Sehr robust',
     good: 'Robust',
     bad: 'Zerbrechlich',
     average: 3
   },
   speed: {
+    best: 'Sehr rasant',
     good: 'Rasant',
     bad: 'Träge',
     average: 4
@@ -49,7 +54,9 @@ export class Menu {
   static start = (resources) => {
     Menu.resources = resources;
     Menu.playerId = null;
-    Menu.races = Object.entries(GameData.races);
+    Menu.races = Object.entries(GameData.races).filter(
+      (race) => race[0] !== 'ghost' && race[0] !== 'zombie'
+    );
     Menu.currentRace = 0;
 
     menuNew.addEventListener('click', Menu.selectMap);
@@ -142,19 +149,15 @@ export class Menu {
       const attributeValue = attribute[1];
       const attributeData = attributesMap[attribute[0]];
 
-      if (attributeValue > attributeData.average) {
+      if (attributeValue > attributeData.average + 1) {
+        li.classList.add('attribute--good');
+        li.append(attributeData.best);
+        raceAttributes.append(li);
+      } else if (attributeValue > attributeData.average) {
         li.classList.add('attribute--good');
         li.append(attributeData.good);
         raceAttributes.append(li);
-      }
-    });
-
-    attributes.forEach((attribute) => {
-      const li = document.createElement('li');
-      const attributeValue = attribute[1];
-      const attributeData = attributesMap[attribute[0]];
-
-      if (attributeValue < attributeData.average) {
+      } else if (attributeValue < attributeData.average) {
         li.classList.add('attribute--bad');
         li.append(attributeData.bad);
         raceAttributes.append(li);
@@ -182,8 +185,12 @@ export class Menu {
         leg: 'none'
       },
       weapons: {
-        primary: 'fist',
+        primary: ['axe0', 'axe1', 'club0'],
         secondary: 'fist'
+      },
+      cosmetics: {
+        face: ['face0', 'face1', 'face2'],
+        hair: ['none', 'hair0']
       }
     };
 

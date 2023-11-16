@@ -74,10 +74,11 @@ body {
 }
 
 .race__img {
-  width: 32px;
-  height: 64px;
+  width: 80px;
+  height: 100px;
   overflow: hidden;
-  background-position: -48px 700px;
+  background-size: 400px 300px;
+  background-position: -7px -117px;
 }
 
 .race__img--human0 {

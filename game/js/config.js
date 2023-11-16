@@ -6,8 +6,8 @@ const canvasMinimap = document.getElementById('minimap');
 const scale = 1;
 const config = {
   debug: true,
-  fieldWidth: 32 * scale,
-  unitScale: 2,
+  fieldWidth: 64 * scale,
+  unitScale: 0.75,
   tileSize: 64,
   imageNumTiles: 16,
   visibility: 7,
@@ -21,7 +21,6 @@ const config = {
   ctxAnim: canvasAnim.getContext('2d'),
   ctxTop1: canvasTop1.getContext('2d'),
   ctxMinimap: canvasMinimap?.getContext('2d'),
-  hairCount: 11,
   chunkSize: 30
 };
 

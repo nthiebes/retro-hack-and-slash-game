@@ -30,9 +30,27 @@
     },
 
     {
-      "id": "axe",
+      "id": "axe0",
       "type": "primary",
       "name": "Axt",
+      "damage": 4,
+      "range": 1.5,
+      "speed": 3
+    },
+
+    {
+      "id": "axe1",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 4,
+      "range": 1.5,
+      "speed": 3
+    },
+
+    {
+      "id": "club0",
+      "type": "primary",
+      "name": "Keule",
       "damage": 4,
       "range": 1.5,
       "speed": 3
