@@ -10,6 +10,19 @@
 </head>
 
 <body ontouchstart="">
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+        <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"></path>
+      </symbol>
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+        <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z"></path>
+      </symbol>
+    </defs>
+  </svg>
+
+
   <main id="canvas-wrapper">
     <canvas class="map-layer" id="canvas-ground1"></canvas>
     <canvas class="map-layer" id="canvas-ground2"></canvas>
@@ -55,12 +68,16 @@
     <section class="window__section window__section--editor">
       <div class="window__section-column">
         <div class="option">
-          <button class="icon-button" id="race-prev" type="button">←</button>
+          <button class="icon-button" id="race-prev" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
+          </button>
           <div>
             <h3 id="race-label">Rasse</h3>
             <p id="race-count"></p>
           </div>
-          <button class="icon-button" id="race-next" type="button">→</button>
+          <button class="icon-button" id="race-next" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+          </button>
         </div>
         <h2 id="race-name"></h2>
         <ul class="attributes" id="race-attributes"></ul>
@@ -76,28 +93,40 @@
 
       <div class="window__section-column">
         <div class="option">
-          <button class="icon-button" id="skin-prev" type="button">←</button>
+          <button class="icon-button" id="skin-prev" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
+          </button>
           <div>
             <h3 id="skin-label">Haut</h3>
             <p id="skin-count"></p>
           </div>
-          <button class="icon-button" id="skin-next" type="button">→</button>
+          <button class="icon-button" id="skin-next" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+          </button>
         </div>
         <div class="option">
-          <button class="icon-button" id="face-prev" type="button">←</button>
+          <button class="icon-button" id="face-prev" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
+          </button>
           <div>
             <h3 id="face-label">Gesicht</h3>
             <p id="face-count"></p>
           </div>
-          <button class="icon-button" id="face-next" type="button">→</button>
+          <button class="icon-button" id="face-next" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+          </button>
         </div>
         <div class="option">
-          <button class="icon-button" id="hair-prev" type="button">←</button>
+          <button class="icon-button" id="hair-prev" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
+          </button>
           <div>
             <h3 id="hair-label">Haare</h3>
             <p id="hair-count"></p>
           </div>
-          <button class="icon-button" id="hair-next" type="button">→</button>
+          <button class="icon-button" id="hair-next" type="button">
+            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
+          </button>
         </div>
       </div>
     </section>

@@ -186,6 +186,7 @@ body {
   padding: 6px;
   flex-shrink: 0;
   line-height: 1;
+  transition: color 0.2s linear;
 }
 
 .icon-button:hover,
@@ -195,6 +196,15 @@ body {
 
 .icon-button:active {
   color: #98876a;
+}
+
+.icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
 }
 
 .input {
