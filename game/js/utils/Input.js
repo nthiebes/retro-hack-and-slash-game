@@ -1,9 +1,17 @@
+const inventoryWindow = document.getElementById('inventory');
+const canvasWrapper = document.getElementById('canvas-wrapper');
+
 export default class Input {
   constructor() {
     this.pressedKeys = {};
 
     document.addEventListener('keydown', (e) => {
       this.setKey(e, true);
+
+      if (e.key.toLocaleLowerCase() === 'i') {
+        inventoryWindow.classList.toggle('window--show');
+        canvasWrapper.classList.toggle('window--focussed');
+      }
     });
 
     document.addEventListener('keyup', (e) => {

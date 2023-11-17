@@ -17,45 +17,106 @@
     <canvas class="map-layer" id="canvas-top1"></canvas>
   </main>
 
-  <section class="window window--show" id="menu">
-    <h1>Ridane</h1>
-    <button class="button" id="menu-new" disabled>Neues Spiel</button>
-    <button class="button" id="menu-join" disabled>Spiel beitreten</button>
-    <button class="button" id="menu-options" disabled>Optionen</button>
+  <section class="window window--small window--show" id="menu">
+    <h1 class="window__title">Ridane</h1>
+    <section class="window__section window__section--small">
+      <button class="button" id="menu-new" disabled>Neues Spiel</button>
+      <button class="button" id="menu-join" disabled>Beitreten</button>
+      <button class="button" id="menu-options">Optionen</button>
+      <button class="button" id="menu-options">Hilfe</button>
+      <button class="button" id="menu-options">Credits</button>
+    </section>
   </section>
 
-  <form class="window" id="new">
-    <h1>Karte wählen</h1>
-    <select id="map">
-      <option value="generated" selected>Generierte Karte</option>
-      <option value="arena">Arena</option>
-      <option value="distribute">Verteiler</option>
-      <option value="demo">Demo</option>
-      <option value="items">Alle Gegenstände</option>
-      <option value="island">Insel</option>
-      <option value="turn-based">Turn-based</option>
-      <option value="big">Groß</option>
-      <option value="medium">Mittel</option>
-      <option value="small">Klein</option>
-      <option value="camp">Camp</option>
-      <option value="ridane-old">Ridane old</option>
-      <option value="survival">Survival</option>
-    </select>
-    <button class="button" type="submit">Spiel erstellen</button>
+  <form class="window window--small" id="new">
+    <h1 class="window__title">Karte wählen</h1>
+    <section class="window__section window__section--small">
+      <select class="select" id="map">
+        <option value="generated" selected>Generierte Karte</option>
+        <option value="arena">Arena</option>
+        <option value="distribute">Verteiler</option>
+        <option value="demo">Demo</option>
+        <option value="items">Alle Gegenstände</option>
+        <option value="island">Insel</option>
+        <option value="turn-based">Turn-based</option>
+        <option value="big">Groß</option>
+        <option value="medium">Mittel</option>
+        <option value="small">Klein</option>
+        <option value="camp">Camp</option>
+        <option value="ridane-old">Ridane old</option>
+        <option value="survival">Survival</option>
+      </select>
+      <button class="button button--long-text" type="submit">Spiel erstellen</button>
+    </section>
   </form>
 
   <form class="window" id="character">
-    <h1>Dein Charakter</h1>
-    <input class="input" required value="Gscheid" id="name" />
-    <div class="race">
-      <button id="race-prev" type="button">⬅️</button>
-      <div class="race__img race__img--orc0" id="race-img"></div>
-      <button id="race-next" type="button">➡️</button>
-    </div>
-    <h2 id="race-name"></h2>
-    <ul class="attributes" id="race-attributes"></ul>
-    <button class="button" type="submit">Spiel beitreten</button>
+    <h1 class="window__title">Dein Charakter</h1>
+    <section class="window__section window__section--editor">
+      <div class="window__section-column">
+        <div class="option">
+          <button class="icon-button" id="race-prev" type="button">←</button>
+          <div>
+            <h3 id="race-label">Rasse</h3>
+            <p id="race-count"></p>
+          </div>
+          <button class="icon-button" id="race-next" type="button">→</button>
+        </div>
+        <h2 id="race-name"></h2>
+        <ul class="attributes" id="race-attributes"></ul>
+      </div>
+
+      <div class="preview-wrapper">
+        <div class="preview" id="race-preview"></div>
+        <div class="preview" id="face-preview"></div>
+        <div class="preview" id="hair-preview"></div>
+        <label class="label" for="name">Name:</label>
+        <input class="input" required value="Gscheid" id="name" maxlength="20" />
+      </div>
+
+      <div class="window__section-column">
+        <div class="option">
+          <button class="icon-button" id="skin-prev" type="button">←</button>
+          <div>
+            <h3 id="skin-label">Haut</h3>
+            <p id="skin-count"></p>
+          </div>
+          <button class="icon-button" id="skin-next" type="button">→</button>
+        </div>
+        <div class="option">
+          <button class="icon-button" id="face-prev" type="button">←</button>
+          <div>
+            <h3 id="face-label">Gesicht</h3>
+            <p id="face-count"></p>
+          </div>
+          <button class="icon-button" id="face-next" type="button">→</button>
+        </div>
+        <div class="option">
+          <button class="icon-button" id="hair-prev" type="button">←</button>
+          <div>
+            <h3 id="hair-label">Haare</h3>
+            <p id="hair-count"></p>
+          </div>
+          <button class="icon-button" id="hair-next" type="button">→</button>
+        </div>
+      </div>
+    </section>
+    <button class="button button--long-text window__button" type="submit">Spiel beitreten</button>
   </form>
+
+  <section class="window" id="inventory">
+    <button class="window__close" id="close-window"></button>
+    <h1 class="window__title">Inventar</h1>
+    <section class="window__section window__section--editor">
+      <div class="window__section-column">
+        Hey
+      </div>
+
+      <div class="window__section-column">
+        ho!
+      </div>
+    </section>
+  </section>
 
   <!-- <canvas class="minimap" id="minimap" height="320" width="320"></canvas> -->
 

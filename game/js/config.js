@@ -5,7 +5,7 @@ const canvasTop1 = document.getElementById('canvas-top1');
 const canvasMinimap = document.getElementById('minimap');
 const scale = 1;
 const config = {
-  debug: true,
+  debug: false,
   fieldWidth: 64 * scale,
   unitScale: 0.75,
   tileSize: 64,

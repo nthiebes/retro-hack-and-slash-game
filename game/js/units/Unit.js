@@ -37,6 +37,9 @@ export default class Unit {
     this.leg.speed = this.speed;
     this.primary.speed = this.speed;
     this.secondary.speed = this.speed;
+    this.special.speed = this.speed;
+    this.hair.speed = this.speed;
+    this.face.speed = this.speed;
     this.skin.pos = [0, directionOffset];
     this.head.pos = [0, directionOffset];
     this.leg.pos = [0, directionOffset];
