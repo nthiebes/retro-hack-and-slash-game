@@ -5,7 +5,7 @@
     "intelligence": 1,
     "defense": 4,
     "speed": 3,
-    "skins": 4,
+    "skins": 6,
     "faces": 3,
     "hair": 2
   },
@@ -16,8 +16,8 @@
     "intelligence": 3,
     "defense": 3,
     "speed": 4,
-    "skins": 7,
-    "faces": 1,
+    "skins": 8,
+    "faces": 2,
     "hair": 1
   },
 
@@ -27,7 +27,7 @@
     "intelligence": 3,
     "defense": 4,
     "speed": 3,
-    "skins": 1,
+    "skins": 8,
     "faces": 1,
     "hair": 1
   },
@@ -38,8 +38,8 @@
     "intelligence": 4,
     "defense": 2,
     "speed": 4,
-    "skins": 1,
-    "faces": 1,
+    "skins": 8,
+    "faces": 2,
     "hair": 1
   },
 
@@ -49,8 +49,8 @@
     "intelligence": 2,
     "defense": 2,
     "speed": 5,
-    "skins": 1,
-    "faces": 1,
+    "skins": 4,
+    "faces": 2,
     "hair": 1
   },
 
