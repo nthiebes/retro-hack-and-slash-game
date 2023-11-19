@@ -172,8 +172,6 @@ io.on('connection', (socket) => {
       });
     }
 
-    console.log('load new chunks');
-
     const mapData = generateMap({
       chunks: game.chunks,
       centerChunkPos: centerChunk.pos
