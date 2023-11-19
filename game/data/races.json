@@ -1,15 +1,4 @@
 {
-  "orc": {
-    "strength": 5,
-    "dexterity": 2,
-    "intelligence": 1,
-    "defense": 4,
-    "speed": 13,
-    "skins": 6,
-    "faces": 3,
-    "hair": 2
-  },
-
   "human": {
     "strength": 3,
     "dexterity": 3,
@@ -19,6 +8,17 @@
     "skins": 9,
     "faces": 2,
     "hair": 7
+  },
+
+  "orc": {
+    "strength": 5,
+    "dexterity": 2,
+    "intelligence": 1,
+    "defense": 4,
+    "speed": 3,
+    "skins": 6,
+    "faces": 3,
+    "hair": 2
   },
 
   "dwarf": {

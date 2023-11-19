@@ -7,6 +7,10 @@ const biomes = {
     bushesAmount: 0,
     blocks: [
       {
+        id: 'camp0',
+        amount: 1
+      },
+      {
         id: 'grass0',
         amount: 20
       }

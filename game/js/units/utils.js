@@ -65,8 +65,10 @@ export const combat = ({ units, map, attacker }) => {
         enemyPosX = Math.round(config.fieldWidth * unit.pos[0]),
         playerPosY = Math.round(config.fieldWidth * attacker.pos[1]),
         enemyPosY = Math.round(config.fieldWidth * unit.pos[1]),
-        playerWidth = 40,
-        playerHeight = 50;
+        playerWidth = 80,
+        playerHeight = 100;
+      // playerWidth = 40,
+      // playerHeight = 50;
 
       // Consider unit height
       if (

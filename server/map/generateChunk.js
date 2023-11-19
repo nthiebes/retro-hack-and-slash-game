@@ -181,10 +181,7 @@ const generateChunk = ({ biome: biomeName, offset }) => {
           items.push(
             ...blocks[block.id].items.map((item) => ({
               ...item,
-              pos: [
-                item.pos[0] + offset[0] + randomX,
-                item.pos[1] + offset[1] + randomY
-              ]
+              pos: [item.pos[0] + offset[0], item.pos[1] + offset[1]]
             }))
           );
         }
@@ -192,10 +189,7 @@ const generateChunk = ({ biome: biomeName, offset }) => {
           enemies.push(
             ...blocks[block.id].enemies.map((enemy) => ({
               ...enemy,
-              pos: [
-                enemy.pos[0] + offset[0] + randomX,
-                enemy.pos[1] + offset[1] + randomY
-              ]
+              pos: [enemy.pos[0] + offset[0], enemy.pos[1] + offset[1]]
             }))
           );
         }
