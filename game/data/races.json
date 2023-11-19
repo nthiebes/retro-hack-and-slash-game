@@ -4,7 +4,7 @@
     "dexterity": 2,
     "intelligence": 1,
     "defense": 4,
-    "speed": 3,
+    "speed": 13,
     "skins": 6,
     "faces": 3,
     "hair": 2
@@ -16,9 +16,9 @@
     "intelligence": 3,
     "defense": 3,
     "speed": 4,
-    "skins": 8,
+    "skins": 9,
     "faces": 2,
-    "hair": 1
+    "hair": 7
   },
 
   "dwarf": {
@@ -28,8 +28,8 @@
     "defense": 4,
     "speed": 3,
     "skins": 8,
-    "faces": 1,
-    "hair": 1
+    "faces": 6,
+    "hair": 7
   },
 
   "elf": {
@@ -40,7 +40,7 @@
     "speed": 4,
     "skins": 8,
     "faces": 2,
-    "hair": 1
+    "hair": 7
   },
 
   "vampire": {
@@ -51,7 +51,7 @@
     "speed": 5,
     "skins": 4,
     "faces": 2,
-    "hair": 1
+    "hair": 7
   },
 
   "ghost": {
