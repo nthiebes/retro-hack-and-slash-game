@@ -1,7 +1,12 @@
 const config = {
   chunkSize: 30,
-  possibleBiomes: ['desert', 'savannah'], // 'plain', 'forest'
-  startBiome: 'desert'
+  biomeNeighbours: {
+    plain: ['forest', 'savannah'],
+    forest: ['plain'],
+    desert: ['savannah'],
+    savannah: ['desert', 'plain']
+  },
+  startBiome: 'plain'
 };
 
 exports.config = config;

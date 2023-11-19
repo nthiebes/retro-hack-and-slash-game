@@ -183,7 +183,7 @@ const blocks = {
       ]
     ]
   },
-  gras0: {
+  grass0: {
     map: [
       [],
       [
@@ -194,7 +194,7 @@ const blocks = {
       []
     ]
   },
-  gras1: {
+  grass1: {
     map: [
       [],
       [
