@@ -943,8 +943,10 @@ const blocks = {
         [0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
         [0, 0, 0, 0, 0, 0, 1, 1, 1, 0]
       ]
-    ]
-    // enemies: [{ pos: [4, 7], id: 'orc0' }]
+    ],
+    // enemies: [{ pos: [4, 7], id: 'orc0' }],
+    items: [{ pos: [3, 1], id: 'axe0' }]
+    // animations: [{ pos: [3, 3], id: 'campfire' }]
   }
 };
 
