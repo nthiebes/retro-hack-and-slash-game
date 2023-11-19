@@ -17,20 +17,11 @@ class Interactions {
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
     this.mapItems = data.mapItems;
-    this.offsetX =
-      Units.player.pos[0] * this.fieldWidth * -1 + window.innerWidth / 2;
-    this.offsetY =
-      Units.player.pos[1] * this.fieldWidth * -1 + window.innerHeight / 2;
+    this.serverRequestInProgress = false;
+    this.windowInnerWidth = window.innerWidth;
+    this.windowInnerHeight = window.innerHeight;
 
-    if (this.offsetX >= 0) {
-      this.offsetX = 0;
-    }
-
-    if (this.offsetY >= 0) {
-      this.offsetY = 0;
-    }
-
-    this.wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+    this.resetOffset();
     this.registerEventHandler();
   }
 
@@ -175,8 +166,10 @@ class Interactions {
       player = Units.player,
       playerSpeed = player.speed,
       wrapper = this.wrapper;
-    let valueX = this.offsetX,
-      valueY = this.offsetY,
+    let valueX =
+        player.pos[0] * this.fieldWidth * -1 + this.windowInnerWidth / 2,
+      valueY =
+        player.pos[1] * this.fieldWidth * -1 + this.windowInnerHeight / 2,
       blockedX = true,
       blockedY = true;
 
@@ -185,7 +178,7 @@ class Interactions {
     }
 
     if (down) {
-      valueY = this.offsetY - playerSpeed * this.fieldWidth * delta;
+      valueY = valueY - playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[1] + playerSpeed * delta,
         newY = Math.floor(newPos + 0.5),
@@ -210,6 +203,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          this.checkForNewChunk([x, Math.floor(newPos)]);
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -225,7 +219,7 @@ class Interactions {
     }
 
     if (up) {
-      valueY = this.offsetY + playerSpeed * this.fieldWidth * delta;
+      valueY = valueY + playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[1] - playerSpeed * delta,
         newY = Math.floor(newPos - 0.5),
@@ -250,6 +244,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          this.checkForNewChunk([x, Math.floor(newPos)]);
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -265,7 +260,7 @@ class Interactions {
     }
 
     if (right) {
-      valueX = this.offsetX - playerSpeed * this.fieldWidth * delta;
+      valueX = valueX - playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[0] + playerSpeed * delta,
         newX = Math.floor(newPos + 0.5),
@@ -289,6 +284,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          this.checkForNewChunk([Math.floor(newPos), y]);
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -304,7 +300,7 @@ class Interactions {
     }
 
     if (left) {
-      valueX = this.offsetX + playerSpeed * this.fieldWidth * delta;
+      valueX = valueX + playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[0] - playerSpeed * delta,
         newX = Math.floor(newPos - 0.5),
@@ -329,6 +325,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          this.checkForNewChunk([Math.floor(newPos), y]);
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -344,10 +341,10 @@ class Interactions {
     }
 
     if (down || up || right || left) {
-      const innerWidth = window.innerWidth;
-      const innerHeight = window.innerHeight;
-      const maxOffsetX = this.colTileCount * this.fieldWidth - innerWidth,
-        maxOffsetY = this.rowTileCount * this.fieldWidth - innerHeight;
+      const maxOffsetX =
+          this.colTileCount * this.fieldWidth - this.windowInnerWidth,
+        maxOffsetY =
+          this.rowTileCount * this.fieldWidth - this.windowInnerHeight;
 
       // Horizontal map scrolling
       if (
@@ -355,9 +352,12 @@ class Interactions {
         !(right && left) &&
         valueX < 0 &&
         valueX > maxOffsetX * -1 &&
-        player.pos[0] * this.fieldWidth > innerWidth / 2 - playerSpeed && // + next line: player in center
+        player.pos[0] * this.fieldWidth >
+          this.windowInnerWidth / 2 - playerSpeed && // + next line: player in center
         player.pos[0] * this.fieldWidth <
-          this.colTileCount * this.fieldWidth - innerWidth / 2 + playerSpeed
+          this.colTileCount * this.fieldWidth -
+            this.windowInnerWidth / 2 +
+            playerSpeed
       ) {
         this.offsetX = valueX;
 
@@ -365,7 +365,7 @@ class Interactions {
       } else if (
         valueX < 0 &&
         valueX <= maxOffsetX * -1 &&
-        innerWidth < this.colTileCount * this.fieldWidth
+        this.windowInnerWidth < this.colTileCount * this.fieldWidth
       ) {
         this.offsetX = maxOffsetX * -1;
 
@@ -380,9 +380,12 @@ class Interactions {
         !(up && down) &&
         valueY < 0 &&
         valueY > maxOffsetY * -1 &&
-        player.pos[1] * this.fieldWidth > innerHeight / 2 - playerSpeed && // + next line: player in center
+        player.pos[1] * this.fieldWidth >
+          this.windowInnerHeight / 2 - playerSpeed && // + next line: player in center
         player.pos[1] * this.fieldWidth <
-          this.rowTileCount * this.fieldWidth - innerHeight / 2 + playerSpeed
+          this.rowTileCount * this.fieldWidth -
+            this.windowInnerHeight / 2 +
+            playerSpeed
       ) {
         this.offsetY = valueY;
 
@@ -390,7 +393,7 @@ class Interactions {
       } else if (
         valueY < 0 &&
         valueY <= maxOffsetY * -1 &&
-        innerHeight < this.rowTileCount * this.fieldWidth
+        this.windowInnerHeight < this.rowTileCount * this.fieldWidth
       ) {
         this.offsetY = maxOffsetY * -1;
 
@@ -406,6 +409,26 @@ class Interactions {
       }
     } else if (player.moving) {
       player.stop();
+    }
+  }
+
+  checkForNewChunk(pos) {
+    let direction = null;
+    const chunkSize = config.chunkSize;
+
+    if (pos[0] > config.chunkSize * 2 - 1) {
+      direction = 'right';
+    } else if (pos[0] < chunkSize) {
+      direction = 'left';
+    } else if (pos[1] > chunkSize * 2 - 1) {
+      direction = 'bottom';
+    } else if (pos[1] < chunkSize) {
+      direction = 'top';
+    }
+
+    if (!this.serverRequestInProgress && direction) {
+      this.serverRequestInProgress = true;
+      socket.emit('new-chunk', { direction });
     }
   }
 
@@ -456,14 +479,29 @@ class Interactions {
     return false;
   }
 
-  updateOffset({ offsetX, offsetY }) {
-    this.offsetX = offsetX;
-    this.offsetY = offsetY;
+  resetOffset() {
+    this.offsetX =
+      Units.player.pos[0] * this.fieldWidth * -1 + this.windowInnerWidth / 2;
+    this.offsetY =
+      Units.player.pos[1] * this.fieldWidth * -1 + this.windowInnerHeight / 2;
+
+    if (this.offsetX >= 0) {
+      this.offsetX = 0;
+    }
+
+    if (this.offsetY >= 0) {
+      this.offsetY = 0;
+    }
+
     this.wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
   }
 
   updateMap(map) {
     this.map = map;
+  }
+
+  setServerRequestInProgress(value) {
+    this.serverRequestInProgress = value;
   }
 
   loadMap(mapItem) {

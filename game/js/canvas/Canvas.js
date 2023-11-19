@@ -167,33 +167,17 @@ export default class Canvas {
       switch (direction) {
         case 'right': {
           Units.player.pos = [Units.player.pos[0] - 30, Units.player.pos[1]];
-          this.interactions.updateOffset({
-            offsetX: this.interactions.offsetX + 30 * config.fieldWidth,
-            offsetY: this.interactions.offsetY
-          });
           break;
         }
         case 'left': {
-          this.interactions.updateOffset({
-            offsetX: this.interactions.offsetX - 30 * config.fieldWidth,
-            offsetY: this.interactions.offsetY
-          });
           Units.player.pos = [Units.player.pos[0] + 30, Units.player.pos[1]];
           break;
         }
         case 'bottom': {
-          this.interactions.updateOffset({
-            offsetX: this.interactions.offsetX,
-            offsetY: this.interactions.offsetY + 30 * config.fieldWidth
-          });
           Units.player.pos = [Units.player.pos[0], Units.player.pos[1] - 30];
           break;
         }
         default: {
-          this.interactions.updateOffset({
-            offsetX: this.interactions.offsetX,
-            offsetY: this.interactions.offsetY - 30 * config.fieldWidth
-          });
           Units.player.pos = [Units.player.pos[0], Units.player.pos[1] + 30];
         }
       }
@@ -205,7 +189,9 @@ export default class Canvas {
         map: mapData.map[3],
         units: Units.list
       });
+      this.interactions.resetOffset();
       this.interactions.updateMap(this.map);
+      this.interactions.setServerRequestInProgress(false);
       this.drawMap();
     });
   }
