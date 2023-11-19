@@ -31,17 +31,59 @@ const generateChunk = ({ biome: biomeName, offset }) => {
   const items = [];
   const enemies = [];
 
-  if (biome.ground === 32) {
+  if (biome.ground === 1360) {
     mapGround1 = new Array(chunkSize).fill(0).map((_, index) => {
       const innerGround1 = new Array(chunkSize).fill(0);
 
-      if (index % 2) {
-        return innerGround1.map((__, innerIndex) =>
-          innerIndex % 2 ? 143 : 142
-        );
+      if (index % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1360;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 1363;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 1362;
+          }
+          return 1361;
+        });
       }
 
-      return innerGround1.map((__, innerIndex) => (innerIndex % 2 ? 127 : 126));
+      if ((index + 1) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1408;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 1411;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 1410;
+          }
+          return 1409;
+        });
+      }
+
+      if ((index + 2) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1392;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 1395;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 1394;
+          }
+          return 1393;
+        });
+      }
+
+      return innerGround1.map((__, innerIndex) => {
+        if (innerIndex % 4 === 0) {
+          return 1376;
+        } else if ((innerIndex + 1) % 4 === 0) {
+          return 1379;
+        } else if ((innerIndex + 2) % 4 === 0) {
+          return 1378;
+        }
+        return 1377;
+      });
     });
   } else if (biome.ground === 1) {
     mapGround1 = new Array(chunkSize).fill(0).map((_, index) => {

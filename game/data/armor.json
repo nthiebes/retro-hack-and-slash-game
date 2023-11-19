@@ -14,21 +14,28 @@
     },
     {
       "gear": "head",
-      "id": "head_iron_1",
-      "name": "Eisenhelm",
-      "type": "iron"
-    },
-    {
-      "gear": "head",
       "id": "head_cloth_0",
       "name": "Kapuze",
       "type": "cloth"
     },
     {
       "gear": "head",
+      "id": "head_leather_0",
+      "name": "Lederhelm",
+      "type": "leather"
+    },
+    {
+      "gear": "head",
       "id": "head_steel_0",
       "name": "Stahlhelm",
       "type": "steel"
+    },
+    {
+      "gear": "head",
+      "id": "head_plate_0",
+      "name": "Plattenhelm",
+      "type": "plate",
+      "noHair": true
     },
     {
       "gear": "torso",

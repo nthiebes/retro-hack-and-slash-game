@@ -3,6 +3,7 @@ import '../../../node_modules/socket.io-client/dist/socket.io.min.js';
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
+import { attributesMap, racesMap } from './translations.js';
 
 const mapField = document.getElementById('map');
 const nameField = document.getElementById('name');
@@ -31,45 +32,6 @@ const skinCounter = document.getElementById('skin-count');
 const hairCounter = document.getElementById('hair-count');
 const faceCounter = document.getElementById('face-count');
 const canvasWrapper = document.getElementById('canvas-wrapper');
-const attributesMap = {
-  strength: {
-    best: 'Extrem stark',
-    good: 'Stark',
-    bad: 'Schwächlich',
-    average: 3
-  },
-  dexterity: {
-    best: 'Extrem geschickt',
-    good: 'Geschickt',
-    bad: 'Tollpatschig',
-    average: 3
-  },
-  intelligence: {
-    best: 'Sehr clever',
-    good: 'Clever',
-    bad: 'Einfach gestrickt',
-    average: 3
-  },
-  defense: {
-    best: 'Sehr robust',
-    good: 'Robust',
-    bad: 'Zerbrechlich',
-    average: 3
-  },
-  speed: {
-    best: 'Sehr rasant',
-    good: 'Rasant',
-    bad: 'Träge',
-    average: 4
-  }
-};
-const racesMap = {
-  orc: 'Ork',
-  human: 'Mensch',
-  vampire: 'Vampir',
-  elf: 'Elf',
-  dwarf: 'Zwerg'
-};
 
 export class Menu {
   static start = (resources) => {

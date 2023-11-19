@@ -945,7 +945,12 @@ const blocks = {
       ]
     ],
     // enemies: [{ pos: [4, 7], id: 'orc0' }],
-    items: [{ pos: [3, 1], id: 'axe0' }]
+    items: [
+      { pos: [3, 1], id: 'axe0' },
+      { pos: [4, 1], id: 'head_leather_0' },
+      { pos: [5, 1], id: 'head_iron_0' },
+      { pos: [6, 1], id: 'head_plate_0' }
+    ]
     // animations: [{ pos: [3, 3], id: 'campfire' }]
   }
 };

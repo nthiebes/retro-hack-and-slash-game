@@ -1,8 +1,8 @@
 const biomes = {
   plain: {
-    ground: 16,
-    grass: [],
-    grassAmount: 0,
+    ground: 1360,
+    grass: [1397, 1398, 1399, 1400],
+    grassAmount: 20,
     bushes: [],
     bushesAmount: 0,
     blocks: [
@@ -12,14 +12,14 @@ const biomes = {
       },
       {
         id: 'grass0',
-        amount: 20
+        amount: 5
       }
     ]
   },
   forest: {
-    ground: 16,
-    grass: [],
-    grassAmount: 0,
+    ground: 1360,
+    grass: [1396],
+    grassAmount: 5,
     bushes: [],
     bushesAmount: 0,
     blocks: [
