@@ -7,21 +7,15 @@
       "race": "orc",
       "health": 100,
       "gear": {
-        "head": [
-          "none",
-          "none",
-          "none",
-          "hair_1_black",
-          "hair_1_brown",
-          "hair_1_blonde"
-        ],
+        "head": "none",
         "torso": "none",
         "leg": "none"
       },
       "weapons": {
         "primary": "fist",
         "secondary": "fist"
-      }
+      },
+      "cosmetics": {}
     },
     {
       "id": "orc1",

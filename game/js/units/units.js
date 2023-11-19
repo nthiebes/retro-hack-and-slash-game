@@ -55,8 +55,6 @@ export class Units {
     let leg = unit.gear.leg;
     let primary = unit.weapons.primary;
     let secondary = unit.weapons.secondary;
-    let hair = unit.cosmetics.hair;
-    let face = unit.cosmetics.face;
 
     if (Array.isArray(head)) {
       head = head[getRandomInt(head.length)];
@@ -73,18 +71,20 @@ export class Units {
     if (Array.isArray(secondary)) {
       secondary = secondary[getRandomInt(secondary.length)];
     }
-    if (Array.isArray(hair)) {
-      hair = hair[getRandomInt(hair.length)];
-    }
-    if (Array.isArray(face)) {
-      face = face[getRandomInt(face.length)];
-    }
 
     const animation = GameData.getWeapon(primary).animation;
     const skinCount = GameData.races[unit.race].skins;
+    const hairCount = GameData.races[unit.race].hair;
+    const facesCount = GameData.races[unit.race].faces;
     const skin = Number.isInteger(unit.skin)
       ? unit.skin
-      : getRandomInt(skinCount - 1);
+      : getRandomInt(skinCount);
+    const hair = Number.isInteger(unit.cosmetics.hair)
+      ? unit.cosmetics.hair
+      : `hair${getRandomInt(hairCount)}`;
+    const face = Number.isInteger(unit.cosmetics.face)
+      ? unit.cosmetics.face
+      : `face${getRandomInt(facesCount)}`;
     const speed = getWalkSpeed({
       ...unit,
       gear: {
@@ -94,7 +94,6 @@ export class Units {
       }
     });
     const attackSpeed = getAttackSpeed(primary);
-    const directionOffset = unit.direction === 'LEFT' ? 128 : 0;
 
     listData.push(
       new Unit(
@@ -119,63 +118,63 @@ export class Units {
           },
           skin: new Sprite({
             url: `images/races/${unit.race}${skin}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           head: new Sprite({
             url: `images/armor/${head}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           leg: new Sprite({
             url: `images/armor/${leg}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           torso: new Sprite({
             url: `images/armor/${torso}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           primary: new Sprite({
             url: `images/weapons/${primary}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           secondary: new Sprite({
             url: `images/weapons/${secondary}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           special: new Sprite({
             url: 'images/armor/none.png',
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           hair: new Sprite({
             url: `images/hair/${unit.race}/${hair}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           face: new Sprite({
             url: `images/faces/${unit.race}/${face}.png`,
-            pos: [0, 256 + directionOffset],
+            pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
