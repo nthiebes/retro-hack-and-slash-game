@@ -1,7 +1,6 @@
-const inventoryWindow = document.getElementById('inventory');
-const canvasWrapper = document.getElementById('canvas-wrapper');
+import { Menu } from '../interface/menu.js';
 
-export default class Input {
+export class Input {
   constructor() {
     this.pressedKeys = {};
 
@@ -9,8 +8,7 @@ export default class Input {
       this.setKey(e, true);
 
       if (e.key.toLocaleLowerCase() === 'i') {
-        inventoryWindow.classList.toggle('window--show');
-        canvasWrapper.classList.toggle('window--focussed');
+        Menu.toggleInventory();
       }
     });
 

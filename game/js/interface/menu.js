@@ -3,6 +3,7 @@ import '../../../node_modules/socket.io-client/dist/socket.io.min.js';
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
+import { Units } from '../units/units.js';
 import { attributesMap, racesMap } from './translations.js';
 
 const mapField = document.getElementById('map');
@@ -25,6 +26,20 @@ const characterWindow = document.getElementById('character');
 const raceImg = document.getElementById('race-preview');
 const faceImg = document.getElementById('face-preview');
 const hairImg = document.getElementById('hair-preview');
+const inventoryRaceImg = document.getElementById('inventory-race-preview');
+const inventoryFaceImg = document.getElementById('inventory-face-preview');
+const inventoryHairImg = document.getElementById('inventory-hair-preview');
+const inventoryPrimaryImg = document.getElementById(
+  'inventory-primary-preview'
+);
+const inventorySecondaryImg = document.getElementById(
+  'inventory-secondary-preview'
+);
+const inventoryTorsoImg = document.getElementById('inventory-torso-preview');
+const inventoryLegImg = document.getElementById('inventory-leg-preview');
+const inventoryHeadImg = document.getElementById('inventory-head-preview');
+const inventoryItems = document.getElementById('inventory-items');
+const inventorySlots = document.getElementById('inventory-slots');
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
 const raceCounter = document.getElementById('race-count');
@@ -32,6 +47,8 @@ const skinCounter = document.getElementById('skin-count');
 const hairCounter = document.getElementById('hair-count');
 const faceCounter = document.getElementById('face-count');
 const canvasWrapper = document.getElementById('canvas-wrapper');
+
+let inventoryOpen = false;
 
 export class Menu {
   static start = (resources) => {
@@ -107,8 +124,7 @@ export class Menu {
     nextFaceBtn.addEventListener('click', Menu.handleNextFace);
     prevFaceBtn.addEventListener('click', Menu.handlePrevFace);
     closeBtn.addEventListener('click', () => {
-      inventoryWindow.classList.remove('window--show');
-      canvasWrapper.classList.remove('window--focussed');
+      Menu.toggleInventory();
     });
     characterWindow.addEventListener('submit', Menu.joinGame);
 
@@ -273,6 +289,53 @@ export class Menu {
         raceAttributes.append(li);
       }
     });
+  };
+
+  static toggleInventory = () => {
+    if (inventoryOpen) {
+      inventoryOpen = false;
+    } else {
+      inventoryOpen = true;
+      console.log(Units.player);
+
+      const {
+        skin,
+        face,
+        hair,
+        primary,
+        secondary,
+        head,
+        leg,
+        torso,
+        inventory
+      } = Units.player;
+
+      inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
+      inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
+      inventoryHairImg.style.backgroundImage = `url(/game/${hair.url})`;
+      inventoryPrimaryImg.style.backgroundImage = `url(/game/${primary.url})`;
+      inventorySecondaryImg.style.backgroundImage = `url(/game/${secondary.url})`;
+      inventoryHeadImg.style.backgroundImage = `url(/game/${head.url})`;
+      inventoryTorsoImg.style.backgroundImage = `url(/game/${torso.url})`;
+      inventoryLegImg.style.backgroundImage = `url(/game/${leg.url})`;
+
+      inventorySlots.innerHTML = '';
+      inventoryItems.innerHTML = '';
+      inventory.forEach((item) => {
+        const li = document.createElement('li');
+
+        li.append(item.name);
+
+        if (item.equipped) {
+          inventorySlots.append(li);
+        } else {
+          inventoryItems.append(li);
+        }
+      });
+    }
+
+    inventoryWindow.classList.toggle('window--show');
+    canvasWrapper.classList.toggle('window--focussed');
   };
 
   static joinGame = (event) => {

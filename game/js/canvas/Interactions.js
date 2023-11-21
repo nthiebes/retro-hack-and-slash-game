@@ -1,5 +1,5 @@
 import config from '../config.js';
-import Input from '../utils/Input.js';
+import { Input } from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
 import { Events } from '../events/events.js';

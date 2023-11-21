@@ -267,16 +267,18 @@ export default class Unit {
 
     if (armor) {
       item = {
-        type: 'armor',
-        slot: armor.gear,
         id: event.id,
+        type: 'armor',
+        name: armor.name,
+        slot: armor.gear,
         equipped: this.gear[armor.gear] === 'none'
       };
     } else if (weapon) {
       item = {
-        type: 'weapon',
-        slot: weapon.type,
         id: event.id,
+        type: 'weapon',
+        name: weapon.name,
+        slot: weapon.type,
         equipped: this.weapons[weapon.type] === 'none'
       };
     } else {

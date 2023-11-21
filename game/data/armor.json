@@ -4,77 +4,77 @@
       "gear": "head",
       "id": "none",
       "name": "Luft",
-      "type": "none"
+      "material": "none"
     },
     {
       "gear": "head",
       "id": "head_iron_0",
       "name": "Eisenkappe",
-      "type": "iron"
+      "material": "iron"
     },
     {
       "gear": "head",
       "id": "head_cloth_0",
       "name": "Kapuze",
-      "type": "cloth"
+      "material": "cloth"
     },
     {
       "gear": "head",
       "id": "head_leather_0",
       "name": "Lederhelm",
-      "type": "leather"
+      "material": "leather"
     },
     {
       "gear": "head",
       "id": "head_steel_0",
       "name": "Stahlhelm",
-      "type": "steel"
+      "material": "steel"
     },
     {
       "gear": "head",
       "id": "head_plate_0",
       "name": "Plattenhelm",
-      "type": "plate",
+      "material": "plate",
       "noHair": true
     },
     {
       "gear": "torso",
       "id": "torso_iron_0",
       "name": "Eisenrüstung",
-      "type": "iron"
+      "material": "iron"
     },
     {
       "gear": "torso",
       "id": "torso_cloth_0",
       "name": "Stoffrüstung",
-      "type": "cloth"
+      "material": "cloth"
     },
     {
       "gear": "torso",
       "id": "torso_leather_0",
       "name": "Lederrüstung",
-      "type": "leather"
+      "material": "leather"
     },
     {
       "gear": "leg",
       "id": "leg_iron_0",
       "name": "Eisenbeine",
-      "type": "iron"
+      "material": "iron"
     },
     {
       "gear": "leg",
       "id": "leg_cloth_0",
       "name": "Stoffbeine",
-      "type": "cloth"
+      "material": "cloth"
     },
     {
       "gear": "leg",
       "id": "leg_leather_0",
       "name": "Lederbeine",
-      "type": "leather"
+      "material": "leather"
     }
   ],
-  "types": {
+  "material": {
     "none": {
       "defense": 0,
       "speedModifier": 0

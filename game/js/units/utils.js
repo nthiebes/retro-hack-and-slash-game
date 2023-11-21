@@ -10,9 +10,9 @@ const getDefense = (defender) => {
   ).type;
   const torsoGearType = GameData.getArmor(defender.gear.torso).type;
   const legGearType = GameData.getArmor(defender.gear.leg).type;
-  const headDefense = GameData.armor.types[headGearType].defense;
-  const torsoDefense = GameData.armor.types[torsoGearType].defense;
-  const legDefense = GameData.armor.types[legGearType].defense;
+  const headDefense = GameData.armor.material[headGearType].defense;
+  const torsoDefense = GameData.armor.material[torsoGearType].defense;
+  const legDefense = GameData.armor.material[legGearType].defense;
 
   return defense + headDefense + torsoDefense + legDefense;
 };
@@ -107,12 +107,14 @@ export const combat = ({ units, map, attacker }) => {
 };
 
 export const getWalkSpeed = ({ race, gear }) => {
-  const headGearType = (GameData.getArmor(gear.head) || { type: 'none' }).type;
-  const torsoGearType = GameData.getArmor(gear.torso).type;
-  const legGearType = GameData.getArmor(gear.leg).type;
-  const headSpeedModifier = GameData.armor.types[headGearType].speedModifier;
-  const torsoSpeedModifier = GameData.armor.types[torsoGearType].speedModifier;
-  const legSpeedModifier = GameData.armor.types[legGearType].speedModifier;
+  const headGearType = (GameData.getArmor(gear.head) || { type: 'none' })
+    .material;
+  const torsoGearType = GameData.getArmor(gear.torso).material;
+  const legGearType = GameData.getArmor(gear.leg).material;
+  const headSpeedModifier = GameData.armor.material[headGearType].speedModifier;
+  const torsoSpeedModifier =
+    GameData.armor.material[torsoGearType].speedModifier;
+  const legSpeedModifier = GameData.armor.material[legGearType].speedModifier;
   const speedModifier =
     1 - headSpeedModifier - torsoSpeedModifier - legSpeedModifier;
 

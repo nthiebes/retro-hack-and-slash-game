@@ -136,13 +136,25 @@
   <section class="window" id="inventory">
     <button class="window__close" id="close-window"></button>
     <h1 class="window__title">Inventar</h1>
-    <section class="window__section window__section--editor">
+    <section class="window__section window__section--small">
       <div class="window__section-column">
-        Hey
+        <ul id="inventory-slots"></ul>
       </div>
 
       <div class="window__section-column">
-        ho!
+        <div class="preview inventory__preview" id="inventory-primary-preview"></div>
+        <div class="preview inventory__preview" id="inventory-race-preview"></div>
+        <div class="preview inventory__preview" id="inventory-face-preview"></div>
+        <div class="preview inventory__preview" id="inventory-hair-preview"></div>
+        <div class="preview inventory__preview" id="inventory-torso-preview"></div>
+        <div class="preview inventory__preview" id="inventory-leg-preview"></div>
+        <div class="preview inventory__preview" id="inventory-head-preview"></div>
+        <div class="preview inventory__preview" id="inventory-secondary-preview"></div>
+      </div>
+    </section>
+    <section class="window__section window__section--small">
+      <div class="window__section-column">
+        <ul id="inventory-items"></ul>
       </div>
     </section>
   </section>

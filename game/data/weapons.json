@@ -32,7 +32,7 @@
     {
       "id": "axe0",
       "type": "primary",
-      "name": "Axt",
+      "name": "Holzfäller Axt",
       "damage": 4,
       "range": 1.5,
       "speed": 3
@@ -41,7 +41,7 @@
     {
       "id": "axe1",
       "type": "primary",
-      "name": "Axt",
+      "name": "Doppelseitige Axt",
       "damage": 4,
       "range": 1.5,
       "speed": 3
@@ -50,7 +50,7 @@
     {
       "id": "club0",
       "type": "primary",
-      "name": "Keule",
+      "name": "Stachelige Keule",
       "damage": 4,
       "range": 1.5,
       "speed": 3
