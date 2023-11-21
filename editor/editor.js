@@ -777,7 +777,7 @@ window.onload = () => {
     fetch('../game/data/weapons.json')
       .then((response) => response.json())
       .then((data) => {
-        items = data.list.filter(({ id }) => id !== 'fist');
+        items = data.list.filter(({ id }) => id !== 'none');
 
         for (let i = 0; i < items.length; i++) {
           const option = document.createElement('option');

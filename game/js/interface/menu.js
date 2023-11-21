@@ -52,8 +52,8 @@ export class Menu {
         leg: 'none'
       },
       weapons: {
-        primary: 'fist',
-        secondary: 'fist'
+        primary: 'none',
+        secondary: 'none'
       }
     };
 
@@ -294,14 +294,14 @@ export class Menu {
       {
         player: Menu.player
       },
-      ({ mapData, items, players, enemies, mapTransitions, animations }) => {
+      ({ mapData, events, players, enemies, mapTransitions, animations }) => {
         // eslint-disable-next-line
         const game = new Canvas({
           map: mapData,
-          items,
+          events,
           players,
           enemies,
-          mapItems: mapTransitions,
+          mapEvents: mapTransitions,
           animations,
           resources: Menu.resources,
           player: {
@@ -323,10 +323,10 @@ export class Menu {
 //       .then((json) => {
 //         const gameData = {
 //           map: json.map,
-//           items: json.items || [],
+//           events: json.events || [],
 //           players: json.players || [],
 //           enemies: json.enemies || [],
-//           mapItems: json.maps || [],
+//           mapEvents: json.maps || [],
 //           animations: json.animations || []
 //         };
 //       });

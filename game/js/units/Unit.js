@@ -13,6 +13,7 @@ export default class Unit {
     this.attackSpeed = 0;
     this.speed = data.speed;
     this.target = null;
+    this.inventory = [];
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 
@@ -254,18 +255,49 @@ export default class Unit {
     this.direction = direction;
   }
 
-  equip(item) {
+  takeItem(event) {
+    const id = event.id.split('.')[0];
+    const armor = GameData.getArmor(id);
+    const weapon = GameData.getWeapon(id);
+    let item;
+
+    if (config.debug) {
+      console.log('👜');
+    }
+
+    if (armor) {
+      item = {
+        type: 'armor',
+        slot: armor.gear,
+        id: event.id,
+        equipped: this.gear[armor.gear] === 'none'
+      };
+    } else if (weapon) {
+      item = {
+        type: 'weapon',
+        slot: weapon.type,
+        id: event.id,
+        equipped: this.weapons[weapon.type] === 'none'
+      };
+    } else {
+      console.log(item);
+    }
+
+    if (item.equipped) {
+      this.equipItem(item);
+    }
+
+    this.addToInventory(item);
+  }
+
+  equipItem = (item) => {
     const id = item.id.split('.')[0];
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
 
-    if (config.debug) {
-      console.log('🛡');
-    }
-
     if (armor) {
       this.gear[armor.gear] = id;
-      this[armor.gear].url = `images/armor/${id}.png`;
+      this[armor.gear].url = `images/items/${id}.png`;
 
       const newSpeed = getWalkSpeed({ race: this.race, gear: this.gear });
 
@@ -287,8 +319,8 @@ export default class Unit {
 
       // Drop item in second hand
       if (isTwohanded) {
-        this.weapons.secondary = 'fist';
-        this.secondary.url = 'images/weapons/fist.png';
+        this.weapons.secondary = 'none';
+        this.secondary.url = 'images/items/none.png';
       }
 
       // Don't equip secondary if twohanded
@@ -298,14 +330,20 @@ export default class Unit {
 
       // Order matters!
       this.weapons[weaponType] = id;
-      this[weaponType].url = `images/weapons/${id}.png`;
+      this[weaponType].url = `images/items/${id}.png`;
       this.attackSpeed = getAttackSpeed(this.weapons.primary);
       this.animation = GameData.getWeapon(this.weapons.primary).animation;
       this.weaponType = GameData.getWeapon(this.weapons.primary).type;
       this.range = GameData.getWeapon(this.weapons.primary).range;
       this.stop();
     }
-  }
+  };
+
+  addToInventory = (item) => {
+    this.inventory.push(item);
+
+    console.log('inventory', this.inventory);
+  };
 
   isPlayerInSight = (playerPos) => {
     const playerX = Math.floor(playerPos[0]);

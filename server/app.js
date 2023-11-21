@@ -1,6 +1,6 @@
 const express = require('express');
 const socketIO = require('socket.io');
-const { getRandomInt } = require('./utils/number.js');
+const { getRandomInt, getRandomId } = require('./utils/number.js');
 const { generateMap } = require('./map/generateMap.js');
 const { generateChunks } = require('./map/generateChunks.js');
 // const { config } = require('./config.js');
@@ -59,25 +59,20 @@ io.on('connection', (socket) => {
       name: mapName,
       players: playerStartPositions,
       enemies,
-      items,
+      events,
       animations,
       maps: mapTransitions,
       map: mapData
     } = map;
 
     game = {
-      id: Math.random().toString(),
+      id: getRandomId(),
       mapId,
       mapName,
       mapData,
       mapTransitions: mapTransitions || [],
       playerStartPositions,
-      items: items
-        ? items.map((item) => ({
-            ...item,
-            id: `${item.id}.${Math.random().toString()}`
-          }))
-        : [],
+      events,
       animations: animations || [],
       enemies: enemies
         ? enemies.map((enemy) => ({
@@ -217,7 +212,7 @@ io.on('connection', (socket) => {
   socket.on('equip', ({ item }) => {
     // console.log('Player equips item');
 
-    game.items = game.items.filter(({ id }) => item.id !== id);
+    game.events = game.events.filter(({ id }) => item.id !== id);
 
     io.sockets.emit('player-equipped', { item, playerId });
   });

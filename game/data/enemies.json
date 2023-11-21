@@ -12,8 +12,8 @@
         "leg": "none"
       },
       "weapons": {
-        "primary": "fist",
-        "secondary": "fist"
+        "primary": "none",
+        "secondary": "none"
       },
       "cosmetics": {}
     },
@@ -37,7 +37,7 @@
       },
       "weapons": {
         "primary": ["sword", "axe", "axe"],
-        "secondary": ["fist", "shield"]
+        "secondary": ["none", "shield"]
       }
     },
     {
@@ -76,7 +76,7 @@
       },
       "weapons": {
         "primary": "sword",
-        "secondary": "fist"
+        "secondary": "none"
       }
     },
     {
@@ -92,7 +92,7 @@
       },
       "weapons": {
         "primary": "spear",
-        "secondary": "fist"
+        "secondary": "none"
       }
     },
     {
@@ -107,8 +107,8 @@
         "leg": "none"
       },
       "weapons": {
-        "primary": "fist",
-        "secondary": "fist"
+        "primary": "none",
+        "secondary": "none"
       }
     }
   ]

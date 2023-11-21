@@ -1,7 +1,7 @@
 const { getRandomInt } = require('../utils/number.js');
 const { config } = require('../config.js');
 const { generateChunk } = require('./generateChunk.js');
-const { chunkSize, startBiome, biomeNeighbours } = config;
+const { startBiome, biomeNeighbours } = config;
 
 const getRandomBiome = (biome) => {
   let tempPossibleBiomes = null;
@@ -19,6 +19,7 @@ const getRandomBiome = (biome) => {
   return tempPossibleBiomes[getRandomInt(tempPossibleBiomes.length)];
 };
 
+// eslint-disable-next-line complexity
 const getSurroundingChunks = ({ centerChunk, chunks }) => {
   const centerChunkBiome = centerChunk.biome;
   const topPos = [centerChunk.pos[0], centerChunk.pos[1] - 1];
@@ -71,32 +72,28 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
   if (!topChunk.biome) {
     topChunk.biome = getRandomBiome(centerChunkBiome);
     topChunk.map = generateChunk({
-      biome: topChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: topChunk.biome
     });
   }
 
   if (!topRightChunk.biome) {
     topRightChunk.biome = getRandomBiome(topChunk.biome);
     topRightChunk.map = generateChunk({
-      biome: topRightChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: topRightChunk.biome
     });
   }
 
   if (!rightChunk.biome) {
     rightChunk.biome = getRandomBiome([topRightChunk.biome, centerChunkBiome]);
     rightChunk.map = generateChunk({
-      biome: rightChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: rightChunk.biome
     });
   }
 
   if (!bottomRightChunk.biome) {
     bottomRightChunk.biome = getRandomBiome(rightChunk.biome);
     bottomRightChunk.map = generateChunk({
-      biome: bottomRightChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: bottomRightChunk.biome
     });
   }
 
@@ -106,32 +103,28 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       centerChunkBiome
     ]);
     bottomChunk.map = generateChunk({
-      biome: bottomChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: bottomChunk.biome
     });
   }
 
   if (!bottomLeftChunk.biome) {
     bottomLeftChunk.biome = getRandomBiome(bottomChunk.biome);
     bottomLeftChunk.map = generateChunk({
-      biome: bottomLeftChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: bottomLeftChunk.biome
     });
   }
 
   if (!leftChunk.biome) {
     leftChunk.biome = getRandomBiome([bottomLeftChunk.biome, centerChunkBiome]);
     leftChunk.map = generateChunk({
-      biome: leftChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: leftChunk.biome
     });
   }
 
   if (!topLeftChunk.biome) {
     topLeftChunk.biome = getRandomBiome([leftChunk.biome, topChunk.biome]);
     topLeftChunk.map = generateChunk({
-      biome: topLeftChunk.biome,
-      offset: [chunkSize, chunkSize]
+      biome: topLeftChunk.biome
     });
   }
 
@@ -155,8 +148,7 @@ const generateChunks = ({ newGame, chunks, centerChunk }) => {
       pos: [0, 0],
       biome: startBiome,
       map: generateChunk({
-        biome: startBiome,
-        offset: [chunkSize, chunkSize]
+        biome: startBiome
       })
     };
 

@@ -2,7 +2,7 @@ import config from '../config.js';
 import Input from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
-import { Items } from '../items/items.js';
+import { Events } from '../events/events.js';
 import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
 
@@ -16,7 +16,7 @@ class Interactions {
     this.rowTileCount = data.rowTileCount;
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
-    this.mapItems = data.mapItems;
+    this.mapEvents = data.mapEvents;
     this.serverRequestInProgress = false;
     this.windowInnerWidth = window.innerWidth;
     this.windowInnerHeight = window.innerHeight;
@@ -48,12 +48,12 @@ class Interactions {
 
     const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
     const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
-    const item = Items.getItemByPos({ x, y });
+    const event = Events.getEventByPos({ x, y });
 
-    if (item && this.itemInRange({ x, y })) {
+    if (event && this.eventInRange({ x, y })) {
       body.classList.add('cursor--use');
       body.classList.remove('cursor--info');
-    } else if (item && !this.itemInRange({ x, y })) {
+    } else if (event && !this.eventInRange({ x, y })) {
       body.classList.add('cursor--info');
       body.classList.remove('cursor--use');
     } else {
@@ -109,26 +109,29 @@ class Interactions {
     if (e.button === 0) {
       const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
       const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
-      const item = Items.getItemByPos({ x, y });
+      const event = Events.getEventByPos({ x, y });
 
       if (player.attacking) {
         // Continue animation
         player.skin.once = false;
 
         socket.emit('attack');
-      } else if (item && this.itemInRange({ x, y })) {
+      } else if (event && this.eventInRange({ x, y })) {
         const animation = Animations.getAnimation({ x, y });
+
+        // console.log('event', event);
 
         if (animation) {
           animation.play();
         }
-        player.equip(item);
-        Items.removeItem(item);
-
-        socket.emit('equip', { item });
-
-        body.classList.add('cursor--use');
-        body.classList.remove('cursor--info');
+        if (event.type === 'item') {
+          player.takeItem(event);
+          Events.removeEvent(event);
+          // socket.emit('remove-event', { event });
+          // socket.emit('equip', { event });
+          body.classList.add('cursor--use');
+          body.classList.remove('cursor--info');
+        }
       } else {
         // Start animation
         player.attack();
@@ -453,13 +456,13 @@ class Interactions {
   }
 
   checkMap({ x, y }) {
-    return this.mapItems.find(
+    return this.mapEvents.find(
       (map) =>
-        map.pos[0] === x && map.pos[1] === y && this.itemInRange({ x, y })
+        map.pos[0] === x && map.pos[1] === y && this.eventInRange({ x, y })
     );
   }
 
-  itemInRange({ x, y }) {
+  eventInRange({ x, y }) {
     const playerX = Math.floor(Units.player.pos[0]);
     const playerY = Math.floor(Units.player.pos[1]);
 

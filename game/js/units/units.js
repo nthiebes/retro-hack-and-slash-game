@@ -124,42 +124,42 @@ export class Units {
             frames: [0]
           }),
           head: new Sprite({
-            url: `images/armor/${head}.png`,
+            url: `images/items/${head}.png`,
             pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           leg: new Sprite({
-            url: `images/armor/${leg}.png`,
+            url: `images/items/${leg}.png`,
             pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           torso: new Sprite({
-            url: `images/armor/${torso}.png`,
+            url: `images/items/${torso}.png`,
             pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           primary: new Sprite({
-            url: `images/weapons/${primary}.png`,
+            url: `images/items/${primary}.png`,
             pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           secondary: new Sprite({
-            url: `images/weapons/${secondary}.png`,
+            url: `images/items/${secondary}.png`,
             pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           special: new Sprite({
-            url: 'images/armor/none.png',
+            url: 'images/items/none.png',
             pos: [0, 256],
             size: [256, 256],
             speed,

@@ -155,6 +155,73 @@ const generateMap = ({ chunks, centerChunkPos }) => {
     ...centerChunksBlocked,
     ...bottomChunksBlocked
   ];
+
+  // Offset events
+  let centerChunkEvents,
+    topChunkEvents,
+    topRightChunkEvents,
+    rightChunkEvents,
+    bottomRightChunkEvents,
+    bottomChunkEvents,
+    bottomLeftChunkEvents,
+    leftChunkEvents,
+    topLeftChunkEvents;
+
+  if (centerChunk.events) {
+    centerChunkEvents = centerChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize]
+    }));
+  }
+  if (topChunk.events) {
+    topChunkEvents = topChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize, event.pos[1] + 0]
+    }));
+  }
+  if (topRightChunk.events) {
+    topRightChunkEvents = topRightChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + 0]
+    }));
+  }
+  if (rightChunk.events) {
+    rightChunkEvents = rightChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize]
+    }));
+  }
+  if (bottomRightChunk.events) {
+    bottomRightChunkEvents = bottomRightChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomChunk.events) {
+    bottomChunkEvents = bottomChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomLeftChunk.events) {
+    bottomLeftChunkEvents = bottomLeftChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (leftChunk.events) {
+    leftChunkEvents = leftChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize]
+    }));
+  }
+  if (topLeftChunk.events) {
+    topLeftChunkEvents = topLeftChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + 0, event.pos[1] + 0]
+    }));
+  }
+
   const playerPosition = Math.round((chunkSize * 3) / 2);
 
   return {
@@ -170,16 +237,16 @@ const generateMap = ({ chunks, centerChunkPos }) => {
       ...leftChunk.enemies,
       ...topLeftChunk.enemies
     ],
-    items: [
-      ...centerChunk.items,
-      ...topChunk.items,
-      ...topRightChunk.items,
-      ...rightChunk.items,
-      ...bottomRightChunk.items,
-      ...bottomChunk.items,
-      ...bottomLeftChunk.items,
-      ...leftChunk.items,
-      ...topLeftChunk.items
+    events: [
+      ...centerChunkEvents,
+      ...topChunkEvents,
+      ...topRightChunkEvents,
+      ...rightChunkEvents,
+      ...bottomRightChunkEvents,
+      ...bottomChunkEvents,
+      ...bottomLeftChunkEvents,
+      ...leftChunkEvents,
+      ...topLeftChunkEvents
     ],
     animations: [
       ...centerChunk.animations,

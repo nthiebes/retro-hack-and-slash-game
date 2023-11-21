@@ -1,6 +1,6 @@
 const { blocks } = require('./data/blocks.js');
 const { biomes } = require('./data/biomes.js');
-const { getRandomInt } = require('../utils/number.js');
+const { getRandomInt, getRandomId } = require('../utils/number.js');
 const { config } = require('../config.js');
 const { chunkSize } = config;
 
@@ -15,7 +15,7 @@ const getRandomPositions = (max) => {
   return randomPositions;
 };
 
-const generateChunk = ({ biome: biomeName, offset }) => {
+const generateChunk = ({ biome: biomeName }) => {
   const biome = biomes[biomeName];
   const mapGround2 = new Array(chunkSize)
     .fill(0)
@@ -28,7 +28,7 @@ const generateChunk = ({ biome: biomeName, offset }) => {
     .map(() => new Array(chunkSize).fill(0));
   let mapGround1;
   const animations = [];
-  const items = [];
+  const events = [];
   const enemies = [];
 
   if (biome.ground === 1360) {
@@ -215,15 +215,16 @@ const generateChunk = ({ biome: biomeName, offset }) => {
           animations.push(
             ...blocks[block.id].animations.map((animation) => ({
               ...animation,
-              pos: [animation.pos[0] + randomX, animation.pos[1] + randomY]
+              pos: [animation.pos[0] + randomY, animation.pos[1] + randomX]
             }))
           );
         }
-        if (blocks[block.id].items) {
-          items.push(
-            ...blocks[block.id].items.map((item) => ({
-              ...item,
-              pos: [item.pos[0] + offset[0], item.pos[1] + offset[1]]
+        if (blocks[block.id].events) {
+          events.push(
+            ...blocks[block.id].events.map((event) => ({
+              ...event,
+              pos: [event.pos[0] + randomY, event.pos[1] + randomX],
+              id: `${event.id}.${getRandomId()}`
             }))
           );
         }
@@ -231,7 +232,7 @@ const generateChunk = ({ biome: biomeName, offset }) => {
           enemies.push(
             ...blocks[block.id].enemies.map((enemy) => ({
               ...enemy,
-              pos: [enemy.pos[0] + offset[0], enemy.pos[1] + offset[1]]
+              pos: [enemy.pos[0] + randomY, enemy.pos[1] + randomX]
             }))
           );
         }
@@ -263,7 +264,7 @@ const generateChunk = ({ biome: biomeName, offset }) => {
     mapBlocked,
     enemies,
     animations,
-    items
+    events
   };
 };
 

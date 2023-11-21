@@ -945,11 +945,13 @@ const blocks = {
       ]
     ],
     // enemies: [{ pos: [4, 7], id: 'orc0' }],
-    items: [
-      { pos: [3, 1], id: 'axe0' },
-      { pos: [4, 1], id: 'head_leather_0' },
-      { pos: [5, 1], id: 'head_iron_0' },
-      { pos: [6, 1], id: 'head_plate_0' }
+    events: [
+      { pos: [1, 5], type: 'item', id: 'axe0' },
+      { pos: [2, 5], type: 'item', id: 'axe1' },
+      { pos: [3, 5], type: 'item', id: 'club0' },
+      { pos: [1, 7], type: 'item', id: 'head_leather_0' },
+      { pos: [2, 7], type: 'item', id: 'head_iron_0' },
+      { pos: [3, 7], type: 'item', id: 'head_plate_0' }
     ]
     // animations: [{ pos: [3, 3], id: 'campfire' }]
   }

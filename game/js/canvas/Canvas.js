@@ -1,7 +1,7 @@
 import config from '../config.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
-import { Items } from '../items/items.js';
+import { Events } from '../events/events.js';
 import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
@@ -16,7 +16,7 @@ export default class Canvas {
       enemies: data.enemies
     });
     Animations.addAnimations(data.animations);
-    Items.addItems(data.items);
+    Events.addEvents(data.events);
 
     this.ground1 = data.map[0];
     this.ground2 = data.map[1];
@@ -27,7 +27,7 @@ export default class Canvas {
     this.tileset = this.resources.get('images/tileset.png');
     this.lastTime = Date.now();
     this.gameTime = 0;
-    this.mapItems = data.mapItems;
+    this.mapEvents = data.mapEvents;
     this.map = new Map({
       map: data.map[3],
       units: Units.list
@@ -37,7 +37,7 @@ export default class Canvas {
       rowTileCount: this.rowTileCount,
       colTileCount: this.colTileCount,
       fieldWidth: config.fieldWidth,
-      mapItems: this.mapItems
+      mapEvents: this.mapEvents
     });
 
     // Fill fields in sight for all units
@@ -49,7 +49,7 @@ export default class Canvas {
 
     // Play item animations that already ran
     Animations.list.forEach((animation) => {
-      if (!Items.getItemByPos({ x: animation.pos[0], y: animation.pos[1] })) {
+      if (!Events.getEventByPos({ x: animation.pos[0], y: animation.pos[1] })) {
         animation.play();
       }
     });
@@ -145,7 +145,7 @@ export default class Canvas {
           animation.play();
         }
         Units.list.find(({ id }) => id === playerId).equip({ id: item.id });
-        Items.removeItem(item);
+        Events.removeEvent(item);
       }
     });
 
@@ -192,6 +192,7 @@ export default class Canvas {
       this.interactions.resetOffset();
       this.interactions.updateMap(this.map);
       this.interactions.setServerRequestInProgress(false);
+      Events.updateEvents(mapData.events);
       this.drawMap();
     });
   }
@@ -492,6 +493,12 @@ export default class Canvas {
   }
 
   renderEntities(unitList) {
+    const itemEvents = Events.list.filter((event) => event.type === 'item');
+
+    for (let i = 0; i < itemEvents.length; i++) {
+      this.renderItem(itemEvents[i]);
+    }
+
     for (let i = 0; i < Animations.list.length; i++) {
       this.renderAnimation(Animations.list[i]);
     }
@@ -509,6 +516,18 @@ export default class Canvas {
         unitList[i].secondary
       ]);
     }
+  }
+
+  renderItem(item) {
+    config.ctxAnim.save();
+
+    config.ctxAnim.translate(
+      item.pos[0] * config.fieldWidth - config.fieldWidth - 20,
+      item.pos[1] * config.fieldWidth - config.fieldWidth
+    );
+    item.sprite.render(config.ctxAnim, this.resources);
+
+    config.ctxAnim.restore();
   }
 
   renderAnimation(animation) {
