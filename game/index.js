@@ -94,7 +94,8 @@ const resourcesList = [
   'images/items/head_leather_0.png',
   'images/items/head_iron_0.png',
   //   'images/items/head_steel_0.png',
-  'images/items/head_plate_0.png'
+  'images/items/head_plate_0.png',
+  'images/items/head_plate_1.png'
   //   'images/items/leg_iron_0.png',
   //   'images/items/leg_cloth_0.png',
   //   'images/items/leg_leather_0.png',

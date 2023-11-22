@@ -38,3 +38,11 @@ export const racesMap = {
   elf: 'Elf',
   dwarf: 'Zwerg'
 };
+
+export const rarityMap = {
+  common: 'Normal',
+  uncommon: 'Ungewöhnlich',
+  rare: 'Selten',
+  epic: 'Episch',
+  legendary: 'Legendär'
+};

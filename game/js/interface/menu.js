@@ -39,7 +39,6 @@ const inventoryTorsoImg = document.getElementById('inventory-torso-preview');
 const inventoryLegImg = document.getElementById('inventory-leg-preview');
 const inventoryHeadImg = document.getElementById('inventory-head-preview');
 const inventoryItems = document.getElementById('inventory-items');
-const inventorySlots = document.getElementById('inventory-slots');
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
 const raceCounter = document.getElementById('race-count');
@@ -318,16 +317,22 @@ export class Menu {
       inventoryHeadImg.style.backgroundImage = `url(/game/${head.url})`;
       inventoryTorsoImg.style.backgroundImage = `url(/game/${torso.url})`;
       inventoryLegImg.style.backgroundImage = `url(/game/${leg.url})`;
-
-      inventorySlots.innerHTML = '';
       inventoryItems.innerHTML = '';
+
       inventory.forEach((item) => {
         const li = document.createElement('li');
+        const backgroundImage = `url(/game/images/items/${
+          item.id.split('.')[0]
+        }.png)`;
 
-        li.append(item.name);
+        li.className = 'inventory__item';
+        li.style.backgroundImage = backgroundImage;
+        li.title = item.name;
 
         if (item.equipped) {
-          inventorySlots.append(li);
+          document.getElementById(
+            `inventory-${item.slot}`
+          ).style.backgroundImage = backgroundImage;
         } else {
           inventoryItems.append(li);
         }

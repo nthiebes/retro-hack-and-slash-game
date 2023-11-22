@@ -28,14 +28,25 @@
       "gear": "head",
       "id": "head_steel_0",
       "name": "Stahlhelm",
-      "material": "steel"
+      "material": "steel",
+      "noHair": true
     },
     {
       "gear": "head",
       "id": "head_plate_0",
       "name": "Plattenhelm",
       "material": "plate",
-      "noHair": true
+      "noHair": true,
+      "noFace": true
+    },
+    {
+      "gear": "head",
+      "id": "head_plate_1",
+      "name": "Reichsgarde Helm",
+      "material": "plate",
+      "noHair": true,
+      "noFace": true,
+      "set": "Reichsgarde"
     },
     {
       "gear": "torso",
@@ -82,27 +93,32 @@
 
     "cloth": {
       "defense": 0.2,
-      "speedModifier": 0.05
+      "speedModifier": 0.05,
+      "rarity": "common"
     },
 
     "leather": {
       "defense": 0.4,
-      "speedModifier": 0.075
+      "speedModifier": 0.075,
+      "rarity": "uncommon"
     },
 
     "iron": {
       "defense": 0.6,
-      "speedModifier": 0.1
+      "speedModifier": 0.1,
+      "rarity": "rare"
     },
 
     "steel": {
       "defense": 0.8,
-      "speedModifier": 0.125
+      "speedModifier": 0.125,
+      "rarity": "epic"
     },
 
     "plate": {
       "defense": 1,
-      "speedModifier": 0.15
+      "speedModifier": 0.15,
+      "rarity": "legendary"
     }
   }
 }

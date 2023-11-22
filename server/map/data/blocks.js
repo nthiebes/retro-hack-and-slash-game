@@ -951,7 +951,8 @@ const blocks = {
       { pos: [3, 5], type: 'item', id: 'club0' },
       { pos: [1, 7], type: 'item', id: 'head_leather_0' },
       { pos: [2, 7], type: 'item', id: 'head_iron_0' },
-      { pos: [3, 7], type: 'item', id: 'head_plate_0' }
+      { pos: [3, 7], type: 'item', id: 'head_plate_0' },
+      { pos: [4, 7], type: 'item', id: 'head_plate_1' }
     ]
     // animations: [{ pos: [3, 3], id: 'campfire' }]
   }
