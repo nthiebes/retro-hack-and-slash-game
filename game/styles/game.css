@@ -343,6 +343,10 @@ p {
   padding: 3rem 1.5rem;
 }
 
+.inventory__section--scroll {
+  padding-right: 15px;
+}
+
 .inventory__preview {
   width: 150px;
   top: 4rem;
