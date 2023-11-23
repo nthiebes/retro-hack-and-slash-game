@@ -8,7 +8,7 @@ const biomes = {
     blocks: [
       {
         id: 'allItems',
-        amount: 3
+        amount: 1
       },
       {
         id: 'grass0',

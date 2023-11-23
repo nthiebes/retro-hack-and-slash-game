@@ -176,7 +176,8 @@ class Interactions {
       blockedX = true,
       blockedY = true;
 
-    if (player.attacking || player.dead) {
+    // if (player.attacking || player.dead) {
+    if (player.dead) {
       return;
     }
 

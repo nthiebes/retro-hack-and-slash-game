@@ -32,6 +32,10 @@ export default class Unit {
       console.log('🚶‍♂️');
     }
 
+    if (this.attacking) {
+      return;
+    }
+
     this.skin.speed = this.speed;
     this.head.speed = this.speed;
     this.torso.speed = this.speed;

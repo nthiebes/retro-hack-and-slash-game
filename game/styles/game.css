@@ -110,6 +110,8 @@ body {
   text-align: center;
   text-shadow: 0px 0px 3px #000;
   line-height: 1;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1;
 }
 
@@ -329,7 +331,7 @@ p {
   height: 537px;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 13px 1rem 0 1rem;
 }
 
