@@ -372,16 +372,18 @@ export default class Unit {
       this.gear[armor.gear] = 'none';
       this[armor.gear].url = 'images/items/none.png';
 
-      this.speed = 0;
-      this.skin.speed = 0;
-      this.head.speed = 0;
-      this.leg.speed = 0;
-      this.torso.speed = 0;
-      this.primary.speed = 0;
-      this.secondary.speed = 0;
-      this.special.speed = 0;
-      this.hair.speed = 0;
-      this.face.speed = 0;
+      const newSpeed = getWalkSpeed({ race: this.race, gear: this.gear });
+
+      this.speed = newSpeed;
+      this.skin.speed = newSpeed;
+      this.head.speed = newSpeed;
+      this.leg.speed = newSpeed;
+      this.torso.speed = newSpeed;
+      this.primary.speed = newSpeed;
+      this.secondary.speed = newSpeed;
+      this.special.speed = newSpeed;
+      this.hair.speed = newSpeed;
+      this.face.speed = newSpeed;
     }
 
     if (weapon) {
