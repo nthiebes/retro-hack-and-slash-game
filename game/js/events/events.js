@@ -34,8 +34,8 @@ export class Events {
         ...event,
         sprite: new Sprite({
           url: `images/items/${event.id.split('.')[0]}.png`,
-          pos: [0, 256],
-          size: [256, 256],
+          pos: [904, 648],
+          size: [120, 120],
           speed: 0,
           frames: [0]
         })

@@ -522,10 +522,10 @@ export default class Canvas {
     config.ctxAnim.save();
 
     config.ctxAnim.translate(
-      item.pos[0] * config.fieldWidth - config.fieldWidth - 20,
-      item.pos[1] * config.fieldWidth - config.fieldWidth
+      item.pos[0] * config.fieldWidth - config.fieldWidth + 90,
+      item.pos[1] * config.fieldWidth - config.fieldWidth + 100
     );
-    item.sprite.render(config.ctxAnim, this.resources);
+    item.sprite.render(config.ctxAnim, this.resources, null, 0.5);
 
     config.ctxAnim.restore();
   }

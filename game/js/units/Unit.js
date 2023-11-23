@@ -271,6 +271,8 @@ export default class Unit {
         type: 'armor',
         name: armor.name,
         slot: armor.gear,
+        set: armor.set,
+        rarity: GameData.armor.material[armor.material].rarity,
         equipped: this.gear[armor.gear] === 'none'
       };
     } else if (weapon) {
@@ -279,23 +281,40 @@ export default class Unit {
         type: 'weapon',
         name: weapon.name,
         slot: weapon.type,
+        set: weapon.set,
+        rarity: weapon.rarity,
         equipped: this.weapons[weapon.type] === 'none'
       };
     } else {
       console.log(item);
     }
 
-    if (item.equipped) {
-      this.equipItem(item);
-    }
-
     this.addToInventory(item);
+
+    if (item.equipped) {
+      this.equipItem(item.id);
+    }
   }
 
-  equipItem = (item) => {
-    const id = item.id.split('.')[0];
+  equipItem = (itemId) => {
+    const id = itemId.split('.')[0];
+    const item = this.inventory.find(
+      (inventoryItem) => inventoryItem.id === itemId
+    );
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
+    const currentItem = this.inventory.find(
+      (existingItem) => existingItem.equipped && existingItem.slot === item.slot
+    );
+
+    if (currentItem) {
+      this.unequipItem(currentItem.id);
+    }
+
+    this.updateInventoryItem({
+      ...item,
+      equipped: true
+    });
 
     if (armor) {
       this.gear[armor.gear] = id;
@@ -341,10 +360,54 @@ export default class Unit {
     }
   };
 
+  unequipItem = (itemId) => {
+    const id = itemId.split('.')[0];
+    const item = this.inventory.find(
+      (inventoryItem) => inventoryItem.id === itemId
+    );
+    const armor = GameData.getArmor(id);
+    const weapon = GameData.getWeapon(id);
+
+    if (armor) {
+      this.gear[armor.gear] = 'none';
+      this[armor.gear].url = 'images/items/none.png';
+
+      this.speed = 0;
+      this.skin.speed = 0;
+      this.head.speed = 0;
+      this.leg.speed = 0;
+      this.torso.speed = 0;
+      this.primary.speed = 0;
+      this.secondary.speed = 0;
+      this.special.speed = 0;
+      this.hair.speed = 0;
+      this.face.speed = 0;
+    }
+
+    if (weapon) {
+      // Order matters?
+      this.weapons[weapon.type] = 'none';
+      this[weapon.type].url = 'images/items/none.png';
+      this.attackSpeed = getAttackSpeed('none');
+      this.animation = '';
+      this.weaponType = weapon.type;
+      this.range = GameData.getWeapon(this.weapons.primary).range;
+    }
+
+    this.updateInventoryItem({
+      ...item,
+      equipped: false
+    });
+  };
+
   addToInventory = (item) => {
     this.inventory.push(item);
+  };
 
-    console.log('inventory', this.inventory);
+  updateInventoryItem = (itemToUpdate) => {
+    this.inventory = this.inventory.map((item) =>
+      item.id === itemToUpdate.id ? itemToUpdate : item
+    );
   };
 
   isPlayerInSight = (playerPos) => {

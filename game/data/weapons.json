@@ -35,7 +35,8 @@
       "name": "Holzfäller Axt",
       "damage": 4,
       "range": 1.5,
-      "speed": 3
+      "speed": 3,
+      "rarity": "common"
     },
 
     {
@@ -44,7 +45,8 @@
       "name": "Doppelseitige Axt",
       "damage": 4,
       "range": 1.5,
-      "speed": 3
+      "speed": 3,
+      "rarity": "epic"
     },
 
     {
@@ -53,7 +55,8 @@
       "name": "Stachelige Keule",
       "damage": 4,
       "range": 1.5,
-      "speed": 3
+      "speed": 3,
+      "rarity": "uncommon"
     },
 
     {

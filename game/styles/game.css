@@ -1,5 +1,11 @@
 @import "base.css";
 
+:root {
+  --cursorDefault: url("../images/cursors/default.png"), default;
+  --cursorUse: url("../images/cursors/use.png"), default;
+  --cursorInfo: url("../images/cursors/info.png"), default;
+}
+
 html,
 body {
   overflow: hidden;
@@ -8,7 +14,7 @@ body {
   background: linear-gradient(90deg, #342a24 0%, #42362f 50%, #342a24 100%);
   color: #3a1f0b;
   font-family: var(--font-family);
-  cursor: url("../images/cursors/default.png"), default;
+  cursor: var(--cursorDefault);
   height: 100%;
 }
 
@@ -28,11 +34,11 @@ body {
 }
 
 .cursor--use {
-  cursor: url("../images/cursors/use.png"), pointer;
+  cursor: var(--cursorUse);
 }
 
 .cursor--info {
-  cursor: url("../images/cursors/info.png"), pointer;
+  cursor: var(--cursorInfo);
 }
 
 .window {
@@ -104,6 +110,7 @@ body {
   text-align: center;
   text-shadow: 0px 0px 3px #000;
   line-height: 1;
+  z-index: 1;
 }
 
 .window__section--editor {
@@ -126,7 +133,7 @@ body {
 .window__close {
   background: url("../images/close.png") no-repeat transparent;
   background-size: contain;
-  cursor: url("../images/cursors/use.png"), pointer;
+  cursor: var(--cursorUse);
   position: absolute;
   top: -12px;
   right: -12px;
@@ -141,7 +148,7 @@ body {
 
 .button {
   background: url("../images/button.png") no-repeat transparent;
-  cursor: url("../images/cursors/use.png"), pointer;
+  cursor: var(--cursorUse);
   background-size: 100% auto;
   color: #e2d8c7;
   text-transform: uppercase;
@@ -179,7 +186,7 @@ body {
 
 .icon-button {
   background: url("../images/icon.png") no-repeat transparent;
-  cursor: url("../images/cursors/use.png"), pointer;
+  cursor: var(--cursorUse);
   background-size: contain;
   color: #e2d8c7;
   width: 40px;
@@ -298,10 +305,10 @@ p {
 
 .preview {
   width: 110px;
-  height: 150px;
+  height: 170px;
   overflow: hidden;
   background-size: 800px 600px;
-  background-position: -40px 350px;
+  background-position: -40px 368px;
   position: absolute;
   top: 0.5rem;
   left: 50%;
@@ -336,17 +343,14 @@ p {
 
 .inventory__preview {
   width: 150px;
-  top: 5rem;
+  top: 4rem;
+  left: calc(50% + 10px);
 }
 
 .inventory__slots {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.inventory__slots .inventory__item {
-  margin-bottom: 2rem;
 }
 
 .inventory__slots .inventory__item:nth-child(2n) {
@@ -356,6 +360,7 @@ p {
 .inventory__items {
   display: flex;
   flex-wrap: wrap;
+  overflow-y: auto;
 }
 
 .inventory__item {
@@ -368,8 +373,29 @@ p {
   border: 4px solid #464646;
   overflow: hidden;
   padding: 5px;
-  box-shadow: 0 2px 0px 0px inset #2d2d2d, 0 -1px 0px 0px #aaa;
-  background-size: 800px 600px;
-  background-position: -90px -150px;
-  cursor: pointer;
+  box-shadow: 0 2px 0px 0px inset #2d2d2d, 0 -1px 0px 0px #aaa,
+    0 0 20px 0px inset rgba(0, 0, 0, 1);
+  background-size: 400px 300px;
+  background-position: -750px -550px;
+  cursor: var(--cursorUse);
+}
+
+.inventory__item--common {
+  background-color: #a2724a;
+}
+
+.inventory__item--uncommon {
+  background-color: #8bc34a;
+}
+
+.inventory__item--rare {
+  background-color: #3f51b5;
+}
+
+.inventory__item--epic {
+  background-color: #9c27b0;
+}
+
+.inventory__item--legendary {
+  background-color: #ffeb3b;
 }

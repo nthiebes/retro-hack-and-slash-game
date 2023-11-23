@@ -26,7 +26,8 @@ export default class Sprite {
     }
   }
 
-  render(ctx, resources, direction) {
+  // eslint-disable-next-line max-params
+  render(ctx, resources, direction, scale) {
     let frame;
 
     if (this.speed > 0) {
@@ -71,6 +72,10 @@ export default class Sprite {
 
       if (direction === 'LEFT') {
         ctx.scale(-1, 1);
+      }
+
+      if (scale) {
+        ctx.scale(scale, scale);
       }
 
       const dx = config.unitScale === 2 ? -64 : -32;

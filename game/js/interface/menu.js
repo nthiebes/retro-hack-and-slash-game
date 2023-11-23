@@ -39,6 +39,9 @@ const inventoryTorsoImg = document.getElementById('inventory-torso-preview');
 const inventoryLegImg = document.getElementById('inventory-leg-preview');
 const inventoryHeadImg = document.getElementById('inventory-head-preview');
 const inventoryItems = document.getElementById('inventory-items');
+const inventorySlots = document.querySelectorAll(
+  '.inventory__slots .inventory__item'
+);
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
 const raceCounter = document.getElementById('race-count');
@@ -295,52 +298,79 @@ export class Menu {
       inventoryOpen = false;
     } else {
       inventoryOpen = true;
-      console.log(Units.player);
-
-      const {
-        skin,
-        face,
-        hair,
-        primary,
-        secondary,
-        head,
-        leg,
-        torso,
-        inventory
-      } = Units.player;
-
-      inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
-      inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
-      inventoryHairImg.style.backgroundImage = `url(/game/${hair.url})`;
-      inventoryPrimaryImg.style.backgroundImage = `url(/game/${primary.url})`;
-      inventorySecondaryImg.style.backgroundImage = `url(/game/${secondary.url})`;
-      inventoryHeadImg.style.backgroundImage = `url(/game/${head.url})`;
-      inventoryTorsoImg.style.backgroundImage = `url(/game/${torso.url})`;
-      inventoryLegImg.style.backgroundImage = `url(/game/${leg.url})`;
-      inventoryItems.innerHTML = '';
-
-      inventory.forEach((item) => {
-        const li = document.createElement('li');
-        const backgroundImage = `url(/game/images/items/${
-          item.id.split('.')[0]
-        }.png)`;
-
-        li.className = 'inventory__item';
-        li.style.backgroundImage = backgroundImage;
-        li.title = item.name;
-
-        if (item.equipped) {
-          document.getElementById(
-            `inventory-${item.slot}`
-          ).style.backgroundImage = backgroundImage;
-        } else {
-          inventoryItems.append(li);
-        }
-      });
+      Menu.updateInventory();
     }
 
     inventoryWindow.classList.toggle('window--show');
     canvasWrapper.classList.toggle('window--focussed');
+  };
+
+  static updateInventory = () => {
+    const {
+      skin,
+      face,
+      hair,
+      primary,
+      secondary,
+      head,
+      leg,
+      torso,
+      inventory
+    } = Units.player;
+
+    inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
+    inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
+    inventoryHairImg.style.backgroundImage = `url(/game/${hair.url})`;
+    inventoryPrimaryImg.style.backgroundImage = `url(/game/${primary.url})`;
+    inventorySecondaryImg.style.backgroundImage = `url(/game/${secondary.url})`;
+    inventoryHeadImg.style.backgroundImage = `url(/game/${head.url})`;
+    inventoryTorsoImg.style.backgroundImage = `url(/game/${torso.url})`;
+    inventoryLegImg.style.backgroundImage = `url(/game/${leg.url})`;
+    inventoryItems.innerHTML = '';
+    inventorySlots.forEach((slot) => {
+      slot.style.backgroundImage = '';
+      slot.className = 'inventory__item';
+    });
+
+    inventory.forEach((item) => {
+      const li = document.createElement('li');
+      const backgroundImage = `url(/game/images/items/${
+        item.id.split('.')[0]
+      }.png)`;
+      const className = `inventory__item inventory__item--${item.rarity}`;
+
+      li.className = className;
+      li.style.backgroundImage = backgroundImage;
+      li.title = item.name;
+
+      if (item.equipped) {
+        const itemInSlot = document.getElementById(`inventory-${item.slot}`);
+
+        itemInSlot.style.backgroundImage = backgroundImage;
+        itemInSlot.className = className;
+        itemInSlot.title = item.name;
+        itemInSlot.setAttribute('data-id', item.id);
+        itemInSlot.addEventListener('click', Menu.handleItemSlotClick);
+      } else {
+        li.setAttribute('data-id', item.id);
+        inventoryItems.append(li);
+        inventoryItems.addEventListener('click', Menu.handleItemClick);
+      }
+    });
+  };
+
+  static handleItemSlotClick = (event) => {
+    const itemId = event.target.getAttribute('data-id');
+
+    Units.player.unequipItem(itemId);
+    Menu.updateInventory();
+  };
+
+  static handleItemClick = (event) => {
+    const itemId = event.target.getAttribute('data-id');
+
+    Units.player.equipItem(itemId);
+    Menu.updateInventory();
   };
 
   static joinGame = (event) => {
