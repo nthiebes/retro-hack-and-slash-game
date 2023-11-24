@@ -137,6 +137,7 @@
     <button class="window__close" id="close-window"></button>
     <h1 class="window__title">Inventar</h1>
     <section class="window__section window__section--small inventory__section">
+        <h2 class="inventory__name" id="inventory-name"></h2>
         <ul class="inventory__slots">
             <li class="inventory__item" id="inventory-head"></li>
             <li class="inventory__item" id="inventory-primary"></li>
@@ -153,7 +154,22 @@
         <div class="preview inventory__preview" id="inventory-leg-preview"></div>
         <div class="preview inventory__preview" id="inventory-head-preview"></div>
         <div class="preview inventory__preview" id="inventory-secondary-preview"></div>
-        <ul class="inventory__stats"></ul>
+        <div class="inventory__stats">
+            <h3 id="inventory-race"></h3>
+            <div id="inventory-damage"></div>
+            <div id="inventory-defense"></div>
+            <div id="inventory-range"></div>
+            <div id="inventory-combatspeed"></div>
+            <div id="inventory-walkspeed"></div>
+        </div>
+        <div class="inventory__stats-hover">
+            <h3 id="inventory-item-hover"></h3>
+            <div class="inventory__stat" id="inventory-damage-hover"></div>
+            <div class="inventory__stat" id="inventory-defense-hover"></div>
+            <div class="inventory__stat" id="inventory-range-hover"></div>
+            <div class="inventory__stat" id="inventory-combatspeed-hover"></div>
+            <div class="inventory__stat" id="inventory-walkspeed-hover"></div>
+        </div>
     </section>
     <section class="window__section window__section--small inventory__section inventory__section--scroll">
         <ul class="inventory__items" id="inventory-items"></ul>

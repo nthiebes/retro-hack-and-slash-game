@@ -1,25 +1,31 @@
 import config from '../config.js';
 import { GameData } from '../gameData.js';
 
-const getDefense = (defender) => {
+export const getDefense = (defender) => {
   const defense =
     GameData.getWeapon(defender.weapons.secondary).defense +
     GameData.races[defender.race].defense;
   const headGearType = (
-    GameData.getArmor(defender.gear.head) || { type: 'none' }
-  ).type;
-  const torsoGearType = GameData.getArmor(defender.gear.torso).type;
-  const legGearType = GameData.getArmor(defender.gear.leg).type;
+    GameData.getArmor(defender.gear.head) || { material: 'none' }
+  ).material;
+  const torsoGearType = GameData.getArmor(defender.gear.torso).material;
+  const legGearType = GameData.getArmor(defender.gear.leg).material;
   const headDefense = GameData.armor.material[headGearType].defense;
   const torsoDefense = GameData.armor.material[torsoGearType].defense;
   const legDefense = GameData.armor.material[legGearType].defense;
 
   return defense + headDefense + torsoDefense + legDefense;
 };
-const fight = (attacker, defender) => {
-  const strength =
+
+export const getStrength = (attacker) => {
+  return (
     GameData.getWeapon(attacker.weapons.primary).damage +
-    GameData.races[attacker.race].strength;
+    GameData.races[attacker.race].strength
+  );
+};
+
+const fight = (attacker, defender) => {
+  const strength = getStrength(attacker);
   const defense = getDefense(defender);
   // const attackerDexterity = GameData.races[attacker.race].dexterity;
   // const defenderDexterity = GameData.races[defender.race].dexterity;
@@ -118,7 +124,7 @@ export const getWalkSpeed = ({ race, gear }) => {
   const speedModifier =
     1 - headSpeedModifier - torsoSpeedModifier - legSpeedModifier;
 
-  return GameData.races[race].speed * speedModifier;
+  return Math.round(GameData.races[race].speed * speedModifier * 100) / 100;
 };
 
 export const getAttackSpeed = (primary) => {

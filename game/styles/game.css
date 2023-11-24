@@ -260,6 +260,9 @@ h2 {
   font-size: 1.8rem;
   line-height: 1;
   margin: 0.5rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 h3 {
@@ -340,7 +343,7 @@ p {
   height: 505px;
   position: relative;
   align-items: flex-start;
-  padding: 3rem 1.5rem;
+  padding: 1.5rem;
 }
 
 .inventory__section--scroll {
@@ -361,6 +364,27 @@ p {
 
 .inventory__slots .inventory__item:nth-child(2n) {
   margin-left: 5rem;
+}
+
+.inventory__stats {
+  width: 50%;
+  display: inline-block;
+}
+
+.inventory__stats-hover {
+  width: 50%;
+  display: inline-block;
+}
+
+.inventory__stat {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inventory__name {
+  text-align: center;
+  width: 100%;
+  margin-top: 0;
 }
 
 .inventory__items {

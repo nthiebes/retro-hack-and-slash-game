@@ -4,6 +4,12 @@ import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
 import { Units } from '../units/units.js';
+import {
+  getDefense,
+  getWalkSpeed,
+  getAttackSpeed,
+  getStrength
+} from '../units/utils.js';
 import { attributesMap, racesMap } from './translations.js';
 
 const mapField = document.getElementById('map');
@@ -41,6 +47,25 @@ const inventoryHeadImg = document.getElementById('inventory-head-preview');
 const inventoryItems = document.getElementById('inventory-items');
 const inventorySlots = document.querySelectorAll(
   '.inventory__slots .inventory__item'
+);
+const inventoryName = document.getElementById('inventory-name');
+const inventoryRace = document.getElementById('inventory-race');
+const inventoryDamage = document.getElementById('inventory-damage');
+const inventoryDefense = document.getElementById('inventory-defense');
+const inventoryRange = document.getElementById('inventory-range');
+const inventoryCombatspeed = document.getElementById('inventory-combatspeed');
+const inventoryWalkspeed = document.getElementById('inventory-walkspeed');
+const inventoryItemHover = document.getElementById('inventory-item-hover');
+const inventoryDamageHover = document.getElementById('inventory-damage-hover');
+const inventoryDefenseHover = document.getElementById(
+  'inventory-defense-hover'
+);
+const inventoryRangeHover = document.getElementById('inventory-range-hover');
+const inventoryCombatspeedHover = document.getElementById(
+  'inventory-combatspeed-hover'
+);
+const inventoryWalkspeedHover = document.getElementById(
+  'inventory-walkspeed-hover'
 );
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
@@ -306,17 +331,26 @@ export class Menu {
   };
 
   static updateInventory = () => {
+    console.log(Units.player);
+
     const {
+      name,
+      race,
       skin,
       face,
       hair,
+      weapons,
       primary,
       secondary,
       head,
       leg,
       torso,
+      gear,
       inventory
     } = Units.player;
+    const strength = getStrength(Units.player);
+    const walkSpeed = getWalkSpeed({ race, gear });
+    const attackSpeed = getAttackSpeed(weapons.primary);
 
     inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
     inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
@@ -331,6 +365,12 @@ export class Menu {
       slot.style.backgroundImage = '';
       slot.className = 'inventory__item';
     });
+    inventoryName.innerHTML = name;
+    inventoryRace.innerHTML = racesMap[race];
+    inventoryDamage.innerHTML = `Schaden: ${strength}`;
+    inventoryDefense.innerHTML = `Verteidigung: ${getDefense(Units.player)}`;
+    inventoryCombatspeed.innerHTML = `Kampf-Speed: ${attackSpeed}`;
+    inventoryWalkspeed.innerHTML = `Lauf-Speed: ${walkSpeed}`;
 
     inventory.forEach((item) => {
       const li = document.createElement('li');
@@ -338,6 +378,22 @@ export class Menu {
         item.id.split('.')[0]
       }.png)`;
       const className = `inventory__item inventory__item--${item.rarity}`;
+      const id = item.id.split('.')[0];
+      const armor = GameData.getArmor(id);
+      const weapon = GameData.getWeapon(id);
+
+      if (armor) {
+        // const armorStats = GameData.armor.material[armor.material];
+        // console.log(armor.name);
+        // console.log(armorStats.defense);
+        // console.log(armorStats.speedModifier);
+      }
+      if (weapon) {
+        // console.log(weapon.name);
+        // console.log(weapon.damage);
+        // console.log(weapon.range);
+        // console.log(weapon.speed);
+      }
 
       li.className = className;
       li.style.backgroundImage = backgroundImage;
