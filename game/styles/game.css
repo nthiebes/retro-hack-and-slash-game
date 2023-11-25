@@ -369,6 +369,12 @@ p {
 .inventory__stats {
   width: 50%;
   display: inline-block;
+  margin: 0 7px;
+}
+
+.inventory__stats > * {
+  display: flex;
+  justify-content: space-between;
 }
 
 .inventory__stats-hover {
@@ -377,14 +383,20 @@ p {
 }
 
 .inventory__stat {
-  display: flex;
-  justify-content: space-between;
+  text-align: right;
+  font-size: 1.2rem;
+  color: #000;
+  line-height: 1;
 }
 
 .inventory__name {
   text-align: center;
   width: 100%;
   margin-top: 0;
+}
+
+.inventory__race {
+  margin: 1rem 0 0.5rem 0;
 }
 
 .inventory__items {

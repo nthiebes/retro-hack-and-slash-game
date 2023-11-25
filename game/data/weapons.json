@@ -5,7 +5,7 @@
       "type": "primary",
       "name": "Faust",
       "damage": 0,
-      "range": 0,
+      "range": 1,
       "defense": 0,
       "speed": 4
     },

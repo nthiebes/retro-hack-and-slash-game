@@ -346,11 +346,9 @@ export class Menu {
       leg,
       torso,
       gear,
+      range,
       inventory
     } = Units.player;
-    const strength = getStrength(Units.player);
-    const walkSpeed = getWalkSpeed({ race, gear });
-    const attackSpeed = getAttackSpeed(weapons.primary);
 
     inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
     inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
@@ -367,10 +365,11 @@ export class Menu {
     });
     inventoryName.innerHTML = name;
     inventoryRace.innerHTML = racesMap[race];
-    inventoryDamage.innerHTML = `Schaden: ${strength}`;
-    inventoryDefense.innerHTML = `Verteidigung: ${getDefense(Units.player)}`;
-    inventoryCombatspeed.innerHTML = `Kampf-Speed: ${attackSpeed}`;
-    inventoryWalkspeed.innerHTML = `Lauf-Speed: ${walkSpeed}`;
+    inventoryDamage.innerHTML = getStrength(Units.player);
+    inventoryDefense.innerHTML = getDefense(Units.player);
+    inventoryRange.innerHTML = range;
+    inventoryCombatspeed.innerHTML = getAttackSpeed(weapons.primary);
+    inventoryWalkspeed.innerHTML = getWalkSpeed({ race, gear });
 
     inventory.forEach((item) => {
       const li = document.createElement('li');
