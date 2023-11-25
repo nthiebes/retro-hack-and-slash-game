@@ -43,7 +43,7 @@
       "id": "axe1",
       "type": "primary",
       "name": "Doppelseitige Axt",
-      "damage": 4,
+      "damage": 4.5,
       "range": 1.5,
       "speed": 3,
       "rarity": "epic"

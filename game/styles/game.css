@@ -367,26 +367,44 @@ p {
 }
 
 .inventory__stats {
-  width: 50%;
-  display: inline-block;
+  display: flex;
   margin: 0 7px;
+  width: 100%;
+  line-height: 27px;
 }
 
-.inventory__stats > * {
+.inventory__stats-equipped {
+  width: 45%;
+  padding-right: 10px;
+}
+
+.inventory__stats-equipped > * {
   display: flex;
   justify-content: space-between;
 }
 
 .inventory__stats-hover {
-  width: 50%;
-  display: inline-block;
+  width: 10%;
+}
+
+.inventory__stats-item {
+  width: 45%;
+  padding-left: 10px;
 }
 
 .inventory__stat {
   text-align: right;
   font-size: 1.2rem;
   color: #000;
-  line-height: 1;
+  height: 27px;
+}
+
+.inventory__stat--plus {
+  color: #3a6f20;
+}
+
+.inventory__stat--minus {
+  color: #bf5025;
 }
 
 .inventory__name {

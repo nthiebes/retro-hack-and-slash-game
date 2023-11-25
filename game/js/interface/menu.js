@@ -350,6 +350,7 @@ export class Menu {
       inventory
     } = Units.player;
 
+    Menu.resetHover();
     inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
     inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
     inventoryHairImg.style.backgroundImage = `url(/game/${hair.url})`;
@@ -410,8 +411,22 @@ export class Menu {
         li.setAttribute('data-id', item.id);
         inventoryItems.append(li);
         inventoryItems.addEventListener('click', Menu.handleItemClick);
+        inventoryItems.addEventListener('mouseover', Menu.handleItemHover);
       }
     });
+  };
+
+  static resetHover = () => {
+    inventoryDamageHover.innerHTML = '';
+    inventoryDamageHover.className = 'inventory__stat';
+    inventoryDefenseHover.innerHTML = '';
+    inventoryDefenseHover.className = 'inventory__stat';
+    inventoryCombatspeedHover.innerHTML = '';
+    inventoryCombatspeedHover.className = 'inventory__stat';
+    inventoryWalkspeedHover.innerHTML = '';
+    inventoryWalkspeedHover.className = 'inventory__stat';
+    inventoryRangeHover.innerHTML = '';
+    inventoryRangeHover.className = 'inventory__stat';
   };
 
   static handleItemSlotClick = (event) => {
@@ -426,6 +441,116 @@ export class Menu {
 
     Units.player.equipItem(itemId);
     Menu.updateInventory();
+  };
+
+  static handleItemHover = (event) => {
+    const itemId = event.target.getAttribute('data-id');
+
+    if (!itemId) {
+      Menu.resetHover();
+      return;
+    }
+
+    const player = Units.player;
+    const item = player.inventory.find(({ id }) => id === itemId);
+    const id = itemId.split('.')[0];
+    const currentStrength = getStrength(player);
+    const currentDefense = getDefense(player);
+    const currentAttackSpeed = getAttackSpeed(player.weapons.primary);
+    const currentWalkSpeed = getWalkSpeed({
+      race: player.race,
+      gear: player.gear
+    });
+    const currentRange = player.range;
+    const armor = GameData.getArmor(id);
+    const weapon = GameData.getWeapon(id);
+
+    if (weapon) {
+      const strength = getStrength({
+        ...player,
+        weapons: {
+          [item.slot]: id
+        }
+      });
+      const attackSpeed = getAttackSpeed(id);
+      const range = weapon.range;
+
+      if (strength > currentStrength) {
+        inventoryDamageHover.innerHTML = `+${Menu.roundStat(
+          strength - currentStrength
+        )}`;
+        inventoryDamageHover.classList.add('inventory__stat--plus');
+      } else if (strength < currentStrength) {
+        inventoryDamageHover.innerHTML = `-${Menu.roundStat(
+          currentStrength - strength
+        )}`;
+        inventoryDamageHover.classList.add('inventory__stat--minus');
+      }
+      if (attackSpeed > currentAttackSpeed) {
+        inventoryCombatspeedHover.innerHTML = `+${Menu.roundStat(
+          attackSpeed - currentAttackSpeed
+        )}`;
+        inventoryCombatspeedHover.classList.add('inventory__stat--plus');
+      } else if (attackSpeed < currentAttackSpeed) {
+        inventoryCombatspeedHover.innerHTML = `-${Menu.roundStat(
+          currentAttackSpeed - attackSpeed
+        )}`;
+        inventoryCombatspeedHover.classList.add('inventory__stat--minus');
+      }
+      if (range > currentRange) {
+        inventoryRangeHover.innerHTML = `+${Menu.roundStat(
+          range - currentRange
+        )}`;
+        inventoryRangeHover.classList.add('inventory__stat--plus');
+      } else if (range < currentRange) {
+        inventoryRangeHover.innerHTML = `-${Menu.roundStat(
+          currentRange - range
+        )}`;
+        inventoryRangeHover.classList.add('inventory__stat--minus');
+      }
+    } else if (armor) {
+      const defense = getDefense({
+        ...player,
+        gear: {
+          ...player.gear,
+          [item.slot]: id
+        }
+      });
+      const walkSpeed = getWalkSpeed({
+        race: player.race,
+        gear: {
+          ...player.gear,
+          [item.slot]: id
+        }
+      });
+
+      if (defense > currentDefense) {
+        inventoryDefenseHover.innerHTML = `+${Menu.roundStat(
+          defense - currentDefense
+        )}`;
+        inventoryDefenseHover.classList.add('inventory__stat--plus');
+      } else if (defense < currentDefense) {
+        inventoryDefenseHover.innerHTML = `-${Menu.roundStat(
+          currentDefense - defense
+        )}`;
+        inventoryDefenseHover.classList.add('inventory__stat--minus');
+      }
+      if (walkSpeed > currentWalkSpeed) {
+        inventoryWalkspeedHover.innerHTML = `+${Menu.roundStat(
+          walkSpeed - currentWalkSpeed
+        )}`;
+        inventoryWalkspeedHover.classList.add('inventory__stat--plus');
+      } else if (walkSpeed < currentWalkSpeed) {
+        inventoryWalkspeedHover.innerHTML = `-${Menu.roundStat(
+          currentWalkSpeed - walkSpeed
+        )}`;
+        inventoryWalkspeedHover.classList.add('inventory__stat--minus');
+      }
+    }
+  };
+
+  static roundStat = (value) => {
+    return Math.round(value * 100) / 100;
   };
 
   static joinGame = (event) => {

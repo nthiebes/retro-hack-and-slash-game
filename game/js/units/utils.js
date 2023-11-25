@@ -5,9 +5,7 @@ export const getDefense = (defender) => {
   const defense =
     GameData.getWeapon(defender.weapons.secondary).defense +
     GameData.races[defender.race].defense;
-  const headGearType = (
-    GameData.getArmor(defender.gear.head) || { material: 'none' }
-  ).material;
+  const headGearType = GameData.getArmor(defender.gear.head).material;
   const torsoGearType = GameData.getArmor(defender.gear.torso).material;
   const legGearType = GameData.getArmor(defender.gear.leg).material;
   const headDefense = GameData.armor.material[headGearType].defense;

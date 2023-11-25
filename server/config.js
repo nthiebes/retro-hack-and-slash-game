@@ -13,9 +13,15 @@ const config = {
       'blackForest',
       'deadForest'
     ],
-    forest: ['forest', 'lightForest', 'blackForest', 'deadForest'],
-    blackForest: ['blackForest', 'lightForest', 'forest', 'deadForest'],
-    deadForest: ['deadForest', 'blackForest', 'lightForest', 'forest'],
+    forest: ['plain', 'forest', 'lightForest', 'blackForest', 'deadForest'],
+    blackForest: [
+      'plain',
+      'blackForest',
+      'lightForest',
+      'forest',
+      'deadForest'
+    ],
+    deadForest: ['plain', 'deadForest', 'blackForest', 'lightForest', 'forest'],
     desert: ['desert', 'savannah', 'oasis'],
     oasis: ['desert', 'oasis'],
     savannah: ['savannah', 'desert', 'plain']
