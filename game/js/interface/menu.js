@@ -55,7 +55,6 @@ const inventoryDefense = document.getElementById('inventory-defense');
 const inventoryRange = document.getElementById('inventory-range');
 const inventoryCombatspeed = document.getElementById('inventory-combatspeed');
 const inventoryWalkspeed = document.getElementById('inventory-walkspeed');
-const inventoryItemHover = document.getElementById('inventory-item-hover');
 const inventoryDamageHover = document.getElementById('inventory-damage-hover');
 const inventoryDefenseHover = document.getElementById(
   'inventory-defense-hover'
@@ -67,6 +66,12 @@ const inventoryCombatspeedHover = document.getElementById(
 const inventoryWalkspeedHover = document.getElementById(
   'inventory-walkspeed-hover'
 );
+const inventoryPrimaryIcon = document.getElementById('inventory-primary');
+const inventorySecondaryIcon = document.getElementById('inventory-secondary');
+const inventoryHeadIcon = document.getElementById('inventory-head');
+const inventoryTorsoIcon = document.getElementById('inventory-torso');
+const inventoryLegIcon = document.getElementById('inventory-leg');
+const inventoryJewleryIcon = document.getElementById('inventory-jewlery');
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
 const raceCounter = document.getElementById('race-count');
@@ -366,11 +371,13 @@ export class Menu {
     });
     inventoryName.innerHTML = name;
     inventoryRace.innerHTML = racesMap[race];
-    inventoryDamage.innerHTML = getStrength(Units.player);
-    inventoryDefense.innerHTML = getDefense(Units.player);
+    inventoryDamage.innerHTML = Menu.roundStat(getStrength(Units.player));
+    inventoryDefense.innerHTML = Menu.roundStat(getDefense(Units.player));
     inventoryRange.innerHTML = range;
-    inventoryCombatspeed.innerHTML = getAttackSpeed(weapons.primary);
-    inventoryWalkspeed.innerHTML = getWalkSpeed({ race, gear });
+    inventoryCombatspeed.innerHTML = Menu.roundStat(
+      getAttackSpeed(weapons.primary)
+    );
+    inventoryWalkspeed.innerHTML = Menu.roundStat(getWalkSpeed({ race, gear }));
 
     inventory.forEach((item) => {
       const li = document.createElement('li');
@@ -427,6 +434,12 @@ export class Menu {
     inventoryWalkspeedHover.className = 'inventory__stat';
     inventoryRangeHover.innerHTML = '';
     inventoryRangeHover.className = 'inventory__stat';
+    inventoryPrimaryIcon.classList.remove('inventory__item--highlighted');
+    inventorySecondaryIcon.classList.remove('inventory__item--highlighted');
+    inventoryHeadIcon.classList.remove('inventory__item--highlighted');
+    inventoryTorsoIcon.classList.remove('inventory__item--highlighted');
+    inventoryLegIcon.classList.remove('inventory__item--highlighted');
+    inventoryJewleryIcon.classList.remove('inventory__item--highlighted');
   };
 
   static handleItemSlotClick = (event) => {
@@ -434,6 +447,8 @@ export class Menu {
 
     Units.player.unequipItem(itemId);
     Menu.updateInventory();
+    event.target.title = '';
+    event.target.setAttribute('data-id', '');
   };
 
   static handleItemClick = (event) => {
@@ -474,6 +489,9 @@ export class Menu {
       });
       const attackSpeed = getAttackSpeed(id);
       const range = weapon.range;
+      document
+        .getElementById(`inventory-${weapon.type}`)
+        .classList.add('inventory__item--highlighted');
 
       if (strength > currentStrength) {
         inventoryDamageHover.innerHTML = `+${Menu.roundStat(
@@ -516,6 +534,9 @@ export class Menu {
           secondary: id
         }
       });
+      document
+        .getElementById(`inventory-${weapon.type}`)
+        .classList.add('inventory__item--highlighted');
 
       if (defense > currentDefense) {
         inventoryDefenseHover.innerHTML = `+${Menu.roundStat(
@@ -538,6 +559,9 @@ export class Menu {
           [item.slot]: id
         }
       });
+      document
+        .getElementById(`inventory-${item.slot}`)
+        .classList.add('inventory__item--highlighted');
 
       if (defense > currentDefense) {
         inventoryDefenseHover.innerHTML = `+${Menu.roundStat(
