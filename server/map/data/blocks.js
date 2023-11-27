@@ -1999,7 +1999,17 @@ const blocks = {
       { pos: [1, 1], type: 'item', id: 'head_leather_0' },
       { pos: [2, 1], type: 'item', id: 'head_iron_0' },
       { pos: [3, 1], type: 'item', id: 'head_plate_0' },
-      { pos: [4, 1], type: 'item', id: 'head_plate_1' }
+      { pos: [4, 1], type: 'item', id: 'head_plate_1' },
+      { pos: [1, 2], type: 'item', id: 'torso_leather_0' },
+      { pos: [2, 2], type: 'item', id: 'leg_leather_0' },
+      { pos: [3, 2], type: 'item', id: 'torso_plate_0' },
+      { pos: [4, 2], type: 'item', id: 'leg_plate_0' },
+      { pos: [1, 3], type: 'item', id: 'shield_plate_0' },
+      { pos: [1, 4], type: 'item', id: 'sword0' },
+      { pos: [2, 4], type: 'item', id: 'sword1' },
+      { pos: [3, 4], type: 'item', id: 'sword2' },
+      { pos: [4, 4], type: 'item', id: 'sword3' },
+      { pos: [5, 4], type: 'item', id: 'sword4' }
     ]
   }
 };

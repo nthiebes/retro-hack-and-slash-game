@@ -465,7 +465,7 @@ export class Menu {
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
 
-    if (weapon) {
+    if (weapon && weapon.type === 'primary') {
       const strength = getStrength({
         ...player,
         weapons: {
@@ -507,6 +507,21 @@ export class Menu {
           currentRange - range
         )}`;
         inventoryRangeHover.classList.add('inventory__stat--minus');
+      }
+    } else if (weapon) {
+      const defense = getDefense({
+        ...player,
+        weapons: {
+          ...player.weapons,
+          secondary: id
+        }
+      });
+
+      if (defense > currentDefense) {
+        inventoryDefenseHover.innerHTML = `+${Menu.roundStat(
+          defense - currentDefense
+        )}`;
+        inventoryDefenseHover.classList.add('inventory__stat--plus');
       }
     } else if (armor) {
       const defense = getDefense({

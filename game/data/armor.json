@@ -50,12 +50,6 @@
     },
     {
       "gear": "torso",
-      "id": "torso_iron_0",
-      "name": "Eisenrüstung",
-      "material": "iron"
-    },
-    {
-      "gear": "torso",
       "id": "torso_cloth_0",
       "name": "Stoffrüstung",
       "material": "cloth"
@@ -67,10 +61,22 @@
       "material": "leather"
     },
     {
-      "gear": "leg",
-      "id": "leg_iron_0",
-      "name": "Eisenbeine",
+      "gear": "torso",
+      "id": "torso_iron_0",
+      "name": "Eisenrüstung",
       "material": "iron"
+    },
+    {
+      "gear": "torso",
+      "id": "torso_steel_0",
+      "name": "Stahlrüstung",
+      "material": "steel"
+    },
+    {
+      "gear": "torso",
+      "id": "torso_plate_0",
+      "name": "Plattenrüstung",
+      "material": "plate"
     },
     {
       "gear": "leg",
@@ -83,6 +89,24 @@
       "id": "leg_leather_0",
       "name": "Lederbeine",
       "material": "leather"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_iron_0",
+      "name": "Eisenbeine",
+      "material": "iron"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_steel_0",
+      "name": "Stahlbeine",
+      "material": "steel"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_plate_0",
+      "name": "Plattenbeine",
+      "material": "plate"
     }
   ],
   "material": {

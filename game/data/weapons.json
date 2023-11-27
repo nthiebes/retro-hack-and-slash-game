@@ -11,29 +11,60 @@
     },
 
     {
-      "id": "sword",
+      "id": "sword0",
       "type": "primary",
       "name": "Schwert",
-      "damage": 3,
+      "damage": 2,
       "range": 1.7,
-      "speed": 4
+      "speed": 4,
+      "rarity": "common"
     },
 
     {
-      "id": "spear",
+      "id": "sword1",
       "type": "primary",
-      "name": "Speer",
-      "damage": 2,
-      "range": 2.2,
-      "animation": "stab",
-      "speed": 3
+      "name": "Schwert",
+      "damage": 2.3,
+      "range": 1.7,
+      "speed": 4,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "sword2",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 2.6,
+      "range": 1.7,
+      "speed": 4,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "sword3",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 2.9,
+      "range": 1.7,
+      "speed": 4,
+      "rarity": "epic"
+    },
+
+    {
+      "id": "sword4",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 3.2,
+      "range": 1.7,
+      "speed": 4,
+      "rarity": "legendary"
     },
 
     {
       "id": "axe0",
       "type": "primary",
       "name": "Holzfäller Axt",
-      "damage": 4,
+      "damage": 3,
       "range": 1.5,
       "speed": 3,
       "rarity": "common"
@@ -43,7 +74,7 @@
       "id": "axe1",
       "type": "primary",
       "name": "Doppelseitige Axt",
-      "damage": 4.5,
+      "damage": 3.3,
       "range": 1.5,
       "speed": 3,
       "rarity": "epic"
@@ -57,6 +88,16 @@
       "range": 1.5,
       "speed": 3,
       "rarity": "uncommon"
+    },
+
+    {
+      "id": "spear",
+      "type": "primary",
+      "name": "Speer",
+      "damage": 2,
+      "range": 2.2,
+      "animation": "stab",
+      "speed": 3
     },
 
     {
@@ -129,10 +170,11 @@
     },
 
     {
-      "id": "shield",
+      "id": "shield_plate_0",
       "type": "secondary",
-      "name": "Schild",
-      "defense": 1
+      "name": "Plattenschild",
+      "defense": 1,
+      "rarity": "legendary"
     }
   ]
 }
