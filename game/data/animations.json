@@ -2,47 +2,35 @@
   "list": [
     {
       "id": "campfire",
-      "name": "Lagerfeuer 1x2",
+      "name": "Lagerfeuer",
       "autoplay": true,
       "sprite": {
-        "frames": [0, 1, 2, 3, 4, 5],
+        "frames": [0, 1, 2, 3, 4, 5, 6],
         "pos": [0, 0],
-        "size": [32, 64],
+        "size": [100, 100],
         "speed": 7
       }
     },
     {
       "id": "axe",
-      "name": "Baumstamm Axt 1x1",
+      "name": "Baumstamm mit Axt",
       "autoplay": false,
       "sprite": {
         "frames": [0, 1],
-        "pos": [0, 64],
-        "size": [32, 32],
+        "pos": [0, 100],
+        "size": [100, 100],
         "speed": 20,
         "stay": true
       }
     },
     {
-      "id": "barrel",
-      "name": "Fass 1x1",
+      "id": "barrel0",
+      "name": "Fass",
       "autoplay": false,
       "sprite": {
         "frames": [0, 1],
-        "pos": [0, 96],
-        "size": [32, 32],
-        "speed": 20,
-        "stay": true
-      }
-    },
-    {
-      "id": "jug",
-      "name": "Krug 1x1",
-      "autoplay": false,
-      "sprite": {
-        "frames": [0, 1],
-        "pos": [0, 128],
-        "size": [32, 32],
+        "pos": [0, 200],
+        "size": [100, 100],
         "speed": 20,
         "stay": true
       }

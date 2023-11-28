@@ -193,6 +193,7 @@ export default class Canvas {
       this.interactions.updateMap(this.map);
       this.interactions.setServerRequestInProgress(false);
       Events.updateEvents(mapData.events);
+      Animations.updateAnimations(mapData.animations);
       this.drawMap();
     });
   }
@@ -544,8 +545,8 @@ export default class Canvas {
     config.ctxAnim.save();
 
     config.ctxAnim.translate(
-      animation.pos[0] * config.fieldWidth,
-      animation.pos[1] * config.fieldWidth
+      animation.pos[0] * config.fieldWidth + 25,
+      animation.pos[1] * config.fieldWidth + 55
     );
     animation.sprite.render(config.ctxAnim, this.resources);
 

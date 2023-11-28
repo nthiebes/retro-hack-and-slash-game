@@ -3,6 +3,7 @@ import { Input } from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
 import { Events } from '../events/events.js';
+import { GameData } from '../gameData.js';
 import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
 
@@ -119,11 +120,8 @@ class Interactions {
       } else if (event && this.eventInRange({ x, y })) {
         const animation = Animations.getAnimation({ x, y });
 
-        // console.log('event', event);
+        console.log('event', event);
 
-        if (animation) {
-          animation.play();
-        }
         if (event.type === 'item') {
           player.takeItem(event);
           Events.removeEvent(event);
@@ -131,6 +129,28 @@ class Interactions {
           // socket.emit('equip', { event });
           body.classList.add('cursor--use');
           body.classList.remove('cursor--info');
+        }
+        if (event.type === 'loot') {
+          const id = event.id.split('.')[0];
+
+          if (id.includes('random')) {
+            const randomItem = GameData.getRandomItem(id);
+            console.log(randomItem);
+          } else {
+            player.takeItem(event);
+          }
+
+          Events.removeEvent(event);
+          animation.play();
+          body.classList.add('cursor--use');
+          body.classList.remove('cursor--info');
+        }
+        if (event.type === 'fire') {
+          if (animation.sprite.once) {
+            animation.continue();
+          } else {
+            animation.stop();
+          }
         }
       } else {
         // Start animation

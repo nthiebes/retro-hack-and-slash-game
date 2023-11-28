@@ -11,4 +11,14 @@ export default class Animation {
     this.sprite.index = 0;
     this.sprite.frames = this.frames;
   }
+
+  continue() {
+    this.sprite.once = false;
+    this.sprite.done = false;
+  }
+
+  stop() {
+    this.sprite.once = true;
+    this.sprite.done = true;
+  }
 }

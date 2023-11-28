@@ -3,7 +3,7 @@ import Sprite from '../utils/Sprite.js';
 import Animation from './Animation.js';
 import { GameData } from '../gameData.js';
 
-const listData = [];
+let listData = [];
 
 export class Animations {
   static get list() {
@@ -47,5 +47,20 @@ export class Animations {
         config.debug
       )
     );
+  }
+
+  static updateAnimations(animations) {
+    listData = [];
+
+    for (let i = 0; i < animations.length; i++) {
+      const animation = animations[i];
+      const animationData = GameData.getAnimation(animation.id);
+
+      this.addAnimation({
+        ...animationData,
+        pos: animation.pos,
+        id: `${animation.id}.${i}`
+      });
+    }
   }
 }

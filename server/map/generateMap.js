@@ -222,6 +222,77 @@ const generateMap = ({ chunks, centerChunkPos }) => {
     }));
   }
 
+  // Offset animations
+  let centerChunkAnimations,
+    topChunkAnimations,
+    topRightChunkAnimations,
+    rightChunkAnimations,
+    bottomRightChunkAnimations,
+    bottomChunkAnimations,
+    bottomLeftChunkAnimations,
+    leftChunkAnimations,
+    topLeftChunkAnimations;
+
+  if (centerChunk.animations) {
+    centerChunkAnimations = centerChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize, animation.pos[1] + chunkSize]
+    }));
+  }
+  if (topChunk.animations) {
+    topChunkAnimations = topChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize, animation.pos[1] + 0]
+    }));
+  }
+  if (topRightChunk.animations) {
+    topRightChunkAnimations = topRightChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize * 2, animation.pos[1] + 0]
+    }));
+  }
+  if (rightChunk.animations) {
+    rightChunkAnimations = rightChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize * 2, animation.pos[1] + chunkSize]
+    }));
+  }
+  if (bottomRightChunk.animations) {
+    bottomRightChunkAnimations = bottomRightChunk.animations.map(
+      (animation) => ({
+        ...animation,
+        pos: [
+          animation.pos[0] + chunkSize * 2,
+          animation.pos[1] + chunkSize * 2
+        ]
+      })
+    );
+  }
+  if (bottomChunk.animations) {
+    bottomChunkAnimations = bottomChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize, animation.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomLeftChunk.animations) {
+    bottomLeftChunkAnimations = bottomLeftChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + 0, animation.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (leftChunk.animations) {
+    leftChunkAnimations = leftChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + 0, animation.pos[1] + chunkSize]
+    }));
+  }
+  if (topLeftChunk.animations) {
+    topLeftChunkAnimations = topLeftChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + 0, animation.pos[1] + 0]
+    }));
+  }
+
   const playerPosition = Math.round((chunkSize * 3) / 2);
 
   return {
@@ -249,15 +320,15 @@ const generateMap = ({ chunks, centerChunkPos }) => {
       ...topLeftChunkEvents
     ],
     animations: [
-      ...centerChunk.animations,
-      ...topChunk.animations,
-      ...topRightChunk.animations,
-      ...rightChunk.animations,
-      ...bottomRightChunk.animations,
-      ...bottomChunk.animations,
-      ...bottomLeftChunk.animations,
-      ...leftChunk.animations,
-      ...topLeftChunk.animations
+      ...centerChunkAnimations,
+      ...topChunkAnimations,
+      ...topRightChunkAnimations,
+      ...rightChunkAnimations,
+      ...bottomRightChunkAnimations,
+      ...bottomChunkAnimations,
+      ...bottomLeftChunkAnimations,
+      ...leftChunkAnimations,
+      ...topLeftChunkAnimations
     ],
     maps: [],
     map: [mapGround1, mapGround2, mapTop1, mapBlocked]

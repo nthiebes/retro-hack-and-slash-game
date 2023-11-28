@@ -1931,15 +1931,14 @@ const blocks = {
     map: [
       [],
       [
-        [748, 749],
-        [764, 765]
+        [772, 773, 774],
+        [788, 789, 790]
       ],
       [],
-      [
-        [1, 1],
-        [1, 1]
-      ]
-    ]
+      []
+    ],
+    animations: [{ pos: [1, 0], id: 'campfire' }],
+    events: [{ pos: [1, 0], id: 'campfire', type: 'fire' }]
   },
   campfire1: {
     map: [
@@ -1954,6 +1953,16 @@ const blocks = {
         [1, 1, 1, 1]
       ]
     ]
+  },
+  stumpAxe0: {
+    map: [[], [[16]], [], [[1]]],
+    animations: [{ pos: [0, 0], id: 'axe' }],
+    events: [{ pos: [0, 0], id: 'axe0', type: 'loot' }]
+  },
+  barrelLoot0: {
+    map: [[], [[16]], [], [[1]]],
+    animations: [{ pos: [0, 0], id: 'barrel0' }],
+    events: [{ pos: [0, 0], id: 'random1', type: 'loot' }]
   },
   camp0: {
     map: [
