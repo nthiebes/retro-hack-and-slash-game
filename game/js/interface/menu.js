@@ -543,6 +543,11 @@ export class Menu {
           defense - currentDefense
         )}`;
         inventoryDefenseHover.classList.add('inventory__stat--plus');
+      } else if (defense < currentDefense) {
+        inventoryDefenseHover.innerHTML = `-${Menu.roundStat(
+          currentDefense - defense
+        )}`;
+        inventoryDefenseHover.classList.add('inventory__stat--minus');
       }
     } else if (armor) {
       const defense = getDefense({

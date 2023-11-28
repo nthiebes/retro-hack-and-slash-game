@@ -64,7 +64,7 @@
       "id": "axe0",
       "type": "primary",
       "name": "Holzfäller Axt",
-      "damage": 3,
+      "damage": 2.4,
       "range": 1.5,
       "speed": 3,
       "rarity": "common"
@@ -74,10 +74,60 @@
       "id": "axe1",
       "type": "primary",
       "name": "Doppelseitige Axt",
+      "damage": 3,
+      "range": 1.5,
+      "speed": 3,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "axe2",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 2.4,
+      "range": 1.5,
+      "speed": 3,
+      "rarity": "common"
+    },
+
+    {
+      "id": "axe3",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 2.7,
+      "range": 1.5,
+      "speed": 3,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "axe4",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 3,
+      "range": 1.5,
+      "speed": 3,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "axe5",
+      "type": "primary",
+      "name": "Axt",
       "damage": 3.3,
       "range": 1.5,
       "speed": 3,
       "rarity": "epic"
+    },
+
+    {
+      "id": "axe6",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 3.6,
+      "range": 1.5,
+      "speed": 3,
+      "rarity": "legendary"
     },
 
     {
@@ -170,9 +220,49 @@
     },
 
     {
-      "id": "shield_plate_0",
+      "id": "shield0",
       "type": "secondary",
       "name": "Plattenschild",
+      "defense": 1,
+      "rarity": "legendary"
+    },
+
+    {
+      "id": "shield1",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.2,
+      "rarity": "common"
+    },
+
+    {
+      "id": "shield2",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.4,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "shield3",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.6,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "shield4",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.8,
+      "rarity": "epic"
+    },
+
+    {
+      "id": "shield5",
+      "type": "secondary",
+      "name": "Schild",
       "defense": 1,
       "rarity": "legendary"
     }
