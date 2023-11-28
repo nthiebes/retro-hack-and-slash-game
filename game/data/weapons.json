@@ -11,6 +11,16 @@
     },
 
     {
+      "id": "club0",
+      "type": "primary",
+      "name": "Stachelige Keule",
+      "damage": 2.3,
+      "range": 1.5,
+      "speed": 3.5,
+      "rarity": "uncommon"
+    },
+
+    {
       "id": "sword0",
       "type": "primary",
       "name": "Schwert",
@@ -128,16 +138,6 @@
       "range": 1.5,
       "speed": 3,
       "rarity": "legendary"
-    },
-
-    {
-      "id": "club0",
-      "type": "primary",
-      "name": "Stachelige Keule",
-      "damage": 4,
-      "range": 1.5,
-      "speed": 3,
-      "rarity": "uncommon"
     },
 
     {

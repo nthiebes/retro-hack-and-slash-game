@@ -8,7 +8,9 @@ import {
   getDefense,
   getWalkSpeed,
   getAttackSpeed,
-  getStrength
+  getStrength,
+  getDexterity,
+  getIntelligence
 } from '../units/utils.js';
 import { attributesMap, racesMap } from './translations.js';
 
@@ -55,6 +57,8 @@ const inventoryDefense = document.getElementById('inventory-defense');
 const inventoryRange = document.getElementById('inventory-range');
 const inventoryCombatspeed = document.getElementById('inventory-combatspeed');
 const inventoryWalkspeed = document.getElementById('inventory-walkspeed');
+const inventoryDexterity = document.getElementById('inventory-dexterity');
+const inventoryIntelligence = document.getElementById('inventory-intelligence');
 const inventoryDamageHover = document.getElementById('inventory-damage-hover');
 const inventoryDefenseHover = document.getElementById(
   'inventory-defense-hover'
@@ -336,8 +340,6 @@ export class Menu {
   };
 
   static updateInventory = () => {
-    console.log(Units.player);
-
     const {
       name,
       race,
@@ -352,13 +354,19 @@ export class Menu {
       torso,
       gear,
       range,
-      inventory
+      inventory,
+      noHair,
+      noFace
     } = Units.player;
 
     Menu.resetHover();
     inventoryRaceImg.style.backgroundImage = `url(/game/${skin.url})`;
-    inventoryFaceImg.style.backgroundImage = `url(/game/${face.url})`;
-    inventoryHairImg.style.backgroundImage = `url(/game/${hair.url})`;
+    inventoryFaceImg.style.backgroundImage = `url(/game/${
+      noFace ? 'images/hair/human/hair0.png' : face.url
+    })`;
+    inventoryHairImg.style.backgroundImage = `url(/game/${
+      noHair ? 'images/hair/human/hair0.png' : hair.url
+    })`;
     inventoryPrimaryImg.style.backgroundImage = `url(/game/${primary.url})`;
     inventorySecondaryImg.style.backgroundImage = `url(/game/${secondary.url})`;
     inventoryHeadImg.style.backgroundImage = `url(/game/${head.url})`;
@@ -374,6 +382,8 @@ export class Menu {
     inventoryDamage.innerHTML = Menu.roundStat(getStrength(Units.player));
     inventoryDefense.innerHTML = Menu.roundStat(getDefense(Units.player));
     inventoryRange.innerHTML = range;
+    inventoryDexterity.innerHTML = getDexterity(Units.player);
+    inventoryIntelligence.innerHTML = getIntelligence(Units.player);
     inventoryCombatspeed.innerHTML = Menu.roundStat(
       getAttackSpeed(weapons.primary)
     );

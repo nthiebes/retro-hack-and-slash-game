@@ -504,6 +504,16 @@ export default class Canvas {
     }
 
     for (let i = 0; i < unitList.length; i++) {
+      const noHair = unitList[i].noHair;
+      const noFace = unitList[i].noFace;
+
+      if (noHair) {
+        unitList[i].hair.url = 'images/hair/human/hair0.png';
+      }
+      if (noFace) {
+        unitList[i].face.url = 'images/hair/human/hair0.png';
+      }
+
       this.renderUnit(unitList[i], [
         unitList[i].primary,
         unitList[i].skin,

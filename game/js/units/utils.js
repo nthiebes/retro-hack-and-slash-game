@@ -22,6 +22,14 @@ export const getStrength = (attacker) => {
   );
 };
 
+export const getDexterity = (unit) => {
+  return GameData.races[unit.race].dexterity;
+};
+
+export const getIntelligence = (unit) => {
+  return GameData.races[unit.race].intelligence;
+};
+
 const fight = (attacker, defender) => {
   const strength = getStrength(attacker);
   const defense = getDefense(defender);

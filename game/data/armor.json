@@ -8,12 +8,6 @@
     },
     {
       "gear": "head",
-      "id": "head_iron_0",
-      "name": "Eisenkappe",
-      "material": "iron"
-    },
-    {
-      "gear": "head",
       "id": "head_cloth_0",
       "name": "Kapuze",
       "material": "cloth"
@@ -22,7 +16,15 @@
       "gear": "head",
       "id": "head_leather_0",
       "name": "Lederhelm",
-      "material": "leather"
+      "material": "leather",
+      "noHair": true
+    },
+    {
+      "gear": "head",
+      "id": "head_iron_0",
+      "name": "Eisenkappe",
+      "material": "iron",
+      "noHair": true
     },
     {
       "gear": "head",

@@ -11,8 +11,11 @@ export default class Unit {
     this.path = [];
     this.fieldsInSight = [];
     this.attackSpeed = 0;
-    this.speed = data.speed;
     this.target = null;
+    this.noHair = false;
+    this.noFace = false;
+    this.hairUrl = data.hair.url;
+    this.faceUrl = data.face.url;
     this.inventory = [];
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
@@ -326,6 +329,8 @@ export default class Unit {
 
       const newSpeed = getWalkSpeed({ race: this.race, gear: this.gear });
 
+      this.noHair = armor.noHair;
+      this.noFace = armor.noFace;
       this.speed = newSpeed;
       this.skin.speed = newSpeed;
       this.head.speed = newSpeed;
@@ -378,6 +383,10 @@ export default class Unit {
 
       const newSpeed = getWalkSpeed({ race: this.race, gear: this.gear });
 
+      this.noHair = false;
+      this.noFace = false;
+      this.hair.url = this.hairUrl;
+      this.face.url = this.faceUrl;
       this.speed = newSpeed;
       this.skin.speed = newSpeed;
       this.head.speed = newSpeed;

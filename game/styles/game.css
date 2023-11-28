@@ -375,11 +375,12 @@ p {
 }
 
 .inventory__stats-equipped {
-  width: 45%;
+  width: 43%;
   padding-right: 10px;
 }
 
-.inventory__stats-equipped > * {
+.inventory__stats-equipped > *,
+.inventory__stats-right > * {
   display: flex;
   justify-content: space-between;
 }
@@ -388,8 +389,8 @@ p {
   width: 10%;
 }
 
-.inventory__stats-item {
-  width: 45%;
+.inventory__stats-right {
+  width: 43%;
   padding-left: 10px;
 }
 
