@@ -8,6 +8,13 @@
     },
     {
       "gear": "head",
+      "id": "head_cloth_0",
+      "name": "Zauberhut",
+      "material": "cloth",
+      "noHair": true
+    },
+    {
+      "gear": "head",
       "id": "head_leather_0",
       "name": "Lederhelm",
       "material": "leather",
@@ -45,6 +52,13 @@
       "noFace": true,
       "set": "Reichsgarde"
     },
+
+    {
+      "gear": "torso",
+      "id": "torso_cloth_0",
+      "name": "Leinenhemd",
+      "material": "cloth"
+    },
     {
       "gear": "torso",
       "id": "torso_leather_0",
@@ -53,16 +67,47 @@
     },
     {
       "gear": "torso",
+      "id": "torso_iron_0",
+      "name": "Eisenrüstung",
+      "material": "iron"
+    },
+    {
+      "gear": "torso",
+      "id": "torso_steel_0",
+      "name": "Stahlrüstung",
+      "material": "steel"
+    },
+    {
+      "gear": "torso",
       "id": "torso_plate_0",
       "name": "Plattenrüstung",
       "material": "plate",
       "set": "Ritter vom Blute Sigmars"
+    },
+
+    {
+      "gear": "leg",
+      "id": "leg_cloth_0",
+      "name": "Leinenhose",
+      "material": "cloth"
     },
     {
       "gear": "leg",
       "id": "leg_leather_0",
       "name": "Lederbeine",
       "material": "leather"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_iron_0",
+      "name": "Eisenbeine",
+      "material": "iron"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_steel_0",
+      "name": "Stahlbeine",
+      "material": "steel"
     },
     {
       "gear": "leg",
