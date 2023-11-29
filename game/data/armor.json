@@ -8,12 +8,6 @@
     },
     {
       "gear": "head",
-      "id": "head_cloth_0",
-      "name": "Kapuze",
-      "material": "cloth"
-    },
-    {
-      "gear": "head",
       "id": "head_leather_0",
       "name": "Lederhelm",
       "material": "leather",
@@ -39,7 +33,8 @@
       "name": "Plattenhelm",
       "material": "plate",
       "noHair": true,
-      "noFace": true
+      "noFace": true,
+      "set": "Ritter vom Blute Sigmars"
     },
     {
       "gear": "head",
@@ -52,39 +47,16 @@
     },
     {
       "gear": "torso",
-      "id": "torso_cloth_0",
-      "name": "Stoffrüstung",
-      "material": "cloth"
-    },
-    {
-      "gear": "torso",
       "id": "torso_leather_0",
       "name": "Lederrüstung",
       "material": "leather"
     },
     {
       "gear": "torso",
-      "id": "torso_iron_0",
-      "name": "Eisenrüstung",
-      "material": "iron"
-    },
-    {
-      "gear": "torso",
-      "id": "torso_steel_0",
-      "name": "Stahlrüstung",
-      "material": "steel"
-    },
-    {
-      "gear": "torso",
       "id": "torso_plate_0",
       "name": "Plattenrüstung",
-      "material": "plate"
-    },
-    {
-      "gear": "leg",
-      "id": "leg_cloth_0",
-      "name": "Stoffbeine",
-      "material": "cloth"
+      "material": "plate",
+      "set": "Ritter vom Blute Sigmars"
     },
     {
       "gear": "leg",
@@ -94,21 +66,10 @@
     },
     {
       "gear": "leg",
-      "id": "leg_iron_0",
-      "name": "Eisenbeine",
-      "material": "iron"
-    },
-    {
-      "gear": "leg",
-      "id": "leg_steel_0",
-      "name": "Stahlbeine",
-      "material": "steel"
-    },
-    {
-      "gear": "leg",
       "id": "leg_plate_0",
       "name": "Plattenbeine",
-      "material": "plate"
+      "material": "plate",
+      "set": "Ritter vom Blute Sigmars"
     }
   ],
   "material": {
@@ -119,31 +80,31 @@
 
     "cloth": {
       "defense": 0.2,
-      "speedModifier": 0.05,
+      "speedModifier": 0.025,
       "rarity": "common"
     },
 
     "leather": {
       "defense": 0.4,
-      "speedModifier": 0.075,
+      "speedModifier": 0.05,
       "rarity": "uncommon"
     },
 
     "iron": {
       "defense": 0.6,
-      "speedModifier": 0.1,
+      "speedModifier": 0.075,
       "rarity": "rare"
     },
 
     "steel": {
       "defense": 0.8,
-      "speedModifier": 0.125,
+      "speedModifier": 0.1,
       "rarity": "epic"
     },
 
     "plate": {
       "defense": 1,
-      "speedModifier": 0.15,
+      "speedModifier": 0.125,
       "rarity": "legendary"
     }
   }

@@ -34,6 +34,18 @@
         "speed": 20,
         "stay": true
       }
+    },
+    {
+      "id": "mushrooms0",
+      "name": "Kleine Pilze",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 300],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
     }
   ]
 }

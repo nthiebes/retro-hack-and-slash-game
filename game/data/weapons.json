@@ -171,16 +171,6 @@
     },
 
     {
-      "id": "halberd",
-      "type": "twohanded",
-      "name": "Hellebarde",
-      "damage": 4,
-      "range": 2,
-      "animation": "stab",
-      "speed": 2
-    },
-
-    {
       "id": "crossbow",
       "type": "twohanded",
       "name": "Armbrust",
@@ -224,7 +214,8 @@
       "type": "secondary",
       "name": "Plattenschild",
       "defense": 1,
-      "rarity": "legendary"
+      "rarity": "legendary",
+      "set": "Ritter vom Blute Sigmars"
     },
 
     {

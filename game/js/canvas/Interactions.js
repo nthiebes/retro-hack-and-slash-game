@@ -120,8 +120,6 @@ class Interactions {
       } else if (event && this.eventInRange({ x, y })) {
         const animation = Animations.getAnimation({ x, y });
 
-        console.log('event', event);
-
         if (event.type === 'item') {
           player.takeItem(event);
           Events.removeEvent(event);
@@ -131,13 +129,18 @@ class Interactions {
           body.classList.remove('cursor--info');
         }
         if (event.type === 'loot') {
-          const id = event.id.split('.')[0];
+          const eventId = event.id.split('.')[0];
 
-          if (id.includes('random')) {
-            const randomItem = GameData.getRandomItem(id);
-            console.log(randomItem);
+          if (eventId.includes('random')) {
+            player.takeItem({
+              id: GameData.getRandomItem(eventId).id
+            });
           } else {
             player.takeItem(event);
+          }
+
+          if (event.removeBlocked) {
+            this.map.resetPosition({ x: event.pos[0], y: event.pos[1] });
           }
 
           Events.removeEvent(event);

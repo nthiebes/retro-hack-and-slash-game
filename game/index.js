@@ -148,6 +148,12 @@ const getGameData = () => {
     .then((animations) => {
       GameData.setAnimations(animations);
 
+      return fetch('data/items.json');
+    })
+    .then((response) => response.json())
+    .then((items) => {
+      GameData.setItems(items);
+
       return fetch('data/races.json');
     })
     .then((response) => response.json())

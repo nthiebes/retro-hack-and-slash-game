@@ -7,10 +7,6 @@ const biomes = {
     bushesAmount: 0,
     blocks: [
       {
-        id: 'barrelLoot0',
-        amount: 3
-      },
-      {
         id: 'allItems',
         amount: 1
       },
@@ -79,7 +75,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'campfire0',
+        id: 'camp0',
         amount: 1
       }
     ]
@@ -178,10 +174,6 @@ const biomes = {
       {
         id: 'bush5',
         amount: 1
-      },
-      {
-        id: 'campfire0',
-        amount: 1
       }
     ]
   },
@@ -263,16 +255,12 @@ const biomes = {
       {
         id: 'lake0',
         amount: 1
-      },
-      {
-        id: 'campfire0',
-        amount: 1
       }
     ]
   },
   lightForest: {
     ground: 1360,
-    grass: [1396, 1397, 1398, 1399, 1400],
+    grass: [1397, 1398, 1399, 1400],
     grassAmount: 20,
     bushes: [],
     bushesAmount: 0,
@@ -360,12 +348,16 @@ const biomes = {
       {
         id: 'stumpAxe0',
         amount: 1
+      },
+      {
+        id: 'mushrooms0',
+        amount: 3
       }
     ]
   },
   deadForest: {
     ground: 1360,
-    grass: [1396, 1396, 1396, 1397, 1398, 1399, 1400],
+    grass: [1397, 1398, 1399, 1400],
     grassAmount: 20,
     bushes: [],
     bushesAmount: 0,
@@ -417,12 +409,16 @@ const biomes = {
       {
         id: 'stump2',
         amount: 2
+      },
+      {
+        id: 'mushrooms0',
+        amount: 10
       }
     ]
   },
   forest: {
     ground: 1360,
-    grass: [1396, 1397, 1398, 1399, 1400],
+    grass: [1397, 1398, 1399, 1400],
     grassAmount: 20,
     bushes: [],
     bushesAmount: 0,
@@ -474,12 +470,16 @@ const biomes = {
       {
         id: 'deadTree1',
         amount: 1
+      },
+      {
+        id: 'mushrooms0',
+        amount: 3
       }
     ]
   },
   blackForest: {
     ground: 1360,
-    grass: [1396, 1397, 1398, 1399, 1400],
+    grass: [1397, 1398, 1399, 1400],
     grassAmount: 20,
     bushes: [],
     bushesAmount: 0,
@@ -515,6 +515,10 @@ const biomes = {
       {
         id: 'deadTree1',
         amount: 1
+      },
+      {
+        id: 'mushrooms0',
+        amount: 3
       }
     ]
   },

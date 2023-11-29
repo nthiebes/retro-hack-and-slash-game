@@ -90,7 +90,7 @@ export class Menu {
   static start = (resources) => {
     Menu.resources = resources;
     Menu.races = Object.entries(GameData.races).filter(
-      (race) => race[0] !== 'ghost' && race[0] !== 'zombie'
+      (race) => race[0] !== 'zombie'
     );
     Menu.currentRace = 0;
     Menu.player = {
@@ -394,23 +394,9 @@ export class Menu {
       const backgroundImage = `url(/game/images/items/${
         item.id.split('.')[0]
       }.png)`;
-      const className = `inventory__item inventory__item--${item.rarity}`;
-      const id = item.id.split('.')[0];
-      const armor = GameData.getArmor(id);
-      const weapon = GameData.getWeapon(id);
-
-      if (armor) {
-        // const armorStats = GameData.armor.material[armor.material];
-        // console.log(armor.name);
-        // console.log(armorStats.defense);
-        // console.log(armorStats.speedModifier);
-      }
-      if (weapon) {
-        // console.log(weapon.name);
-        // console.log(weapon.damage);
-        // console.log(weapon.range);
-        // console.log(weapon.speed);
-      }
+      const className = `inventory__item inventory__item--${
+        item.rarity || item.type
+      }`;
 
       li.className = className;
       li.style.backgroundImage = backgroundImage;
@@ -463,9 +449,14 @@ export class Menu {
 
   static handleItemClick = (event) => {
     const itemId = event.target.getAttribute('data-id');
+    const id = itemId.split('.')[0];
+    const armor = GameData.getArmor(id);
+    const weapon = GameData.getWeapon(id);
 
-    Units.player.equipItem(itemId);
-    Menu.updateInventory();
+    if (armor || weapon) {
+      Units.player.equipItem(itemId);
+      Menu.updateInventory();
+    }
   };
 
   static handleItemHover = (event) => {

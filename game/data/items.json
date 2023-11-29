@@ -1,0 +1,9 @@
+[
+  {
+    "id": "mushrooms0",
+    "type": "consumable",
+    "effekt": "health",
+    "health": 5,
+    "name": "Kleine Pile"
+  }
+]

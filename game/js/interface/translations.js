@@ -27,7 +27,7 @@ export const attributesMap = {
     best: 'Sehr rasant',
     good: 'Rasant',
     bad: 'Träge',
-    average: 4
+    average: 5
   }
 };
 

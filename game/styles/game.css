@@ -470,6 +470,7 @@ p {
   background-position: -4px -364px;
 }
 
+.inventory__item--consumable,
 .inventory__item--common,
 .inventory__item--uncommon,
 .inventory__item--rare,
@@ -478,6 +479,10 @@ p {
   background-size: 400px 300px;
   background-position: -750px -550px !important;
   cursor: var(--cursorUse);
+}
+
+.inventory__item--consumable {
+  background-color: #9e9e9e;
 }
 
 .inventory__item--common {

@@ -266,6 +266,7 @@ export default class Unit {
     const id = event.id.split('.')[0];
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
+    const misc = GameData.getItem(id);
     let item;
 
     if (config.debug) {
@@ -292,7 +293,11 @@ export default class Unit {
         rarity: weapon.rarity,
         equipped: this.weapons[weapon.type] === 'none'
       };
-    } else {
+    } else if (misc) {
+      item = {
+        ...misc,
+        id: event.id
+      };
       console.log(item);
     }
 

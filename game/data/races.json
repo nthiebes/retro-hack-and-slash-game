@@ -4,7 +4,7 @@
     "dexterity": 3,
     "intelligence": 3,
     "defense": 3,
-    "speed": 4,
+    "speed": 5,
     "skins": 9,
     "faces": 3,
     "hair": 8
@@ -15,7 +15,7 @@
     "dexterity": 2,
     "intelligence": 1,
     "defense": 4,
-    "speed": 3,
+    "speed": 4,
     "skins": 6,
     "faces": 3,
     "hair": 2
@@ -26,7 +26,7 @@
     "dexterity": 3,
     "intelligence": 3,
     "defense": 4,
-    "speed": 3,
+    "speed": 4,
     "skins": 8,
     "faces": 6,
     "hair": 7
@@ -37,7 +37,7 @@
     "dexterity": 4,
     "intelligence": 4,
     "defense": 2,
-    "speed": 4,
+    "speed": 5,
     "skins": 8,
     "faces": 2,
     "hair": 7
@@ -48,19 +48,10 @@
     "dexterity": 3,
     "intelligence": 2,
     "defense": 2,
-    "speed": 5,
+    "speed": 6,
     "skins": 4,
     "faces": 2,
     "hair": 7
-  },
-
-  "ghost": {
-    "strength": 1,
-    "dexterity": 1,
-    "intelligence": 1,
-    "defense": 4,
-    "speed": 5,
-    "skins": 1
   },
 
   "zombie": {
@@ -68,7 +59,7 @@
     "dexterity": 1,
     "intelligence": 0,
     "defense": 1,
-    "speed": 1,
+    "speed": 2,
     "skins": 7
   }
 }
