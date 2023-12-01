@@ -83,6 +83,9 @@ const skinCounter = document.getElementById('skin-count');
 const hairCounter = document.getElementById('hair-count');
 const faceCounter = document.getElementById('face-count');
 const canvasWrapper = document.getElementById('canvas-wrapper');
+const minimap = document.getElementById('minimap');
+const healthBar = document.getElementById('health-bar');
+const healthBarNumber = document.getElementById('health-bar-number');
 
 let inventoryOpen = false;
 
@@ -635,6 +638,9 @@ export class Menu {
 
         menuWindow.classList.remove('window--show');
         characterWindow.classList.remove('window--show');
+        minimap.classList.add('minimap--show');
+        healthBar.classList.add('health-bar--show');
+        healthBarNumber.innerHTML = `${Menu.player.health}/${Menu.player.health}`;
       }
     );
   };
