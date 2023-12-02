@@ -215,7 +215,8 @@ const generateChunk = ({ biome: biomeName }) => {
           animations.push(
             ...blocks[block.id].animations.map((animation) => ({
               ...animation,
-              pos: [animation.pos[0] + randomY, animation.pos[1] + randomX]
+              pos: [animation.pos[0] + randomY, animation.pos[1] + randomX],
+              id: `${animation.id}.${getRandomId()}`
             }))
           );
         }
@@ -232,7 +233,8 @@ const generateChunk = ({ biome: biomeName }) => {
           enemies.push(
             ...blocks[block.id].enemies.map((enemy) => ({
               ...enemy,
-              pos: [enemy.pos[0] + randomY, enemy.pos[1] + randomX]
+              pos: [enemy.pos[0] + randomY, enemy.pos[1] + randomX],
+              id: `${enemy.id}.${getRandomId()}`
             }))
           );
         }

@@ -35,6 +35,7 @@ const getRandomBiome = (biome) => {
 
 // eslint-disable-next-line complexity
 const getSurroundingChunks = ({ centerChunk, chunks }) => {
+  const newChunks = [];
   const centerChunkBiome = centerChunk.biome;
   const topPos = [centerChunk.pos[0], centerChunk.pos[1] - 1];
   const topRightPos = [centerChunk.pos[0] + 1, centerChunk.pos[1] - 1];
@@ -92,6 +93,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     topChunk.map = generateChunk({
       biome: topChunk.biome
     });
+    newChunks.push(topChunk);
   }
 
   if (!topRightChunk.biome) {
@@ -99,6 +101,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     topRightChunk.map = generateChunk({
       biome: topRightChunk.biome
     });
+    newChunks.push(topRightChunk);
   }
 
   if (!rightChunk.biome) {
@@ -110,6 +113,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     rightChunk.map = generateChunk({
       biome: rightChunk.biome
     });
+    newChunks.push(rightChunk);
   }
 
   if (!bottomRightChunk.biome) {
@@ -120,6 +124,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     bottomRightChunk.map = generateChunk({
       biome: bottomRightChunk.biome
     });
+    newChunks.push(bottomRightChunk);
   }
 
   if (!bottomChunk.biome) {
@@ -131,6 +136,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     bottomChunk.map = generateChunk({
       biome: bottomChunk.biome
     });
+    newChunks.push(bottomChunk);
   }
 
   if (!bottomLeftChunk.biome) {
@@ -141,6 +147,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     bottomLeftChunk.map = generateChunk({
       biome: bottomLeftChunk.biome
     });
+    newChunks.push(bottomLeftChunk);
   }
 
   if (!leftChunk.biome) {
@@ -152,6 +159,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     leftChunk.map = generateChunk({
       biome: leftChunk.biome
     });
+    newChunks.push(leftChunk);
   }
 
   if (!topLeftChunk.biome) {
@@ -159,18 +167,10 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
     topLeftChunk.map = generateChunk({
       biome: topLeftChunk.biome
     });
+    newChunks.push(topLeftChunk);
   }
 
-  return [
-    topChunk,
-    topRightChunk,
-    rightChunk,
-    bottomRightChunk,
-    bottomChunk,
-    bottomLeftChunk,
-    leftChunk,
-    topLeftChunk
-  ];
+  return newChunks;
 };
 
 const generateChunks = ({ newGame, chunks, centerChunk }) => {

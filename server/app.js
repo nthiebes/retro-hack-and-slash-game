@@ -40,40 +40,49 @@ io.on('connection', (socket) => {
   socket.on('new-game', ({ mapId }) => {
     console.log('New game created');
 
-    const chunks = generateChunks({
+    let chunks = generateChunks({
       chunks: [],
       newGame: true
     });
-    let map;
+    let generatedMap;
 
     if (mapId === 'generated') {
-      map = generateMap({
+      generatedMap = generateMap({
         chunks,
         centerChunkPos: [0, 0]
       });
+      chunks = chunks.map((chunk) => ({
+        ...chunk,
+        map: {
+          ...chunk.map,
+          enemies: [],
+          animations: [],
+          events: []
+        }
+      }));
     } else {
-      map = require(`../game/data/maps/${mapId}.json`);
+      generatedMap = require(`../game/data/maps/${mapId}.json`);
     }
 
     const {
       name: mapName,
-      players: playerStartPositions,
+      playerStartPositions,
       enemies,
       events,
       animations,
-      maps: mapTransitions,
-      map: mapData
-    } = map;
+      mapTransitions,
+      map
+    } = generatedMap;
 
     game = {
       id: getRandomId(),
       mapId,
       mapName,
-      mapData,
-      mapTransitions: mapTransitions || [],
+      map,
+      mapTransitions,
       playerStartPositions,
       events,
-      animations: animations || [],
+      animations,
       enemies: enemies
         ? enemies.map((enemy) => ({
             ...enemy,
@@ -132,6 +141,14 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
+      game.events = game.events.map((event) => ({
+        ...event,
+        pos: [event.pos[0] - 30, event.pos[1]]
+      }));
+      game.animations = game.animations.map((animation) => ({
+        ...animation,
+        pos: [animation.pos[0] - 30, animation.pos[1]]
+      }));
     } else if (direction === 'left') {
       centerChunk = game.chunks.find(
         (chunk) =>
@@ -143,6 +160,14 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
+      game.events = game.events.map((event) => ({
+        ...event,
+        pos: [event.pos[0] + 30, event.pos[1]]
+      }));
+      game.animations = game.animations.map((animation) => ({
+        ...animation,
+        pos: [animation.pos[0] + 30, animation.pos[1]]
+      }));
     } else if (direction === 'bottom') {
       centerChunk = game.chunks.find(
         (chunk) =>
@@ -154,6 +179,14 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
+      game.events = game.events.map((event) => ({
+        ...event,
+        pos: [event.pos[0], event.pos[1] - 30]
+      }));
+      game.animations = game.animations.map((animation) => ({
+        ...animation,
+        pos: [animation.pos[0], animation.pos[1] - 30]
+      }));
     } else if (direction === 'top') {
       centerChunk = game.chunks.find(
         (chunk) =>
@@ -165,16 +198,60 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
+      game.events = game.events.map((event) => ({
+        ...event,
+        pos: [event.pos[0], event.pos[1] + 30]
+      }));
+      game.animations = game.animations.map((animation) => ({
+        ...animation,
+        pos: [animation.pos[0], animation.pos[1] + 30]
+      }));
     }
 
-    const mapData = generateMap({
+    const generatedMap = generateMap({
       chunks: game.chunks,
       centerChunkPos: centerChunk.pos
     });
+    const {
+      events,
+      animations,
+      mapTransitions,
+      map,
+      enemies,
+      playerStartPositions
+    } = generatedMap;
 
     player.chunk = centerChunk.pos;
 
-    io.sockets.emit('map-data', { mapData, direction });
+    game = {
+      ...game,
+      mapTransitions,
+      events: [...game.events, ...events],
+      animations: [...game.animations, ...animations],
+      enemies: [...game.enemies, ...enemies],
+      map,
+      playerStartPositions
+    };
+
+    game.chunks = game.chunks.map((chunk) => ({
+      ...chunk,
+      map: {
+        ...chunk.map,
+        enemies: [],
+        animations: [],
+        events: []
+      }
+    }));
+
+    io.sockets.emit('map-data', {
+      mapData: {
+        map,
+        events: game.events,
+        animations: game.animations,
+        enemies: game.enemies
+      },
+      direction
+    });
   });
 
   /**
@@ -206,7 +283,7 @@ io.on('connection', (socket) => {
     io.sockets.emit('player-stopped-attack', { playerId });
   });
 
-  /**
+  /*
    * Player equips item
    */
   socket.on('equip', ({ item }) => {
@@ -215,6 +292,30 @@ io.on('connection', (socket) => {
     game.events = game.events.filter(({ id }) => item.id !== id);
 
     io.sockets.emit('player-equipped', { item, playerId });
+  });
+
+  /**
+   * Remove event
+   */
+  socket.on('remove-event', ({ eventId, animationId }) => {
+    game.events = game.events.filter(({ id }) => eventId !== id);
+
+    if (animationId) {
+      //   game.animations = game.animations.filter(({ id }) => animationId !== id);
+      //   console.log(game.animations);
+      //   game.animations = game.animations.map((animation) =>
+      //     animation.id === animationId
+      //       ? {
+      //           ...animation,
+      //           sprite: {
+      //             ...animation.sprite,
+      //             frames: [1],
+      //             pos: [100, animation.sprite.pos[1]]
+      //           }
+      //         }
+      //       : animation
+      //   );
+    }
   });
 
   /**

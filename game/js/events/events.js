@@ -23,8 +23,7 @@ export class Events {
       this.addEvent({
         pos: event.pos,
         type: event.type,
-        id: event.id,
-        removeBlocked: event.removeBlocked
+        id: event.id
       });
     }
   }
@@ -53,8 +52,7 @@ export class Events {
       this.addEvent({
         pos: event.pos,
         type: event.type,
-        id: event.id,
-        removeBlocked: event.removeBlocked
+        id: event.id
       });
     }
   }

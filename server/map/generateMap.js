@@ -170,55 +170,64 @@ const generateMap = ({ chunks, centerChunkPos }) => {
   if (centerChunk.events) {
     centerChunkEvents = centerChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize]
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize],
+      chunk: centerChunk.pos
     }));
   }
   if (topChunk.events) {
     topChunkEvents = topChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize, event.pos[1] + 0]
+      pos: [event.pos[0] + chunkSize, event.pos[1] + 0],
+      chunk: topChunk.pos
     }));
   }
   if (topRightChunk.events) {
     topRightChunkEvents = topRightChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + 0]
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + 0],
+      chunk: topRightChunk.pos
     }));
   }
   if (rightChunk.events) {
     rightChunkEvents = rightChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize]
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize],
+      chunk: rightChunk.pos
     }));
   }
   if (bottomRightChunk.events) {
     bottomRightChunkEvents = bottomRightChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize * 2]
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize * 2],
+      chunk: bottomRightChunk.pos
     }));
   }
   if (bottomChunk.events) {
     bottomChunkEvents = bottomChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize * 2]
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize * 2],
+      chunk: bottomChunk.pos
     }));
   }
   if (bottomLeftChunk.events) {
     bottomLeftChunkEvents = bottomLeftChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + 0, event.pos[1] + chunkSize * 2]
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize * 2],
+      chunk: bottomLeftChunk.pos
     }));
   }
   if (leftChunk.events) {
     leftChunkEvents = leftChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + 0, event.pos[1] + chunkSize]
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize],
+      chunk: leftChunk.pos
     }));
   }
   if (topLeftChunk.events) {
     topLeftChunkEvents = topLeftChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + 0, event.pos[1] + 0]
+      pos: [event.pos[0] + 0, event.pos[1] + 0],
+      chunk: topLeftChunk.pos
     }));
   }
 
@@ -296,7 +305,7 @@ const generateMap = ({ chunks, centerChunkPos }) => {
   const playerPosition = Math.round((chunkSize * 3) / 2);
 
   return {
-    players: [[playerPosition, playerPosition]],
+    playerStartPositions: [[playerPosition, playerPosition]],
     enemies: [
       ...centerChunk.enemies,
       ...topChunk.enemies,
@@ -330,7 +339,7 @@ const generateMap = ({ chunks, centerChunkPos }) => {
       ...leftChunkAnimations,
       ...topLeftChunkAnimations
     ],
-    maps: [],
+    mapTransitions: [],
     map: [mapGround1, mapGround2, mapTop1, mapBlocked]
   };
 };

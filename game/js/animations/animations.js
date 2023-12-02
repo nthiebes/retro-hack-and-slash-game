@@ -19,12 +19,12 @@ export class Animations {
   static addAnimations(animations) {
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
-      const animationData = GameData.getAnimation(animation.id);
+      const animationData = GameData.getAnimation(animation.id.split('.')[0]);
 
       this.addAnimation({
         ...animationData,
         pos: animation.pos,
-        id: `${animation.id}.${i}`
+        id: animation.id
       });
     }
   }
@@ -54,12 +54,12 @@ export class Animations {
 
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
-      const animationData = GameData.getAnimation(animation.id);
+      const animationData = GameData.getAnimation(animation.id.split('.')[0]);
 
       this.addAnimation({
         ...animationData,
         pos: animation.pos,
-        id: `${animation.id}.${i}`
+        id: animation.id
       });
     }
   }

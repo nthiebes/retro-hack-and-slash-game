@@ -340,6 +340,8 @@ export class Menu {
 
     inventoryWindow.classList.toggle('window--show');
     canvasWrapper.classList.toggle('window--focussed');
+    minimap.classList.toggle('window--focussed');
+    healthBar.classList.toggle('window--focussed');
   };
 
   static updateInventory = () => {
@@ -620,10 +622,10 @@ export class Menu {
       {
         player: Menu.player
       },
-      ({ mapData, events, players, enemies, mapTransitions, animations }) => {
+      ({ map, events, players, enemies, mapTransitions, animations }) => {
         // eslint-disable-next-line
         const game = new Canvas({
-          map: mapData,
+          map,
           events,
           players,
           enemies,

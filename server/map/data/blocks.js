@@ -1960,11 +1960,9 @@ const blocks = {
     events: [{ pos: [0, 0], id: 'axe0', type: 'loot' }]
   },
   mushrooms0: {
-    map: [[], [[16]], [], [[1]]],
+    map: [[], [[16]], [], []],
     animations: [{ pos: [0, 0], id: 'mushrooms0' }],
-    events: [
-      { pos: [0, 0], id: 'mushrooms0', type: 'loot', removeBlocked: true }
-    ]
+    events: [{ pos: [0, 0], id: 'mushrooms0', type: 'loot' }]
   },
   barrelLoot0: {
     map: [[], [[16]], [], [[1]]],

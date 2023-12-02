@@ -298,7 +298,6 @@ export default class Unit {
         ...misc,
         id: event.id
       };
-      console.log(item);
     }
 
     this.addToInventory(item);

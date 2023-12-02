@@ -123,7 +123,7 @@ class Interactions {
         if (event.type === 'item') {
           player.takeItem(event);
           Events.removeEvent(event);
-          // socket.emit('remove-event', { event });
+          socket.emit('remove-event', { eventId: event.id });
           // socket.emit('equip', { event });
           body.classList.add('cursor--use');
           body.classList.remove('cursor--info');
@@ -139,11 +139,11 @@ class Interactions {
             player.takeItem(event);
           }
 
-          if (event.removeBlocked) {
-            this.map.resetPosition({ x: event.pos[0], y: event.pos[1] });
-          }
-
           Events.removeEvent(event);
+          socket.emit('remove-event', {
+            eventId: event.id,
+            animationId: animation.id
+          });
           animation.play();
           body.classList.add('cursor--use');
           body.classList.remove('cursor--info');
