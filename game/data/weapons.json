@@ -75,7 +75,7 @@
       "type": "primary",
       "name": "Holzfäller Axt",
       "damage": 2.4,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "common"
     },
@@ -85,7 +85,7 @@
       "type": "primary",
       "name": "Doppelseitige Axt",
       "damage": 3,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "rare"
     },
@@ -95,7 +95,7 @@
       "type": "primary",
       "name": "Axt",
       "damage": 2.4,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "common"
     },
@@ -105,7 +105,7 @@
       "type": "primary",
       "name": "Axt",
       "damage": 2.7,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "uncommon"
     },
@@ -115,7 +115,7 @@
       "type": "primary",
       "name": "Axt",
       "damage": 3,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "rare"
     },
@@ -125,7 +125,7 @@
       "type": "primary",
       "name": "Axt",
       "damage": 3.3,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "epic"
     },
@@ -135,7 +135,7 @@
       "type": "primary",
       "name": "Axt",
       "damage": 3.6,
-      "range": 1.5,
+      "range": 2,
       "speed": 3,
       "rarity": "legendary"
     },
@@ -145,7 +145,7 @@
       "type": "primary",
       "name": "Speer",
       "damage": 2,
-      "range": 2.2,
+      "range": 2.5,
       "animation": "stab",
       "speed": 3
     },
@@ -205,8 +205,8 @@
       "type": "primary",
       "name": "Dolch",
       "damage": 1,
-      "range": 1.1,
-      "speed": 5
+      "range": 1.5,
+      "speed": 4
     },
 
     {

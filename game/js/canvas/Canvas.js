@@ -166,19 +166,27 @@ export default class Canvas {
 
       switch (direction) {
         case 'right': {
-          Units.player.pos = [Units.player.pos[0] - 30, Units.player.pos[1]];
+          Units.list.forEach((unit) => {
+            unit.pos = [unit.pos[0] - 30, unit.pos[1]];
+          });
           break;
         }
         case 'left': {
-          Units.player.pos = [Units.player.pos[0] + 30, Units.player.pos[1]];
+          Units.list.forEach((unit) => {
+            unit.pos = [unit.pos[0] + 30, unit.pos[1]];
+          });
           break;
         }
         case 'bottom': {
-          Units.player.pos = [Units.player.pos[0], Units.player.pos[1] - 30];
+          Units.list.forEach((unit) => {
+            unit.pos = [unit.pos[0], unit.pos[1] - 30];
+          });
           break;
         }
         default: {
-          Units.player.pos = [Units.player.pos[0], Units.player.pos[1] + 30];
+          Units.list.forEach((unit) => {
+            unit.pos = [unit.pos[0], unit.pos[1] + 30];
+          });
         }
       }
 
