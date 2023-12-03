@@ -21,11 +21,14 @@ export class Animations {
       const animation = animations[i];
       const animationData = GameData.getAnimation(animation.id.split('.')[0]);
 
-      this.addAnimation({
-        ...animationData,
-        pos: animation.pos,
-        id: animation.id
-      });
+      this.addAnimation(
+        {
+          ...animationData,
+          pos: animation.pos,
+          id: animation.id
+        },
+        animation.played
+      );
     }
   }
 

@@ -39,12 +39,14 @@ export class Units {
 
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
-      const unitData = GameData.enemies.list.find(({ id }) => id === enemy.id);
+      const unitData = GameData.enemies.list.find(
+        ({ id }) => id === enemy.id.split('.')[0]
+      );
 
       this.addUnit({
         ...unitData,
         ...enemy,
-        id: `enemy.${i}`
+        id: enemy.id
       });
     }
   }

@@ -2010,6 +2010,10 @@ const blocks = {
     events: [
       { pos: [7, 1], id: 'random1', type: 'loot' },
       { pos: [5, 2], id: 'campfire', type: 'fire' }
+    ],
+    enemies: [
+      { pos: [6, 2], id: 'orc0' },
+      { pos: [8, 2], id: 'orc1' }
     ]
   },
   allItems: {

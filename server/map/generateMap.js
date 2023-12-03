@@ -302,20 +302,86 @@ const generateMap = ({ chunks, centerChunkPos }) => {
     }));
   }
 
+  // Offset enemies
+  let centerChunkEnemies,
+    topChunkEnemies,
+    topRightChunkEnemies,
+    rightChunkEnemies,
+    bottomRightChunkEnemies,
+    bottomChunkEnemies,
+    bottomLeftChunkEnemies,
+    leftChunkEnemies,
+    topLeftChunkEnemies;
+
+  if (centerChunk.enemies) {
+    centerChunkEnemies = centerChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize, enemy.pos[1] + chunkSize]
+    }));
+  }
+  if (topChunk.enemies) {
+    topChunkEnemies = topChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize, enemy.pos[1] + 0]
+    }));
+  }
+  if (topRightChunk.enemies) {
+    topRightChunkEnemies = topRightChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize * 2, enemy.pos[1] + 0]
+    }));
+  }
+  if (rightChunk.enemies) {
+    rightChunkEnemies = rightChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize * 2, enemy.pos[1] + chunkSize]
+    }));
+  }
+  if (bottomRightChunk.enemies) {
+    bottomRightChunkEnemies = bottomRightChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize * 2, enemy.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomChunk.enemies) {
+    bottomChunkEnemies = bottomChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize, enemy.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomLeftChunk.enemies) {
+    bottomLeftChunkEnemies = bottomLeftChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + 0, enemy.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (leftChunk.enemies) {
+    leftChunkEnemies = leftChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + 0, enemy.pos[1] + chunkSize]
+    }));
+  }
+  if (topLeftChunk.enemies) {
+    topLeftChunkEnemies = topLeftChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + 0, enemy.pos[1] + 0]
+    }));
+  }
+
   const playerPosition = Math.round((chunkSize * 3) / 2);
 
   return {
     playerStartPositions: [[playerPosition, playerPosition]],
     enemies: [
-      ...centerChunk.enemies,
-      ...topChunk.enemies,
-      ...topRightChunk.enemies,
-      ...rightChunk.enemies,
-      ...bottomRightChunk.enemies,
-      ...bottomChunk.enemies,
-      ...bottomLeftChunk.enemies,
-      ...leftChunk.enemies,
-      ...topLeftChunk.enemies
+      ...centerChunkEnemies,
+      ...topChunkEnemies,
+      ...topRightChunkEnemies,
+      ...rightChunkEnemies,
+      ...bottomRightChunkEnemies,
+      ...bottomChunkEnemies,
+      ...bottomLeftChunkEnemies,
+      ...leftChunkEnemies,
+      ...topLeftChunkEnemies
     ],
     events: [
       ...centerChunkEvents,

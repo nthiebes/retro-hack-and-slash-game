@@ -77,10 +77,8 @@ export const combat = ({ units, map, attacker }) => {
         enemyPosX = Math.round(config.fieldWidth * unit.pos[0]),
         playerPosY = Math.round(config.fieldWidth * attacker.pos[1]),
         enemyPosY = Math.round(config.fieldWidth * unit.pos[1]),
-        playerWidth = 80,
-        playerHeight = 100;
-      // playerWidth = 40,
-      // playerHeight = 50;
+        playerWidth = 70,
+        playerHeight = 70;
 
       // Consider unit height
       if (
@@ -88,14 +86,14 @@ export const combat = ({ units, map, attacker }) => {
         playerPosY < enemyPosY + playerHeight / 2
       ) {
         if (attacker.direction === 'LEFT') {
-          const playerReach = playerPosX - playerWidth - attacker.range * 10;
+          const playerReach = playerPosX - playerWidth - attacker.range * 20;
 
           if (playerReach <= enemyPosX && playerPosX > enemyPosX) {
             fight(attacker, unit);
           }
         }
         if (attacker.direction === 'RIGHT') {
-          const playerReach = playerPosX + playerWidth + attacker.range * 10;
+          const playerReach = playerPosX + playerWidth + attacker.range * 20;
 
           if (playerReach >= enemyPosX && playerPosX < enemyPosX) {
             fight(attacker, unit);
