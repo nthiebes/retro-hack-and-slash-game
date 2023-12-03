@@ -29,14 +29,14 @@ export class Animations {
     }
   }
 
-  static addAnimation(animation) {
+  static addAnimation(animation, played) {
     listData.push(
       new Animation(
         {
           ...animation,
           sprite: new Sprite({
             url: 'images/animations.png',
-            pos: animation.sprite.pos,
+            pos: played ? [100, animation.sprite.pos[1]] : animation.sprite.pos,
             size: animation.sprite.size,
             speed: animation.sprite.speed,
             frames: animation.sprite.frames,
@@ -56,11 +56,14 @@ export class Animations {
       const animation = animations[i];
       const animationData = GameData.getAnimation(animation.id.split('.')[0]);
 
-      this.addAnimation({
-        ...animationData,
-        pos: animation.pos,
-        id: animation.id
-      });
+      this.addAnimation(
+        {
+          ...animationData,
+          pos: animation.pos,
+          id: animation.id
+        },
+        animation.played
+      );
     }
   }
 }

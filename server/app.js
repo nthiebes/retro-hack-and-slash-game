@@ -301,20 +301,14 @@ io.on('connection', (socket) => {
     game.events = game.events.filter(({ id }) => eventId !== id);
 
     if (animationId) {
-      //   game.animations = game.animations.filter(({ id }) => animationId !== id);
-      //   console.log(game.animations);
-      //   game.animations = game.animations.map((animation) =>
-      //     animation.id === animationId
-      //       ? {
-      //           ...animation,
-      //           sprite: {
-      //             ...animation.sprite,
-      //             frames: [1],
-      //             pos: [100, animation.sprite.pos[1]]
-      //           }
-      //         }
-      //       : animation
-      //   );
+      game.animations = game.animations.map((animation) =>
+        animation.id === animationId
+          ? {
+              ...animation,
+              played: true
+            }
+          : animation
+      );
     }
   });
 
