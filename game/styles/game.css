@@ -549,3 +549,10 @@ p {
 .minimap--show {
   opacity: 1;
 }
+
+.fullscreen {
+  position: fixed;
+  z-index: 2;
+  right: 1rem;
+  top: 1rem;
+}

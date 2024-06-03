@@ -15,6 +15,7 @@ import {
 import { attributesMap, racesMap } from './translations.js';
 
 const mapField = document.getElementById('map');
+const fullscreen = document.getElementById('fullscreen');
 const nameField = document.getElementById('name');
 const menuNew = document.getElementById('menu-new');
 const menuJoin = document.getElementById('menu-join');
@@ -116,6 +117,7 @@ export class Menu {
     menuNew.addEventListener('click', Menu.selectMap);
     menuJoin.addEventListener('click', Menu.showCharacterEditor);
     newWindow.addEventListener('submit', Menu.createGame);
+    fullscreen.addEventListener('click', Menu.toggleFullScreen);
 
     // Connect player
     socket.emit('id', ({ playerId, gameId }) => {
@@ -133,6 +135,14 @@ export class Menu {
       window.location.reload();
     });
   };
+
+  static toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
 
   static selectMap() {
     menuWindow.classList.remove('window--show');

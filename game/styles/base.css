@@ -24,6 +24,10 @@ button {
   background-color: transparent;
 }
 
+button:focus {
+  outline: 0 none;
+}
+
 ul {
   list-style: none;
 }
