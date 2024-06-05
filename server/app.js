@@ -3,8 +3,7 @@ const socketIO = require('socket.io');
 const { getRandomInt, getRandomId } = require('./utils/number.js');
 const { generateMap } = require('./map/generateMap.js');
 const { generateChunks } = require('./map/generateChunks.js');
-// const { config } = require('./config.js');
-// const { chunkSize } = config;
+const { config } = require('./config.js');
 const PORT = process.env.PORT || 4001;
 const server = express().listen(PORT, () =>
   console.log(`Listening on ${PORT}`)
@@ -252,6 +251,10 @@ io.on('connection', (socket) => {
       },
       direction
     });
+
+    if (config.debug) {
+      console.log(process.memoryUsage());
+    }
   });
 
   /**

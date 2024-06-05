@@ -219,7 +219,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedY = false;
-        player.pos[1] = this.getSmoothPixelValue(newPos);
+        // player.pos[1] = this.getSmoothPixelValue(newPos);
+        player.pos[1] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -230,7 +231,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
-          this.checkForNewChunk([x, Math.floor(newPos)]);
+          this.checkForNewChunk([x, newPos]);
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -260,7 +261,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedY = false;
-        player.pos[1] = this.getSmoothPixelValue(newPos);
+        // player.pos[1] = this.getSmoothPixelValue(newPos);
+        player.pos[1] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -271,7 +273,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
-          this.checkForNewChunk([x, Math.floor(newPos)]);
+          this.checkForNewChunk([x, newPos]);
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -300,7 +302,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedX = false;
-        player.pos[0] = this.getSmoothPixelValue(newPos);
+        // player.pos[0] = this.getSmoothPixelValue(newPos);
+        player.pos[0] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -311,7 +314,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
-          this.checkForNewChunk([Math.floor(newPos), y]);
+          this.checkForNewChunk([newPos, y]);
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -341,7 +344,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedX = false;
-        player.pos[0] = this.getSmoothPixelValue(newPos);
+        // player.pos[0] = this.getSmoothPixelValue(newPos);
+        player.pos[0] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -352,7 +356,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
-          this.checkForNewChunk([Math.floor(newPos), y]);
+          this.checkForNewChunk([newPos, y]);
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -442,14 +446,15 @@ class Interactions {
   checkForNewChunk(pos) {
     let direction = null;
     const chunkSize = config.chunkSize;
+    const roundedPos = [Math.floor(pos[0]), Math.floor(pos[1])];
 
-    if (pos[0] > config.chunkSize * 2 - 1) {
+    if (roundedPos[0] > config.chunkSize * 2 - 1) {
       direction = 'right';
-    } else if (pos[0] < chunkSize) {
+    } else if (roundedPos[0] < chunkSize) {
       direction = 'left';
-    } else if (pos[1] > chunkSize * 2 - 1) {
+    } else if (roundedPos[1] > chunkSize * 2 - 1) {
       direction = 'bottom';
-    } else if (pos[1] < chunkSize) {
+    } else if (roundedPos[1] < chunkSize) {
       direction = 'top';
     }
 

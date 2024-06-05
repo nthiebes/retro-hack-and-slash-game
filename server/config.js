@@ -1,5 +1,6 @@
 const config = {
   chunkSize: 30,
+  debug: false,
   biomeNeighbours: {
     plain: ['plain', 'lightForest', 'flowerPlain', 'rockyPlain', 'savannah'],
     flowerPlain: ['flowerPlain', 'plain', 'lightForest'],
