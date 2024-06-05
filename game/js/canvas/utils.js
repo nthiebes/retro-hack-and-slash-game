@@ -17,10 +17,10 @@ export const drawImage = (config) => {
         tileRow * globalConfig.tileSize,
         globalConfig.tileSize,
         globalConfig.tileSize,
-        c * globalConfig.fieldWidth,
-        r * globalConfig.fieldWidth,
-        globalConfig.fieldWidth,
-        globalConfig.fieldWidth
+        c * (config.fieldWidth || globalConfig.fieldWidth),
+        r * (config.fieldWidth || globalConfig.fieldWidth),
+        config.fieldWidth || globalConfig.fieldWidth,
+        config.fieldWidth || globalConfig.fieldWidth
       );
     }
   }

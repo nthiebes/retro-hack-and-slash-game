@@ -1,6 +1,9 @@
 import config from '../config.js';
 import { GameData } from '../gameData.js';
 
+const healthBarHealth = document.getElementById('health-bar-health');
+const healthBarNumber = document.getElementById('health-bar-number');
+
 export const getDefense = (defender) => {
   const defense =
     GameData.getWeapon(defender.weapons.secondary).defense +
@@ -56,6 +59,11 @@ const fight = (attacker, defender) => {
     }
   } else {
     defender.takeDamage();
+  }
+
+  if (defender.id.includes('player')) {
+    healthBarHealth.style.width = `${Math.floor(defender.health) / 10}%`;
+    healthBarNumber.innerHTML = `${Math.floor(defender.health)} / 1000`;
   }
 };
 

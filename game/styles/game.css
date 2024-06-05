@@ -57,7 +57,7 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s linear;
-  z-index: 1;
+  z-index: 2;
 }
 
 .window--small {
@@ -534,15 +534,13 @@ p {
 }
 
 .minimap {
-  background: url("/game/images/minimap.png") no-repeat;
+  background: url("/game/images/minimap.png") top right no-repeat;
+  background-size: cover;
   position: fixed;
   right: 0;
   top: 0;
-  height: 411px;
-  width: 411px;
-  background-size: 75%;
-  background-position: top right;
-  pointer-events: none;
+  height: 300px;
+  width: 300px;
   opacity: 0;
 }
 
@@ -550,9 +548,23 @@ p {
   opacity: 1;
 }
 
+.minimap__wrapper {
+  position: absolute;
+  overflow: hidden;
+  right: 20px;
+  top: 20px;
+  height: 260px;
+  width: 260px;
+}
+
+.minimap__inner {
+  position: relative;
+  transform: translateX(-218px) translateY(-218px);
+}
+
 .fullscreen {
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   right: 1rem;
   top: 1rem;
 }

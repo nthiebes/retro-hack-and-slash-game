@@ -652,7 +652,7 @@ export class Menu {
         characterWindow.classList.remove('window--show');
         minimap.classList.add('minimap--show');
         healthBar.classList.add('health-bar--show');
-        healthBarNumber.innerHTML = `${Menu.player.health}/${Menu.player.health}`;
+        healthBarNumber.innerHTML = `${Menu.player.health} / ${Menu.player.health}`;
       }
     );
   };

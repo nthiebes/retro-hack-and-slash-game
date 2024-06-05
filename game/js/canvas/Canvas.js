@@ -55,7 +55,7 @@ export default class Canvas {
     });
 
     this.prepareCanvas();
-    // this.drawMinimap();
+    this.drawMinimap();
     this.gameLoop();
 
     socket.on('player-joined', ({ newPlayer }) => {
@@ -203,6 +203,7 @@ export default class Canvas {
       Events.updateEvents(mapData.events);
       Animations.updateAnimations(mapData.animations);
       this.drawMap();
+      this.drawMinimap();
     });
   }
 
@@ -262,43 +263,38 @@ export default class Canvas {
   }
 
   drawMinimap() {
-    this.chunks.forEach((chunk) => {
-      let tile = 0;
+    const fieldWidth = 7.2;
 
-      switch (chunk.biomeMap.center) {
-        case 'plain':
-          tile = 67;
-          break;
-        case 'forest':
-          tile = 226;
-          break;
-        case 'desert':
-          tile = 64;
-          break;
-        case 'savannah':
-          tile = 189;
-          break;
+    config.ctxMinimap.clearRect(
+      0,
+      0,
+      config.ctxMinimap.canvas.width,
+      config.ctxMinimap.canvas.height
+    );
 
-        default:
-          break;
-      }
-
-      // eslint-disable-next-line no-bitwise
-      const tileRow = (tile / config.imageNumTiles) | 0,
-        // eslint-disable-next-line no-bitwise
-        tileCol = tile % config.imageNumTiles | 0;
-
-      config.ctxMinimap.drawImage(
-        this.tileset,
-        tileCol * config.tileSize,
-        tileRow * config.tileSize,
-        config.tileSize,
-        config.tileSize,
-        chunk.pos[0] * config.tileSize + 138,
-        chunk.pos[1] * config.tileSize + 138,
-        config.tileSize,
-        config.tileSize
-      );
+    drawImage({
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      tileset: this.tileset,
+      ctx: config.ctxMinimap,
+      array: this.ground1,
+      fieldWidth
+    });
+    drawImage({
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      tileset: this.tileset,
+      ctx: config.ctxMinimap,
+      array: this.ground2,
+      fieldWidth
+    });
+    drawImage({
+      rowTileCount: this.rowTileCount,
+      colTileCount: this.colTileCount,
+      tileset: this.tileset,
+      ctx: config.ctxMinimap,
+      array: this.top1,
+      fieldWidth
     });
   }
 
