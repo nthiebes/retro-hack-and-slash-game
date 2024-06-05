@@ -13,6 +13,10 @@ class Map {
     }
   }
 
+  updateMap({ map }) {
+    this.map = map;
+  }
+
   updatePosition({ x, y, newX, newY, unitId }) {
     // Delete old position
     this.map[y][x] = 0;

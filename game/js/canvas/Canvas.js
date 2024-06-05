@@ -164,39 +164,39 @@ export default class Canvas {
         console.log('🗺️');
       }
 
-      switch (direction) {
-        case 'right': {
-          Units.list.forEach((unit) => {
+      Units.list.forEach((unit) => {
+        switch (direction) {
+          case 'right': {
             unit.pos = [unit.pos[0] - 30, unit.pos[1]];
-          });
-          break;
-        }
-        case 'left': {
-          Units.list.forEach((unit) => {
+            break;
+          }
+          case 'left': {
             unit.pos = [unit.pos[0] + 30, unit.pos[1]];
-          });
-          break;
-        }
-        case 'bottom': {
-          Units.list.forEach((unit) => {
+            break;
+          }
+          case 'bottom': {
             unit.pos = [unit.pos[0], unit.pos[1] - 30];
-          });
-          break;
-        }
-        default: {
-          Units.list.forEach((unit) => {
+            break;
+          }
+          default: {
             unit.pos = [unit.pos[0], unit.pos[1] + 30];
-          });
+          }
         }
-      }
+
+        unit.path = [];
+        unit.tile = [Math.floor(unit.pos[0]), Math.floor(unit.pos[1])];
+        unit.nextTile = null;
+        this.interactions.setPath();
+        unit.fieldsInSight = this.map.getFieldsInSight(
+          unit.pos,
+          unit.direction
+        );
+      });
 
       this.ground1 = mapData.map[0];
       this.ground2 = mapData.map[1];
       this.top1 = mapData.map[2];
-      this.map = new Map({
-        map: mapData.map[3],
-        units: Units.list
-      });
+      this.map.updateMap({ map: mapData.map[3] });
       this.interactions.resetOffset();
       this.interactions.updateMap(this.map);
       this.interactions.setServerRequestInProgress(false);
@@ -486,8 +486,10 @@ export default class Canvas {
     }
 
     unit.pos = [
-      this.interactions.getSmoothPixelValue(xNew),
-      this.interactions.getSmoothPixelValue(yNew)
+      // this.interactions.getSmoothPixelValue(xNew),
+      // this.interactions.getSmoothPixelValue(yNew)
+      xNew,
+      yNew
     ];
     unit.currentStep--;
   }
