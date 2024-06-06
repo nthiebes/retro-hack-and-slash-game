@@ -366,7 +366,7 @@ export default class Canvas {
     let xNew = unit.pos[0],
       yNew = unit.pos[1];
     const centerOffset = 0.5;
-    const walkDistance = (1 / unit.steps) * -(unit.currentStep - unit.steps);
+    const walkDistance = (1 / unit.steps) * -(unit.currentStep - unit.steps); // One step * current steps
     const path = unit.path;
     const xNext = unit.nextTile ? unit.nextTile[0] : path[1][0];
     const yNext = unit.nextTile ? unit.nextTile[1] : path[1][1];

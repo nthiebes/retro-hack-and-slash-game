@@ -18,8 +18,8 @@ export default class Unit {
     this.faceUrl = data.face.url;
     this.inventory = [];
     this.health = 1000;
-    this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
-    this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
+    this.steps = Math.floor((config.fieldWidth / data.speed) * 1.2);
+    this.currentStep = this.steps;
 
     for (const i in data) {
       // eslint-disable-next-line no-prototype-builtins
