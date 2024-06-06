@@ -38,32 +38,31 @@ export const getIntelligence = (unit) => {
   return GameData.races[unit.race].intelligence;
 };
 
-const fight = (attacker, defender) => {
+const fight = ({ attacker, defender, map }) => {
   const strength = getStrength(attacker);
   const defense = getDefense(defender);
   // const attackerDexterity = GameData.races[attacker.race].dexterity;
   // const defenderDexterity = GameData.races[defender.race].dexterity;
   const modifier = (strength - defense) * 7;
   const damage = 30 + modifier;
-  const newHealth = defender.health - damage;
 
   // console.log('🤺', strength, ' vs ', defense);
   // console.log(attackerDexterity, ' vs ', defenderDexterity);
 
-  defender.health = newHealth < 0 ? 0 : newHealth;
+  defender.takeDamage(damage);
 
-  if (defender.health <= 50) {
-    defender.wound();
-  }
-
-  if (defender.health === 0) {
-    defender.die();
-
+  if (defender.dead) {
     if (!attacker.friendly) {
       attacker.stop();
     }
-  } else {
-    defender.takeDamage();
+
+    // Clear blocked field for dead units
+    if (defender.id !== Units.player.id) {
+      const x = Math.floor(defender.pos[0]);
+      const y = Math.floor(defender.pos[1]);
+
+      map.resetPosition({ x, y });
+    }
   }
 
   if (defender.id === Units.player.id) {
@@ -104,29 +103,17 @@ export const combat = ({ units, map, attacker }) => {
           const playerReach = playerPosX - playerWidth - attacker.range * 20;
 
           if (playerReach <= enemyPosX && playerPosX > enemyPosX) {
-            fight(attacker, unit);
+            fight({ attacker, defender: unit, map });
           }
         }
         if (attacker.direction === 'RIGHT') {
           const playerReach = playerPosX + playerWidth + attacker.range * 20;
 
           if (playerReach >= enemyPosX && playerPosX < enemyPosX) {
-            fight(attacker, unit);
+            fight({ attacker, defender: unit, map });
           }
         }
       }
-    }
-  });
-
-  // Clear blocked field for dead units
-  units.list.forEach((unit) => {
-    if (unit.dead && unit.id !== player.id) {
-      const x = Math.floor(unit.pos[0]);
-      const y = Math.floor(unit.pos[1]);
-
-      map.resetPosition({ x, y });
-    } else if (unit.dead) {
-      console.log('player dead');
     }
   });
 };

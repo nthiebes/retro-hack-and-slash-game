@@ -2,8 +2,17 @@
   {
     "id": "mushrooms0",
     "type": "consumable",
-    "effekt": "health",
-    "health": 5,
-    "name": "Kleine Pile"
+    "effect": "health",
+    "health": 50,
+    "name": "Kleine Pilze",
+    "description": "Ein paar merkwürdig aussehende Pilze."
+  },
+  {
+    "id": "mushrooms1",
+    "type": "consumable",
+    "effect": "damage",
+    "damage": 50,
+    "name": "Kleine Pilze",
+    "description": "Ein paar merkwürdig aussehende Pilze."
   }
 ]

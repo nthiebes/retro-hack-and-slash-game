@@ -17,6 +17,7 @@ export default class Unit {
     this.hairUrl = data.hair.url;
     this.faceUrl = data.face.url;
     this.inventory = [];
+    this.health = 1000;
     this.steps = Math.floor((config.fieldWidth / data.speed) * 2);
     this.currentStep = Math.floor((config.fieldWidth / data.speed) * 2);
 
@@ -126,11 +127,30 @@ export default class Unit {
     this.skin.once = false;
   }
 
-  takeDamage() {
+  heal(amount) {
+    this.health = this.health + amount > 1000 ? 1000 : this.health + amount;
+
+    if (config.debug) {
+      console.log('💚');
+    }
+  }
+
+  takeDamage(amount) {
     const directionOffset = 512;
 
     if (config.debug) {
-      console.log('💘');
+      console.log('❤️‍🩹');
+    }
+
+    this.health = this.health - amount < 0 ? 0 : this.health - amount;
+
+    if (this.health <= 50) {
+      this.wound();
+    }
+
+    if (this.health === 0) {
+      this.die();
+      return;
     }
 
     if (this.attacking) {
@@ -171,7 +191,7 @@ export default class Unit {
     const directionOffset = 512;
 
     if (config.debug) {
-      console.log('😵');
+      console.log('☠️');
     }
 
     this.skin.pos = [0, directionOffset];
@@ -421,6 +441,10 @@ export default class Unit {
 
   addToInventory = (item) => {
     this.inventory.push(item);
+  };
+
+  removeFromInventory = (itemId) => {
+    this.inventory = this.inventory.filter(({ id }) => id !== itemId);
   };
 
   updateInventoryItem = (itemToUpdate) => {

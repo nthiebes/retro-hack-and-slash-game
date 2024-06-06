@@ -1964,6 +1964,11 @@ const blocks = {
     animations: [{ pos: [0, 0], id: 'mushrooms0' }],
     events: [{ pos: [0, 0], id: 'mushrooms0', type: 'loot' }]
   },
+  mushrooms1: {
+    map: [[], [[16]], [], []],
+    animations: [{ pos: [0, 0], id: 'mushrooms1' }],
+    events: [{ pos: [0, 0], id: 'mushrooms1', type: 'loot' }]
+  },
   barrelLoot0: {
     map: [[], [[16]], [], [[1]]],
     animations: [{ pos: [0, 0], id: 'barrel0' }],

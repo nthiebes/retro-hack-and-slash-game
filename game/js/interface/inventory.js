@@ -204,12 +204,30 @@ export class Inventory {
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
 
-    console.log(itemId);
-
     if (armor || weapon) {
       Units.player.equipItem(itemId);
       Inventory.updateInventory();
+      return;
     }
+
+    const item = GameData.getItem(id);
+
+    switch (item?.type) {
+      case 'consumable': {
+        if (item.effect === 'health') {
+          Units.player.heal(item.health);
+        } else if (item.effect === 'damage') {
+          Units.player.takeDamage(item.damage);
+        }
+        Units.player.removeFromInventory(itemId);
+        break;
+      }
+      default: {
+        //
+      }
+    }
+
+    Inventory.updateInventory();
   };
 
   static handleItemHover = (event) => {

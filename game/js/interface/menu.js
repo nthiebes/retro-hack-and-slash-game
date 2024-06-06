@@ -47,6 +47,7 @@ export class Menu {
       name: nameField.value,
       direction: 'RIGHT',
       health: 1000,
+      sex: 'male',
       gear: {
         head: 'none',
         torso: 'none',
