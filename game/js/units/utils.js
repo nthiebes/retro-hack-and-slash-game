@@ -4,6 +4,10 @@ import { Units } from '../units/units.js';
 
 const healthBarHealth = document.getElementById('health-bar-health');
 const healthBarNumber = document.getElementById('health-bar-number');
+const inventoryhealthBar = document.getElementById('inventory-health-bar');
+const inventoryhealthNumber = document.getElementById(
+  'inventory-health-number'
+);
 
 export const getDefense = (defender) => {
   const defense =
@@ -65,6 +69,8 @@ const fight = (attacker, defender) => {
   if (defender.id === Units.player.id) {
     healthBarHealth.style.width = `${Math.floor(defender.health) / 10}%`;
     healthBarNumber.innerHTML = `${Math.floor(defender.health)} / 1000`;
+    inventoryhealthBar.style.width = `${Math.floor(defender.health) / 10}%`;
+    inventoryhealthNumber.innerHTML = `${Math.floor(defender.health)} / 1000`;
   }
 };
 

@@ -1,4 +1,4 @@
-import { Menu } from '../interface/menu.js';
+import { Inventory } from '../interface/inventory.js';
 
 export class Input {
   constructor() {
@@ -8,7 +8,7 @@ export class Input {
       this.setKey(e, true);
 
       if (e.key.toLocaleLowerCase() === 'i') {
-        Menu.toggleInventory();
+        Inventory.toggleInventory();
       }
     });
 
