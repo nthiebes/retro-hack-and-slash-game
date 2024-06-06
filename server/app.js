@@ -287,14 +287,12 @@ io.on('connection', (socket) => {
   });
 
   /*
-   * Player equips item
+   * Player takes item
    */
-  socket.on('equip', ({ item }) => {
-    // console.log('Player equips item');
+  socket.on('take-item', ({ item }) => {
+    // console.log('Player takes item');
 
-    game.events = game.events.filter(({ id }) => item.id !== id);
-
-    io.sockets.emit('player-equipped', { item, playerId });
+    io.sockets.emit('player-took-item', { item, playerId });
   });
 
   /**

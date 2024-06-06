@@ -125,7 +125,7 @@ class Interactions {
           player.takeItem(event);
           Events.removeEvent(event);
           socket.emit('remove-event', { eventId: event.id });
-          // socket.emit('equip', { event });
+          socket.emit('take-item', { item: event });
           body.classList.add('cursor--use');
           body.classList.remove('cursor--info');
         }
@@ -133,11 +133,15 @@ class Interactions {
           const eventId = event.id.split('.')[0];
 
           if (eventId.includes('random')) {
+            const randomItemId = GameData.getRandomItem(eventId).id;
+
             player.takeItem({
-              id: GameData.getRandomItem(eventId).id
+              id: randomItemId
             });
+            socket.emit('take-item', { item: { ...event, id: randomItemId } });
           } else {
             player.takeItem(event);
+            socket.emit('take-item', { item: event });
           }
 
           Events.removeEvent(event);

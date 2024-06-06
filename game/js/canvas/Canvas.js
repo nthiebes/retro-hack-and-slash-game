@@ -130,7 +130,7 @@ export default class Canvas {
       }
     });
 
-    socket.on('player-equipped', ({ playerId, item }) => {
+    socket.on('player-took-item', ({ playerId, item }) => {
       if (Units.player.id !== playerId) {
         if (config.debug) {
           console.log('👤🛡️');
@@ -144,7 +144,8 @@ export default class Canvas {
         if (animation) {
           animation.play();
         }
-        Units.list.find(({ id }) => id === playerId).equip({ id: item.id });
+
+        Units.list.find(({ id }) => id === playerId).takeItem({ id: item.id });
         Events.removeEvent(item);
       }
     });
