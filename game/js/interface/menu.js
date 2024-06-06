@@ -1,5 +1,3 @@
-import '../../../node_modules/socket.io-client/dist/socket.io.min.js';
-
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
@@ -78,6 +76,18 @@ export class Menu {
     // Server disconnects
     socket.on('disconnect', () => {
       window.location.reload();
+    });
+
+    // Game closed
+    socket.on('game-over', () => {
+      menuJoin.setAttribute('disabled', true);
+      menuNew.removeAttribute('disabled');
+    });
+
+    // Game started
+    socket.on('game-started', () => {
+      menuJoin.removeAttribute('disabled');
+      menuNew.setAttribute('disabled', true);
     });
   };
 

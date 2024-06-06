@@ -91,6 +91,8 @@ io.on('connection', (socket) => {
       players: [],
       chunks
     };
+
+    io.sockets.emit('game-started');
   });
 
   /**
@@ -342,6 +344,8 @@ io.on('connection', (socket) => {
         console.log('Game reset');
 
         game = null;
+
+        io.sockets.emit('game-over');
       }
     }
 
