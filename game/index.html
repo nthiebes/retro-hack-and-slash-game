@@ -1,226 +1,321 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta charset="utf-8">
-  <title>Ridane</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="styles/game.css">
-  <meta name="”robots”" content="”noindex”" />
-</head>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>Ridane</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/game.css" />
+    <meta name="”robots”" content="”noindex”" />
+  </head>
 
-<body ontouchstart="">
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-      <symbol id="icon-arrow-left" viewBox="0 0 24 24">
-        <path d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"></path>
-      </symbol>
-      <symbol id="icon-arrow-right" viewBox="0 0 24 24">
-        <path d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z"></path>
-      </symbol>
-      <symbol id="icon-fullscreen" viewBox="0 0 24 24">
-        <path d="M14.016 5.016h4.969v4.969h-1.969v-3h-3v-1.969zM17.016 17.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 9.984v-4.969h4.969v1.969h-3v3h-1.969zM6.984 14.016v3h3v1.969h-4.969v-4.969h1.969z"></path>
-      </symbol>
-      <symbol id="icon-fullscreen-exit" viewBox="0 0 24 24">
-        <path d="M15.984 8.016h3v1.969h-4.969v-4.969h1.969v3zM14.016 18.984v-4.969h4.969v1.969h-3v3h-1.969zM8.016 8.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 15.984v-1.969h4.969v4.969h-1.969v-3h-3z"></path>
-      </symbol>
-    </defs>
-  </svg>
+  <body ontouchstart="">
+    <svg
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <defs>
+        <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+          <path
+            d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"
+          ></path>
+        </symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+          <path
+            d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z"
+          ></path>
+        </symbol>
+        <symbol id="icon-fullscreen" viewBox="0 0 24 24">
+          <path
+            d="M14.016 5.016h4.969v4.969h-1.969v-3h-3v-1.969zM17.016 17.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 9.984v-4.969h4.969v1.969h-3v3h-1.969zM6.984 14.016v3h3v1.969h-4.969v-4.969h1.969z"
+          ></path>
+        </symbol>
+        <symbol id="icon-fullscreen-exit" viewBox="0 0 24 24">
+          <path
+            d="M15.984 8.016h3v1.969h-4.969v-4.969h1.969v3zM14.016 18.984v-4.969h4.969v1.969h-3v3h-1.969zM8.016 8.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 15.984v-1.969h4.969v4.969h-1.969v-3h-3z"
+          ></path>
+        </symbol>
+      </defs>
+    </svg>
 
+    <main id="canvas-wrapper">
+      <canvas class="map-layer" id="canvas-ground1"></canvas>
+      <canvas class="map-layer" id="canvas-ground2"></canvas>
+      <canvas class="map-layer" id="canvas-anim"></canvas>
+      <canvas class="map-layer" id="canvas-top1"></canvas>
+    </main>
 
-  <main id="canvas-wrapper">
-    <canvas class="map-layer" id="canvas-ground1"></canvas>
-    <canvas class="map-layer" id="canvas-ground2"></canvas>
-    <canvas class="map-layer" id="canvas-anim"></canvas>
-    <canvas class="map-layer" id="canvas-top1"></canvas>
-  </main>
-
-  <section class="window window--small window--show" id="menu">
-    <h1 class="window__title">Ridane</h1>
-    <section class="window__section window__section--small">
-      <button class="button" id="menu-new" disabled>Neues Spiel</button>
-      <button class="button" id="menu-join" disabled>Beitreten</button>
-      <button class="button" id="menu-options">Optionen</button>
-      <button class="button" id="menu-options">Hilfe</button>
-      <button class="button" id="menu-options">Credits</button>
+    <section class="window window--small window--show" id="menu">
+      <h1 class="window__title">Ridane</h1>
+      <section class="window__section window__section--small">
+        <button class="button" id="menu-new" disabled>Neues Spiel</button>
+        <button class="button" id="menu-join" disabled>Beitreten</button>
+        <button class="button" id="menu-options">Optionen</button>
+        <button class="button" id="menu-options">Hilfe</button>
+        <button class="button" id="menu-options">Credits</button>
+      </section>
     </section>
-  </section>
 
-  <form class="window window--small" id="new">
-    <h1 class="window__title">Karte wählen</h1>
-    <section class="window__section window__section--small">
-      <select class="select" id="map">
-        <option value="generated" selected>Generierte Karte</option>
-        <option value="arena">Arena</option>
-        <option value="distribute">Verteiler</option>
-        <option value="demo">Demo</option>
-        <option value="items">Alle Gegenstände</option>
-        <option value="island">Insel</option>
-        <option value="turn-based">Turn-based</option>
-        <option value="big">Groß</option>
-        <option value="medium">Mittel</option>
-        <option value="small">Klein</option>
-        <option value="camp">Camp</option>
-        <option value="ridane-old">Ridane old</option>
-        <option value="survival">Survival</option>
-      </select>
-      <button class="button button--long-text" type="submit">Spiel erstellen</button>
-    </section>
-  </form>
+    <form class="window window--small" id="new">
+      <h1 class="window__title">Karte wählen</h1>
+      <section class="window__section window__section--small">
+        <select class="select" id="map">
+          <option value="generated" selected>Generierte Karte</option>
+          <option value="arena">Arena</option>
+          <option value="distribute">Verteiler</option>
+          <option value="demo">Demo</option>
+          <option value="items">Alle Gegenstände</option>
+          <option value="island">Insel</option>
+          <option value="turn-based">Turn-based</option>
+          <option value="big">Groß</option>
+          <option value="medium">Mittel</option>
+          <option value="small">Klein</option>
+          <option value="camp">Camp</option>
+          <option value="ridane-old">Ridane old</option>
+          <option value="survival">Survival</option>
+        </select>
+        <button class="button button--long-text" type="submit">
+          Spiel erstellen
+        </button>
+      </section>
+    </form>
 
-  <form class="window" id="character">
-    <h1 class="window__title">Dein Charakter</h1>
-    <section class="window__section window__section--editor">
-      <div class="window__section-column">
-        <div class="option">
-          <button class="icon-button" id="race-prev" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-          </button>
-          <div>
-            <h3 id="race-label">Rasse</h3>
-            <p id="race-count"></p>
+    <form class="window" id="character">
+      <h1 class="window__title">Dein Charakter</h1>
+      <section class="window__section window__section--editor">
+        <div class="window__section-column">
+          <div class="option">
+            <button class="icon-button" id="race-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="race-label">Rasse</h3>
+              <p id="race-count"></p>
+            </div>
+            <button class="icon-button" id="race-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
           </div>
-          <button class="icon-button" id="race-next" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-          </button>
+          <h2 id="race-name"></h2>
+          <ul class="attributes" id="race-attributes"></ul>
         </div>
-        <h2 id="race-name"></h2>
-        <ul class="attributes" id="race-attributes"></ul>
-      </div>
 
-      <div class="preview-wrapper">
-        <div class="preview" id="race-preview"></div>
-        <div class="preview" id="face-preview"></div>
-        <div class="preview" id="hair-preview"></div>
-        <label class="label" for="name">Name:</label>
-        <input class="input" required value="Gscheid" id="name" maxlength="20" />
-      </div>
+        <div class="preview-wrapper">
+          <div class="preview" id="race-preview"></div>
+          <div class="preview" id="face-preview"></div>
+          <div class="preview" id="hair-preview"></div>
+          <label class="label" for="name">Name:</label>
+          <input
+            class="input"
+            required
+            value="Gscheid"
+            id="name"
+            maxlength="20"
+          />
+        </div>
 
-      <div class="window__section-column">
-        <div class="option">
-          <button class="icon-button" id="skin-prev" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-          </button>
-          <div>
-            <h3 id="skin-label">Haut</h3>
-            <p id="skin-count"></p>
+        <div class="window__section-column">
+          <div class="option">
+            <button class="icon-button" id="skin-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="skin-label">Haut</h3>
+              <p id="skin-count"></p>
+            </div>
+            <button class="icon-button" id="skin-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
           </div>
-          <button class="icon-button" id="skin-next" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-          </button>
-        </div>
-        <div class="option">
-          <button class="icon-button" id="face-prev" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-          </button>
-          <div>
-            <h3 id="face-label">Gesicht</h3>
-            <p id="face-count"></p>
+          <div class="option">
+            <button class="icon-button" id="face-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="face-label">Gesicht</h3>
+              <p id="face-count"></p>
+            </div>
+            <button class="icon-button" id="face-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
           </div>
-          <button class="icon-button" id="face-next" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-          </button>
-        </div>
-        <div class="option">
-          <button class="icon-button" id="hair-prev" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-left"></use></svg>
-          </button>
-          <div>
-            <h3 id="hair-label">Haare</h3>
-            <p id="hair-count"></p>
+          <div class="option">
+            <button class="icon-button" id="hair-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="hair-label">Haare</h3>
+              <p id="hair-count"></p>
+            </div>
+            <button class="icon-button" id="hair-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
           </div>
-          <button class="icon-button" id="hair-next" type="button">
-            <svg class="icon icon-arrow-right"><use xlink:href="#icon-arrow-right"></use></svg>
-          </button>
         </div>
-      </div>
-    </section>
-    <button class="button button--long-text window__button" type="submit">Spiel beitreten</button>
-  </form>
+      </section>
+      <button class="button button--long-text window__button" type="submit">
+        Spiel beitreten
+      </button>
+    </form>
 
-  <section class="window inventory" id="inventory">
-    <button class="window__close" id="close-window"></button>
-    <h1 class="window__title">Inventar</h1>
-    <section class="window__section window__section--small inventory__section">
+    <section class="window inventory" id="inventory">
+      <button class="window__close" id="close-inventory"></button>
+      <h1 class="window__title">Inventar</h1>
+      <section
+        class="window__section window__section--small inventory__section"
+      >
         <h2 class="inventory__name" id="inventory-name"></h2>
         <h3 class="inventory__race" id="inventory-race"></h3>
         <div class="inventory__health" id="inventory-health">
           <div class="inventory__health-bar" id="inventory-health-bar"></div>
-          <div class="inventory__health-number" id="inventory-health-number"></div>
+          <div
+            class="inventory__health-number"
+            id="inventory-health-number"
+          ></div>
         </div>
         <ul class="inventory__slots">
-            <li class="inventory__item" id="inventory-head"></li>
-            <li class="inventory__item" id="inventory-primary"></li>
-            <li class="inventory__item" id="inventory-torso"></li>
-            <li class="inventory__item" id="inventory-secondary"></li>
-            <li class="inventory__item" id="inventory-leg"></li>
-            <li class="inventory__item" id="inventory-jewlery"></li>
+          <li class="inventory__item" id="inventory-head"></li>
+          <li class="inventory__item" id="inventory-primary"></li>
+          <li class="inventory__item" id="inventory-torso"></li>
+          <li class="inventory__item" id="inventory-secondary"></li>
+          <li class="inventory__item" id="inventory-leg"></li>
+          <li class="inventory__item" id="inventory-jewlery"></li>
         </ul>
-        <div class="preview inventory__preview" id="inventory-primary-preview"></div>
-        <div class="preview inventory__preview" id="inventory-race-preview"></div>
-        <div class="preview inventory__preview" id="inventory-face-preview"></div>
-        <div class="preview inventory__preview" id="inventory-hair-preview"></div>
-        <div class="preview inventory__preview" id="inventory-torso-preview"></div>
-        <div class="preview inventory__preview" id="inventory-leg-preview"></div>
-        <div class="preview inventory__preview" id="inventory-head-preview"></div>
-        <div class="preview inventory__preview" id="inventory-secondary-preview"></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-primary-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-race-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-face-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-hair-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-torso-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-leg-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-head-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-secondary-preview"
+        ></div>
         <div class="inventory__stats">
-            <div class="inventory__stats-equipped">
-                <div>
-                    Schaden: <div class="inventory__stat" id="inventory-damage"></div>
-                </div>
-                <div>
-                    Verteidigung: <div class="inventory__stat" id="inventory-defense"></div>
-                </div>
-                <div>
-                    Reichweite: <div class="inventory__stat" id="inventory-range"></div>
-                </div>
-                <div>
-                    Kampf-Geschw.: <div class="inventory__stat" id="inventory-combatspeed"></div>
-                </div>
-                <div>
-                    Lauf-Geschw.: <div class="inventory__stat" id="inventory-walkspeed"></div>
-                </div>
+          <div class="inventory__stats-equipped">
+            <div>
+              Schaden:
+              <div class="inventory__stat" id="inventory-damage"></div>
             </div>
-            <div class="inventory__stats-hover">
-                <div class="inventory__stat" id="inventory-damage-hover"></div>
-                <div class="inventory__stat" id="inventory-defense-hover"></div>
-                <div class="inventory__stat" id="inventory-range-hover"></div>
-                <div class="inventory__stat" id="inventory-combatspeed-hover"></div>
-                <div class="inventory__stat" id="inventory-walkspeed-hover"></div>
+            <div>
+              Verteidigung:
+              <div class="inventory__stat" id="inventory-defense"></div>
             </div>
-            <div class="inventory__stats-right">
-                <div>
-                    Geschicklichkeit: <div class="inventory__stat" id="inventory-dexterity"></div>
-                </div>
-                <div>
-                    Intelligenz: <div class="inventory__stat" id="inventory-intelligence"></div>
-                </div>
+            <div>
+              Reichweite:
+              <div class="inventory__stat" id="inventory-range"></div>
             </div>
+            <div>
+              Kampf-Geschw.:
+              <div class="inventory__stat" id="inventory-combatspeed"></div>
+            </div>
+            <div>
+              Lauf-Geschw.:
+              <div class="inventory__stat" id="inventory-walkspeed"></div>
+            </div>
+          </div>
+          <div class="inventory__stats-hover">
+            <div class="inventory__stat" id="inventory-damage-hover"></div>
+            <div class="inventory__stat" id="inventory-defense-hover"></div>
+            <div class="inventory__stat" id="inventory-range-hover"></div>
+            <div class="inventory__stat" id="inventory-combatspeed-hover"></div>
+            <div class="inventory__stat" id="inventory-walkspeed-hover"></div>
+          </div>
+          <div class="inventory__stats-right">
+            <div>
+              Geschicklichkeit:
+              <div class="inventory__stat" id="inventory-dexterity"></div>
+            </div>
+            <div>
+              Intelligenz:
+              <div class="inventory__stat" id="inventory-intelligence"></div>
+            </div>
+          </div>
         </div>
-    </section>
-    <section class="window__section window__section--small inventory__section inventory__section--scroll">
+      </section>
+      <section
+        class="window__section window__section--small inventory__section inventory__section--scroll"
+      >
         <ul class="inventory__items" id="inventory-items"></ul>
+      </section>
     </section>
-  </section>
 
+    <section class="window inventory" id="statistics">
+      <button class="window__close" id="close-statistics"></button>
+      <h1 class="window__title">Statistiken</h1>
+      <section
+        class="window__section window__section--small inventory__section"
+      >
+        <ul class="statistics" id="statistics-list"></ul>
+      </section>
+      <section
+        class="window__section window__section--small inventory__section"
+      ></section>
+    </section>
 
-  <section class="health-bar" id="health-bar">
-    <div class="health-bar__health" id="health-bar-health"></div>
-    <div class="health-bar__number" id="health-bar-number"></div>
-  </section>
+    <section class="health-bar" id="health-bar">
+      <div class="health-bar__health" id="health-bar-health"></div>
+      <div class="health-bar__number" id="health-bar-number"></div>
+    </section>
 
-  <section class="minimap" id="minimap">
-    <div class="minimap__wrapper">
-      <canvas class="minimap__inner" id="minimap-canvas" height="650" width="650"></canvas>
-    </div>
-  </section>
+    <section class="minimap" id="minimap">
+      <div class="minimap__wrapper">
+        <canvas
+          class="minimap__inner"
+          id="minimap-canvas"
+          height="650"
+          width="650"
+        ></canvas>
+      </div>
+    </section>
 
-  <button class="fullscreen icon-button" id="fullscreen">
-    <svg class="icon"><use xlink:href="#icon-fullscreen"></use></svg>
-  </button>
+    <button class="fullscreen icon-button" id="fullscreen">
+      <svg class="icon"><use xlink:href="#icon-fullscreen"></use></svg>
+    </button>
 
-  <script src="index.js" type="module" async></script>
-</body>
+    <script src="index.js" type="module" async></script>
+  </body>
 </html>

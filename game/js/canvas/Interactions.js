@@ -236,6 +236,7 @@ class Interactions {
           });
           this.setPath();
           this.checkForNewChunk([x, newPos]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -278,6 +279,7 @@ class Interactions {
           });
           this.setPath();
           this.checkForNewChunk([x, newPos]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -319,6 +321,7 @@ class Interactions {
           });
           this.setPath();
           this.checkForNewChunk([newPos, y]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -361,6 +364,7 @@ class Interactions {
           });
           this.setPath();
           this.checkForNewChunk([newPos, y]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]

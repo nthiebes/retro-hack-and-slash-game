@@ -1,4 +1,5 @@
 import { Inventory } from '../interface/inventory.js';
+import { Statistics } from '../interface/statistics.js';
 
 export class Input {
   constructor() {
@@ -9,6 +10,9 @@ export class Input {
 
       if (e.key.toLocaleLowerCase() === 'i') {
         Inventory.toggleInventory();
+      }
+      if (e.key.toLocaleLowerCase() === 'n') {
+        Statistics.toggleStatistics();
       }
     });
 

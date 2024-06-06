@@ -409,3 +409,16 @@ p {
   right: 1rem;
   top: 1rem;
 }
+
+.statistics {
+  margin-left: 15px;
+  overflow-y: auto;
+  width: calc(100% - 15px);
+  padding-right: 15px;
+  height: 100%;
+}
+
+.statistics__stat {
+  display: flex;
+  justify-content: space-between;
+}

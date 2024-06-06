@@ -17,6 +17,12 @@ export default class Unit {
     this.hairUrl = data.hair.url;
     this.faceUrl = data.face.url;
     this.inventory = [];
+    this.stats = {
+      kills: 0,
+      looted: 0,
+      mushrooms: 0,
+      tilesWalked: 0
+    };
     this.health = 1000;
     this.steps = Math.floor((config.fieldWidth / data.speed) * 1.2);
     this.currentStep = this.steps;
@@ -321,6 +327,7 @@ export default class Unit {
     }
 
     this.addToInventory(item);
+    this.stats.looted++;
 
     if (item.equipped) {
       this.equipItem(item.id);

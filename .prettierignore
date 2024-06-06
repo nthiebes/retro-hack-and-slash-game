@@ -1,6 +1,5 @@
 coverage/**/*.js
 *.yml
 game/images
-*.html
 package-lock.json
 *.md

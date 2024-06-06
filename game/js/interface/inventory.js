@@ -9,6 +9,8 @@ import {
   getIntelligence
 } from '../units/utils.js';
 import { racesMap } from './translations.js';
+import { Menu } from './menu.js';
+import { Statistics } from './statistics.js';
 
 const inventoryWindow = document.getElementById('inventory');
 const inventoryRaceImg = document.getElementById('inventory-race-preview');
@@ -57,33 +59,33 @@ const inventoryhealthBar = document.getElementById('inventory-health-bar');
 const inventoryhealthNumber = document.getElementById(
   'inventory-health-number'
 );
-const canvasWrapper = document.getElementById('canvas-wrapper');
-const minimap = document.getElementById('minimap');
-const healthBar = document.getElementById('health-bar');
-const closeBtn = document.getElementById('close-window');
+const closeBtn = document.getElementById('close-inventory');
 
 let inventoryOpen = false;
 
 export class Inventory {
-  static start = () => {};
-
   static toggleInventory = () => {
     if (inventoryOpen) {
-      inventoryOpen = false;
+      Inventory.hide();
+      Menu.showBackground();
     } else {
       inventoryOpen = true;
       Inventory.updateInventory();
+      Menu.hideBackground();
+      Statistics.hide();
+      inventoryWindow.classList.add('window--show');
     }
 
     closeBtn.addEventListener('click', () => {
-      Inventory.toggleInventory();
+      Inventory.hide();
+      Menu.showBackground();
     });
-
-    inventoryWindow.classList.toggle('window--show');
-    canvasWrapper.classList.toggle('window--focussed');
-    minimap.classList.toggle('window--focussed');
-    healthBar.classList.toggle('window--focussed');
   };
+
+  static hide() {
+    inventoryOpen = false;
+    inventoryWindow.classList.remove('window--show');
+  }
 
   static updateInventory = () => {
     const {
@@ -218,6 +220,9 @@ export class Inventory {
           Units.player.heal(item.health);
         } else if (item.effect === 'damage') {
           Units.player.takeDamage(item.damage);
+        }
+        if (item.id.includes('mushroom')) {
+          Units.player.stats.mushrooms++;
         }
         Units.player.removeFromInventory(itemId);
         break;

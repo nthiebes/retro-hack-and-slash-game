@@ -31,6 +31,7 @@ const raceName = document.getElementById('race-name');
 const minimap = document.getElementById('minimap');
 const healthBar = document.getElementById('health-bar');
 const healthBarNumber = document.getElementById('health-bar-number');
+const canvasWrapper = document.getElementById('canvas-wrapper');
 
 export class Menu {
   static start = (resources) => {
@@ -97,6 +98,18 @@ export class Menu {
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
     }
+  }
+
+  static hideBackground() {
+    canvasWrapper.classList.add('window--focussed');
+    minimap.classList.add('window--focussed');
+    healthBar.classList.add('window--focussed');
+  }
+
+  static showBackground() {
+    canvasWrapper.classList.remove('window--focussed');
+    minimap.classList.remove('window--focussed');
+    healthBar.classList.remove('window--focussed');
   }
 
   static selectMap() {

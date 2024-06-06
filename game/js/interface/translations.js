@@ -46,3 +46,10 @@ export const rarityMap = {
   epic: 'Episch',
   legendary: 'Legendär'
 };
+
+export const statsMap = {
+  looted: 'Gesammelte Gegenstände',
+  kills: 'Getötete Gegner',
+  mushrooms: 'Verspeiste Pilze',
+  tilesWalked: 'Zurückgelegte Meter'
+};

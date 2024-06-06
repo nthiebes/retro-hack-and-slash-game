@@ -56,6 +56,8 @@ const fight = ({ attacker, defender, map }) => {
       attacker.stop();
     }
 
+    attacker.stats.kills++;
+
     // Clear blocked field for dead units
     if (defender.id !== Units.player.id) {
       const x = Math.floor(defender.pos[0]);
