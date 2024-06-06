@@ -1,5 +1,6 @@
 import config from '../config.js';
 import { GameData } from '../gameData.js';
+import { Units } from '../units/units.js';
 
 const healthBarHealth = document.getElementById('health-bar-health');
 const healthBarNumber = document.getElementById('health-bar-number');
@@ -61,7 +62,7 @@ const fight = (attacker, defender) => {
     defender.takeDamage();
   }
 
-  if (defender.id.includes('player')) {
+  if (defender.id === Units.player.id) {
     healthBarHealth.style.width = `${Math.floor(defender.health) / 10}%`;
     healthBarNumber.innerHTML = `${Math.floor(defender.health)} / 1000`;
   }

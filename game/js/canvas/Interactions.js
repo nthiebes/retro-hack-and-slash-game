@@ -8,10 +8,11 @@ import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
 
 const body = document.getElementsByTagName('body')[0];
+const wrapper = document.getElementById('canvas-wrapper');
+const minimapCanvas = document.getElementById('minimap-canvas');
 
 class Interactions {
   constructor(data) {
-    this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
     this.map = data.map;
     this.rowTileCount = data.rowTileCount;
@@ -35,9 +36,9 @@ class Interactions {
       'mousemove',
       this.onMouseMove.bind(this)
     );
-    this.wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
-    this.wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
-    this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
+    wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
+    wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
+    wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
   }
 
   onMouseMove(e) {
@@ -190,8 +191,7 @@ class Interactions {
       right = input.isDown('D'),
       left = input.isDown('A'),
       player = Units.player,
-      playerSpeed = player.speed,
-      wrapper = this.wrapper;
+      playerSpeed = player.speed;
     let valueX =
         player.pos[0] * this.fieldWidth * -1 + this.windowInnerWidth / 2,
       valueY =
@@ -434,6 +434,9 @@ class Interactions {
       }
 
       wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+      minimapCanvas.style.transform = `translateX(${
+        this.offsetX / 10 + 10
+      }px) translateY(${this.offsetY / 10 + 35}px)`;
 
       if (!player.moving) {
         player.walk();
@@ -525,7 +528,10 @@ class Interactions {
       this.offsetY = 0;
     }
 
-    this.wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+    wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+    minimapCanvas.style.transform = `translateX(${
+      this.offsetX / 10 + 10
+    }px) translateY(${this.offsetY / 10 + 35}px)`;
   }
 
   updateMap(map) {

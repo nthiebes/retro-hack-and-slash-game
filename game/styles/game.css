@@ -4,15 +4,18 @@
   --cursorDefault: url("../images/cursors/default.png"), default;
   --cursorUse: url("../images/cursors/use.png"), default;
   --cursorInfo: url("../images/cursors/info.png"), default;
+  --fontColor: #3a1f0b;
 }
 
 html,
 body {
   overflow: hidden;
   font-size: 18px;
+  /* background: linear-gradient(90deg, #342a24 0%, #42362f 50%, #342a24 100%); */
+  background: url("../images/bg.jpg") no-repeat top center;
+  background-size: cover;
   background-color: #342a24;
-  background: linear-gradient(90deg, #342a24 0%, #42362f 50%, #342a24 100%);
-  color: #3a1f0b;
+  color: var(--fontColor);
   font-family: var(--font-family);
   cursor: var(--cursorDefault);
   height: 100%;
@@ -226,7 +229,7 @@ body {
   background-color: #cfac7f;
   transition: border-color 0.2s linear;
   font-family: var(--font-family);
-  color: #3a1f0b;
+  color: var(--fontColor);
   font-size: 1rem;
 }
 
@@ -245,7 +248,7 @@ body {
   background-color: #cfac7f;
   transition: border-color 0.2s linear;
   font-family: var(--font-family);
-  color: #3a1f0b;
+  color: var(--fontColor);
   font-size: 1rem;
   margin-bottom: 1rem;
 }
@@ -546,6 +549,18 @@ p {
 
 .minimap--show {
   opacity: 1;
+}
+
+.minimap::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 5px);
+  right: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
+  background-color: #bf5025;
+  border-radius: 50%;
+  border: 1px solid #e2d8c7;
 }
 
 .minimap__wrapper {
