@@ -1,10 +1,12 @@
 @import "base.css";
+@import "inventory.css";
 
 :root {
   --cursorDefault: url("../images/cursors/default.png"), default;
   --cursorUse: url("../images/cursors/use.png"), default;
   --cursorInfo: url("../images/cursors/info.png"), default;
   --fontColor: #3a1f0b;
+  --colorRed: #bf5025;
 }
 
 html,
@@ -324,182 +326,6 @@ p {
   transform: translateX(-50%);
 }
 
-.inventory {
-  width: 800px;
-  height: 537px;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 13px 1rem 0 1rem;
-}
-
-.inventory__section {
-  width: 382px;
-  height: 505px;
-  position: relative;
-  align-items: flex-start;
-  padding: 1.5rem;
-  background-size: 100% 100%;
-}
-
-.inventory__section--scroll {
-  padding-right: 15px;
-}
-
-.inventory__preview {
-  width: 150px;
-  top: 4rem;
-  left: calc(50% + 10px);
-}
-
-.inventory__slots {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.inventory__slots .inventory__item:nth-child(2n) {
-  margin-left: 7rem;
-}
-
-.inventory__stats {
-  display: flex;
-  margin: 0 7px;
-  width: 100%;
-  line-height: 27px;
-}
-
-.inventory__stats-equipped {
-  width: 43%;
-  padding-right: 10px;
-}
-
-.inventory__stats-equipped > *,
-.inventory__stats-right > * {
-  display: flex;
-  justify-content: space-between;
-}
-
-.inventory__stats-hover {
-  width: 10%;
-}
-
-.inventory__stats-right {
-  width: 43%;
-  padding-left: 10px;
-}
-
-.inventory__stat {
-  text-align: right;
-  font-size: 1.2rem;
-  color: #000;
-  height: 27px;
-}
-
-.inventory__stat--plus {
-  color: #3a6f20;
-}
-
-.inventory__stat--minus {
-  color: #bf5025;
-}
-
-.inventory__name {
-  text-align: center;
-  width: 100%;
-  margin-top: 0;
-}
-
-.inventory__race {
-  margin: 1rem 0 0.5rem 0.5rem;
-}
-
-.inventory__items {
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y: auto;
-  margin-left: 15px;
-}
-
-.inventory__item {
-  width: 60px;
-  height: 60px;
-  margin: 7px;
-  display: block;
-  border-radius: 5px;
-  border: 4px solid #464646;
-  overflow: hidden;
-  padding: 5px;
-  box-shadow: 0 2px 0px 0px inset #2d2d2d, 0 -1px 0px 0px #aaa,
-    0 0 20px 0px inset rgba(0, 0, 0, 1);
-  background-image: url("/game/images/icons.png");
-  background-color: #373737;
-  transition: border-color 0.2s linear;
-}
-
-.inventory__item--highlighted {
-  border-color: #d9d9d9;
-}
-
-.inventory__item#inventory-head {
-  background-position: -4px -244px;
-}
-
-.inventory__item#inventory-torso {
-  background-position: -4px -182px;
-}
-
-.inventory__item#inventory-leg {
-  background-position: -4px -124px;
-}
-
-.inventory__item#inventory-primary {
-  background-position: -4px -65px;
-}
-
-.inventory__item#inventory-secondary {
-  background-position: -4px -304px;
-}
-
-.inventory__item#inventory-jewlery {
-  background-position: -4px -364px;
-}
-
-.inventory__item--consumable,
-.inventory__item--common,
-.inventory__item--uncommon,
-.inventory__item--rare,
-.inventory__item--epic,
-.inventory__item--legendary {
-  background-size: 400px 300px;
-  background-position: -750px -550px !important;
-  cursor: var(--cursorUse);
-}
-
-.inventory__item--consumable {
-  background-color: #9e9e9e;
-}
-
-.inventory__item--common {
-  background-color: #a2724a;
-}
-
-.inventory__item--uncommon {
-  background-color: #8bc34a;
-}
-
-.inventory__item--rare {
-  background-color: #3f51b5;
-}
-
-.inventory__item--epic {
-  background-color: #9c27b0;
-}
-
-.inventory__item--legendary {
-  background-color: #ffeb3b;
-}
-
 .health-bar {
   background: url("/game/images/healthbar.png") no-repeat;
   width: 400px;
@@ -558,9 +384,9 @@ p {
   right: calc(50% - 5px);
   width: 10px;
   height: 10px;
-  background-color: #bf5025;
+  background-color: #e2d8c7;
   border-radius: 50%;
-  border: 1px solid #e2d8c7;
+  border: 1px solid #464646;
 }
 
 .minimap__wrapper {

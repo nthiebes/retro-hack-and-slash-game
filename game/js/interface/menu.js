@@ -77,6 +77,10 @@ const inventoryHeadIcon = document.getElementById('inventory-head');
 const inventoryTorsoIcon = document.getElementById('inventory-torso');
 const inventoryLegIcon = document.getElementById('inventory-leg');
 const inventoryJewleryIcon = document.getElementById('inventory-jewlery');
+const inventoryhealthBar = document.getElementById('inventory-health-bar');
+const inventoryhealthNumber = document.getElementById(
+  'inventory-health-number'
+);
 const raceAttributes = document.getElementById('race-attributes');
 const raceName = document.getElementById('race-name');
 const raceCounter = document.getElementById('race-count');
@@ -371,7 +375,8 @@ export class Menu {
       range,
       inventory,
       noHair,
-      noFace
+      noFace,
+      health
     } = Units.player;
 
     Menu.resetHover();
@@ -403,6 +408,8 @@ export class Menu {
       getAttackSpeed(weapons.primary)
     );
     inventoryWalkspeed.innerHTML = Menu.roundStat(getWalkSpeed({ race, gear }));
+    inventoryhealthNumber.innerHTML = `${Math.floor(health)} / 1000`;
+    inventoryhealthBar.style.width = `${health / 10}%`;
 
     inventory.forEach((item) => {
       const li = document.createElement('li');
@@ -467,6 +474,8 @@ export class Menu {
     const id = itemId.split('.')[0];
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
+
+    console.log(itemId);
 
     if (armor || weapon) {
       Units.player.equipItem(itemId);
