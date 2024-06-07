@@ -40,6 +40,11 @@
             d="M15.984 8.016h3v1.969h-4.969v-4.969h1.969v3zM14.016 18.984v-4.969h4.969v1.969h-3v3h-1.969zM8.016 8.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 15.984v-1.969h4.969v4.969h-1.969v-3h-3z"
           ></path>
         </symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+          <path
+            d="M9 5.016h12v3.984h-12v-3.984zM9 18.984v-3.984h12v3.984h-12zM9 14.016v-4.031h12v4.031h-12zM3.984 9v-3.984h4.031v3.984h-4.031zM3.984 18.984v-3.984h4.031v3.984h-4.031zM3.984 14.016v-4.031h4.031v4.031h-4.031z"
+          ></path>
+        </symbol>
       </defs>
     </svg>
 
@@ -55,6 +60,17 @@
       <section class="window__section window__section--small">
         <button class="button" id="menu-new" disabled>Neues Spiel</button>
         <button class="button" id="menu-join" disabled>Beitreten</button>
+        <button class="button" id="menu-options">Optionen</button>
+        <button class="button" id="menu-options">Hilfe</button>
+        <button class="button" id="menu-options">Credits</button>
+      </section>
+    </section>
+
+    <section class="window window--small" id="ingame-menu">
+      <h1 class="window__title">Menü</h1>
+      <section class="window__section window__section--small">
+        <button class="button" id="menu-continue">Weiter</button>
+        <button class="button" id="menu-leave">Verlassen</button>
         <button class="button" id="menu-options">Optionen</button>
         <button class="button" id="menu-options">Hilfe</button>
         <button class="button" id="menu-options">Credits</button>
@@ -312,9 +328,23 @@
       </div>
     </section>
 
-    <button class="fullscreen icon-button" id="fullscreen">
-      <svg class="icon"><use xlink:href="#icon-fullscreen"></use></svg>
-    </button>
+    <section class="menu-frame" id="menu-frame">
+      <button
+        class="menu-button icon-button"
+        id="menu-button"
+        title="Menü"
+        disabled
+      >
+        <svg class="icon"><use xlink:href="#icon-menu"></use></svg>
+      </button>
+      <button
+        class="fullscreen-button icon-button"
+        id="fullscreen"
+        title="Vollbild"
+      >
+        <svg class="icon"><use xlink:href="#icon-fullscreen"></use></svg>
+      </button>
+    </section>
 
     <script src="index.js" type="module" async></script>
   </body>

@@ -33,6 +33,11 @@ const minimap = document.getElementById('minimap');
 const healthBar = document.getElementById('health-bar');
 const healthBarNumber = document.getElementById('health-bar-number');
 const canvasWrapper = document.getElementById('canvas-wrapper');
+const menuButton = document.getElementById('menu-button');
+const ingameMenu = document.getElementById('ingame-menu');
+const menuContinue = document.getElementById('menu-continue');
+const menuLeave = document.getElementById('menu-leave');
+let ingameMenuOpen = false;
 
 export class Menu {
   static start = (resources) => {
@@ -63,6 +68,11 @@ export class Menu {
     menuJoin.addEventListener('click', Menu.showCharacterEditor);
     newWindow.addEventListener('submit', Menu.createGame);
     fullscreen.addEventListener('click', Menu.toggleFullScreen);
+    menuButton.addEventListener('click', Menu.toggleIngameMenu);
+    menuContinue.addEventListener('click', Menu.toggleIngameMenu);
+    menuLeave.addEventListener('click', () => {
+      window.location.reload();
+    });
 
     // Connect player
     socket.emit('id', ({ playerId, gameId }) => {
@@ -100,6 +110,20 @@ export class Menu {
       document.exitFullscreen();
     }
     sounds.effects.play('click');
+  }
+
+  static toggleIngameMenu() {
+    if (ingameMenuOpen) {
+      ingameMenu.classList.remove('window--show');
+      sounds.effects.play('click');
+      Menu.showBackground();
+      ingameMenuOpen = false;
+    } else {
+      ingameMenu.classList.toggle('window--show');
+      sounds.effects.play('click');
+      Menu.hideBackground();
+      ingameMenuOpen = true;
+    }
   }
 
   static hideBackground() {
@@ -370,6 +394,7 @@ export class Menu {
         characterWindow.classList.remove('window--show');
         minimap.classList.add('minimap--show');
         healthBar.classList.add('health-bar--show');
+        menuButton.removeAttribute('disabled');
         healthBarNumber.innerHTML = `${Menu.player.health} / ${Menu.player.health}`;
       }
     );

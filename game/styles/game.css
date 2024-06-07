@@ -183,7 +183,8 @@ body {
   color: #98876a;
 }
 
-.button:disabled {
+.button:disabled,
+.icon-button:disabled {
   pointer-events: none;
   opacity: 0.5;
 }
@@ -403,11 +404,28 @@ p {
   transform: translateX(-218px) translateY(-218px);
 }
 
-.fullscreen {
+.menu-frame {
+  background: url("/game/images/middle-frame.png") 0 0 no-repeat;
   position: fixed;
-  z-index: 1;
-  right: 1rem;
-  top: 1rem;
+  width: 340px;
+  height: 240px;
+  top: -124px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.menu-button {
+  position: absolute;
+  left: calc(50% - 30px);
+  bottom: 50px;
+  width: 60px;
+  height: 60px;
+}
+
+.fullscreen-button {
+  position: absolute;
+  right: 93px;
+  bottom: 65px;
 }
 
 .statistics {
