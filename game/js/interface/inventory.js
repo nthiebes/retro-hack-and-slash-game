@@ -64,6 +64,7 @@ const closeBtn = document.getElementById('close-inventory');
 const itemName = document.getElementById('inventory-item-name');
 const itemRarity = document.getElementById('inventory-item-rarity');
 const itemDescription = document.getElementById('inventory-item-description');
+const itemEffect = document.getElementById('inventory-item-effect');
 
 let inventoryOpen = false;
 
@@ -186,10 +187,11 @@ export class Inventory {
     inventoryWalkspeedHover.className = 'inventory__stat';
     inventoryRangeHover.innerHTML = '';
     inventoryRangeHover.className = 'inventory__stat';
-    // itemName.innerHTML = '';
-    // itemDescription.innerHTML = '';
-    // itemRarity.innerHTML = '';
-    // itemRarity.className = 'inventory__item-rarity';
+    itemName.innerHTML = '';
+    itemDescription.innerHTML = '';
+    itemRarity.innerHTML = '';
+    itemRarity.className = 'inventory__item-rarity';
+    itemEffect.innerHTML = '';
     inventoryPrimaryIcon.classList.remove('inventory__item--highlighted');
     inventorySecondaryIcon.classList.remove('inventory__item--highlighted');
     inventoryHeadIcon.classList.remove('inventory__item--highlighted');
@@ -226,7 +228,8 @@ export class Inventory {
       case 'consumable': {
         if (item.health) {
           Units.player.heal(item.health);
-        } else if (item.damage) {
+        }
+        if (item.damage) {
           Units.player.takeDamage(item.damage);
         }
         if (item.id.includes('mushroom')) {
@@ -274,6 +277,12 @@ export class Inventory {
     itemRarity.innerHTML = item.rarity ? rarityMap[item.rarity] : '';
     itemRarity.className = `inventory__item-rarity inventory__item-rarity--${item.rarity}`;
     itemDescription.innerHTML = item.description || '';
+    if (item.damage && item.health) {
+      // eslint-disable-next-line max-len
+      itemEffect.innerHTML = `Heilt <b class="inventory__item--health">${item.health}</b> Lebenspunkte oder fügt <b class="inventory__item--damage">${item.damage}</b> Schaden zu.`;
+    } else if (item.health) {
+      itemEffect.innerHTML = `Heilt <b class="inventory__item--health">${item.health}</b> Lebenspunkte.`;
+    }
 
     if (weapon && weapon.type === 'primary') {
       const strength = getStrength({

@@ -205,12 +205,14 @@
 
 .inventory__item-info {
   position: relative;
-  margin: 1rem 1rem 0 7px;
+  padding: 0 7px 0 7px;
+  margin-top: 1rem;
   width: 100%;
 }
 
 .inventory__item-name {
   margin-left: 0;
+  margin-bottom: 5px;
 }
 
 .inventory__item-description {
@@ -253,4 +255,16 @@
 .inventory__item-rarity--legendary {
   background-color: #ffeb3b;
   display: block;
+}
+
+.inventory__item-effect {
+  margin-top: 1rem;
+}
+
+.inventory__item--health {
+  color: #3a6f20;
+}
+
+.inventory__item--damage {
+  color: var(--colorRed);
 }
