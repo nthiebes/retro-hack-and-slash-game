@@ -16,6 +16,7 @@ export default class Canvas {
       players: data.players,
       enemies: data.enemies
     });
+
     Animations.addAnimations(data.animations);
     Events.addEvents(data.events);
 

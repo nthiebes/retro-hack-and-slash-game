@@ -9,7 +9,7 @@ import {
   getDexterity,
   getIntelligence
 } from '../units/utils.js';
-import { racesMap } from './translations.js';
+import { racesMap, rarityMap } from './translations.js';
 import { Menu } from './menu.js';
 import { Statistics } from './statistics.js';
 
@@ -61,6 +61,9 @@ const inventoryhealthNumber = document.getElementById(
   'inventory-health-number'
 );
 const closeBtn = document.getElementById('close-inventory');
+const itemName = document.getElementById('inventory-item-name');
+const itemRarity = document.getElementById('inventory-item-rarity');
+const itemDescription = document.getElementById('inventory-item-description');
 
 let inventoryOpen = false;
 
@@ -155,14 +158,12 @@ export class Inventory {
 
       li.className = className;
       li.style.backgroundImage = backgroundImage;
-      li.title = item.name;
 
       if (item.equipped) {
         const itemInSlot = document.getElementById(`inventory-${item.slot}`);
 
         itemInSlot.style.backgroundImage = backgroundImage;
         itemInSlot.className = className;
-        itemInSlot.title = item.name;
         itemInSlot.setAttribute('data-id', item.id);
         itemInSlot.addEventListener('click', Inventory.handleItemSlotClick);
       } else {
@@ -185,6 +186,10 @@ export class Inventory {
     inventoryWalkspeedHover.className = 'inventory__stat';
     inventoryRangeHover.innerHTML = '';
     inventoryRangeHover.className = 'inventory__stat';
+    // itemName.innerHTML = '';
+    // itemDescription.innerHTML = '';
+    // itemRarity.innerHTML = '';
+    // itemRarity.className = 'inventory__item-rarity';
     inventoryPrimaryIcon.classList.remove('inventory__item--highlighted');
     inventorySecondaryIcon.classList.remove('inventory__item--highlighted');
     inventoryHeadIcon.classList.remove('inventory__item--highlighted');
@@ -198,7 +203,6 @@ export class Inventory {
 
     Units.player.unequipItem(itemId);
     Inventory.updateInventory();
-    event.target.title = '';
     event.target.setAttribute('data-id', '');
     sounds.effects.play('take');
   };
@@ -220,13 +224,17 @@ export class Inventory {
 
     switch (item?.type) {
       case 'consumable': {
-        if (item.effect === 'health') {
+        if (item.health) {
           Units.player.heal(item.health);
-        } else if (item.effect === 'damage') {
+        } else if (item.damage) {
           Units.player.takeDamage(item.damage);
         }
         if (item.id.includes('mushroom')) {
           Units.player.stats.mushrooms++;
+          sounds.effects.play('eat');
+        }
+        if (item.id.includes('berries')) {
+          Units.player.stats.berries++;
           sounds.effects.play('eat');
         }
         Units.player.removeFromInventory(itemId);
@@ -261,6 +269,11 @@ export class Inventory {
     const currentRange = player.range;
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
+
+    itemName.innerHTML = item.name;
+    itemRarity.innerHTML = item.rarity ? rarityMap[item.rarity] : '';
+    itemRarity.className = `inventory__item-rarity inventory__item-rarity--${item.rarity}`;
+    itemDescription.innerHTML = item.description || '';
 
     if (weapon && weapon.type === 'primary') {
       const strength = getStrength({

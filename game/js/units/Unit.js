@@ -22,6 +22,7 @@ export default class Unit {
       kills: 0,
       looted: 0,
       mushrooms: 0,
+      berries: 0,
       tilesWalked: 0
     };
     this.health = 1000;

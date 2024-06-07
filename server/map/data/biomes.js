@@ -7,6 +7,10 @@ const biomes = {
     bushesAmount: 0,
     blocks: [
       {
+        id: 'berries0',
+        amount: 5
+      },
+      {
         id: 'allItems',
         amount: 1
       },
@@ -355,11 +359,7 @@ const biomes = {
       },
       {
         id: 'mushrooms0',
-        amount: 2
-      },
-      {
-        id: 'mushrooms1',
-        amount: 1
+        amount: 3
       }
     ]
   },
@@ -420,11 +420,7 @@ const biomes = {
       },
       {
         id: 'mushrooms0',
-        amount: 5
-      },
-      {
-        id: 'mushrooms1',
-        amount: 5
+        amount: 10
       }
     ]
   },
@@ -485,11 +481,7 @@ const biomes = {
       },
       {
         id: 'mushrooms0',
-        amount: 2
-      },
-      {
-        id: 'mushrooms1',
-        amount: 1
+        amount: 3
       }
     ]
   },
@@ -534,11 +526,7 @@ const biomes = {
       },
       {
         id: 'mushrooms0',
-        amount: 2
-      },
-      {
-        id: 'mushrooms1',
-        amount: 1
+        amount: 3
       }
     ]
   },

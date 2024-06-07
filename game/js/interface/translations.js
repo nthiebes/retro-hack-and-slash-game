@@ -40,7 +40,7 @@ export const racesMap = {
 };
 
 export const rarityMap = {
-  common: 'Normal',
+  common: 'Gewöhnlich',
   uncommon: 'Ungewöhnlich',
   rare: 'Selten',
   epic: 'Episch',
@@ -50,6 +50,7 @@ export const rarityMap = {
 export const statsMap = {
   kills: 'Gegner erschlagen',
   looted: 'Gegenstände gesammelt',
+  berries: 'Beeren gegessen',
   mushrooms: 'Pilze verspeist',
   tilesWalked: 'Meter zurückgelegt'
 };

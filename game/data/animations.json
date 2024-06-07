@@ -45,11 +45,22 @@
       }
     },
     {
-      "id": "mushrooms1",
+      "id": "berries0",
       "autoplay": false,
       "sprite": {
         "frames": [0, 1],
-        "pos": [0, 300],
+        "pos": [0, 400],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "berries1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 500],
         "size": [100, 100],
         "speed": 20,
         "stay": true

@@ -1849,9 +1849,17 @@ const blocks = {
       ],
       [],
       [
-        [1, 1, 1],
-        [1, 1, 1]
+        [0, 1, 0],
+        [0, 1, 0]
       ]
+    ],
+    animations: [
+      { pos: [1, 0], id: 'berries0' },
+      { pos: [1, 1], id: 'berries1' }
+    ],
+    events: [
+      { pos: [1, 0], id: 'berries0', type: 'loot' },
+      { pos: [1, 1], id: 'berries0', type: 'loot' }
     ]
   },
   stump0: {
@@ -1954,11 +1962,6 @@ const blocks = {
     map: [[], [[16]], [], []],
     animations: [{ pos: [0, 0], id: 'mushrooms0' }],
     events: [{ pos: [0, 0], id: 'mushrooms0', type: 'loot' }]
-  },
-  mushrooms1: {
-    map: [[], [[16]], [], []],
-    animations: [{ pos: [0, 0], id: 'mushrooms1' }],
-    events: [{ pos: [0, 0], id: 'mushrooms1', type: 'loot' }]
   },
   barrelLoot0: {
     map: [[], [[16]], [], [[1]]],
