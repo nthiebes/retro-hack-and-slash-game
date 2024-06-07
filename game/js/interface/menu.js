@@ -1,6 +1,7 @@
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
+import { effects } from '../utils/sounds.js';
 import { attributesMap, racesMap } from './translations.js';
 
 const mapField = document.getElementById('map');
@@ -115,10 +116,14 @@ export class Menu {
   static selectMap() {
     menuWindow.classList.remove('window--show');
     newWindow.classList.add('window--show');
+
+    effects.play('click');
   }
 
   static createGame = (event) => {
     event.preventDefault();
+
+    effects.play('click');
 
     socket.emit('new-game', {
       mapId: mapField.value
@@ -131,6 +136,8 @@ export class Menu {
 
   static showCharacterEditor() {
     Menu.setRaceAttributes(Menu.races[0]);
+
+    effects.play('click');
 
     nextRaceBtn.addEventListener('click', Menu.handleNextRace);
     prevRaceBtn.addEventListener('click', Menu.handlePrevRace);
@@ -173,6 +180,8 @@ export class Menu {
       Menu.currentRace = -1;
     }
 
+    effects.play('click');
+
     const race = Menu.races[Menu.currentRace + 1];
 
     raceCounter.innerHTML = `${Menu.currentRace + 2} / ${Menu.races.length}`;
@@ -186,6 +195,8 @@ export class Menu {
     if (!Menu.races[Menu.currentRace - 1]) {
       Menu.currentRace = Menu.races.length;
     }
+
+    effects.play('click');
 
     const race = Menu.races[Menu.currentRace - 1];
 
@@ -204,6 +215,8 @@ export class Menu {
       Menu.currentSkin = -1;
     }
 
+    effects.play('click');
+
     Menu.currentSkin++;
     skinCounter.innerHTML = `${Menu.currentSkin + 1} / ${skinCount}`;
     raceImg.style.backgroundImage = `url(/game/images/races/${race}${Menu.currentSkin}.png)`;
@@ -216,6 +229,8 @@ export class Menu {
     if (Menu.currentSkin === 0) {
       Menu.currentSkin = skinCount;
     }
+
+    effects.play('click');
 
     Menu.currentSkin--;
     skinCounter.innerHTML = `${Menu.currentSkin + 1} / ${skinCount}`;
@@ -230,6 +245,8 @@ export class Menu {
       Menu.currentFace = -1;
     }
 
+    effects.play('click');
+
     Menu.currentFace++;
     faceCounter.innerHTML = `${Menu.currentFace + 1} / ${faceCount}`;
     faceImg.style.backgroundImage = `url(/game/images/faces/${race}/face${Menu.currentFace}.png)`;
@@ -242,6 +259,8 @@ export class Menu {
     if (Menu.currentFace === 0) {
       Menu.currentFace = faceCount;
     }
+
+    effects.play('click');
 
     Menu.currentFace--;
     faceCounter.innerHTML = `${Menu.currentFace + 1} / ${faceCount}`;
@@ -256,6 +275,8 @@ export class Menu {
       Menu.currentHair = -1;
     }
 
+    effects.play('click');
+
     Menu.currentHair++;
     hairCounter.innerHTML = `${Menu.currentHair + 1} / ${hairCount}`;
     hairImg.style.backgroundImage = `url(/game/images/hair/${race}/hair${Menu.currentHair}.png)`;
@@ -268,6 +289,8 @@ export class Menu {
     if (Menu.currentHair === 0) {
       Menu.currentHair = hairCount;
     }
+
+    effects.play('click');
 
     Menu.currentHair--;
     hairCounter.innerHTML = `${Menu.currentHair + 1} / ${hairCount}`;
@@ -307,6 +330,8 @@ export class Menu {
 
   static joinGame = (event) => {
     event.preventDefault();
+
+    effects.play('start');
 
     const race = Menu.races[Menu.currentRace][0];
     Menu.player = {

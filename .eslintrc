@@ -177,6 +177,7 @@
     "yoda": 1
   },
   "globals": {
-    "io": true
+    "io": true,
+    "Howl": true
   }
 }

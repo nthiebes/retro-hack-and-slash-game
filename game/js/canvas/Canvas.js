@@ -7,6 +7,7 @@ import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
 import { socket } from '../utils/socket.js';
 import { drawImage, drawText } from './utils.js';
+import { sounds } from '../utils/sounds.js';
 
 export default class Canvas {
   constructor(data) {
@@ -351,6 +352,10 @@ export default class Canvas {
       if (unit.skin.frames.length === Math.floor(unit.skin.index)) {
         if (unit.attacking) {
           combat({ units: Units, map: this.map, attacker: unit });
+
+          if (!unit.skin.once) {
+            sounds.swing();
+          }
         }
 
         if (unit.skin.once) {

@@ -6,6 +6,7 @@ import { Events } from '../events/events.js';
 import { GameData } from '../gameData.js';
 import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
+import { effects, orcs, sounds } from '../utils/sounds.js';
 
 const body = document.getElementsByTagName('body')[0];
 const wrapper = document.getElementById('canvas-wrapper');
@@ -126,6 +127,7 @@ class Interactions {
           Events.removeEvent(event);
           socket.emit('remove-event', { eventId: event.id });
           socket.emit('take-item', { item: event });
+          effects.play('take');
           body.classList.add('cursor--use');
           body.classList.remove('cursor--info');
         }
@@ -150,6 +152,11 @@ class Interactions {
             animationId: animation.id
           });
           animation.play();
+          if (animation.sound) {
+            effects.play(animation.sound);
+          } else {
+            effects.play('take');
+          }
           body.classList.add('cursor--use');
           body.classList.remove('cursor--info');
         }
@@ -163,7 +170,7 @@ class Interactions {
       } else {
         // Start animation
         player.attack();
-
+        sounds.swing();
         socket.emit('attack');
       }
     }
@@ -449,6 +456,11 @@ class Interactions {
       if (!player.moving) {
         player.walk();
       }
+      // Stop moving but not attacking
+    } else if (player.moving && player.attacking) {
+      player.moving = false;
+      sounds.walk.stop();
+      // Stop all
     } else if (player.moving) {
       player.stop();
     }
@@ -652,6 +664,8 @@ class Interactions {
         }
 
         enemy.target = player.id;
+
+        orcs.grunt();
 
         socket.emit('ai-move', {
           path: enemy.path,

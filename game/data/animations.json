@@ -24,6 +24,7 @@
     {
       "id": "barrel0",
       "autoplay": false,
+      "sound": "barrel",
       "sprite": {
         "frames": [0, 1],
         "pos": [0, 200],

@@ -1,6 +1,7 @@
 import config from '../config.js';
 import { getAttackSpeed, getWalkSpeed } from './utils.js';
 import { GameData } from '../gameData.js';
+import { sounds } from '../utils/sounds.js';
 
 export default class Unit {
   constructor(data) {
@@ -42,6 +43,9 @@ export default class Unit {
       console.log('🚶‍♂️');
     }
 
+    sounds.walk.play();
+    this.moving = true;
+
     if (this.attacking) {
       return;
     }
@@ -73,7 +77,6 @@ export default class Unit {
     this.special.frames = [0, 1, 2, 3];
     this.hair.frames = [0, 1, 2, 3];
     this.face.frames = [0, 1, 2, 3];
-    this.moving = true;
   }
 
   attack() {
@@ -128,7 +131,6 @@ export default class Unit {
     this.hair.index = 0;
     this.face.frames = [0, 1, 2];
     this.face.index = 0;
-    this.moving = false;
     this.attacking = true;
     this.skin.once = false;
   }
@@ -244,6 +246,8 @@ export default class Unit {
     if (config.debug && this.friendly) {
       console.log('✋');
     }
+
+    sounds.walk.stop();
 
     this.moving = false;
     this.attacking = false;

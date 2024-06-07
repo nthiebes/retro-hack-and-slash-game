@@ -1,5 +1,6 @@
 import { GameData } from '../gameData.js';
 import { Units } from '../units/units.js';
+import { effects } from '../utils/sounds.js';
 import {
   getDefense,
   getWalkSpeed,
@@ -198,6 +199,7 @@ export class Inventory {
     Inventory.updateInventory();
     event.target.title = '';
     event.target.setAttribute('data-id', '');
+    effects.play('take');
   };
 
   static handleItemClick = (event) => {
@@ -209,6 +211,7 @@ export class Inventory {
     if (armor || weapon) {
       Units.player.equipItem(itemId);
       Inventory.updateInventory();
+      effects.play('take');
       return;
     }
 
@@ -223,6 +226,7 @@ export class Inventory {
         }
         if (item.id.includes('mushroom')) {
           Units.player.stats.mushrooms++;
+          effects.play('eat');
         }
         Units.player.removeFromInventory(itemId);
         break;
