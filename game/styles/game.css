@@ -14,7 +14,8 @@ body {
   overflow: hidden;
   font-size: 18px;
   /* background: linear-gradient(90deg, #342a24 0%, #42362f 50%, #342a24 100%); */
-  background: url("../images/bg.jpg") no-repeat top center;
+  background-repeat: no-repeat;
+  background-position: top center;
   background-size: cover;
   background-color: #342a24;
   color: var(--fontColor);
@@ -333,7 +334,7 @@ p {
   height: 90px;
   position: fixed;
   top: 0;
-  left: 0;
+  left: 5px;
   padding: 0 43px;
   pointer-events: none;
   opacity: 0;
@@ -367,8 +368,8 @@ p {
   background: url("/game/images/minimap.png") top right no-repeat;
   background-size: cover;
   position: fixed;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
   height: 300px;
   width: 300px;
   opacity: 0;
@@ -420,6 +421,20 @@ p {
   bottom: 50px;
   width: 60px;
   height: 60px;
+}
+
+.inventory-button {
+  position: absolute;
+  left: 93px;
+  bottom: 65px;
+  display: none;
+}
+
+.stats-button {
+  position: absolute;
+  left: 121px;
+  bottom: 16px;
+  display: none;
 }
 
 .fullscreen-button {

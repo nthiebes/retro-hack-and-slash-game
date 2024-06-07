@@ -1,7 +1,9 @@
 import Resources from './js/utils/Resources.js';
 import { Menu } from './js/interface/menu.js';
 import { GameData } from './js/gameData.js';
+import { getRandomInt } from './js/utils/number.js';
 
+const body = document.getElementsByTagName('body')[0];
 const resources = new Resources();
 const resourcesList = [
   'images/tileset.png',
@@ -179,6 +181,8 @@ const getGameData = () => {
       Menu.start(resources);
     });
 };
+
+body.style.backgroundImage = `url("./images/bg${getRandomInt(5)}.jpg")`;
 
 window.onload = () => {
   resources.load(resourcesList);

@@ -3,9 +3,13 @@ import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
 import { sounds } from '../utils/sounds.js';
 import { attributesMap, racesMap } from './translations.js';
+import { Statistics } from './statistics.js';
+import { Inventory } from './inventory.js';
 
 const mapField = document.getElementById('map');
-const fullscreen = document.getElementById('fullscreen');
+const fullscreenButton = document.getElementById('fullscreen-button');
+const statsButton = document.getElementById('stats-button');
+const inventoryButton = document.getElementById('inventory-button');
 const nameField = document.getElementById('name');
 const menuNew = document.getElementById('menu-new');
 const menuJoin = document.getElementById('menu-join');
@@ -67,12 +71,12 @@ export class Menu {
     menuNew.addEventListener('click', Menu.selectMap);
     menuJoin.addEventListener('click', Menu.showCharacterEditor);
     newWindow.addEventListener('submit', Menu.createGame);
-    fullscreen.addEventListener('click', Menu.toggleFullScreen);
+    fullscreenButton.addEventListener('click', Menu.toggleFullScreen);
     menuButton.addEventListener('click', Menu.toggleIngameMenu);
     menuContinue.addEventListener('click', Menu.toggleIngameMenu);
-    menuLeave.addEventListener('click', () => {
-      window.location.reload();
-    });
+    statsButton.addEventListener('click', Menu.toggleStats);
+    inventoryButton.addEventListener('click', Menu.toggleInventory);
+    menuLeave.addEventListener('click', Menu.leaveGame);
 
     // Connect player
     socket.emit('id', ({ playerId, gameId }) => {
@@ -110,6 +114,23 @@ export class Menu {
       document.exitFullscreen();
     }
     sounds.effects.play('click');
+  }
+
+  static toggleStats() {
+    Statistics.toggleStatistics();
+    sounds.effects.play('click');
+  }
+
+  static toggleInventory() {
+    Inventory.toggleInventory();
+    sounds.effects.play('click');
+  }
+
+  static leaveGame() {
+    sounds.effects.play('click');
+    setTimeout(() => {
+      window.location.reload();
+    }, 200);
   }
 
   static toggleIngameMenu() {
@@ -395,6 +416,8 @@ export class Menu {
         minimap.classList.add('minimap--show');
         healthBar.classList.add('health-bar--show');
         menuButton.removeAttribute('disabled');
+        inventoryButton.style.display = 'block';
+        statsButton.style.display = 'block';
         healthBarNumber.innerHTML = `${Menu.player.health} / ${Menu.player.health}`;
       }
     );

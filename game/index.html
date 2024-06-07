@@ -45,6 +45,16 @@
             d="M9 5.016h12v3.984h-12v-3.984zM9 18.984v-3.984h12v3.984h-12zM9 14.016v-4.031h12v4.031h-12zM3.984 9v-3.984h4.031v3.984h-4.031zM3.984 18.984v-3.984h4.031v3.984h-4.031zM3.984 14.016v-4.031h4.031v4.031h-4.031z"
           ></path>
         </symbol>
+        <symbol id="icon-stats" viewBox="0 0 24 24">
+          <path
+            d="M16.219 12.984h2.766v6h-2.766v-6zM10.594 5.016h2.813v13.969h-2.813v-13.969zM5.016 9.188h3v9.797h-3v-9.797z"
+          ></path>
+        </symbol>
+        <symbol id="icon-inventory" viewBox="0 0 24 24">
+          <path
+            d="M13.418 7.354h-2.842c0 0-4.627 3.623-4.627 9.081s4.864 5.51 4.864 5.51 1.266 0.094 2.344 0c0 0.047 4.894-0.649 4.894-5.515 0.001-4.864-4.632-9.076-4.632-9.076zM10.576 6.998h2.848v-1.068h-2.848v1.068zM13.38 5.574l1.446-3.56c0 0-0.913 0.757-1.446 0.757-0.535 0-1.38-0.734-1.38-0.734s-0.912 0.734-1.446 0.734-1.402-0.712-1.402-0.712l1.469 3.516h2.759z"
+          ></path>
+        </symbol>
       </defs>
     </svg>
 
@@ -330,6 +340,20 @@
 
     <section class="menu-frame" id="menu-frame">
       <button
+        class="inventory-button icon-button"
+        id="inventory-button"
+        title="Inventar (i)"
+      >
+        <svg class="icon"><use xlink:href="#icon-inventory"></use></svg>
+      </button>
+      <button
+        class="stats-button icon-button"
+        id="stats-button"
+        title="Statistiken (n)"
+      >
+        <svg class="icon"><use xlink:href="#icon-stats"></use></svg>
+      </button>
+      <button
         class="menu-button icon-button"
         id="menu-button"
         title="Menü"
@@ -339,12 +363,20 @@
       </button>
       <button
         class="fullscreen-button icon-button"
-        id="fullscreen"
+        id="fullscreen-button"
         title="Vollbild"
       >
         <svg class="icon"><use xlink:href="#icon-fullscreen"></use></svg>
       </button>
     </section>
+
+    <!-- Credits
+    <a href="https://www.freepik.com/free-ai-image/fantasy-style-scene-with-mountains-landscape_133542314.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/fantasy-style-scene-with-mountains-landscape_133542285.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/fantasy-style-scene-with-mountains-landscape_133542281.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/mountain-landscape-with-fantasy-style-scene_133542783.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/mountain-landscape-with-fantasy-style-scene_133542848.htm">Image by freepik</a>
+    -->
 
     <script src="index.js" type="module" async></script>
   </body>
