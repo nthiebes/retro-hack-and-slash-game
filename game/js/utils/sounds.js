@@ -24,16 +24,7 @@ const orcSprite = new Howl({
   }
 });
 
-export const orcs = {
-  grunt: () => {
-    if (!isGruntPlaying) {
-      orcSprite.play(`grunt${getRandomInt(10)}`);
-      isGruntPlaying = true;
-    }
-  }
-};
-
-export const effects = new Howl({
+const effects = new Howl({
   src: ['/game/sounds/effects.mp3'],
   preload: true,
   sprite: {
@@ -72,6 +63,12 @@ export const sounds = {
   swing: () => {
     fightSprite.play(`swoosh${getRandomInt(5)}`);
   },
+  grunt: () => {
+    if (!isGruntPlaying) {
+      orcSprite.play(`grunt${getRandomInt(10)}`);
+      isGruntPlaying = true;
+    }
+  },
   walk: {
     play: () => {
       if (!isWalkPlaying) {
@@ -83,5 +80,6 @@ export const sounds = {
       walkSound.stop();
       isWalkPlaying = false;
     }
-  }
+  },
+  effects
 };
