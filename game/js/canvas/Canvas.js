@@ -345,7 +345,11 @@ export default class Canvas {
 
         // Stop walking
       } else if (unit.moving && unit.id !== Units.player.id) {
-        unit.stop();
+        if (unit.attacking) {
+          unit.moving = false;
+        } else {
+          unit.stop();
+        }
       }
 
       // End of animation
@@ -484,6 +488,11 @@ export default class Canvas {
         !unit.friendly
       ) {
         this.interactions.setPath(unit.id);
+      }
+
+      // Stop attacking when player has moved
+      if (unit.attacking && unit.path.length > 1) {
+        unit.attacking = false;
       }
     }
 
