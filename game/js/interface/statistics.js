@@ -2,6 +2,7 @@ import { Units } from '../units/units.js';
 import { Menu } from './menu.js';
 import { Inventory } from './inventory.js';
 import { statsMap } from './translations.js';
+import { sounds } from '../utils/sounds.js';
 
 const statisticsWindow = document.getElementById('statistics');
 const statisticsList = document.getElementById('statistics-list');
@@ -25,6 +26,7 @@ export class Statistics {
     closeBtn.addEventListener('click', () => {
       Statistics.hide();
       Menu.showBackground();
+      sounds.effects.play('click');
     });
   }
 

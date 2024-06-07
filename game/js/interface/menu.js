@@ -99,7 +99,7 @@ export class Menu {
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
     }
-    sounds.sounds.effects.click();
+    sounds.effects.play('click');
   }
 
   static hideBackground() {

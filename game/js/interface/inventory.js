@@ -80,7 +80,7 @@ export class Inventory {
     closeBtn.addEventListener('click', () => {
       Inventory.hide();
       Menu.showBackground();
-      sounds.effects.click();
+      sounds.effects.play('click');
     });
   };
 
