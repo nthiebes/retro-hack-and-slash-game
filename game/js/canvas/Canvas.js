@@ -195,15 +195,31 @@ export default class Canvas {
         );
       });
 
+      Units.addUnits({
+        players: [],
+        enemies: mapData.enemies
+      });
+
       this.ground1 = mapData.map[0];
       this.ground2 = mapData.map[1];
       this.top1 = mapData.map[2];
-      this.map.updateMap({ map: mapData.map[3] });
+      this.map.updateMap({ map: mapData.map[3], enemies: mapData.enemies });
       this.interactions.resetOffset();
       this.interactions.updateMap(this.map);
       this.interactions.setServerRequestInProgress(false);
       Events.updateEvents(mapData.events);
       Animations.updateAnimations(mapData.animations);
+
+      // Fill fields in sight for all units
+      for (let i = 0; i < Units.list.length; i++) {
+        const unit = Units.list[i];
+
+        unit.fieldsInSight = this.map.getFieldsInSight(
+          unit.pos,
+          unit.direction
+        );
+      }
+
       this.drawMap();
       this.drawMinimap();
     });

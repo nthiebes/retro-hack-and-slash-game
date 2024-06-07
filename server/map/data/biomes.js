@@ -7,10 +7,6 @@ const biomes = {
     bushesAmount: 0,
     blocks: [
       {
-        id: 'camp0',
-        amount: 1
-      },
-      {
         id: 'allItems',
         amount: 1
       },
@@ -76,6 +72,14 @@ const biomes = {
       },
       {
         id: 'lake0',
+        amount: 1
+      },
+      {
+        id: 'camp0',
+        amount: 1
+      },
+      {
+        id: 'orc0',
         amount: 1
       }
     ]
@@ -837,6 +841,10 @@ const biomes = {
       },
       {
         id: 'wagon0',
+        amount: 1
+      },
+      {
+        id: 'orc1',
         amount: 1
       }
     ]

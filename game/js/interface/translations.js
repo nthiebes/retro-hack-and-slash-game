@@ -48,8 +48,8 @@ export const rarityMap = {
 };
 
 export const statsMap = {
-  looted: 'Gesammelte Gegenstände',
-  kills: 'Getötete Gegner',
-  mushrooms: 'Verspeiste Pilze',
-  tilesWalked: 'Zurückgelegte Meter'
+  kills: 'Gegner erschlagen',
+  looted: 'Gegenstände gesammelt',
+  mushrooms: 'Pilze verspeist',
+  tilesWalked: 'Meter zurückgelegt'
 };

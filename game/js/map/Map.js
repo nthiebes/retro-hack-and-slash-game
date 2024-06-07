@@ -13,8 +13,13 @@ class Map {
     }
   }
 
-  updateMap({ map }) {
+  updateMap({ map, enemies }) {
     this.map = map;
+
+    for (let i = 0; i < enemies.length; i++) {
+      this.map[Math.floor(enemies[i].pos[1])][Math.floor(enemies[i].pos[0])] =
+        enemies[i].id;
+    }
   }
 
   updatePosition({ x, y, newX, newY, unitId }) {

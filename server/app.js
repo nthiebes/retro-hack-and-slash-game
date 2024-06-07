@@ -221,6 +221,12 @@ io.on('connection', (socket) => {
       enemies,
       playerStartPositions
     } = generatedMap;
+    const enemiesWithDirection = enemies
+      ? enemies.map((enemy) => ({
+          ...enemy,
+          direction: getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT'
+        }))
+      : [];
 
     player.chunk = centerChunk.pos;
 
@@ -229,7 +235,7 @@ io.on('connection', (socket) => {
       mapTransitions,
       events: [...game.events, ...events],
       animations: [...game.animations, ...animations],
-      enemies: [...game.enemies, ...enemies],
+      enemies: [...game.enemies, ...enemiesWithDirection],
       map,
       playerStartPositions
     };
@@ -249,7 +255,7 @@ io.on('connection', (socket) => {
         map,
         events: game.events,
         animations: game.animations,
-        enemies: game.enemies
+        enemies: enemiesWithDirection
       },
       direction
     });

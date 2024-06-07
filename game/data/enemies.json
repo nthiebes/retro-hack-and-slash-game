@@ -12,7 +12,7 @@
         "leg": "none"
       },
       "weapons": {
-        "primary": "none",
+        "primary": ["none", "axe0", "axe2"],
         "secondary": "none"
       },
       "cosmetics": {}
@@ -29,7 +29,7 @@
         "leg": "leg_leather_0"
       },
       "weapons": {
-        "primary": ["sword0", "axe0", "axe1"],
+        "primary": ["sword0", "axe0", "axe2"],
         "secondary": ["none", "shield0"]
       },
       "cosmetics": {}

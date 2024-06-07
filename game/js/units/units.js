@@ -26,13 +26,13 @@ export class Units {
   }
 
   static addUnits({ player, players, enemies }) {
-    this.addUnit(player);
-    playerId = player.id;
+    player && this.addUnit(player);
+    playerId = playerId || player?.id;
 
     for (let i = 0; i < players.length; i++) {
       const otherPlayer = players[i];
 
-      if (player.id !== otherPlayer.id) {
+      if (playerId !== otherPlayer.id) {
         this.addUnit(otherPlayer);
       }
     }
