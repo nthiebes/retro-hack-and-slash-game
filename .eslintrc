@@ -178,6 +178,7 @@
   },
   "globals": {
     "io": true,
-    "Howl": true
+    "Howl": true,
+    "Howler": true
   }
 }

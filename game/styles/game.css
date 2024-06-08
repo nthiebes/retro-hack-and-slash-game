@@ -442,6 +442,12 @@ p {
   display: none;
 }
 
+.volume-button {
+  position: absolute;
+  right: 121px;
+  bottom: 16px;
+}
+
 .fullscreen-button {
   position: absolute;
   right: 93px;

@@ -1,3 +1,5 @@
+import '../../../node_modules/howler/dist/howler.core.min.js';
+
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
@@ -8,6 +10,11 @@ import { Inventory } from './inventory.js';
 
 const mapField = document.getElementById('map');
 const fullscreenButton = document.getElementById('fullscreen-button');
+const fullscreenIcon = document.getElementById('fullscreen-icon');
+const fullscreenIconExit = document.getElementById('fullscreen-icon-exit');
+const volumeButton = document.getElementById('volume-button');
+const muteIcon = document.getElementById('mute-icon');
+const unmuteIcon = document.getElementById('unmute-icon');
 const statsButton = document.getElementById('stats-button');
 const inventoryButton = document.getElementById('inventory-button');
 const nameField = document.getElementById('name');
@@ -43,6 +50,7 @@ const ingameMenu = document.getElementById('ingame-menu');
 const menuContinue = document.getElementById('menu-continue');
 const menuLeave = document.getElementById('menu-leave');
 let ingameMenuOpen = false;
+let soundMuted = false;
 
 export class Menu {
   static start = (resources) => {
@@ -73,6 +81,7 @@ export class Menu {
     menuJoin.addEventListener('click', Menu.showCharacterEditor);
     newWindow.addEventListener('submit', Menu.createGame);
     fullscreenButton.addEventListener('click', Menu.toggleFullScreen);
+    volumeButton.addEventListener('click', Menu.toggleVolume);
     menuButton.addEventListener('click', Menu.toggleIngameMenu);
     menuContinue.addEventListener('click', Menu.toggleIngameMenu);
     statsButton.addEventListener('click', Menu.toggleStats);
@@ -111,10 +120,26 @@ export class Menu {
   static toggleFullScreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
+      fullscreenIcon.style.display = 'none';
+      fullscreenIconExit.style.display = 'block';
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
+      fullscreenIcon.style.display = 'block';
+      fullscreenIconExit.style.display = 'none';
     }
     sounds.effects.play('click');
+  }
+
+  static toggleVolume() {
+    if (soundMuted) {
+      muteIcon.style.display = 'none';
+      unmuteIcon.style.display = 'block';
+    } else {
+      muteIcon.style.display = 'block';
+      unmuteIcon.style.display = 'none';
+    }
+    Howler.mute(!soundMuted);
+    soundMuted = !soundMuted;
   }
 
   static toggleStats() {
