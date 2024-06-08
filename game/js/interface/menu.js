@@ -24,6 +24,7 @@ const prevHairBtn = document.getElementById('hair-prev');
 const nextFaceBtn = document.getElementById('face-next');
 const prevFaceBtn = document.getElementById('face-prev');
 const characterWindow = document.getElementById('character');
+const raceDescription = document.getElementById('race-description');
 const raceImg = document.getElementById('race-preview');
 const faceImg = document.getElementById('face-preview');
 const hairImg = document.getElementById('hair-preview');
@@ -352,7 +353,8 @@ export class Menu {
     );
 
     raceAttributes.innerHTML = '';
-    raceName.innerHTML = racesMap[race[0]];
+    raceName.innerHTML = racesMap[race[0]].name;
+    raceDescription.innerHTML = racesMap[race[0]].description;
     attributes.forEach((attribute) => {
       const li = document.createElement('li');
       const attributeValue = attribute[1];
@@ -378,6 +380,7 @@ export class Menu {
     event.preventDefault();
 
     sounds.effects.play('start');
+    sounds.ambience.play();
 
     const race = Menu.races[Menu.currentRace][0];
     Menu.player = {

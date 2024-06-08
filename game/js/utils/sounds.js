@@ -59,6 +59,24 @@ const fightSprite = new Howl({
   }
 });
 
+let isBattlePlaying = false;
+const battle = new Howl({
+  src: ['/game/sounds/battle.mp3'],
+  preload: true,
+  loop: true,
+  volume: 0.75,
+  onfade: () => {
+    battle.stop();
+    isBattlePlaying = false;
+  }
+});
+
+const ambience = new Howl({
+  src: ['/game/sounds/ambience.mp3'],
+  preload: true,
+  loop: true
+});
+
 export const sounds = {
   swing: () => {
     fightSprite.play(`swoosh${getRandomInt(5)}`);
@@ -81,5 +99,31 @@ export const sounds = {
       isWalkPlaying = false;
     }
   },
-  effects
+  effects,
+  battle: {
+    play: () => {
+      if (!isBattlePlaying) {
+        sounds.ambience.fadeOut();
+        battle.volume(0.75);
+        battle.play();
+        isBattlePlaying = true;
+      }
+    },
+    stop: () => {
+      battle.fade(0.75, 0, 2000);
+      isBattlePlaying = false;
+      sounds.ambience.fadeIn();
+    }
+  },
+  ambience: {
+    fadeIn: () => {
+      ambience.fade(0, 1, 1000);
+    },
+    fadeOut: () => {
+      ambience.fade(1, 0, 1000);
+    },
+    play: () => {
+      ambience.play();
+    }
+  }
 };

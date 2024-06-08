@@ -32,11 +32,26 @@ export const attributesMap = {
 };
 
 export const racesMap = {
-  orc: 'Ork',
-  human: 'Mensch',
-  vampire: 'Vampir',
-  elf: 'Elf',
-  dwarf: 'Zwerg'
+  human: {
+    name: 'Mensch',
+    description: 'Kann alles, aber nichts davon richtig.'
+  },
+  dwarf: {
+    name: 'Zwerg',
+    description: 'Stur, gehört in die erste Reihe.'
+  },
+  orc: {
+    name: 'Ork',
+    description: 'Haut gut zu. Waaagh!!!'
+  },
+  elf: {
+    name: 'Elf',
+    description: 'Besser nach hinten und aus der Ferne angreifen.'
+  },
+  vampire: {
+    name: 'Vampir',
+    description: 'Glaskanone, Vorsicht zerbrechlich!'
+  }
 };
 
 export const rarityMap = {

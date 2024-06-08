@@ -328,6 +328,11 @@ p {
   transform: translateX(-50%);
 }
 
+.race-description {
+  width: 180px;
+  margin-bottom: 1rem;
+}
+
 .health-bar {
   background: url("/game/images/healthbar.png") no-repeat;
   width: 400px;

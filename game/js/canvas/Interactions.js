@@ -665,6 +665,7 @@ class Interactions {
 
         enemy.target = player.id;
 
+        sounds.battle.play();
         sounds.grunt();
 
         socket.emit('ai-move', {

@@ -7,10 +7,6 @@ const biomes = {
     bushesAmount: 0,
     blocks: [
       {
-        id: 'berries0',
-        amount: 5
-      },
-      {
         id: 'allItems',
         amount: 1
       },
@@ -76,6 +72,10 @@ const biomes = {
       },
       {
         id: 'lake0',
+        amount: 1
+      },
+      {
+        id: 'berries0',
         amount: 1
       },
       {

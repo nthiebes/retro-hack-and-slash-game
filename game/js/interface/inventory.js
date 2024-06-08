@@ -12,6 +12,7 @@ import {
 import { racesMap, rarityMap } from './translations.js';
 import { Menu } from './menu.js';
 import { Statistics } from './statistics.js';
+import { getRandomInt } from '../utils/number.js';
 
 const inventoryWindow = document.getElementById('inventory');
 const inventoryRaceImg = document.getElementById('inventory-race-preview');
@@ -27,6 +28,7 @@ const inventoryTorsoImg = document.getElementById('inventory-torso-preview');
 const inventoryLegImg = document.getElementById('inventory-leg-preview');
 const inventoryHeadImg = document.getElementById('inventory-head-preview');
 const inventoryItems = document.getElementById('inventory-items');
+const inventorySlotsWrapper = document.getElementById('inventory-slots');
 const inventorySlots = document.querySelectorAll(
   '.inventory__slots .inventory__item'
 );
@@ -132,8 +134,12 @@ export class Inventory {
       slot.style.backgroundImage = '';
       slot.className = 'inventory__item';
     });
+    inventorySlotsWrapper.addEventListener(
+      'mouseover',
+      Inventory.handleItemHover
+    );
     inventoryName.innerHTML = name;
-    inventoryRace.innerHTML = racesMap[race];
+    inventoryRace.innerHTML = racesMap[race].name;
     inventoryDamage.innerHTML = Inventory.roundStat(getStrength(Units.player));
     inventoryDefense.innerHTML = Inventory.roundStat(getDefense(Units.player));
     inventoryRange.innerHTML = range;
@@ -226,11 +232,16 @@ export class Inventory {
 
     switch (item?.type) {
       case 'consumable': {
-        if (item.health) {
-          Units.player.heal(item.health);
-        }
-        if (item.damage) {
+        if (item.health && item.damage) {
+          if (getRandomInt(3) === 0) {
+            Units.player.takeDamage(item.damage);
+          } else {
+            Units.player.heal(item.health);
+          }
+        } else if (item.damage) {
           Units.player.takeDamage(item.damage);
+        } else if (item.health) {
+          Units.player.heal(item.health);
         }
         if (item.id.includes('mushroom')) {
           Units.player.stats.mushrooms++;

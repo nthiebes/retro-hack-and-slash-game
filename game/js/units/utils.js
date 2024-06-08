@@ -1,6 +1,7 @@
 import config from '../config.js';
 import { GameData } from '../gameData.js';
 import { Units } from '../units/units.js';
+import { sounds } from '../utils/sounds.js';
 
 const healthBarHealth = document.getElementById('health-bar-health');
 const healthBarNumber = document.getElementById('health-bar-number');
@@ -56,6 +57,7 @@ const fight = ({ attacker, defender, map }) => {
       attacker.stop();
     }
 
+    sounds.battle.stop();
     attacker.stats.kills++;
 
     // Clear blocked field for dead units
