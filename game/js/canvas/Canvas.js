@@ -505,6 +505,9 @@ export default class Canvas {
         !unit.friendly
       ) {
         this.interactions.setPath(unit.id);
+        // Enemy lost sight
+      } else if (unit.path.length === 1) {
+        sounds.battle.stop();
       }
 
       // Stop attacking when player has moved
