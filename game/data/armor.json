@@ -41,16 +41,16 @@
       "material": "plate",
       "noHair": true,
       "noFace": true,
-      "set": "Ritter vom Blute Sigmars"
+      "set": "[Ritter vom Blute Sigmars]"
     },
     {
       "gear": "head",
       "id": "head_plate_1",
-      "name": "Reichsgarde Helm",
+      "name": "Plattenhelm",
       "material": "plate",
       "noHair": true,
       "noFace": true,
-      "set": "Reichsgarde"
+      "set": "[Reichsgarde]"
     },
 
     {
@@ -82,7 +82,7 @@
       "id": "torso_plate_0",
       "name": "Plattenrüstung",
       "material": "plate",
-      "set": "Ritter vom Blute Sigmars"
+      "set": "[Ritter vom Blute Sigmars]"
     },
 
     {
@@ -114,7 +114,7 @@
       "id": "leg_plate_0",
       "name": "Plattenbeine",
       "material": "plate",
-      "set": "Ritter vom Blute Sigmars"
+      "set": "[Ritter vom Blute Sigmars]"
     }
   ],
   "material": {

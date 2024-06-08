@@ -287,7 +287,7 @@ export class Inventory {
     itemName.innerHTML = item.name;
     itemRarity.innerHTML = item.rarity ? rarityMap[item.rarity] : '';
     itemRarity.className = `inventory__item-rarity inventory__item-rarity--${item.rarity}`;
-    itemDescription.innerHTML = item.description || '';
+    itemDescription.innerHTML = item.description || item.set || '';
     if (item.damage && item.health) {
       // eslint-disable-next-line max-len
       itemEffect.innerHTML = `Heilt <b class="inventory__item--health">${item.health}</b> Lebenspunkte oder fügt <b class="inventory__item--damage">${item.damage}</b> Schaden zu.`;
