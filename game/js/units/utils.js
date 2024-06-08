@@ -42,15 +42,23 @@ export const getIntelligence = (unit) => {
 const fight = ({ attacker, defender, map }) => {
   const strength = getStrength(attacker);
   const defense = getDefense(defender);
-  // const attackerDexterity = GameData.races[attacker.race].dexterity;
-  // const defenderDexterity = GameData.races[defender.race].dexterity;
   const modifier = (strength - defense) * 7;
   const damage = 30 + modifier;
 
   // console.log('🤺', strength, ' vs ', defense);
-  // console.log(attackerDexterity, ' vs ', defenderDexterity);
 
   defender.takeDamage(damage);
+
+  if (!defender.friendly && defender.direction === attacker.direction) {
+    defender.turn(defender.direction === 'LEFT' ? 'RIGHT' : 'LEFT');
+    defender.fieldsInSight = map.getFieldsInSight(
+      defender.tile,
+      defender.direction
+    );
+    defender.attack();
+    sounds.battle.play();
+    sounds.grunt();
+  }
 
   if (defender.dead) {
     if (!attacker.friendly) {

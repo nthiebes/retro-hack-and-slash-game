@@ -47,9 +47,6 @@ const walkSound = new Howl({
 const fightSprite = new Howl({
   src: ['/game/sounds/fighting.mp3'],
   preload: true,
-  onend: () => {
-    isGruntPlaying = false;
-  },
   sprite: {
     swoosh0: [320, 350],
     swoosh1: [1000, 350],
