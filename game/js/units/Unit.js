@@ -2,6 +2,7 @@ import config from '../config.js';
 import { getAttackSpeed, getWalkSpeed } from './utils.js';
 import { GameData } from '../gameData.js';
 import { sounds } from '../utils/sounds.js';
+import { getRandomInt } from '../utils/number.js';
 
 export default class Unit {
   constructor(data) {
@@ -25,7 +26,7 @@ export default class Unit {
       berries: 0,
       tilesWalked: 0
     };
-    this.health = 1000;
+    this.initialHealth = data.health;
     this.steps = Math.floor((config.fieldWidth / data.speed) * 1.2);
     this.currentStep = this.steps;
 
@@ -153,7 +154,7 @@ export default class Unit {
 
     this.health = this.health - amount < 0 ? 0 : this.health - amount;
 
-    if (this.health <= 50) {
+    if (this.health < this.initialHealth / 2) {
       this.wound();
     }
 
@@ -477,6 +478,6 @@ export default class Unit {
   };
 
   wound = () => {
-    this.special.url = 'images/races/wounded.png';
+    this.special.url = `images/races/wounded${getRandomInt(2)}.png`;
   };
 }
