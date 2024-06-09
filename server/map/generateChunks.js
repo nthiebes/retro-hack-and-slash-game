@@ -142,7 +142,7 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
   if (!bottomLeftChunk.biome) {
     bottomLeftChunk.biome = getRandomBiome([
       bottomChunk.biome,
-      rightChunk.biome
+      leftChunk.biome
     ]);
     bottomLeftChunk.map = generateChunk({
       biome: bottomLeftChunk.biome
