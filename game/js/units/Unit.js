@@ -233,6 +233,7 @@ export default class Unit {
     this.face.index = 0;
     this.dead = true;
     this.attacking = false;
+    this.moving = false;
     this.skin.stay = true;
     this.head.stay = true;
     this.torso.stay = true;
@@ -242,6 +243,7 @@ export default class Unit {
     this.special.stay = true;
     this.hair.stay = true;
     this.face.stay = true;
+    this.path = [];
   }
 
   stop() {
