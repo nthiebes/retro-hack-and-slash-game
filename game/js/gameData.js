@@ -1,4 +1,4 @@
-import { getRandomInt } from './utils/number.js';
+import { getRandomInt, getRandomId } from './utils/number.js';
 
 export class GameData {
   static setWeapons(data) {
@@ -65,10 +65,11 @@ export class GameData {
     return this.itemsData.find((item) => item.id === id);
   }
 
-  static getRandomItem(name) {
+  static getRandomItem(id) {
+    const eventId = id.split('.')[0];
     let possibleItems = null;
 
-    if (name === 'random1') {
+    if (eventId === 'random1') {
       possibleItems = this.armorData.list.filter(
         (item) =>
           item.material === 'cloth' ||
@@ -85,7 +86,7 @@ export class GameData {
         )
       ];
     }
-    if (name === 'random2') {
+    if (eventId === 'random2') {
       possibleItems = this.armorData.list.filter(
         (item) =>
           item.material === 'leather' ||
@@ -102,7 +103,7 @@ export class GameData {
         )
       ];
     }
-    if (name === 'random3') {
+    if (eventId === 'random3') {
       possibleItems = this.armorData.list.filter(
         (item) =>
           item.material === 'iron' ||
@@ -120,6 +121,8 @@ export class GameData {
       ];
     }
 
-    return possibleItems[getRandomInt(possibleItems.length - 1)];
+    return `${
+      possibleItems[getRandomInt(possibleItems.length - 1)].id
+    }.${getRandomId()}`;
   }
 }

@@ -1953,7 +1953,7 @@ const blocks = {
       ]
     ]
   },
-  stumpAxe0: {
+  stumpAxe: {
     map: [[], [[16]], [], [[1]]],
     animations: [{ pos: [0, 0], id: 'axe' }],
     events: [{ pos: [0, 0], id: 'axe0', type: 'loot' }]

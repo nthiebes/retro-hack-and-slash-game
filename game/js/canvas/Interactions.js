@@ -132,10 +132,8 @@ class Interactions {
           body.classList.remove('cursor--info');
         }
         if (event.type === 'loot') {
-          const eventId = event.id.split('.')[0];
-
-          if (eventId.includes('random')) {
-            const randomItemId = GameData.getRandomItem(eventId).id;
+          if (event.id.includes('random')) {
+            const randomItemId = GameData.getRandomItem(event.id);
 
             player.takeItem({
               id: randomItemId

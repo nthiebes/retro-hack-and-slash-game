@@ -354,7 +354,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'stumpAxe0',
+        id: 'stumpAxe',
         amount: 1
       },
       {
