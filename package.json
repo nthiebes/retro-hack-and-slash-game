@@ -9,7 +9,7 @@
     "npm": ">=9"
   },
   "scripts": {
-    "start": "python3 -m http.server 1234",
+    "start": "python3 -m http.server 1234 --bind 0.0.0.0",
     "lint": "eslint .",
     "prettier": "prettier --write ."
   },

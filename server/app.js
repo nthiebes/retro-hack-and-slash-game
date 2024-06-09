@@ -10,7 +10,11 @@ const server = express().listen(PORT, () =>
 );
 const io = socketIO(server, {
   cors: {
-    origin: ['https://ridane.com', 'http://localhost:1234'],
+    origin: [
+      'https://ridane.com',
+      'http://localhost:1234',
+      'http://192.168.2.69:1234'
+    ],
     methods: ['GET', 'POST']
   }
 });
