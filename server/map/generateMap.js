@@ -48,28 +48,25 @@ const generateMap = ({ chunks, centerChunkPos }) => {
   ).map;
 
   // Ground 1
-  const topChunksGround1 = topLeftChunk.mapGround1;
-  const centerChunksGround1 = leftChunk.mapGround1;
-  const bottomChunksGround1 = bottomLeftChunk.mapGround1;
+  let topChunksGround1 = topLeftChunk.mapGround1;
+  let centerChunksGround1 = leftChunk.mapGround1;
+  let bottomChunksGround1 = bottomLeftChunk.mapGround1;
 
-  topChunksGround1.forEach((row, index) => {
-    row.push(
-      ...[...topChunk.mapGround1[index], ...topRightChunk.mapGround1[index]]
-    );
-  });
-  centerChunksGround1.forEach((row, index) => {
-    row.push(
-      ...[...centerChunk.mapGround1[index], ...rightChunk.mapGround1[index]]
-    );
-  });
-  bottomChunksGround1.forEach((row, index) => {
-    row.push(
-      ...[
-        ...bottomChunk.mapGround1[index],
-        ...bottomRightChunk.mapGround1[index]
-      ]
-    );
-  });
+  topChunksGround1 = topChunksGround1.map((row, index) => [
+    ...row,
+    ...topChunk.mapGround1[index],
+    ...topRightChunk.mapGround1[index]
+  ]);
+  centerChunksGround1 = centerChunksGround1.map((row, index) => [
+    ...row,
+    ...centerChunk.mapGround1[index],
+    ...rightChunk.mapGround1[index]
+  ]);
+  bottomChunksGround1 = bottomChunksGround1.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapGround1[index],
+    ...bottomRightChunk.mapGround1[index]
+  ]);
 
   const mapGround1 = [
     ...topChunksGround1,
@@ -78,28 +75,25 @@ const generateMap = ({ chunks, centerChunkPos }) => {
   ];
 
   // Ground 2
-  const topChunksGround2 = topLeftChunk.mapGround2;
-  const centerChunksGround2 = leftChunk.mapGround2;
-  const bottomChunksGround2 = bottomLeftChunk.mapGround2;
+  let topChunksGround2 = topLeftChunk.mapGround2;
+  let centerChunksGround2 = leftChunk.mapGround2;
+  let bottomChunksGround2 = bottomLeftChunk.mapGround2;
 
-  topChunksGround2.forEach((row, index) => {
-    row.push(
-      ...[...topChunk.mapGround2[index], ...topRightChunk.mapGround2[index]]
-    );
-  });
-  centerChunksGround2.forEach((row, index) => {
-    row.push(
-      ...[...centerChunk.mapGround2[index], ...rightChunk.mapGround2[index]]
-    );
-  });
-  bottomChunksGround2.forEach((row, index) => {
-    row.push(
-      ...[
-        ...bottomChunk.mapGround2[index],
-        ...bottomRightChunk.mapGround2[index]
-      ]
-    );
-  });
+  topChunksGround2 = topChunksGround2.map((row, index) => [
+    ...row,
+    ...topChunk.mapGround2[index],
+    ...topRightChunk.mapGround2[index]
+  ]);
+  centerChunksGround2 = centerChunksGround2.map((row, index) => [
+    ...row,
+    ...centerChunk.mapGround2[index],
+    ...rightChunk.mapGround2[index]
+  ]);
+  bottomChunksGround2 = bottomChunksGround2.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapGround2[index],
+    ...bottomRightChunk.mapGround2[index]
+  ]);
 
   const mapGround2 = [
     ...topChunksGround2,
@@ -108,47 +102,48 @@ const generateMap = ({ chunks, centerChunkPos }) => {
   ];
 
   // Top 1
-  const topChunksTop1 = topLeftChunk.mapTop1;
-  const centerChunksTop1 = leftChunk.mapTop1;
-  const bottomChunksTop1 = bottomLeftChunk.mapTop1;
+  let topChunksTop1 = topLeftChunk.mapTop1;
+  let centerChunksTop1 = leftChunk.mapTop1;
+  let bottomChunksTop1 = bottomLeftChunk.mapTop1;
 
-  topChunksTop1.forEach((row, index) => {
-    row.push(...[...topChunk.mapTop1[index], ...topRightChunk.mapTop1[index]]);
-  });
-  centerChunksTop1.forEach((row, index) => {
-    row.push(...[...centerChunk.mapTop1[index], ...rightChunk.mapTop1[index]]);
-  });
-  bottomChunksTop1.forEach((row, index) => {
-    row.push(
-      ...[...bottomChunk.mapTop1[index], ...bottomRightChunk.mapTop1[index]]
-    );
-  });
+  topChunksTop1 = topChunksTop1.map((row, index) => [
+    ...row,
+    ...topChunk.mapTop1[index],
+    ...topRightChunk.mapTop1[index]
+  ]);
+  centerChunksTop1 = centerChunksTop1.map((row, index) => [
+    ...row,
+    ...centerChunk.mapTop1[index],
+    ...rightChunk.mapTop1[index]
+  ]);
+  bottomChunksTop1 = bottomChunksTop1.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapTop1[index],
+    ...bottomRightChunk.mapTop1[index]
+  ]);
 
   const mapTop1 = [...topChunksTop1, ...centerChunksTop1, ...bottomChunksTop1];
 
   // Blocked
-  const topChunksBlocked = topLeftChunk.mapBlocked;
-  const centerChunksBlocked = leftChunk.mapBlocked;
-  const bottomChunksBlocked = bottomLeftChunk.mapBlocked;
+  let topChunksBlocked = topLeftChunk.mapBlocked;
+  let centerChunksBlocked = leftChunk.mapBlocked;
+  let bottomChunksBlocked = bottomLeftChunk.mapBlocked;
 
-  topChunksBlocked.forEach((row, index) => {
-    row.push(
-      ...[...topChunk.mapBlocked[index], ...topRightChunk.mapBlocked[index]]
-    );
-  });
-  centerChunksBlocked.forEach((row, index) => {
-    row.push(
-      ...[...centerChunk.mapBlocked[index], ...rightChunk.mapBlocked[index]]
-    );
-  });
-  bottomChunksBlocked.forEach((row, index) => {
-    row.push(
-      ...[
-        ...bottomChunk.mapBlocked[index],
-        ...bottomRightChunk.mapBlocked[index]
-      ]
-    );
-  });
+  topChunksBlocked = topChunksBlocked.map((row, index) => [
+    ...row,
+    ...topChunk.mapBlocked[index],
+    ...topRightChunk.mapBlocked[index]
+  ]);
+  centerChunksBlocked = centerChunksBlocked.map((row, index) => [
+    ...row,
+    ...centerChunk.mapBlocked[index],
+    ...rightChunk.mapBlocked[index]
+  ]);
+  bottomChunksBlocked = bottomChunksBlocked.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapBlocked[index],
+    ...bottomRightChunk.mapBlocked[index]
+  ]);
 
   const mapBlocked = [
     ...topChunksBlocked,

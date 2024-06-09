@@ -236,7 +236,6 @@ io.on('connection', (socket) => {
       events: [...game.events, ...events],
       animations: [...game.animations, ...animations],
       enemies: [...game.enemies, ...enemiesWithDirection],
-      map,
       playerStartPositions
     };
 
