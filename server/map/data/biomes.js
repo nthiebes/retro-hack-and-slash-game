@@ -182,6 +182,14 @@ const biomes = {
       {
         id: 'bush5',
         amount: 1
+      },
+      {
+        id: 'camp0',
+        amount: 1
+      },
+      {
+        id: 'orc0',
+        amount: 1
       }
     ]
   },
@@ -262,6 +270,14 @@ const biomes = {
       },
       {
         id: 'lake0',
+        amount: 1
+      },
+      {
+        id: 'camp0',
+        amount: 1
+      },
+      {
+        id: 'orc0',
         amount: 1
       }
     ]
