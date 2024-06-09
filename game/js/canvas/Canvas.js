@@ -189,11 +189,6 @@ export default class Canvas {
         unit.path = [];
         unit.tile = [Math.floor(unit.pos[0]), Math.floor(unit.pos[1])];
         unit.nextTile = null;
-        this.interactions.setPath();
-        unit.fieldsInSight = this.map.getFieldsInSight(
-          unit.pos,
-          unit.direction
-        );
       });
 
       Units.addUnits({
@@ -220,6 +215,7 @@ export default class Canvas {
           unit.direction
         );
       }
+      this.interactions.setPath();
 
       this.drawMap();
       this.drawMinimap();

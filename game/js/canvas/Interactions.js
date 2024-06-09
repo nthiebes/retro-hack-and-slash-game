@@ -574,6 +574,8 @@ class Interactions {
       const playerInRange = enemy.isPlayerInSight(player.pos);
 
       if (
+        !enemy.tile[0] >= 0 &&
+        !enemy.tile[1] >= 0 &&
         !enemy.dead &&
         !enemy.id.includes('player') &&
         playerInRange &&
