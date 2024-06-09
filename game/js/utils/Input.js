@@ -1,4 +1,5 @@
 import { Inventory } from '../interface/inventory.js';
+import { Menu } from '../interface/menu.js';
 import { Statistics } from '../interface/statistics.js';
 
 export class Input {
@@ -13,6 +14,9 @@ export class Input {
       }
       if (e.key.toLocaleLowerCase() === 'n') {
         Statistics.toggleStatistics();
+      }
+      if (e.key.toLocaleLowerCase() === 'escape') {
+        Menu.toggleIngameMenu();
       }
     });
 
