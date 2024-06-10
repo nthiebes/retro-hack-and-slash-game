@@ -51,6 +51,10 @@ export const racesMap = {
   vampire: {
     name: 'Vampir',
     description: 'Glaskanone, Vorsicht zerbrechlich!'
+  },
+  beastman: {
+    name: 'Tiermensch',
+    description: ''
   }
 };
 

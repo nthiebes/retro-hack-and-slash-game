@@ -13,5 +13,12 @@
     "health": 50,
     "name": "Beeren",
     "description": "Leckere rote Beeren. Omnomnom..."
+  },
+  {
+    "id": "berries1",
+    "type": "consumable",
+    "health": 50,
+    "name": "Blaubeeren",
+    "description": "Leckere Blaubeeren. Omnomnom..."
   }
 ]

@@ -61,5 +61,14 @@
     "defense": 1,
     "speed": 2,
     "skins": 7
+  },
+
+  "beastman": {
+    "strength": 3,
+    "dexterity": 3,
+    "intelligence": 3,
+    "defense": 3,
+    "speed": 5,
+    "skins": 3
   }
 }

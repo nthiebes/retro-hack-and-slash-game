@@ -184,6 +184,10 @@ const biomes = {
         amount: 1
       },
       {
+        id: 'berries1',
+        amount: 1
+      },
+      {
         id: 'camp0',
         amount: 1
       },
@@ -270,6 +274,10 @@ const biomes = {
       },
       {
         id: 'lake0',
+        amount: 1
+      },
+      {
+        id: 'berries1',
         amount: 1
       },
       {

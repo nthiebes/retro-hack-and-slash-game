@@ -65,6 +65,28 @@
         "speed": 20,
         "stay": true
       }
+    },
+    {
+      "id": "berries2",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 600],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "berries3",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 700],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
     }
   ]
 }

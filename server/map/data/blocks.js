@@ -1862,6 +1862,28 @@ const blocks = {
       { pos: [1, 1], id: 'berries0', type: 'loot' }
     ]
   },
+  berries1: {
+    map: [
+      [],
+      [
+        [1364, 1365, 1366],
+        [1380, 1381, 1382]
+      ],
+      [],
+      [
+        [0, 1, 0],
+        [0, 1, 0]
+      ]
+    ],
+    animations: [
+      { pos: [1, 0], id: 'berries2' },
+      { pos: [1, 1], id: 'berries3' }
+    ],
+    events: [
+      { pos: [1, 0], id: 'berries1', type: 'loot' },
+      { pos: [1, 1], id: 'berries1', type: 'loot' }
+    ]
+  },
   stump0: {
     map: [
       [],
