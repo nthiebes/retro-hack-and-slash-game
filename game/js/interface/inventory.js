@@ -24,6 +24,9 @@ const inventoryPrimaryImg = document.getElementById(
 const inventorySecondaryImg = document.getElementById(
   'inventory-secondary-preview'
 );
+const inventoryWoundedImg = document.getElementById(
+  'inventory-wounded-preview'
+);
 const inventoryTorsoImg = document.getElementById('inventory-torso-preview');
 const inventoryLegImg = document.getElementById('inventory-leg-preview');
 const inventoryHeadImg = document.getElementById('inventory-head-preview');
@@ -113,7 +116,8 @@ export class Inventory {
       inventory,
       noHair,
       noFace,
-      health
+      health,
+      special
     } = Units.player;
 
     Inventory.resetHover();
@@ -126,6 +130,7 @@ export class Inventory {
     })`;
     inventoryPrimaryImg.style.backgroundImage = `url(/game/${primary.url})`;
     inventorySecondaryImg.style.backgroundImage = `url(/game/${secondary.url})`;
+    inventoryWoundedImg.style.backgroundImage = `url(/game/${special.url})`;
     inventoryHeadImg.style.backgroundImage = `url(/game/${head.url})`;
     inventoryTorsoImg.style.backgroundImage = `url(/game/${torso.url})`;
     inventoryLegImg.style.backgroundImage = `url(/game/${leg.url})`;

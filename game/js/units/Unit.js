@@ -19,6 +19,7 @@ export default class Unit {
     this.hairUrl = data.hair.url;
     this.faceUrl = data.face.url;
     this.inventory = [];
+    this.woundedUrl = `images/races/wounded${getRandomInt(2)}.png`;
     this.stats = {
       kills: 0,
       looted: 0,
@@ -139,6 +140,10 @@ export default class Unit {
 
   heal(amount) {
     this.health = this.health + amount > 1000 ? 1000 : this.health + amount;
+
+    if (this.health >= this.initialHealth / 2) {
+      this.special.url = 'images/items/none.png';
+    }
 
     if (config.debug) {
       console.log('💚');
@@ -480,6 +485,6 @@ export default class Unit {
   };
 
   wound = () => {
-    this.special.url = `images/races/wounded${getRandomInt(2)}.png`;
+    this.special.url = this.woundedUrl;
   };
 }

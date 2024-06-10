@@ -41,69 +41,15 @@
       "race": "orc",
       "health": 100,
       "gear": {
-        "head": [
-          "none",
-          "none",
-          "none",
-          "hair_1_black",
-          "hair_1_brown",
-          "hair_1_blonde"
-        ],
-        "torso": "torso_iron_0",
-        "leg": "leg_iron_0"
-      },
-      "weapons": {
-        "primary": "axe",
-        "secondary": "shield"
-      }
-    },
-    {
-      "id": "human0",
-      "friendly": false,
-      "name": "Eisenmensch",
-      "race": "human",
-      "health": 100,
-      "gear": {
-        "head": "head_iron_0",
-        "torso": "torso_iron_0",
-        "leg": "leg_iron_0"
-      },
-      "weapons": {
-        "primary": "sword",
-        "secondary": "none"
-      }
-    },
-    {
-      "id": "human2",
-      "friendly": false,
-      "name": "Stoffmensch",
-      "race": "human",
-      "health": 100,
-      "gear": {
-        "head": "head_cloth_0",
-        "torso": "torso_cloth_0",
-        "leg": "leg_cloth_0"
-      },
-      "weapons": {
-        "primary": "spear",
-        "secondary": "none"
-      }
-    },
-    {
-      "id": "elf0",
-      "friendly": false,
-      "name": "Elfen-Bogenschütze",
-      "race": "elf",
-      "health": 100,
-      "gear": {
         "head": "none",
-        "torso": "none",
-        "leg": "none"
+        "torso": "torso_iron_0",
+        "leg": "leg_iron_0"
       },
       "weapons": {
-        "primary": "none",
-        "secondary": "none"
-      }
+        "primary": "axe0",
+        "secondary": "shield0"
+      },
+      "cosmetics": {}
     }
   ]
 }
