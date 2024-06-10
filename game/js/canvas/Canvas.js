@@ -610,13 +610,13 @@ export default class Canvas {
       bodyParts[i].render(config.ctxAnim, this.resources, unit.direction);
     }
 
-    if (unit.id !== Units.player.id) {
+    if (unit.id !== Units.player.id && unit.friendly) {
       drawText({
         ctx: config.ctxAnim,
-        x: unit.pos[0] + 48,
-        y: unit.pos[1] + 50,
+        x: 62,
+        y: -8,
         text: unit.name,
-        color: unit.friendly ? '#fff' : '#f99'
+        color: '#fff'
       });
     }
 

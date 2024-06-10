@@ -87,6 +87,7 @@ export class Menu {
     statsButton.addEventListener('click', Menu.toggleStats);
     inventoryButton.addEventListener('click', Menu.toggleInventory);
     menuLeave.addEventListener('click', Menu.leaveGame);
+    nameField.addEventListener('change', Menu.updateName);
 
     // Connect player
     socket.emit('id', ({ playerId, gameId }) => {
@@ -116,6 +117,10 @@ export class Menu {
       menuNew.setAttribute('disabled', true);
     });
   };
+
+  static updateName(event) {
+    Menu.player.name = event.target.value;
+  }
 
   static toggleFullScreen() {
     if (!document.fullscreenElement) {

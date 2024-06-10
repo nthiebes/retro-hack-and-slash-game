@@ -27,9 +27,12 @@ export const drawImage = (config) => {
 };
 
 export const drawText = ({ ctx, x, y, text, color }) => {
-  ctx.font = '14px sans-serif';
+  ctx.font =
+    '18px "Sang Sang Flower", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif';
   ctx.fillStyle = color;
+  ctx.strokeStyle = '#000';
   ctx.textAlign = 'center';
+  ctx.strokeText(text, x, y);
   ctx.fillText(text, x, y);
 };
 

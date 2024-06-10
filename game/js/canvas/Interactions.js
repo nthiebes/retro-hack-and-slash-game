@@ -208,7 +208,6 @@ class Interactions {
       blockedX = true,
       blockedY = true;
 
-    // if (player.attacking || player.dead) {
     if (player.dead) {
       return;
     }
@@ -239,6 +238,7 @@ class Interactions {
             newY: Math.floor(newPos),
             unitId: player.id
           });
+          player.tile = [x, Math.floor(newPos)];
           this.setPath();
           this.checkForNewChunk([x, newPos]);
           player.stats.tilesWalked++;
@@ -282,6 +282,7 @@ class Interactions {
             newY: Math.floor(newPos),
             unitId: player.id
           });
+          player.tile = [x, Math.floor(newPos)];
           this.setPath();
           this.checkForNewChunk([x, newPos]);
           player.stats.tilesWalked++;
@@ -325,6 +326,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          player.tile = [Math.floor(newPos), y];
           this.checkForNewChunk([newPos, y]);
           player.stats.tilesWalked++;
 
@@ -368,6 +370,7 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          player.tile = [Math.floor(newPos), y];
           this.checkForNewChunk([newPos, y]);
           player.stats.tilesWalked++;
 
