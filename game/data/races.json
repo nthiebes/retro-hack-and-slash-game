@@ -60,7 +60,9 @@
     "intelligence": 0,
     "defense": 1,
     "speed": 2,
-    "skins": 7
+    "skins": 7,
+    "faces": 1,
+    "hair": 1
   },
 
   "beastman": {
@@ -69,6 +71,8 @@
     "intelligence": 3,
     "defense": 3,
     "speed": 5,
-    "skins": 3
+    "skins": 3,
+    "faces": 1,
+    "hair": 1
   }
 }

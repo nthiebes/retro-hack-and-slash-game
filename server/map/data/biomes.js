@@ -384,6 +384,10 @@ const biomes = {
       {
         id: 'mushrooms0',
         amount: 3
+      },
+      {
+        id: 'beastman0',
+        amount: 1
       }
     ]
   },
@@ -506,6 +510,14 @@ const biomes = {
       {
         id: 'mushrooms0',
         amount: 3
+      },
+      {
+        id: 'beastman0',
+        amount: 1
+      },
+      {
+        id: 'beastman1',
+        amount: 1
       }
     ]
   },
@@ -551,6 +563,14 @@ const biomes = {
       {
         id: 'mushrooms0',
         amount: 3
+      },
+      {
+        id: 'beastman0',
+        amount: 1
+      },
+      {
+        id: 'beastman1',
+        amount: 1
       }
     ]
   },

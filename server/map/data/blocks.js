@@ -2130,6 +2130,14 @@ const blocks = {
   orc1: {
     map: [[], [], [], []],
     enemies: [{ pos: [0, 0], id: 'orc1' }]
+  },
+  beastman0: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'beastman0' }]
+  },
+  beastman1: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'beastman1' }]
   }
 };
 

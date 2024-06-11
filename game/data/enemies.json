@@ -12,7 +12,7 @@
         "leg": "none"
       },
       "weapons": {
-        "primary": ["none", "axe0", "axe2"],
+        "primary": ["none", "club0", "axe0", "axe2"],
         "secondary": "none"
       },
       "cosmetics": {}
@@ -29,8 +29,8 @@
         "leg": "leg_leather_0"
       },
       "weapons": {
-        "primary": ["sword0", "axe0", "axe2"],
-        "secondary": ["none", "shield0"]
+        "primary": ["sword0", "club0", "axe0", "axe2"],
+        "secondary": ["none", "shield1", "shield2"]
       },
       "cosmetics": {}
     },
@@ -46,8 +46,42 @@
         "leg": "leg_iron_0"
       },
       "weapons": {
-        "primary": "axe0",
-        "secondary": "shield0"
+        "primary": "axe1",
+        "secondary": "shield3"
+      },
+      "cosmetics": {}
+    },
+    {
+      "id": "beastman0",
+      "friendly": false,
+      "name": "Tiermensch",
+      "race": "beastman",
+      "health": 100,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": ["club0", "axe0", "axe2"],
+        "secondary": "none"
+      },
+      "cosmetics": {}
+    },
+    {
+      "id": "beastman1",
+      "friendly": false,
+      "name": "Tiermensch",
+      "race": "beastman",
+      "health": 100,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": ["club0", "axe0", "axe2"],
+        "secondary": ["none", "shield1", "shield2"]
       },
       "cosmetics": {}
     }
