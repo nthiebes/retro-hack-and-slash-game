@@ -19,6 +19,7 @@ export default class Unit {
     this.hairUrl = data.hair.url;
     this.faceUrl = data.face.url;
     this.inventory = [];
+    this.chunk = [0, 0];
     this.woundedUrl = `images/races/wounded${getRandomInt(2)}.png`;
     this.stats = {
       kills: 0,

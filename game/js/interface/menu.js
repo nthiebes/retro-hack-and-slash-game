@@ -429,11 +429,19 @@ export class Menu {
         player: Menu.player
       },
       ({ map, events, players, enemies, mapTransitions, animations }) => {
+        const playersPosAdjusted = players.map((player) => ({
+          ...player,
+          pos: [
+            player.pos[0] + player.chunk[0] * 30,
+            player.pos[1] + player.chunk[1] * 30
+          ]
+        }));
+
         // eslint-disable-next-line
         const game = new Canvas({
           map,
           events,
-          players,
+          players: playersPosAdjusted,
           enemies,
           mapEvents: mapTransitions,
           animations,

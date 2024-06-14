@@ -62,13 +62,18 @@ export default class Canvas {
     this.gameLoop();
 
     socket.on('player-joined', ({ newPlayer }) => {
-      if (Units.player.id !== newPlayer.id) {
-        if (config.debug) {
-          console.log('👤➕');
-        }
-
-        Units.addUnit(newPlayer);
+      if (config.debug) {
+        console.log('👤➕');
       }
+      const newPlayerPosAdjusted = {
+        ...newPlayer,
+        pos: [
+          newPlayer.pos[0] - Units.player.chunk[0] * 30,
+          newPlayer.pos[1] - Units.player.chunk[1] * 30
+        ]
+      };
+
+      Units.addUnit(newPlayerPosAdjusted);
     });
 
     socket.on('player-left', ({ playerId }) => {
@@ -84,12 +89,19 @@ export default class Canvas {
         console.log('👤🚶‍♂️');
       }
 
-      const player = Units.list.find((unit) => unit.id === playerId);
+      const friendlyPlayer = Units.list.find((unit) => unit.id === playerId);
+      const newPos = [
+        pos[0] + friendlyPlayer.chunk[0] * 30 - Units.player.chunk[0] * 30,
+        pos[1] + friendlyPlayer.chunk[1] * 30 - Units.player.chunk[1] * 30
+      ];
 
-      player.path = getPath({
+      friendlyPlayer.path = getPath({
         world: this.map.map,
-        pathStart: player.tile,
-        pathEnd: pos,
+        pathStart: [
+          Math.floor(friendlyPlayer.pos[0]),
+          Math.floor(friendlyPlayer.pos[1])
+        ],
+        pathEnd: newPos,
         unitId: playerId
       });
     });
@@ -143,17 +155,22 @@ export default class Canvas {
 
       const enemy = Units.list.find((unit) => unit.id === id);
 
-      enemy.path = path;
+      if (enemy) {
+        enemy.path = path;
+      }
     });
 
-    socket.on('map-data', ({ direction, mapData }) => {
+    socket.on('map-data', ({ direction, mapData, chunk, playerId }) => {
       if (config.debug) {
         console.log('🗺️');
       }
 
       if (!this.interactions.serverRequestInProgress) {
+        Units.list.find((unit) => unit.id === playerId).chunk = chunk;
         return;
       }
+
+      Units.player.chunk = chunk;
 
       Units.list.forEach((unit) => {
         switch (direction) {

@@ -671,10 +671,10 @@ class Interactions {
         sounds.battle.play();
         sounds.grunt();
 
-        socket.emit('ai-move', {
-          path: enemy.path,
-          id: enemy.id
-        });
+        // socket.emit('ai-move', {
+        //   path: enemy.path,
+        //   id: enemy.id
+        // });
       }
     }
   }

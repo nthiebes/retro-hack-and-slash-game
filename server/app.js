@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
     game.players.push(newPlayer);
 
     callback(game);
-    io.sockets.emit('player-joined', { newPlayer });
+    socket.broadcast.emit('player-joined', { newPlayer });
   });
 
   /**
@@ -261,7 +261,9 @@ io.on('connection', (socket) => {
         animations: game.animations,
         enemies: enemiesWithDirection
       },
-      direction
+      direction,
+      chunk: player.chunk,
+      playerId
     });
 
     if (config.debug) {
@@ -337,7 +339,7 @@ io.on('connection', (socket) => {
       }
     });
 
-    io.sockets.emit('ai-moved', { path, id });
+    socket.broadcast.emit('ai-moved', { path, id });
   });
 
   /**
@@ -359,6 +361,6 @@ io.on('connection', (socket) => {
       }
     }
 
-    io.sockets.emit('player-left', { playerId });
+    socket.broadcast.emit('player-left', { playerId });
   });
 });
