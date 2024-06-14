@@ -148,7 +148,6 @@
       "name": "Speer",
       "damage": 2,
       "range": 2.5,
-      "animation": "stab",
       "speed": 3
     },
 

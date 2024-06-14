@@ -124,8 +124,9 @@ io.on('connection', (socket) => {
     const player = game.players.find(({ id }) => id === playerId);
 
     player.pos = pos;
+    player.tile = [Math.floor(pos[0]), Math.floor(pos[1])];
 
-    io.sockets.emit('player-moved', { pos, playerId });
+    socket.broadcast.emit('player-moved', { pos, playerId });
   });
 
   /**
@@ -276,7 +277,7 @@ io.on('connection', (socket) => {
 
     game.players.find((player) => player.id === playerId).direction = direction;
 
-    io.sockets.emit('player-turned', { direction, playerId });
+    socket.broadcast.emit('player-turned', { direction, playerId });
   });
 
   /**
@@ -285,7 +286,7 @@ io.on('connection', (socket) => {
   socket.on('attack', () => {
     // console.log('Player attacks');
 
-    io.sockets.emit('player-attacked', { playerId });
+    socket.broadcast.emit('player-attacked', { playerId });
   });
 
   /**
@@ -294,7 +295,7 @@ io.on('connection', (socket) => {
   socket.on('player-stop-attack', () => {
     // console.log('Player stopps attacking');
 
-    io.sockets.emit('player-stopped-attack', { playerId });
+    socket.broadcast.emit('player-stopped-attack', { playerId });
   });
 
   /*
@@ -303,7 +304,7 @@ io.on('connection', (socket) => {
   socket.on('take-item', ({ item }) => {
     // console.log('Player takes item');
 
-    io.sockets.emit('player-took-item', { item, playerId });
+    socket.broadcast.emit('player-took-item', { item, playerId });
   });
 
   /**

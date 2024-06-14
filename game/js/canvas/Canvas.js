@@ -5,6 +5,7 @@ import { Events } from '../events/events.js';
 import { combat } from '../units/utils.js';
 import { Interactions } from './Interactions.js';
 import { Map } from '../map/Map.js';
+import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
 import { drawImage, drawText } from './utils.js';
 import { sounds } from '../utils/sounds.js';
@@ -79,77 +80,60 @@ export default class Canvas {
     });
 
     socket.on('player-moved', ({ playerId, pos }) => {
-      if (Units.player.id !== playerId) {
-        if (config.debug) {
-          console.log('👤🚶‍♂️');
-        }
-
-        const player = Units.list.find((unit) => unit.id === playerId);
-        const newPath =
-          player.path.length > 0 ? [...player.path, pos] : [player.pos, pos];
-
-        if (
-          newPath.length > 2 &&
-          newPath[newPath.length - 1][1] ===
-            newPath[newPath.length - 3][1] + 1 &&
-          newPath[newPath.length - 1][0] + 1 === newPath[newPath.length - 3][0]
-        ) {
-          //   console.log('unten links');
-          //   newPath.splice(newPath[newPath.length - 2], 1);
-        }
-
-        player.path = newPath;
+      if (config.debug) {
+        console.log('👤🚶‍♂️');
       }
+
+      const player = Units.list.find((unit) => unit.id === playerId);
+
+      player.path = getPath({
+        world: this.map.map,
+        pathStart: player.tile,
+        pathEnd: pos,
+        unitId: playerId
+      });
     });
 
     socket.on('player-turned', ({ playerId, direction }) => {
-      if (Units.player.id !== playerId) {
-        if (config.debug) {
-          console.log('👤👈👉');
-        }
-
-        Units.list.find(({ id }) => id === playerId).turn(direction);
+      if (config.debug) {
+        console.log('👤👈👉');
       }
+
+      Units.list.find(({ id }) => id === playerId).turn(direction);
     });
 
     socket.on('player-attacked', ({ playerId }) => {
-      if (Units.player.id !== playerId) {
-        if (config.debug) {
-          console.log('👤⚔');
-        }
-
-        Units.list.find(({ id }) => id === playerId).attack();
+      if (config.debug) {
+        console.log('👤⚔');
       }
+
+      Units.list.find(({ id }) => id === playerId).attack();
     });
 
     socket.on('player-stopped-attack', ({ playerId }) => {
-      if (Units.player.id !== playerId) {
-        if (config.debug) {
-          console.log('👤✋');
-        }
-
-        Units.list.find(({ id }) => id === playerId).skin.once = true;
+      if (config.debug) {
+        console.log('👤✋');
       }
+
+      Units.list.find(({ id }) => id === playerId).skin.once = true;
     });
 
     socket.on('player-took-item', ({ playerId, item }) => {
-      if (Units.player.id !== playerId) {
-        if (config.debug) {
-          console.log('👤🛡️');
-        }
-
-        const animation = Animations.getAnimation({
-          x: item.pos[0],
-          y: item.pos[1]
-        });
-
-        if (animation) {
-          animation.play();
-        }
-
-        Units.list.find(({ id }) => id === playerId).takeItem({ id: item.id });
-        Events.removeEvent(item);
+      if (config.debug) {
+        console.log('👤🛡️');
       }
+
+      const animation = Animations.getAnimation({
+        x: item.pos[0],
+        y: item.pos[1]
+      });
+
+      if (animation) {
+        animation.play();
+      }
+
+      Units.list.find(({ id }) => id === playerId).takeItem({ id: item.id });
+      Events.removeEvent(item);
     });
 
     socket.on('ai-moved', ({ id, path }) => {
@@ -165,6 +149,10 @@ export default class Canvas {
     socket.on('map-data', ({ direction, mapData }) => {
       if (config.debug) {
         console.log('🗺️');
+      }
+
+      if (!this.interactions.serverRequestInProgress) {
+        return;
       }
 
       Units.list.forEach((unit) => {
