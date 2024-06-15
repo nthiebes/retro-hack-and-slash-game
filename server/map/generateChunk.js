@@ -237,6 +237,7 @@ const generateChunk = ({ biome: biomeName, chunk }) => {
               ...enemy,
               pos: [enemy.pos[0] + randomY, enemy.pos[1] + randomX],
               id: `${enemy.id}.${getRandomId()}`,
+              direction: getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT',
               chunk
             }))
           );

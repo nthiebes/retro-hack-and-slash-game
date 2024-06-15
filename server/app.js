@@ -1,6 +1,6 @@
 const express = require('express');
 const socketIO = require('socket.io');
-const { getRandomInt, getRandomId } = require('./utils/number.js');
+const { getRandomId } = require('./utils/number.js');
 const { generateMap } = require('./map/generateMap.js');
 const { generateChunks } = require('./map/generateChunks.js');
 const { config } = require('./config.js');
@@ -58,31 +58,13 @@ io.on('connection', (socket) => {
       generatedMap = require(`../game/data/maps/${mapId}.json`);
     }
 
-    const {
-      name: mapName,
-      playerStartPositions,
-      enemies,
-      events,
-      animations,
-      mapTransitions,
-      map
-    } = generatedMap;
+    const { name: mapName, playerStartPositions } = generatedMap;
 
     game = {
       id: getRandomId(),
+      playerStartPositions,
       mapId,
       mapName,
-      map,
-      mapTransitions,
-      playerStartPositions,
-      events,
-      animations,
-      enemies: enemies
-        ? enemies.map((enemy) => ({
-            ...enemy,
-            direction: getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT'
-          }))
-        : [],
       players: [],
       chunks
     };
@@ -101,10 +83,24 @@ io.on('connection', (socket) => {
       pos: game.playerStartPositions[0],
       chunk: [0, 0]
     };
+    const generatedMap = generateMap({
+      chunks: game.chunks,
+      centerChunkPos: [0, 0]
+    });
+    const { events, animations, enemies, mapTransitions, map } = generatedMap;
 
     game.players.push(newPlayer);
 
-    callback(game);
+    callback({
+      ...game,
+      mapTransitions,
+      map,
+      events,
+      animations,
+      enemies,
+      chunk: player.chunk,
+      playerId
+    });
     socket.broadcast.emit('player-joined', { newPlayer });
   });
 
@@ -185,12 +181,6 @@ io.on('connection', (socket) => {
       enemies,
       playerStartPositions
     } = generatedMap;
-    const enemiesWithDirection = enemies
-      ? enemies.map((enemy) => ({
-          ...enemy,
-          direction: getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT'
-        }))
-      : [];
 
     player.chunk = centerChunk.pos;
 
@@ -205,7 +195,7 @@ io.on('connection', (socket) => {
         map,
         events,
         animations,
-        enemies: enemiesWithDirection
+        enemies
       },
       direction,
       chunk: player.chunk,
