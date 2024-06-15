@@ -65,6 +65,8 @@ const inventoryhealthBar = document.getElementById('inventory-health-bar');
 const inventoryhealthNumber = document.getElementById(
   'inventory-health-number'
 );
+const healthBar = document.getElementById('health-bar-health');
+const healthBarNumber = document.getElementById('health-bar-number');
 const closeBtn = document.getElementById('close-inventory');
 const itemName = document.getElementById('inventory-item-name');
 const itemRarity = document.getElementById('inventory-item-rarity');
@@ -158,6 +160,8 @@ export class Inventory {
     );
     inventoryhealthNumber.innerHTML = `${Math.floor(health)} / 1000`;
     inventoryhealthBar.style.width = `${Math.floor(health) / 10}%`;
+    healthBarNumber.innerHTML = `${Math.floor(health)} / 1000`;
+    healthBar.style.width = `${Math.floor(health) / 10}%`;
 
     inventory.forEach((item) => {
       const li = document.createElement('li');
