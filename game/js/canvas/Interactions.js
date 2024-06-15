@@ -141,10 +141,16 @@ class Interactions {
             player.takeItem({
               id: randomItemId
             });
-            socket.emit('take-item', { item: { ...event, id: randomItemId } });
+            socket.emit('take-item', {
+              item: { ...event, id: randomItemId },
+              animationId: animation.id
+            });
           } else {
             player.takeItem(event);
-            socket.emit('take-item', { item: event });
+            socket.emit('take-item', {
+              item: event,
+              animationId: animation.id
+            });
           }
 
           Events.removeEvent(event);

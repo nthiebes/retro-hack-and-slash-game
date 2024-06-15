@@ -130,15 +130,12 @@ export default class Canvas {
       Units.list.find(({ id }) => id === playerId).skin.once = true;
     });
 
-    socket.on('player-took-item', ({ playerId, item }) => {
+    socket.on('player-took-item', ({ playerId, item, animationId }) => {
       if (config.debug) {
         console.log('👤🛡️');
       }
 
-      const animation = Animations.getAnimation({
-        x: item.pos[0],
-        y: item.pos[1]
-      });
+      const animation = Animations.getAnimationById(animationId);
 
       if (animation) {
         animation.play();

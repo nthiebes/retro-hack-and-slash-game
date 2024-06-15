@@ -249,10 +249,10 @@ io.on('connection', (socket) => {
   /*
    * Player takes item
    */
-  socket.on('take-item', ({ item }) => {
+  socket.on('take-item', ({ item, animationId }) => {
     // console.log('Player takes item');
 
-    socket.broadcast.emit('player-took-item', { item, playerId });
+    socket.broadcast.emit('player-took-item', { item, animationId, playerId });
   });
 
   /**

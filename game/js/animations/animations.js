@@ -16,6 +16,10 @@ export class Animations {
     );
   }
 
+  static getAnimationById(id) {
+    return listData.find((animation) => animation.id === id);
+  }
+
   static addAnimations(animations) {
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
