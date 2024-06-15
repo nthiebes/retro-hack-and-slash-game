@@ -97,7 +97,7 @@ export const combat = ({ units, map, attacker }) => {
     if (
       unit.id !== attacker.id &&
       !unit.dead &&
-      !(!attacker.friendly && !unit.friendly)
+      !(attacker.friendly && unit.friendly)
     ) {
       const playerPosX = Math.round(config.fieldWidth * attacker.pos[0]),
         enemyPosX = Math.round(config.fieldWidth * unit.pos[0]),
