@@ -165,64 +165,55 @@ const generateMap = ({ chunks, centerChunkPos }) => {
   if (centerChunk.events) {
     centerChunkEvents = centerChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize],
-      chunk: centerChunk.pos
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize]
     }));
   }
   if (topChunk.events) {
     topChunkEvents = topChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize, event.pos[1] + 0],
-      chunk: topChunk.pos
+      pos: [event.pos[0] + chunkSize, event.pos[1] + 0]
     }));
   }
   if (topRightChunk.events) {
     topRightChunkEvents = topRightChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + 0],
-      chunk: topRightChunk.pos
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + 0]
     }));
   }
   if (rightChunk.events) {
     rightChunkEvents = rightChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize],
-      chunk: rightChunk.pos
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize]
     }));
   }
   if (bottomRightChunk.events) {
     bottomRightChunkEvents = bottomRightChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize * 2],
-      chunk: bottomRightChunk.pos
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize * 2]
     }));
   }
   if (bottomChunk.events) {
     bottomChunkEvents = bottomChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize * 2],
-      chunk: bottomChunk.pos
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize * 2]
     }));
   }
   if (bottomLeftChunk.events) {
     bottomLeftChunkEvents = bottomLeftChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + 0, event.pos[1] + chunkSize * 2],
-      chunk: bottomLeftChunk.pos
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize * 2]
     }));
   }
   if (leftChunk.events) {
     leftChunkEvents = leftChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + 0, event.pos[1] + chunkSize],
-      chunk: leftChunk.pos
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize]
     }));
   }
   if (topLeftChunk.events) {
     topLeftChunkEvents = topLeftChunk.events.map((event) => ({
       ...event,
-      pos: [event.pos[0] + 0, event.pos[1] + 0],
-      chunk: topLeftChunk.pos
+      pos: [event.pos[0] + 0, event.pos[1] + 0]
     }));
   }
 

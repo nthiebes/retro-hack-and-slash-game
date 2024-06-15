@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
   socket.on('new-game', ({ mapId }) => {
     console.log('New game created');
 
-    let chunks = generateChunks({
+    const chunks = generateChunks({
       chunks: [],
       newGame: true
     });
@@ -54,15 +54,6 @@ io.on('connection', (socket) => {
         chunks,
         centerChunkPos: [0, 0]
       });
-      chunks = chunks.map((chunk) => ({
-        ...chunk,
-        map: {
-          ...chunk.map,
-          enemies: [],
-          animations: [],
-          events: []
-        }
-      }));
     } else {
       generatedMap = require(`../game/data/maps/${mapId}.json`);
     }
@@ -147,14 +138,6 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
-      game.events = game.events.map((event) => ({
-        ...event,
-        pos: [event.pos[0] - 30, event.pos[1]]
-      }));
-      game.animations = game.animations.map((animation) => ({
-        ...animation,
-        pos: [animation.pos[0] - 30, animation.pos[1]]
-      }));
     } else if (direction === 'left') {
       centerChunk = game.chunks.find(
         (chunk) =>
@@ -166,14 +149,6 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
-      game.events = game.events.map((event) => ({
-        ...event,
-        pos: [event.pos[0] + 30, event.pos[1]]
-      }));
-      game.animations = game.animations.map((animation) => ({
-        ...animation,
-        pos: [animation.pos[0] + 30, animation.pos[1]]
-      }));
     } else if (direction === 'bottom') {
       centerChunk = game.chunks.find(
         (chunk) =>
@@ -185,14 +160,6 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
-      game.events = game.events.map((event) => ({
-        ...event,
-        pos: [event.pos[0], event.pos[1] - 30]
-      }));
-      game.animations = game.animations.map((animation) => ({
-        ...animation,
-        pos: [animation.pos[0], animation.pos[1] - 30]
-      }));
     } else if (direction === 'top') {
       centerChunk = game.chunks.find(
         (chunk) =>
@@ -204,14 +171,6 @@ io.on('connection', (socket) => {
         chunks: game.chunks,
         centerChunk
       });
-      game.events = game.events.map((event) => ({
-        ...event,
-        pos: [event.pos[0], event.pos[1] + 30]
-      }));
-      game.animations = game.animations.map((animation) => ({
-        ...animation,
-        pos: [animation.pos[0], animation.pos[1] + 30]
-      }));
     }
 
     const generatedMap = generateMap({
@@ -238,27 +197,14 @@ io.on('connection', (socket) => {
     game = {
       ...game,
       mapTransitions,
-      events: [...game.events, ...events],
-      animations: [...game.animations, ...animations],
-      enemies: [...game.enemies, ...enemiesWithDirection],
       playerStartPositions
     };
-
-    game.chunks = game.chunks.map((chunk) => ({
-      ...chunk,
-      map: {
-        ...chunk.map,
-        enemies: [],
-        animations: [],
-        events: []
-      }
-    }));
 
     io.sockets.emit('map-data', {
       mapData: {
         map,
-        events: game.events,
-        animations: game.animations,
+        events,
+        animations,
         enemies: enemiesWithDirection
       },
       direction,
@@ -312,19 +258,33 @@ io.on('connection', (socket) => {
   /**
    * Remove event
    */
-  socket.on('remove-event', ({ eventId, animationId }) => {
-    game.events = game.events.filter(({ id }) => eventId !== id);
+  socket.on('remove-event', ({ eventId, animationId, chunkPos }) => {
+    game.chunks = game.chunks.map((chunk) => {
+      if (chunk.pos[0] === chunkPos[0] && chunk.pos[1] === chunkPos[1]) {
+        let chunkAnimations = chunk.map.animations;
 
-    if (animationId) {
-      game.animations = game.animations.map((animation) =>
-        animation.id === animationId
-          ? {
-              ...animation,
-              played: true
-            }
-          : animation
-      );
-    }
+        if (animationId) {
+          chunkAnimations = chunkAnimations.map((animation) =>
+            animation.id === animationId
+              ? {
+                  ...animation,
+                  played: true
+                }
+              : animation
+          );
+        }
+
+        return {
+          ...chunk,
+          map: {
+            ...chunk.map,
+            events: chunk.map.events.filter(({ id }) => eventId !== id),
+            animations: chunkAnimations
+          }
+        };
+      }
+      return chunk;
+    });
   });
 
   /**

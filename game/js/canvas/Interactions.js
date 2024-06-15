@@ -125,7 +125,10 @@ class Interactions {
         if (event.type === 'item') {
           player.takeItem(event);
           Events.removeEvent(event);
-          socket.emit('remove-event', { eventId: event.id });
+          socket.emit('remove-event', {
+            eventId: event.id,
+            chunkPos: event.chunk
+          });
           socket.emit('take-item', { item: event });
           sounds.effects.play('take');
           body.classList.add('cursor--use');
@@ -147,7 +150,8 @@ class Interactions {
           Events.removeEvent(event);
           socket.emit('remove-event', {
             eventId: event.id,
-            animationId: animation.id
+            animationId: animation.id,
+            chunkPos: event.chunk
           });
           animation.play();
           if (animation.sound) {

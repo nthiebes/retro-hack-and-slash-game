@@ -15,7 +15,7 @@ const getRandomPositions = (max) => {
   return randomPositions;
 };
 
-const generateChunk = ({ biome: biomeName }) => {
+const generateChunk = ({ biome: biomeName, chunk }) => {
   const biome = biomes[biomeName];
   const mapGround2 = new Array(chunkSize)
     .fill(0)
@@ -216,7 +216,8 @@ const generateChunk = ({ biome: biomeName }) => {
             ...blocks[block.id].animations.map((animation) => ({
               ...animation,
               pos: [animation.pos[0] + randomY, animation.pos[1] + randomX],
-              id: `${animation.id}.${getRandomId()}`
+              id: `${animation.id}.${getRandomId()}`,
+              chunk
             }))
           );
         }
@@ -225,7 +226,8 @@ const generateChunk = ({ biome: biomeName }) => {
             ...blocks[block.id].events.map((event) => ({
               ...event,
               pos: [event.pos[0] + randomY, event.pos[1] + randomX],
-              id: `${event.id}.${getRandomId()}`
+              id: `${event.id}.${getRandomId()}`,
+              chunk
             }))
           );
         }
@@ -234,7 +236,8 @@ const generateChunk = ({ biome: biomeName }) => {
             ...blocks[block.id].enemies.map((enemy) => ({
               ...enemy,
               pos: [enemy.pos[0] + randomY, enemy.pos[1] + randomX],
-              id: `${enemy.id}.${getRandomId()}`
+              id: `${enemy.id}.${getRandomId()}`,
+              chunk
             }))
           );
         }
@@ -250,7 +253,7 @@ const generateChunk = ({ biome: biomeName }) => {
     }
   });
 
-  // Larger bushes
+  // Larger bushes/stones
   getRandomPositions(biome.bushesAmount).forEach((pos) => {
     if (mapGround2[pos[0]][pos[1]] === 0) {
       mapGround2[pos[0]][pos[1]] =

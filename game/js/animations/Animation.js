@@ -1,10 +1,11 @@
 export default class Animation {
-  constructor({ id, pos, autoplay, sprite, sound }) {
+  constructor({ id, pos, autoplay, sprite, sound, chunk }) {
     this.frames = sprite.frames;
     this.sprite = sprite;
     this.sprite.frames = autoplay ? sprite.frames : [0];
     this.id = id;
     this.pos = pos;
+    this.chunk = chunk;
     this.sound = sound;
   }
 

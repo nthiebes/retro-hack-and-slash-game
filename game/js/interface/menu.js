@@ -4,6 +4,7 @@ import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
 import { socket } from '../utils/socket.js';
 import { sounds } from '../utils/sounds.js';
+import config from '../config.js';
 import { attributesMap, racesMap } from './translations.js';
 import { Statistics } from './statistics.js';
 import { Inventory } from './inventory.js';
@@ -432,8 +433,8 @@ export class Menu {
         const playersPosAdjusted = players.map((player) => ({
           ...player,
           pos: [
-            player.pos[0] + player.chunk[0] * 30,
-            player.pos[1] + player.chunk[1] * 30
+            player.pos[0] + player.chunk[0] * config.chunkSize,
+            player.pos[1] + player.chunk[1] * config.chunkSize
           ]
         }));
 

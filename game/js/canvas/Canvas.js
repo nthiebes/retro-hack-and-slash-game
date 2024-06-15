@@ -175,19 +175,19 @@ export default class Canvas {
       Units.list.forEach((unit) => {
         switch (direction) {
           case 'right': {
-            unit.pos = [unit.pos[0] - 30, unit.pos[1]];
+            unit.pos = [unit.pos[0] - config.chunkSize, unit.pos[1]];
             break;
           }
           case 'left': {
-            unit.pos = [unit.pos[0] + 30, unit.pos[1]];
+            unit.pos = [unit.pos[0] + config.chunkSize, unit.pos[1]];
             break;
           }
           case 'bottom': {
-            unit.pos = [unit.pos[0], unit.pos[1] - 30];
+            unit.pos = [unit.pos[0], unit.pos[1] - config.chunkSize];
             break;
           }
           default: {
-            unit.pos = [unit.pos[0], unit.pos[1] + 30];
+            unit.pos = [unit.pos[0], unit.pos[1] + config.chunkSize];
           }
         }
 
@@ -196,9 +196,14 @@ export default class Canvas {
         unit.nextTile = null;
       });
 
+      // Remove already existing enemies
+      const newUnits = mapData.enemies.filter((enemy) =>
+        Boolean(!Units.getUnit(enemy.id))
+      );
+
       Units.addUnits({
         players: [],
-        enemies: mapData.enemies
+        enemies: newUnits
       });
 
       this.ground1 = mapData.map[0];

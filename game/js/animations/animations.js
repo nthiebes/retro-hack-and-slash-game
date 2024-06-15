@@ -25,7 +25,8 @@ export class Animations {
         {
           ...animationData,
           pos: animation.pos,
-          id: animation.id
+          id: animation.id,
+          chunk: animation.chunk
         },
         animation.played
       );
@@ -63,7 +64,8 @@ export class Animations {
         {
           ...animationData,
           pos: animation.pos,
-          id: animation.id
+          id: animation.id,
+          chunk: animation.chunk
         },
         animation.played
       );

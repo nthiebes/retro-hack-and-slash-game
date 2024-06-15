@@ -91,7 +91,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       topRightChunk.biome
     ]);
     topChunk.map = generateChunk({
-      biome: topChunk.biome
+      biome: topChunk.biome,
+      chunk: topChunk.pos
     });
     newChunks.push(topChunk);
   }
@@ -99,7 +100,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
   if (!topRightChunk.biome) {
     topRightChunk.biome = getRandomBiome([topChunk.biome, rightChunk.biome]);
     topRightChunk.map = generateChunk({
-      biome: topRightChunk.biome
+      biome: topRightChunk.biome,
+      chunk: topRightChunk.pos
     });
     newChunks.push(topRightChunk);
   }
@@ -111,7 +113,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       bottomRightChunk.biome
     ]);
     rightChunk.map = generateChunk({
-      biome: rightChunk.biome
+      biome: rightChunk.biome,
+      chunk: rightChunk.pos
     });
     newChunks.push(rightChunk);
   }
@@ -122,7 +125,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       bottomChunk.biome
     ]);
     bottomRightChunk.map = generateChunk({
-      biome: bottomRightChunk.biome
+      biome: bottomRightChunk.biome,
+      chunk: bottomRightChunk.pos
     });
     newChunks.push(bottomRightChunk);
   }
@@ -134,7 +138,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       bottomLeftChunk.biome
     ]);
     bottomChunk.map = generateChunk({
-      biome: bottomChunk.biome
+      biome: bottomChunk.biome,
+      chunk: bottomChunk.pos
     });
     newChunks.push(bottomChunk);
   }
@@ -145,7 +150,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       leftChunk.biome
     ]);
     bottomLeftChunk.map = generateChunk({
-      biome: bottomLeftChunk.biome
+      biome: bottomLeftChunk.biome,
+      chunk: bottomLeftChunk.pos
     });
     newChunks.push(bottomLeftChunk);
   }
@@ -157,7 +163,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
       topLeftChunk.biome
     ]);
     leftChunk.map = generateChunk({
-      biome: leftChunk.biome
+      biome: leftChunk.biome,
+      chunk: leftChunk.pos
     });
     newChunks.push(leftChunk);
   }
@@ -165,7 +172,8 @@ const getSurroundingChunks = ({ centerChunk, chunks }) => {
   if (!topLeftChunk.biome) {
     topLeftChunk.biome = getRandomBiome([leftChunk.biome, topChunk.biome]);
     topLeftChunk.map = generateChunk({
-      biome: topLeftChunk.biome
+      biome: topLeftChunk.biome,
+      chunk: topLeftChunk.pos
     });
     newChunks.push(topLeftChunk);
   }
@@ -181,7 +189,8 @@ const generateChunks = ({ newGame, chunks, centerChunk }) => {
       pos: [0, 0],
       biome: startBiome,
       map: generateChunk({
-        biome: startBiome
+        biome: startBiome,
+        chunk: [0, 0]
       })
     };
 
