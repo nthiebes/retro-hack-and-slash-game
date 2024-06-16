@@ -63,6 +63,10 @@ export const racesMap = {
   ghoul: {
     name: 'Ghoul',
     description: ''
+  },
+  mummy: {
+    name: 'Mumie',
+    description: ''
   }
 };
 

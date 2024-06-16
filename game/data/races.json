@@ -96,5 +96,16 @@
     "skins": 1,
     "faces": 1,
     "hair": 1
+  },
+
+  "mummy": {
+    "strength": 2,
+    "dexterity": 2,
+    "intelligence": 0,
+    "defense": 2,
+    "speed": 3,
+    "skins": 1,
+    "faces": 1,
+    "hair": 1
   }
 }
