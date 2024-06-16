@@ -55,6 +55,14 @@ export const racesMap = {
   beastman: {
     name: 'Tiermensch',
     description: ''
+  },
+  skeleton: {
+    name: 'Skelett',
+    description: ''
+  },
+  ghoul: {
+    name: 'Ghoul',
+    description: ''
   }
 };
 

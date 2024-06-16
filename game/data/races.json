@@ -54,17 +54,6 @@
     "hair": 7
   },
 
-  "zombie": {
-    "strength": 1,
-    "dexterity": 1,
-    "intelligence": 0,
-    "defense": 1,
-    "speed": 2,
-    "skins": 7,
-    "faces": 1,
-    "hair": 1
-  },
-
   "beastman": {
     "strength": 3,
     "dexterity": 3,
@@ -72,6 +61,39 @@
     "defense": 3,
     "speed": 5,
     "skins": 3,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "zombie": {
+    "strength": 1,
+    "dexterity": 1,
+    "intelligence": 0,
+    "defense": 2,
+    "speed": 2,
+    "skins": 7,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "skeleton": {
+    "strength": 1,
+    "dexterity": 2,
+    "intelligence": 0,
+    "defense": 1,
+    "speed": 4,
+    "skins": 3,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "ghoul": {
+    "strength": 3,
+    "dexterity": 2,
+    "intelligence": 1,
+    "defense": 3,
+    "speed": 5,
+    "skins": 1,
     "faces": 1,
     "hair": 1
   }
