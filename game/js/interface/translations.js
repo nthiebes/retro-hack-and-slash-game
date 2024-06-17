@@ -67,6 +67,10 @@ export const racesMap = {
   mummy: {
     name: 'Mumie',
     description: ''
+  },
+  lich: {
+    name: 'Lich',
+    description: ''
   }
 };
 
