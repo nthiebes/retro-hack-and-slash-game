@@ -679,7 +679,7 @@ class Interactions {
         enemy.target = player.id;
 
         sounds.battle.play();
-        sounds.grunt();
+        sounds.aggro(enemy.race);
 
         // socket.emit('ai-move', {
         //   path: enemy.path,

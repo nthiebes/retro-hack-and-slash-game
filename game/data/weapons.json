@@ -11,6 +11,17 @@
     },
 
     {
+      "id": "shovel0",
+      "type": "primary",
+      "name": "Schaufel",
+      "description": "",
+      "damage": 1,
+      "range": 2,
+      "speed": 3,
+      "rarity": "common"
+    },
+
+    {
       "id": "club0",
       "type": "primary",
       "name": "Stachelige Keule",
@@ -83,16 +94,6 @@
     },
 
     {
-      "id": "axe1",
-      "type": "primary",
-      "name": "Doppelseitige Axt",
-      "damage": 3,
-      "range": 2,
-      "speed": 3,
-      "rarity": "rare"
-    },
-
-    {
       "id": "axe2",
       "type": "primary",
       "name": "Axt",
@@ -116,6 +117,16 @@
       "id": "axe4",
       "type": "primary",
       "name": "Axt",
+      "damage": 3,
+      "range": 2,
+      "speed": 3,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "axe1",
+      "type": "primary",
+      "name": "Doppelseitige Axt",
       "damage": 3,
       "range": 2,
       "speed": 3,

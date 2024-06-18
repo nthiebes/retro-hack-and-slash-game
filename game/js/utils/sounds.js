@@ -56,6 +56,19 @@ const fightSprite = new Howl({
   }
 });
 
+const zombieSprite = new Howl({
+  src: ['/game/sounds/zombies.mp3'],
+  onend: () => {
+    isGruntPlaying = false;
+  },
+  preload: true,
+  sprite: {
+    die: [0, 800],
+    grunt0: [1100, 2600],
+    grunt1: [4300, 1100]
+  }
+});
+
 let isBattlePlaying = false;
 const battle = new Howl({
   src: ['/game/sounds/battle.mp3'],
@@ -71,16 +84,32 @@ const battle = new Howl({
 const ambience = new Howl({
   src: ['/game/sounds/ambience.mp3'],
   preload: true,
-  loop: true
+  loop: true,
+  volume: 0 // Disabled for testing
 });
 
+const gruntMap = {
+  orc: {
+    sprite: orcSprite,
+    sounds: 10
+  },
+  zombie: {
+    sprite: zombieSprite,
+    sounds: 2
+  }
+};
 export const sounds = {
   swing: () => {
     fightSprite.play(`swoosh${getRandomInt(5)}`);
   },
-  grunt: () => {
+  aggro: (race = 'orc') => {
     if (!isGruntPlaying) {
-      orcSprite.play(`grunt${getRandomInt(10)}`);
+      const grunt = gruntMap[race] || {
+        sprite: orcSprite,
+        sounds: 10
+      };
+
+      grunt.sprite.play(`grunt${getRandomInt(grunt.sounds)}`);
       isGruntPlaying = true;
     }
   },

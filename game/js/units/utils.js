@@ -57,7 +57,7 @@ const fight = ({ attacker, defender, map }) => {
     );
     defender.attack();
     sounds.battle.play();
-    sounds.grunt();
+    sounds.aggro(defender.race);
   }
 
   if (defender.dead) {

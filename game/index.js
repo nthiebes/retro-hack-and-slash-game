@@ -144,6 +144,7 @@ const resourcesList = [
   'images/items/axe5.png',
   'images/items/axe6.png',
   'images/items/club0.png',
+  'images/items/shovel0.png',
   'images/items/shield0.png',
   'images/items/shield1.png',
   'images/items/shield2.png',

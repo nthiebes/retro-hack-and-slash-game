@@ -2120,7 +2120,8 @@ const blocks = {
       { pos: [2, 4], type: 'item', id: 'sword1' },
       { pos: [3, 4], type: 'item', id: 'sword2' },
       { pos: [4, 4], type: 'item', id: 'sword3' },
-      { pos: [5, 4], type: 'item', id: 'sword4' }
+      { pos: [5, 4], type: 'item', id: 'sword4' },
+      { pos: [1, 5], type: 'item', id: 'shovel0' }
     ]
   },
   orc0: {
@@ -2138,6 +2139,10 @@ const blocks = {
   beastman1: {
     map: [[], [], [], []],
     enemies: [{ pos: [0, 0], id: 'beastman1' }]
+  },
+  zombie0: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'zombie0' }]
   }
 };
 
