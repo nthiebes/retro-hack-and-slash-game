@@ -44,7 +44,7 @@ const walkSound = new Howl({
   loop: true
 });
 
-const fightSprite = new Howl({
+const swooshSprite = new Howl({
   src: ['/game/sounds/fighting.mp3'],
   preload: true,
   sprite: {
@@ -53,6 +53,21 @@ const fightSprite = new Howl({
     swoosh2: [1900, 450],
     swoosh3: [2800, 400],
     swoosh4: [3700, 500]
+  }
+});
+
+const hitSprite = new Howl({
+  src: ['/game/sounds/hit.mp3'],
+  preload: true,
+  volume: 0.5,
+  sprite: {
+    hit0: [100, 300],
+    hit1: [480, 350],
+    hit2: [880, 350],
+    hit3: [1350, 350],
+    hit4: [1830, 350],
+    hit5: [2330, 450],
+    hit6: [2840, 230]
   }
 });
 
@@ -74,7 +89,7 @@ const battle = new Howl({
   src: ['/game/sounds/battle.mp3'],
   preload: true,
   loop: true,
-  volume: 0.75,
+  volume: 0.5,
   onfade: () => {
     battle.stop();
     isBattlePlaying = false;
@@ -100,7 +115,13 @@ const gruntMap = {
 };
 export const sounds = {
   swing: () => {
-    fightSprite.play(`swoosh${getRandomInt(5)}`);
+    swooshSprite.play(`swoosh${getRandomInt(5)}`);
+  },
+  hit: () => {
+    hitSprite.play(`hit${getRandomInt(7)}`);
+  },
+  die: () => {
+    zombieSprite.play('die');
   },
   aggro: (race = 'orc') => {
     if (!isGruntPlaying) {

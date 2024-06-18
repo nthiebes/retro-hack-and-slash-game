@@ -48,6 +48,7 @@ const fight = ({ attacker, defender, map }) => {
   // console.log('🤺', strength, ' vs ', defense);
 
   defender.takeDamage(damage);
+  sounds.hit();
 
   if (!defender.friendly && defender.direction === attacker.direction) {
     defender.turn(defender.direction === 'LEFT' ? 'RIGHT' : 'LEFT');

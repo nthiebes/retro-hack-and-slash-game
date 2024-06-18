@@ -199,6 +199,8 @@ export default class Unit {
       console.log('☠️');
     }
 
+    sounds.die();
+
     this.skin.pos = [0, directionOffset];
     this.head.pos = [0, directionOffset];
     this.torso.pos = [0, directionOffset];
