@@ -53,6 +53,8 @@ const resourcesList = [
   'images/races/mummy0.png',
   'images/races/lich0.png',
   'images/races/zombie0.png',
+  'images/races/zombie1.png',
+  'images/races/zombie2.png',
   'images/races/wounded0.png',
   'images/races/wounded1.png',
   'images/hair/orc/hair0.png',
