@@ -71,7 +71,7 @@
     "intelligence": 0,
     "defense": 2,
     "speed": 2,
-    "skins": 7,
+    "skins": 1,
     "faces": 1,
     "hair": 1
   },
@@ -117,7 +117,6 @@
     "speed": 3,
     "skins": 1,
     "faces": 1,
-    "hair": 1,
-    "boss": true
+    "hair": 1
   }
 }

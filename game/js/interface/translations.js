@@ -71,6 +71,10 @@ export const racesMap = {
   lich: {
     name: 'Lich',
     description: ''
+  },
+  zombie: {
+    name: 'Zombie',
+    description: ''
   }
 };
 

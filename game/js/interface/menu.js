@@ -56,9 +56,10 @@ let soundMuted = false;
 export class Menu {
   static start = (resources) => {
     Menu.resources = resources;
-    Menu.races = Object.entries(GameData.races).filter(
-      (race) => race[0] !== 'zombie'
-    );
+    // Menu.races = Object.entries(GameData.races).filter(
+    //   (race) => race[0] !== 'zombie'
+    // );
+    Menu.races = Object.entries(GameData.races);
     Menu.currentRace = 0;
     Menu.player = {
       id: null,
