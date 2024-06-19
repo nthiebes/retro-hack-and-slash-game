@@ -84,6 +84,17 @@ const zombieSprite = new Howl({
   }
 });
 
+const skeletonSprite = new Howl({
+  src: ['/game/sounds/skeleton.mp3'],
+  onend: () => {
+    isGruntPlaying = false;
+  },
+  preload: true,
+  sprite: {
+    grunt0: [0, 470]
+  }
+});
+
 let isBattlePlaying = false;
 const battle = new Howl({
   src: ['/game/sounds/battle.mp3'],
@@ -111,6 +122,10 @@ const gruntMap = {
   zombie: {
     sprite: zombieSprite,
     sounds: 2
+  },
+  skeleton: {
+    sprite: skeletonSprite,
+    sounds: 1
   }
 };
 export const sounds = {
