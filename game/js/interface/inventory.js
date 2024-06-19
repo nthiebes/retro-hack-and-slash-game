@@ -163,6 +163,18 @@ export class Inventory {
     healthBarNumber.innerHTML = `${Math.floor(health)} / 1000`;
     healthBar.style.width = `${Math.floor(health) / 10}%`;
 
+    // console.log(inventory);
+    // const existingItems = {};
+    // let uniqInventory = [...inventory];
+
+    // uniqInventory.forEach((item) => {
+    //   const id = item.id.split('.')[0];
+
+    //   existingItems[id] = existingItems[id] ? existingItems[id] + 1 : 1;
+    // });
+
+    // console.log(existingItems);
+
     inventory.forEach((item) => {
       const li = document.createElement('li');
       const backgroundImage = `url(/game/images/items/${
@@ -252,12 +264,20 @@ export class Inventory {
         } else if (item.health) {
           Units.player.heal(item.health);
         }
+        if (item.zombie && getRandomInt(100) <= item.zombie) {
+          Units.player.changeRace('zombie');
+        }
+
         if (item.id.includes('mushroom')) {
           Units.player.stats.mushrooms++;
           sounds.effects.play('eat');
         }
         if (item.id.includes('berries')) {
           Units.player.stats.berries++;
+          sounds.effects.play('eat');
+        }
+        if (item.id.includes('zombie')) {
+          Units.player.stats.zombie++;
           sounds.effects.play('eat');
         }
         Units.player.removeFromInventory(itemId);

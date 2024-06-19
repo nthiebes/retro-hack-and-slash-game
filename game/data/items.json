@@ -20,5 +20,29 @@
     "health": 50,
     "name": "Blaubeeren",
     "description": "Leckere Blaubeeren. Omnomnom..."
+  },
+  {
+    "id": "zombie-arm",
+    "type": "consumable",
+    "health": 50,
+    "zombie": 50,
+    "name": "Zombie-Arm",
+    "description": "Kann gegessen werden, aber zu welchem Preis?"
+  },
+  {
+    "id": "zombie-hands",
+    "type": "consumable",
+    "health": 50,
+    "zombie": 50,
+    "name": "Zombie-Hände",
+    "description": "Kann gegessen werden, aber zu welchem Preis?"
+  },
+  {
+    "id": "zombie-foot",
+    "type": "consumable",
+    "health": 50,
+    "zombie": 50,
+    "name": "Zombie-Fuß",
+    "description": "Kann gegessen werden, aber zu welchem Preis?"
   }
 ]

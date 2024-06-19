@@ -1,6 +1,7 @@
 import config from '../config.js';
 import { getAttackSpeed, getWalkSpeed } from './utils.js';
 import { GameData } from '../gameData.js';
+import Sprite from '../utils/Sprite.js';
 import { sounds } from '../utils/sounds.js';
 import { getRandomInt } from '../utils/number.js';
 
@@ -480,5 +481,45 @@ export default class Unit {
 
   wound = () => {
     this.special.url = this.woundedUrl;
+  };
+
+  changeRace = (race) => {
+    const skinCount = GameData.races[race].skins;
+    const newSpeed = getWalkSpeed({ race: race, gear: this.gear });
+
+    this.speed = newSpeed;
+    this.skin.speed = newSpeed;
+    this.head.speed = newSpeed;
+    this.leg.speed = newSpeed;
+    this.torso.speed = newSpeed;
+    this.primary.speed = newSpeed;
+    this.secondary.speed = newSpeed;
+    this.special.speed = newSpeed;
+    this.hair.speed = newSpeed;
+    this.face.speed = newSpeed;
+    this.race = race;
+    this.skin = new Sprite({
+      url: `images/races/${race}${getRandomInt(skinCount)}.png`,
+      pos: [0, 256],
+      size: [256, 256],
+      speed: this.speed,
+      frames: [0]
+    });
+    this.hair = new Sprite({
+      url: `images/hair/${race}/hair0.png`,
+      pos: [0, 256],
+      size: [256, 256],
+      speed: this.speed,
+      frames: [0]
+    });
+    this.face = new Sprite({
+      url: `images/faces/${race}/face0.png`,
+      pos: [0, 256],
+      size: [256, 256],
+      speed: this.speed,
+      frames: [0]
+    });
+    this.hairUrl = this.hair.url;
+    this.faceUrl = this.face.url;
   };
 }

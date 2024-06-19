@@ -166,7 +166,10 @@ const resourcesList = [
   'images/items/head_iron_0.png',
   'images/items/head_steel_0.png',
   'images/items/head_plate_0.png',
-  'images/items/head_plate_1.png'
+  'images/items/head_plate_1.png',
+  'images/items/zombie-hands.png',
+  'images/items/zombie-foot.png',
+  'images/items/zombie-arm.png'
 ];
 const getGameData = () => {
   fetch('data/weapons.json')
