@@ -52,14 +52,14 @@ const menuContinue = document.getElementById('menu-continue');
 const menuLeave = document.getElementById('menu-leave');
 let ingameMenuOpen = false;
 let soundMuted = false;
+const validRaces = ['human', 'elf', 'orc', 'vampire', 'dwarf'];
 
 export class Menu {
   static start = (resources) => {
     Menu.resources = resources;
-    // Menu.races = Object.entries(GameData.races).filter(
-    //   (race) => race[0] !== 'zombie'
-    // );
-    Menu.races = Object.entries(GameData.races);
+    Menu.races = Object.entries(GameData.races).filter((race) =>
+      validRaces.includes(race[0])
+    );
     Menu.currentRace = 0;
     Menu.player = {
       id: null,
