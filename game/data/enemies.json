@@ -1,9 +1,9 @@
 {
   "list": [
     {
-      "id": "orc0",
+      "id": "orc",
       "friendly": false,
-      "name": "Nackter Ork-Krieger",
+      "name": "Nackter Ork",
       "race": "orc",
       "health": 100,
       "gear": {
@@ -18,13 +18,13 @@
       "cosmetics": {}
     },
     {
-      "id": "orc1",
+      "id": "orc-warrior",
       "friendly": false,
       "name": "Ork-Krieger",
       "race": "orc",
       "health": 100,
       "gear": {
-        "head": "none",
+        "head": ["none", "head_leather_0"],
         "torso": ["none", "torso_leather_0"],
         "leg": "leg_leather_0"
       },
@@ -35,13 +35,13 @@
       "cosmetics": {}
     },
     {
-      "id": "orc2",
+      "id": "orc-boss",
       "friendly": false,
       "name": "Ork-Boss",
       "race": "orc",
-      "health": 100,
+      "health": 200,
       "gear": {
-        "head": "none",
+        "head": "head_iron_0",
         "torso": "torso_iron_0",
         "leg": "leg_iron_0"
       },
@@ -53,7 +53,7 @@
     },
 
     {
-      "id": "beastman0",
+      "id": "beastman",
       "friendly": false,
       "name": "Tiermensch",
       "race": "beastman",
@@ -70,7 +70,7 @@
       "cosmetics": {}
     },
     {
-      "id": "beastman1",
+      "id": "beastman-warrior",
       "friendly": false,
       "name": "Tiermensch",
       "race": "beastman",
@@ -88,7 +88,7 @@
     },
 
     {
-      "id": "zombie0",
+      "id": "zombie",
       "friendly": false,
       "name": "Zombie",
       "race": "zombie",
@@ -100,6 +100,78 @@
       },
       "weapons": {
         "primary": ["none", "none", "none", "none", "none", "none", "shovel0"],
+        "secondary": "none"
+      },
+      "cosmetics": {}
+    },
+
+    {
+      "id": "skeleton",
+      "friendly": false,
+      "name": "Klappriges Skelett",
+      "race": "skeleton",
+      "health": 100,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": ["sword0"],
+        "secondary": "none"
+      },
+      "cosmetics": {}
+    },
+
+    {
+      "id": "skeleton-warrior",
+      "friendly": false,
+      "name": "Skelett-Krieger",
+      "race": "skeleton",
+      "health": 100,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": ["sword1"],
+        "secondary": ["shield1", "shield2"]
+      },
+      "cosmetics": {}
+    },
+
+    {
+      "id": "mummy",
+      "friendly": false,
+      "name": "Mumie",
+      "race": "mummy",
+      "health": 100,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": "none",
+        "secondary": "none"
+      },
+      "cosmetics": {}
+    },
+
+    {
+      "id": "ghoul",
+      "friendly": false,
+      "name": "Ghoul",
+      "race": "ghoul",
+      "health": 100,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": "none",
         "secondary": "none"
       },
       "cosmetics": {}

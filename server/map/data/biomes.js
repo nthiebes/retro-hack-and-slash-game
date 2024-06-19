@@ -6,10 +6,26 @@ const biomes = {
     bushes: [],
     bushesAmount: 0,
     blocks: [
-      // {
-      //   id: 'allItems',
-      //   amount: 1
-      // },
+      {
+        id: 'allItems',
+        amount: 1
+      },
+      {
+        id: 'mummy',
+        amount: 2
+      },
+      {
+        id: 'skeleton',
+        amount: 2
+      },
+      {
+        id: 'skeleton-warrior',
+        amount: 2
+      },
+      {
+        id: 'orc-boss',
+        amount: 1
+      },
       {
         id: 'grass2',
         amount: 3
@@ -83,11 +99,11 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'zombie0',
+        id: 'zombie',
         amount: 1
       },
       {
-        id: 'orc0',
+        id: 'orc',
         amount: 1
       }
     ]
@@ -196,7 +212,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'orc0',
+        id: 'orc',
         amount: 1
       }
     ]
@@ -289,7 +305,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'orc0',
+        id: 'orc',
         amount: 1
       }
     ]
@@ -390,7 +406,7 @@ const biomes = {
         amount: 3
       },
       {
-        id: 'beastman0',
+        id: 'beastman',
         amount: 1
       }
     ]
@@ -455,8 +471,12 @@ const biomes = {
         amount: 10
       },
       {
-        id: 'zombie0',
-        amount: 3
+        id: 'zombie',
+        amount: 2
+      },
+      {
+        id: 'ghoul',
+        amount: 1
       }
     ]
   },
@@ -520,11 +540,11 @@ const biomes = {
         amount: 3
       },
       {
-        id: 'beastman0',
+        id: 'beastman',
         amount: 1
       },
       {
-        id: 'beastman1',
+        id: 'beastman-warrior',
         amount: 1
       }
     ]
@@ -573,11 +593,11 @@ const biomes = {
         amount: 3
       },
       {
-        id: 'beastman0',
+        id: 'beastman',
         amount: 1
       },
       {
-        id: 'beastman1',
+        id: 'beastman-warrior',
         amount: 1
       }
     ]
@@ -692,6 +712,14 @@ const biomes = {
       {
         id: 'grass6',
         amount: 5
+      },
+      {
+        id: 'skeleton',
+        amount: 1
+      },
+      {
+        id: 'skeleton-warrior',
+        amount: 1
       }
     ]
   },
@@ -805,6 +833,10 @@ const biomes = {
       {
         id: 'camp1',
         amount: 1
+      },
+      {
+        id: 'mummy',
+        amount: 1
       }
     ]
   },
@@ -888,7 +920,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'orc1',
+        id: 'orc-warrior',
         amount: 1
       }
     ]

@@ -2033,8 +2033,8 @@ const blocks = {
       { pos: [5, 2], id: 'campfire', type: 'fire' }
     ],
     enemies: [
-      { pos: [6, 2], id: 'orc0' },
-      { pos: [8, 2], id: 'orc1' }
+      { pos: [6, 2], id: 'orc' },
+      { pos: [8, 2], id: 'orc-warrior' }
     ]
   },
   camp1: {
@@ -2079,8 +2079,8 @@ const blocks = {
       { pos: [4, 5], id: 'campfire', type: 'fire' }
     ],
     enemies: [
-      { pos: [6, 2], id: 'orc2' },
-      { pos: [8, 2], id: 'orc1' }
+      { pos: [6, 2], id: 'mummy' },
+      { pos: [8, 2], id: 'mummy' }
     ]
   },
   allItems: {
@@ -2124,25 +2124,45 @@ const blocks = {
       { pos: [1, 5], type: 'item', id: 'shovel0' }
     ]
   },
-  orc0: {
+  orc: {
     map: [[], [], [], []],
-    enemies: [{ pos: [0, 0], id: 'orc0' }]
+    enemies: [{ pos: [0, 0], id: 'orc' }]
   },
-  orc1: {
+  'orc-warrior': {
     map: [[], [], [], []],
-    enemies: [{ pos: [0, 0], id: 'orc1' }]
+    enemies: [{ pos: [0, 0], id: 'orc-warrior' }]
   },
-  beastman0: {
+  'orc-boss': {
     map: [[], [], [], []],
-    enemies: [{ pos: [0, 0], id: 'beastman0' }]
+    enemies: [{ pos: [0, 0], id: 'orc-boss' }]
   },
-  beastman1: {
+  beastman: {
     map: [[], [], [], []],
-    enemies: [{ pos: [0, 0], id: 'beastman1' }]
+    enemies: [{ pos: [0, 0], id: 'beastman' }]
   },
-  zombie0: {
+  'beastman-warrior': {
     map: [[], [], [], []],
-    enemies: [{ pos: [0, 0], id: 'zombie0' }]
+    enemies: [{ pos: [0, 0], id: 'beastman-warrior' }]
+  },
+  zombie: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'zombie' }]
+  },
+  skeleton: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'skeleton' }]
+  },
+  'skeleton-warrior': {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'skeleton-warrior' }]
+  },
+  mummy: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'mummy' }]
+  },
+  ghoul: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'ghoul' }]
   }
 };
 
