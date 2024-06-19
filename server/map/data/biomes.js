@@ -6,26 +6,10 @@ const biomes = {
     bushes: [],
     bushesAmount: 0,
     blocks: [
-      {
-        id: 'allItems',
-        amount: 1
-      },
-      {
-        id: 'mummy',
-        amount: 2
-      },
-      {
-        id: 'skeleton',
-        amount: 2
-      },
-      {
-        id: 'skeleton-warrior',
-        amount: 2
-      },
-      {
-        id: 'orc-boss',
-        amount: 1
-      },
+      // {
+      //   id: 'allItems',
+      //   amount: 1
+      // },
       {
         id: 'grass2',
         amount: 3

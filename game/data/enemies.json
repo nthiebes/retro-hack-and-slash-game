@@ -12,7 +12,7 @@
         "leg": "none"
       },
       "weapons": {
-        "primary": ["none", "club0", "axe0", "axe2"],
+        "primary": ["club0", "axe0", "axe2"],
         "secondary": "none"
       },
       "cosmetics": {}

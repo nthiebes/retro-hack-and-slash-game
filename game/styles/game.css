@@ -162,7 +162,7 @@ body {
   color: #e2d8c7;
   text-transform: uppercase;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
-  font-weight: bold;
+  font-weight: normal;
   font-family: var(--font-family);
   margin: 5px;
   height: 49px;
