@@ -2,6 +2,7 @@ import config from '../config.js';
 import { GameData } from '../gameData.js';
 import { Units } from '../units/units.js';
 import { sounds } from '../utils/sounds.js';
+import { getRandomInt } from '../utils/number.js';
 
 const healthBarHealth = document.getElementById('health-bar-health');
 const healthBarNumber = document.getElementById('health-bar-number');
@@ -64,6 +65,18 @@ const fight = ({ attacker, defender, map }) => {
   if (defender.dead) {
     if (!attacker.friendly) {
       attacker.stop();
+    }
+
+    if (!defender.friendly && defender.inventory.length) {
+      const lootedItem =
+        defender.inventory[getRandomInt(defender.inventory.length)];
+
+      if (getRandomInt(2) === 0) {
+        defender.unequipItem(lootedItem);
+        attacker.takeItem({
+          id: lootedItem
+        });
+      }
     }
 
     sounds.battle.stop();

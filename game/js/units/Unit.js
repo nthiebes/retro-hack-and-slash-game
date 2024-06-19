@@ -6,6 +6,7 @@ import { getRandomInt } from '../utils/number.js';
 
 export default class Unit {
   constructor(data) {
+    this.inventory = data.inventory ? data.inventory : [];
     this.direction = 'RIGHT';
     this.moving = false;
     this.attacking = false;
@@ -18,7 +19,6 @@ export default class Unit {
     this.noFace = false;
     this.hairUrl = data.hair.url;
     this.faceUrl = data.face.url;
-    this.inventory = [];
     this.chunk = [0, 0];
     this.woundedUrl = `images/races/wounded${getRandomInt(2)}.png`;
     this.stats = {
@@ -37,6 +37,22 @@ export default class Unit {
       if (data.hasOwnProperty(i)) {
         this[i] = data[i];
       }
+    }
+
+    if (this.gear.head !== 'none') {
+      this.inventory.push(this.gear.head);
+    }
+    if (this.gear.torso !== 'none') {
+      this.inventory.push(this.gear.torso);
+    }
+    if (this.gear.leg !== 'none') {
+      this.inventory.push(this.gear.leg);
+    }
+    if (this.weapons.primary !== 'none') {
+      this.inventory.push(this.weapons.primary);
+    }
+    if (this.weapons.secondary !== 'none') {
+      this.inventory.push(this.weapons.secondary);
     }
   }
 

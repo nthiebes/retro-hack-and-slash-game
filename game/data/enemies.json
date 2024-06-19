@@ -102,6 +102,7 @@
         "primary": ["none", "none", "none", "none", "none", "none", "shovel0"],
         "secondary": "none"
       },
+      "inventory": ["mushrooms0"],
       "cosmetics": {}
     },
 
