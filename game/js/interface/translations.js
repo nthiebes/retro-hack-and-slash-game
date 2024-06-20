@@ -91,5 +91,6 @@ export const statsMap = {
   looted: 'Gegenstände gesammelt',
   berries: 'Beeren gegessen',
   mushrooms: 'Pilze verspeist',
+  zombieMeat: 'Zombiefleisch verschlungen',
   tilesWalked: 'Meter zurückgelegt'
 };

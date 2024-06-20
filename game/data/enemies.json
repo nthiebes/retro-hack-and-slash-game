@@ -15,7 +15,7 @@
         "primary": ["club0", "axe0", "axe2"],
         "secondary": "none"
       },
-      "cosmetics": {}
+      "inventory": ["salmon"]
     },
     {
       "id": "orc-warrior",
@@ -32,7 +32,7 @@
         "primary": ["sword0", "club0", "axe0", "axe2"],
         "secondary": ["none", "shield1", "shield2"]
       },
-      "cosmetics": {}
+      "inventory": ["salmon"]
     },
     {
       "id": "orc-boss",
@@ -49,7 +49,7 @@
         "primary": "axe1",
         "secondary": "shield3"
       },
-      "cosmetics": {}
+      "inventory": ["salmon"]
     },
 
     {
@@ -67,8 +67,7 @@
         "primary": ["club0", "axe0", "axe2"],
         "secondary": "none"
       },
-      "cosmetics": {},
-      "inventory": ["mushrooms0"]
+      "inventory": ["mushrooms0", "rabbit-meat", "wolf-meat"]
     },
     {
       "id": "beastman-warrior",
@@ -85,8 +84,7 @@
         "primary": ["club0", "axe0", "axe2"],
         "secondary": ["none", "shield1", "shield2"]
       },
-      "cosmetics": {},
-      "inventory": ["mushrooms0"]
+      "inventory": ["mushrooms0", "rabbit-meat", "wolf-meat"]
     },
 
     {
@@ -104,8 +102,7 @@
         "primary": ["none", "none", "none", "none", "none", "none", "shovel0"],
         "secondary": "none"
       },
-      "cosmetics": {},
-      "inventory": ["zombie-arm", "zombie-hands", "zombie-foot"]
+      "inventory": ["zombie-arm", "zombie-hands", "zombie-foot", "note"]
     },
 
     {
@@ -123,7 +120,7 @@
         "primary": ["sword0"],
         "secondary": "none"
       },
-      "cosmetics": {}
+      "inventory": ["skull", "bone", "bone", "bone"]
     },
 
     {
@@ -141,7 +138,7 @@
         "primary": ["sword1"],
         "secondary": ["shield1", "shield2"]
       },
-      "cosmetics": {}
+      "inventory": ["skull", "bone", "bone", "bone"]
     },
 
     {
@@ -158,8 +155,7 @@
       "weapons": {
         "primary": "none",
         "secondary": "none"
-      },
-      "cosmetics": {}
+      }
     },
 
     {
@@ -177,7 +173,7 @@
         "primary": "none",
         "secondary": "none"
       },
-      "cosmetics": {}
+      "inventory": ["mushrooms0", "rabbit-meat", "wolf-meat", "note"]
     }
   ]
 }

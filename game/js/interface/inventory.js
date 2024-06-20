@@ -238,6 +238,11 @@ export class Inventory {
 
   static handleItemClick = (event) => {
     const itemId = event.target.getAttribute('data-id');
+
+    if (!itemId) {
+      return;
+    }
+
     const id = itemId.split('.')[0];
     const armor = GameData.getArmor(id);
     const weapon = GameData.getWeapon(id);
@@ -277,10 +282,17 @@ export class Inventory {
           sounds.effects.play('eat');
         }
         if (item.id.includes('zombie')) {
-          Units.player.stats.zombie++;
+          Units.player.stats.zombieMeat++;
           sounds.effects.play('eat');
         }
         Units.player.removeFromInventory(itemId);
+        break;
+      }
+      case 'misc': {
+        if (item.messages) {
+          // eslint-disable-next-line no-alert
+          alert(item.messages[getRandomInt(item.messages.length)]);
+        }
         break;
       }
       default: {

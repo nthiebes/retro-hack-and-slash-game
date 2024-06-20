@@ -2033,8 +2033,9 @@ const blocks = {
       { pos: [5, 2], id: 'campfire', type: 'fire' }
     ],
     enemies: [
-      { pos: [6, 2], id: 'orc' },
-      { pos: [8, 2], id: 'orc-warrior' }
+      { pos: [4, 1], id: 'orc' },
+      { pos: [1, 5], id: 'orc-warrior' },
+      { pos: [7, 3], id: 'orc-boss' }
     ]
   },
   camp1: {
@@ -2121,7 +2122,11 @@ const blocks = {
       { pos: [3, 4], type: 'item', id: 'sword2' },
       { pos: [4, 4], type: 'item', id: 'sword3' },
       { pos: [5, 4], type: 'item', id: 'sword4' },
-      { pos: [1, 5], type: 'item', id: 'shovel0' }
+      { pos: [1, 5], type: 'item', id: 'shovel0' },
+      { pos: [2, 5], type: 'item', id: 'note' },
+      { pos: [3, 5], type: 'item', id: 'salmon' },
+      { pos: [4, 5], type: 'item', id: 'rabbit-meat' },
+      { pos: [5, 5], type: 'item', id: 'wolf-meat' }
     ]
   },
   orc: {

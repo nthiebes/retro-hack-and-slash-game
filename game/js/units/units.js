@@ -81,10 +81,10 @@ export class Units {
     const skin = Number.isInteger(unit.skin)
       ? unit.skin
       : getRandomInt(skinCount);
-    const hair = unit.cosmetics.hair
+    const hair = unit?.cosmetics?.hair
       ? unit.cosmetics.hair
       : `hair${getRandomInt(hairCount)}`;
-    const face = unit.cosmetics.face
+    const face = unit?.cosmetics?.face
       ? unit.cosmetics.face
       : `face${getRandomInt(facesCount)}`;
     const speed = getWalkSpeed({

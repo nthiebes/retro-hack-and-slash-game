@@ -27,6 +27,7 @@ export default class Unit {
       looted: 0,
       mushrooms: 0,
       berries: 0,
+      zombieMeat: 0,
       tilesWalked: 0
     };
     this.initialHealth = data.health;

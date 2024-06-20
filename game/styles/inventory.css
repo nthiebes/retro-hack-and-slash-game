@@ -139,6 +139,7 @@
   background-position: -4px -364px;
 }
 
+.inventory__item--misc,
 .inventory__item--consumable,
 .inventory__item--common,
 .inventory__item--uncommon,
