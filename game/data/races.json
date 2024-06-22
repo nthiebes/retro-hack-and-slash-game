@@ -113,8 +113,19 @@
     "strength": 4,
     "dexterity": 2,
     "intelligence": 5,
-    "defense": 3,
+    "defense": 4,
     "speed": 3,
+    "skins": 1,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "blood-knight": {
+    "strength": 5,
+    "dexterity": 3,
+    "intelligence": 2,
+    "defense": 5,
+    "speed": 4,
     "skins": 1,
     "faces": 1,
     "hair": 1

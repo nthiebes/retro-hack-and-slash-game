@@ -2220,6 +2220,14 @@ const blocks = {
   ghoul: {
     map: [[], [], [], []],
     enemies: [{ pos: [0, 0], id: 'ghoul' }]
+  },
+  'blood-knight': {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'blood-knight' }]
+  },
+  lich: {
+    map: [[], [], [], []],
+    enemies: [{ pos: [0, 0], id: 'lich' }]
   }
 };
 

@@ -75,6 +75,10 @@ export const racesMap = {
   zombie: {
     name: 'Zombie',
     description: ''
+  },
+  'blood-knight': {
+    name: 'Blutritter',
+    description: ''
   }
 };
 

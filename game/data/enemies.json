@@ -122,7 +122,6 @@
       },
       "inventory": ["skull", "bone", "bone", "bone"]
     },
-
     {
       "id": "skeleton-warrior",
       "friendly": false,
@@ -174,6 +173,42 @@
         "secondary": "none"
       },
       "inventory": ["mushrooms0", "rabbit-meat", "wolf-meat", "note"]
+    },
+
+    {
+      "id": "blood-knight",
+      "friendly": false,
+      "name": "Blutritter",
+      "race": "blood-knight",
+      "health": 200,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": ["sword3", "sword4"],
+        "secondary": "none"
+      },
+      "inventory": ["skull", "bone"]
+    },
+
+    {
+      "id": "lich",
+      "friendly": false,
+      "name": "Lich",
+      "race": "lich",
+      "health": 200,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": "none",
+        "secondary": "none"
+      },
+      "inventory": ["skull", "bone"]
     }
   ]
 }
