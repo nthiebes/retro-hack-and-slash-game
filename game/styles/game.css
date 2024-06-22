@@ -32,6 +32,10 @@ body {
   width: 100%;
 }
 
+.canvas-wrapper--psychedelic {
+  filter: invert() !important;
+}
+
 .map-layer {
   display: block;
   left: 0;

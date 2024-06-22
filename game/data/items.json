@@ -8,6 +8,20 @@
     "description": "Ein paar merkwürdig aussehende Pilze. Mutig?"
   },
   {
+    "id": "mushrooms1",
+    "type": "consumable",
+    "psychedelic": 60000,
+    "name": "Psychedelische Pilz",
+    "description": "Bereit für einen krassen Pilztrip?"
+  },
+  {
+    "id": "mushrooms2",
+    "type": "consumable",
+    "damage": 100,
+    "name": "Fliegenpilz",
+    "description": "Eher schlecht als Nahrung geeignet."
+  },
+  {
     "id": "berries0",
     "type": "consumable",
     "health": 50,

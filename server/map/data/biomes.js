@@ -452,7 +452,15 @@ const biomes = {
       },
       {
         id: 'mushrooms0',
-        amount: 10
+        amount: 6
+      },
+      {
+        id: 'mushrooms1',
+        amount: 2
+      },
+      {
+        id: 'mushrooms2',
+        amount: 2
       },
       {
         id: 'zombie',

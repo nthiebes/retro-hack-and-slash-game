@@ -1985,6 +1985,16 @@ const blocks = {
     animations: [{ pos: [0, 0], id: 'mushrooms0' }],
     events: [{ pos: [0, 0], id: 'mushrooms0', type: 'loot' }]
   },
+  mushrooms1: {
+    map: [[], [[16]], [], []],
+    animations: [{ pos: [0, 0], id: 'mushrooms1' }],
+    events: [{ pos: [0, 0], id: 'mushrooms1', type: 'loot' }]
+  },
+  mushrooms2: {
+    map: [[], [[16]], [], []],
+    animations: [{ pos: [0, 0], id: 'mushrooms2' }],
+    events: [{ pos: [0, 0], id: 'mushrooms2', type: 'loot' }]
+  },
   flowerLoot0: {
     map: [[], [[]], [], []],
     animations: [{ pos: [0, 0], id: 'flower0' }],

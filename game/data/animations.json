@@ -45,6 +45,28 @@
       }
     },
     {
+      "id": "mushrooms1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 1000],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "mushrooms2",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 1100],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
       "id": "berries0",
       "autoplay": false,
       "sprite": {

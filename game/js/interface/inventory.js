@@ -14,6 +14,7 @@ import { Menu } from './menu.js';
 import { Statistics } from './statistics.js';
 import { getRandomInt } from '../utils/number.js';
 
+const canvasWrapper = document.getElementById('canvas-wrapper');
 const inventoryWindow = document.getElementById('inventory');
 const inventoryRaceImg = document.getElementById('inventory-race-preview');
 const inventoryFaceImg = document.getElementById('inventory-face-preview');
@@ -271,6 +272,12 @@ export class Inventory {
         }
         if (item.zombie && getRandomInt(100) <= item.zombie) {
           Units.player.changeRace('zombie');
+        }
+        if (item.psychedelic) {
+          canvasWrapper.classList.add('canvas-wrapper--psychedelic');
+          window.setTimeout(() => {
+            canvasWrapper.classList.remove('canvas-wrapper--psychedelic');
+          }, item.psychedelic);
         }
 
         if (item.id.includes('mushroom')) {
