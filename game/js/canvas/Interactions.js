@@ -1,36 +1,30 @@
 import config from '../config.js';
-import Input from '../utils/Input.js';
+import { Input } from '../utils/Input.js';
 import { Units } from '../units/units.js';
 import { Animations } from '../animations/animations.js';
-import { Items } from '../items/items.js';
+import { Events } from '../events/events.js';
+import { GameData } from '../gameData.js';
 import { getPath } from '../map/path.js';
 import { socket } from '../utils/socket.js';
+import { sounds } from '../utils/sounds.js';
 
 const body = document.getElementsByTagName('body')[0];
+const wrapper = document.getElementById('canvas-wrapper');
+const minimapCanvas = document.getElementById('minimap-canvas');
 
 class Interactions {
   constructor(data) {
-    this.wrapper = document.getElementById('canvas-wrapper');
     this.input = new Input();
     this.map = data.map;
     this.rowTileCount = data.rowTileCount;
     this.colTileCount = data.colTileCount;
     this.fieldWidth = data.fieldWidth;
-    this.mapItems = data.mapItems;
-    this.offsetX =
-      Units.player.pos[0] * this.fieldWidth * -1 + window.innerWidth / 2;
-    this.offsetY =
-      Units.player.pos[1] * this.fieldWidth * -1 + window.innerHeight / 2;
+    this.mapEvents = data.mapEvents;
+    this.serverRequestInProgress = false;
+    this.windowInnerWidth = window.innerWidth;
+    this.windowInnerHeight = window.innerHeight;
 
-    if (this.offsetX >= 0) {
-      this.offsetX = 0;
-    }
-
-    if (this.offsetY >= 0) {
-      this.offsetY = 0;
-    }
-
-    this.wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+    this.resetOffset();
     this.registerEventHandler();
   }
 
@@ -43,9 +37,9 @@ class Interactions {
       'mousemove',
       this.onMouseMove.bind(this)
     );
-    this.wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
-    this.wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
-    this.wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
+    wrapper.addEventListener('mousedown', this.onMouseDown.bind(this));
+    wrapper.addEventListener('mouseup', this.onMouseUp.bind(this));
+    wrapper.addEventListener('contextmenu', this.onRightClick.bind(this));
   }
 
   onMouseMove(e) {
@@ -57,12 +51,12 @@ class Interactions {
 
     const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
     const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
-    const item = Items.getItemByPos({ x, y });
+    const event = Events.getEventByPos({ x, y });
 
-    if (item && this.itemInRange({ x, y })) {
+    if (event && this.eventInRange({ x, y })) {
       body.classList.add('cursor--use');
       body.classList.remove('cursor--info');
-    } else if (item && !this.itemInRange({ x, y })) {
+    } else if (event && !this.eventInRange({ x, y })) {
       body.classList.add('cursor--info');
       body.classList.remove('cursor--use');
     } else {
@@ -118,30 +112,73 @@ class Interactions {
     if (e.button === 0) {
       const x = Math.floor((e.pageX + this.offsetX * -1) / this.fieldWidth);
       const y = Math.floor((e.pageY + this.offsetY * -1) / this.fieldWidth);
-      const item = Items.getItemByPos({ x, y });
+      const event = Events.getEventByPos({ x, y });
 
       if (player.attacking) {
         // Continue animation
         player.skin.once = false;
 
         socket.emit('attack');
-      } else if (item && this.itemInRange({ x, y })) {
+      } else if (event && this.eventInRange({ x, y })) {
         const animation = Animations.getAnimation({ x, y });
 
-        if (animation) {
-          animation.play();
+        if (event.type === 'item') {
+          player.takeItem(event);
+          Events.removeEvent(event);
+          socket.emit('remove-event', {
+            eventId: event.id,
+            chunkPos: event.chunk
+          });
+          socket.emit('take-item', { item: event });
+          sounds.effects.play('take');
+          body.classList.add('cursor--use');
+          body.classList.remove('cursor--info');
         }
-        player.equip(item);
-        Items.removeItem(item);
+        if (event.type === 'loot') {
+          if (event.id.includes('random')) {
+            const randomItemId = GameData.getRandomItem(event.id);
 
-        socket.emit('equip', { item });
+            player.takeItem({
+              id: randomItemId
+            });
+            socket.emit('take-item', {
+              item: { ...event, id: randomItemId },
+              animationId: animation.id
+            });
+          } else {
+            player.takeItem(event);
+            socket.emit('take-item', {
+              item: event,
+              animationId: animation.id
+            });
+          }
 
-        body.classList.add('cursor--use');
-        body.classList.remove('cursor--info');
+          Events.removeEvent(event);
+          socket.emit('remove-event', {
+            eventId: event.id,
+            animationId: animation.id,
+            chunkPos: event.chunk
+          });
+          animation.play();
+          if (animation.sound) {
+            sounds.effects.play(animation.sound);
+          } else {
+            sounds.effects.play('take');
+          }
+          body.classList.add('cursor--use');
+          body.classList.remove('cursor--info');
+        }
+        if (event.type === 'fire') {
+          if (animation.sprite.once) {
+            animation.continue();
+          } else {
+            animation.stop();
+          }
+        }
       } else {
         // Start animation
         player.attack();
-
+        sounds.swing();
         socket.emit('attack');
       }
     }
@@ -173,19 +210,20 @@ class Interactions {
       right = input.isDown('D'),
       left = input.isDown('A'),
       player = Units.player,
-      playerSpeed = player.speed,
-      wrapper = this.wrapper;
-    let valueX = this.offsetX,
-      valueY = this.offsetY,
+      playerSpeed = player.speed;
+    let valueX =
+        player.pos[0] * this.fieldWidth * -1 + this.windowInnerWidth / 2,
+      valueY =
+        player.pos[1] * this.fieldWidth * -1 + this.windowInnerHeight / 2,
       blockedX = true,
       blockedY = true;
 
-    if (player.attacking || player.dead) {
+    if (player.dead) {
       return;
     }
 
     if (down) {
-      valueY = this.offsetY - playerSpeed * this.fieldWidth * delta;
+      valueY = valueY - playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[1] + playerSpeed * delta,
         newY = Math.floor(newPos + 0.5),
@@ -199,7 +237,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedY = false;
-        player.pos[1] = this.getSmoothPixelValue(newPos);
+        // player.pos[1] = this.getSmoothPixelValue(newPos);
+        player.pos[1] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -209,7 +248,10 @@ class Interactions {
             newY: Math.floor(newPos),
             unitId: player.id
           });
+          player.tile = [x, Math.floor(newPos)];
           this.setPath();
+          this.checkForNewChunk([x, newPos]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -225,7 +267,7 @@ class Interactions {
     }
 
     if (up) {
-      valueY = this.offsetY + playerSpeed * this.fieldWidth * delta;
+      valueY = valueY + playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[1] - playerSpeed * delta,
         newY = Math.floor(newPos - 0.5),
@@ -239,7 +281,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedY = false;
-        player.pos[1] = this.getSmoothPixelValue(newPos);
+        // player.pos[1] = this.getSmoothPixelValue(newPos);
+        player.pos[1] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -249,7 +292,10 @@ class Interactions {
             newY: Math.floor(newPos),
             unitId: player.id
           });
+          player.tile = [x, Math.floor(newPos)];
           this.setPath();
+          this.checkForNewChunk([x, newPos]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [x, Math.floor(newPos)]
@@ -265,7 +311,7 @@ class Interactions {
     }
 
     if (right) {
-      valueX = this.offsetX - playerSpeed * this.fieldWidth * delta;
+      valueX = valueX - playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[0] + playerSpeed * delta,
         newX = Math.floor(newPos + 0.5),
@@ -273,13 +319,13 @@ class Interactions {
         y = Math.floor(player.pos[1]),
         newTile = Math.floor(newPos) > x,
         mapPosition = this.map.map[y][newX];
-
       if (
         mapPosition === 0 ||
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedX = false;
-        player.pos[0] = this.getSmoothPixelValue(newPos);
+        // player.pos[0] = this.getSmoothPixelValue(newPos);
+        player.pos[0] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -290,6 +336,9 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          player.tile = [Math.floor(newPos), y];
+          this.checkForNewChunk([newPos, y]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -305,7 +354,7 @@ class Interactions {
     }
 
     if (left) {
-      valueX = this.offsetX + playerSpeed * this.fieldWidth * delta;
+      valueX = valueX + playerSpeed * this.fieldWidth * delta;
 
       const newPos = player.pos[0] - playerSpeed * delta,
         newX = Math.floor(newPos - 0.5),
@@ -319,7 +368,8 @@ class Interactions {
         (typeof mapPosition === 'string' && mapPosition.includes('player'))
       ) {
         blockedX = false;
-        player.pos[0] = this.getSmoothPixelValue(newPos);
+        // player.pos[0] = this.getSmoothPixelValue(newPos);
+        player.pos[0] = newPos;
 
         if (newTile) {
           this.map.updatePosition({
@@ -330,6 +380,9 @@ class Interactions {
             unitId: player.id
           });
           this.setPath();
+          player.tile = [Math.floor(newPos), y];
+          this.checkForNewChunk([newPos, y]);
+          player.stats.tilesWalked++;
 
           socket.emit('move', {
             pos: [Math.floor(newPos), y]
@@ -345,10 +398,10 @@ class Interactions {
     }
 
     if (down || up || right || left) {
-      const innerWidth = window.innerWidth;
-      const innerHeight = window.innerHeight;
-      const maxOffsetX = this.colTileCount * this.fieldWidth - innerWidth,
-        maxOffsetY = this.rowTileCount * this.fieldWidth - innerHeight;
+      const maxOffsetX =
+          this.colTileCount * this.fieldWidth - this.windowInnerWidth,
+        maxOffsetY =
+          this.rowTileCount * this.fieldWidth - this.windowInnerHeight;
 
       // Horizontal map scrolling
       if (
@@ -356,9 +409,12 @@ class Interactions {
         !(right && left) &&
         valueX < 0 &&
         valueX > maxOffsetX * -1 &&
-        player.pos[0] * this.fieldWidth > innerWidth / 2 - playerSpeed && // + next line: player in center
+        player.pos[0] * this.fieldWidth >
+          this.windowInnerWidth / 2 - playerSpeed && // + next line: player in center
         player.pos[0] * this.fieldWidth <
-          this.colTileCount * this.fieldWidth - innerWidth / 2 + playerSpeed
+          this.colTileCount * this.fieldWidth -
+            this.windowInnerWidth / 2 +
+            playerSpeed
       ) {
         this.offsetX = valueX;
 
@@ -366,7 +422,7 @@ class Interactions {
       } else if (
         valueX < 0 &&
         valueX <= maxOffsetX * -1 &&
-        innerWidth < this.colTileCount * this.fieldWidth
+        this.windowInnerWidth < this.colTileCount * this.fieldWidth
       ) {
         this.offsetX = maxOffsetX * -1;
 
@@ -381,9 +437,12 @@ class Interactions {
         !(up && down) &&
         valueY < 0 &&
         valueY > maxOffsetY * -1 &&
-        player.pos[1] * this.fieldWidth > innerHeight / 2 - playerSpeed && // + next line: player in center
+        player.pos[1] * this.fieldWidth >
+          this.windowInnerHeight / 2 - playerSpeed && // + next line: player in center
         player.pos[1] * this.fieldWidth <
-          this.rowTileCount * this.fieldWidth - innerHeight / 2 + playerSpeed
+          this.rowTileCount * this.fieldWidth -
+            this.windowInnerHeight / 2 +
+            playerSpeed
       ) {
         this.offsetY = valueY;
 
@@ -391,7 +450,7 @@ class Interactions {
       } else if (
         valueY < 0 &&
         valueY <= maxOffsetY * -1 &&
-        innerHeight < this.rowTileCount * this.fieldWidth
+        this.windowInnerHeight < this.rowTileCount * this.fieldWidth
       ) {
         this.offsetY = maxOffsetY * -1;
 
@@ -401,12 +460,41 @@ class Interactions {
       }
 
       wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+      minimapCanvas.style.transform = `translateX(${
+        this.offsetX / 10 + 10
+      }px) translateY(${this.offsetY / 10 + 35}px)`;
 
       if (!player.moving) {
         player.walk();
       }
+      // Stop moving but not attacking
+    } else if (player.moving && player.attacking) {
+      player.moving = false;
+      sounds.walk.stop();
+      // Stop all
     } else if (player.moving) {
       player.stop();
+    }
+  }
+
+  checkForNewChunk(pos) {
+    let direction = null;
+    const chunkSize = config.chunkSize;
+    const roundedPos = [Math.floor(pos[0]), Math.floor(pos[1])];
+
+    if (roundedPos[0] > config.chunkSize * 2 - 1) {
+      direction = 'right';
+    } else if (roundedPos[0] < chunkSize) {
+      direction = 'left';
+    } else if (roundedPos[1] > chunkSize * 2 - 1) {
+      direction = 'bottom';
+    } else if (roundedPos[1] < chunkSize) {
+      direction = 'top';
+    }
+
+    if (!this.serverRequestInProgress && direction) {
+      this.serverRequestInProgress = true;
+      socket.emit('new-chunk', { direction });
     }
   }
 
@@ -431,13 +519,13 @@ class Interactions {
   }
 
   checkMap({ x, y }) {
-    return this.mapItems.find(
+    return this.mapEvents.find(
       (map) =>
-        map.pos[0] === x && map.pos[1] === y && this.itemInRange({ x, y })
+        map.pos[0] === x && map.pos[1] === y && this.eventInRange({ x, y })
     );
   }
 
-  itemInRange({ x, y }) {
+  eventInRange({ x, y }) {
     const playerX = Math.floor(Units.player.pos[0]);
     const playerY = Math.floor(Units.player.pos[1]);
 
@@ -457,6 +545,34 @@ class Interactions {
     return false;
   }
 
+  resetOffset() {
+    this.offsetX =
+      Units.player.pos[0] * this.fieldWidth * -1 + this.windowInnerWidth / 2;
+    this.offsetY =
+      Units.player.pos[1] * this.fieldWidth * -1 + this.windowInnerHeight / 2;
+
+    if (this.offsetX >= 0) {
+      this.offsetX = 0;
+    }
+
+    if (this.offsetY >= 0) {
+      this.offsetY = 0;
+    }
+
+    wrapper.style.transform = `translateX(${this.offsetX}px) translateY(${this.offsetY}px)`;
+    minimapCanvas.style.transform = `translateX(${
+      this.offsetX / 10 + 10
+    }px) translateY(${this.offsetY / 10 + 35}px)`;
+  }
+
+  updateMap(map) {
+    this.map = map;
+  }
+
+  setServerRequestInProgress(value) {
+    this.serverRequestInProgress = value;
+  }
+
   loadMap(mapItem) {
     console.log(mapItem);
   }
@@ -471,6 +587,8 @@ class Interactions {
       const playerInRange = enemy.isPlayerInSight(player.pos);
 
       if (
+        !enemy.tile[0] >= 0 &&
+        !enemy.tile[1] >= 0 &&
         !enemy.dead &&
         !enemy.id.includes('player') &&
         playerInRange &&
@@ -560,10 +678,13 @@ class Interactions {
 
         enemy.target = player.id;
 
-        socket.emit('ai-move', {
-          path: enemy.path,
-          id: enemy.id
-        });
+        sounds.battle.play();
+        sounds.aggro(enemy.race);
+
+        // socket.emit('ai-move', {
+        //   path: enemy.path,
+        //   id: enemy.id
+        // });
       }
     }
   }

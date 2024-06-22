@@ -1,22 +1,156 @@
 {
   "list": [
     {
-      "id": "fist",
+      "id": "none",
       "type": "primary",
       "name": "Faust",
       "damage": 0,
-      "range": 0,
+      "range": 1,
       "defense": 0,
       "speed": 4
     },
 
     {
-      "id": "sword",
+      "id": "shovel0",
+      "type": "primary",
+      "name": "Schaufel",
+      "description": "",
+      "damage": 1,
+      "range": 2,
+      "speed": 3,
+      "rarity": "common"
+    },
+
+    {
+      "id": "club0",
+      "type": "primary",
+      "name": "Stachelige Keule",
+      "description": "Gut für Höhlenmenschen geeignet.",
+      "damage": 2.3,
+      "range": 2,
+      "speed": 3.5,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "sword0",
       "type": "primary",
       "name": "Schwert",
+      "damage": 2,
+      "range": 2,
+      "speed": 4,
+      "rarity": "common"
+    },
+
+    {
+      "id": "sword1",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 2.3,
+      "range": 2,
+      "speed": 4,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "sword2",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 2.6,
+      "range": 2,
+      "speed": 4,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "sword3",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 2.9,
+      "range": 2,
+      "speed": 4,
+      "rarity": "epic"
+    },
+
+    {
+      "id": "sword4",
+      "type": "primary",
+      "name": "Schwert",
+      "damage": 3.2,
+      "range": 2,
+      "speed": 4,
+      "rarity": "legendary"
+    },
+
+    {
+      "id": "axe0",
+      "type": "primary",
+      "name": "Holzfäller Axt",
+      "description": "Nicht das karierte Hemd vergessen!",
+      "damage": 2.4,
+      "range": 2,
+      "speed": 3,
+      "rarity": "common"
+    },
+
+    {
+      "id": "axe2",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 2.4,
+      "range": 2,
+      "speed": 3,
+      "rarity": "common"
+    },
+
+    {
+      "id": "axe3",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 2.7,
+      "range": 2,
+      "speed": 3,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "axe4",
+      "type": "primary",
+      "name": "Axt",
       "damage": 3,
-      "range": 1.7,
-      "speed": 4
+      "range": 2,
+      "speed": 3,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "axe1",
+      "type": "primary",
+      "name": "Doppelseitige Axt",
+      "damage": 3,
+      "range": 2,
+      "speed": 3,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "axe5",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 3.3,
+      "range": 2,
+      "speed": 3,
+      "rarity": "epic"
+    },
+
+    {
+      "id": "axe6",
+      "type": "primary",
+      "name": "Axt",
+      "damage": 3.6,
+      "range": 2,
+      "speed": 3,
+      "rarity": "legendary"
     },
 
     {
@@ -24,17 +158,7 @@
       "type": "primary",
       "name": "Speer",
       "damage": 2,
-      "range": 2.2,
-      "animation": "stab",
-      "speed": 3
-    },
-
-    {
-      "id": "axe",
-      "type": "primary",
-      "name": "Axt",
-      "damage": 4,
-      "range": 1.5,
+      "range": 2.5,
       "speed": 3
     },
 
@@ -44,8 +168,8 @@
       "name": "Kurzbogen",
       "damage": 1,
       "range": 5,
-      "projectile": "arrow",
-      "speed": 3
+      "speed": 3,
+      "projectile": "arrow"
     },
 
     {
@@ -59,23 +183,13 @@
     },
 
     {
-      "id": "halberd",
-      "type": "twohanded",
-      "name": "Hellebarde",
-      "damage": 4,
-      "range": 2,
-      "animation": "stab",
-      "speed": 2
-    },
-
-    {
       "id": "crossbow",
       "type": "twohanded",
       "name": "Armbrust",
       "damage": 3,
       "range": 6,
-      "projectile": "bolt",
-      "speed": 3
+      "speed": 3,
+      "projectile": "bolt"
     },
 
     {
@@ -84,8 +198,8 @@
       "name": "Muskete",
       "damage": 4,
       "range": 5,
-      "projectile": "bullet",
-      "speed": 3
+      "speed": 3,
+      "projectile": "bullet"
     },
 
     {
@@ -94,8 +208,8 @@
       "name": "Gewehr",
       "damage": 4,
       "range": 7,
-      "projectile": "bullet",
-      "speed": 3
+      "speed": 3,
+      "projectile": "bullet"
     },
 
     {
@@ -103,15 +217,57 @@
       "type": "primary",
       "name": "Dolch",
       "damage": 1,
-      "range": 1.1,
-      "speed": 5
+      "range": 1.5,
+      "speed": 4
     },
 
     {
-      "id": "shield",
+      "id": "shield0",
+      "type": "secondary",
+      "name": "Plattenschild",
+      "defense": 1,
+      "rarity": "legendary",
+      "set": "[Ritter vom Blute Sigmars]"
+    },
+
+    {
+      "id": "shield1",
       "type": "secondary",
       "name": "Schild",
-      "defense": 1
+      "defense": 0.2,
+      "rarity": "common"
+    },
+
+    {
+      "id": "shield2",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.4,
+      "rarity": "uncommon"
+    },
+
+    {
+      "id": "shield3",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.6,
+      "rarity": "rare"
+    },
+
+    {
+      "id": "shield4",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 0.8,
+      "rarity": "epic"
+    },
+
+    {
+      "id": "shield5",
+      "type": "secondary",
+      "name": "Schild",
+      "defense": 1,
+      "rarity": "legendary"
     }
   ]
 }

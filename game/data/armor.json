@@ -4,70 +4,120 @@
       "gear": "head",
       "id": "none",
       "name": "Luft",
-      "type": "none"
+      "material": "none"
+    },
+    {
+      "gear": "head",
+      "id": "head_cloth_0",
+      "name": "Zauberhut",
+      "material": "cloth",
+      "noHair": true
+    },
+    {
+      "gear": "head",
+      "id": "head_leather_0",
+      "name": "Lederhelm",
+      "material": "leather",
+      "noHair": true
     },
     {
       "gear": "head",
       "id": "head_iron_0",
       "name": "Eisenkappe",
-      "type": "iron"
-    },
-    {
-      "gear": "head",
-      "id": "head_iron_1",
-      "name": "Eisenhelm",
-      "type": "iron"
-    },
-    {
-      "gear": "head",
-      "id": "head_cloth_0",
-      "name": "Kapuze",
-      "type": "cloth"
+      "material": "iron",
+      "noHair": true
     },
     {
       "gear": "head",
       "id": "head_steel_0",
       "name": "Stahlhelm",
-      "type": "steel"
+      "material": "steel",
+      "noHair": true
     },
     {
-      "gear": "torso",
-      "id": "torso_iron_0",
-      "name": "Eisenrüstung",
-      "type": "iron"
+      "gear": "head",
+      "id": "head_plate_0",
+      "name": "Plattenhelm",
+      "material": "plate",
+      "noHair": true,
+      "noFace": true,
+      "set": "[Ritter vom Blute Sigmars]"
     },
+    {
+      "gear": "head",
+      "id": "head_plate_1",
+      "name": "Plattenhelm",
+      "material": "plate",
+      "noHair": true,
+      "noFace": true,
+      "set": "[Reichsgarde]"
+    },
+
     {
       "gear": "torso",
       "id": "torso_cloth_0",
-      "name": "Stoffrüstung",
-      "type": "cloth"
+      "name": "Leinenhemd",
+      "material": "cloth"
     },
     {
       "gear": "torso",
       "id": "torso_leather_0",
       "name": "Lederrüstung",
-      "type": "leather"
+      "material": "leather"
     },
     {
-      "gear": "leg",
-      "id": "leg_iron_0",
-      "name": "Eisenbeine",
-      "type": "iron"
+      "gear": "torso",
+      "id": "torso_iron_0",
+      "name": "Kettenhemd",
+      "material": "iron"
     },
+    {
+      "gear": "torso",
+      "id": "torso_steel_0",
+      "name": "Stahlrüstung",
+      "material": "steel"
+    },
+    {
+      "gear": "torso",
+      "id": "torso_plate_0",
+      "name": "Plattenrüstung",
+      "material": "plate",
+      "set": "[Ritter vom Blute Sigmars]"
+    },
+
     {
       "gear": "leg",
       "id": "leg_cloth_0",
-      "name": "Stoffbeine",
-      "type": "cloth"
+      "name": "Leinenhose",
+      "material": "cloth"
     },
     {
       "gear": "leg",
       "id": "leg_leather_0",
       "name": "Lederbeine",
-      "type": "leather"
+      "material": "leather"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_iron_0",
+      "name": "Eisenbeine",
+      "material": "iron"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_steel_0",
+      "name": "Stahlbeine",
+      "material": "steel"
+    },
+    {
+      "gear": "leg",
+      "id": "leg_plate_0",
+      "name": "Plattenbeine",
+      "material": "plate",
+      "set": "[Ritter vom Blute Sigmars]"
     }
   ],
-  "types": {
+  "material": {
     "none": {
       "defense": 0,
       "speedModifier": 0
@@ -75,27 +125,32 @@
 
     "cloth": {
       "defense": 0.2,
-      "speedModifier": 0.05
+      "speedModifier": 0.025,
+      "rarity": "common"
     },
 
     "leather": {
       "defense": 0.4,
-      "speedModifier": 0.075
+      "speedModifier": 0.05,
+      "rarity": "uncommon"
     },
 
     "iron": {
       "defense": 0.6,
-      "speedModifier": 0.1
+      "speedModifier": 0.075,
+      "rarity": "rare"
     },
 
     "steel": {
       "defense": 0.8,
-      "speedModifier": 0.125
+      "speedModifier": 0.1,
+      "rarity": "epic"
     },
 
     "plate": {
       "defense": 1,
-      "speedModifier": 0.15
+      "speedModifier": 0.125,
+      "rarity": "legendary"
     }
   }
 }

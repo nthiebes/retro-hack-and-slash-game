@@ -1,0 +1,103 @@
+[
+  {
+    "id": "mushrooms0",
+    "type": "consumable",
+    "health": 100,
+    "damage": 100,
+    "name": "Kleine Pilze",
+    "description": "Ein paar merkwürdig aussehende Pilze. Mutig?"
+  },
+  {
+    "id": "berries0",
+    "type": "consumable",
+    "health": 50,
+    "name": "Beeren",
+    "description": "Leckere rote Beeren. Omnomnom..."
+  },
+  {
+    "id": "berries1",
+    "type": "consumable",
+    "health": 50,
+    "name": "Blaubeeren",
+    "description": "Saftig, lecker und blau."
+  },
+  {
+    "id": "zombie-arm",
+    "type": "consumable",
+    "health": 50,
+    "zombie": 10,
+    "name": "Zombie-Arm",
+    "description": "Kann gegessen werden, aber zu welchem Preis?"
+  },
+  {
+    "id": "zombie-hands",
+    "type": "consumable",
+    "health": 50,
+    "zombie": 10,
+    "name": "Zombie-Hände",
+    "description": "Kann gegessen werden, aber zu welchem Preis?"
+  },
+  {
+    "id": "zombie-foot",
+    "type": "consumable",
+    "health": 50,
+    "zombie": 10,
+    "name": "Zombie-Fuß",
+    "description": "Kann gegessen werden, aber zu welchem Preis?"
+  },
+  {
+    "id": "skull",
+    "type": "misc",
+    "name": "Schädel",
+    "description": "Nutzlos."
+  },
+  {
+    "id": "bone",
+    "type": "misc",
+    "name": "Knochen",
+    "description": "Nutzlos."
+  },
+  {
+    "id": "note",
+    "type": "misc",
+    "name": "Vergilbte Notiz",
+    "messages": [
+      "Zu spät... das Heilmittel war eine Lüge. Wir sind alle verloren. Warne die anderen. Vertraue niemandem.",
+      "Ich weiß nicht, wie lange ich noch durchhalte. Die Nächte werden immer gefährlicher, und der Hof fühlt sich nicht mehr sicher an. Die Felder sind verwüstet, und wir hören Schreie aus dem Wald. Ich habe Angst, dass das Böse, das sich hier ausbreitet, uns bald erreichen wird."
+    ],
+    "description": "Was steht wohl darauf?"
+  },
+  {
+    "id": "salmon",
+    "type": "consumable",
+    "health": 100,
+    "name": "Lachs",
+    "description": "Frischer Lachs, stinkt auch ganz sicher nicht!"
+  },
+  {
+    "id": "rabbit-meat",
+    "type": "consumable",
+    "health": 100,
+    "name": "Hasenfleisch",
+    "description": ""
+  },
+  {
+    "id": "wolf-meat",
+    "type": "consumable",
+    "health": 100,
+    "name": "Wolfsfleisch",
+    "description": ""
+  },
+  {
+    "id": "flower0",
+    "type": "misc",
+    "name": "Rote Blume",
+    "description": "Deko."
+  },
+  {
+    "id": "flower1",
+    "type": "misc",
+    "name": "Blaue Blume",
+    "description": "Deko."
+  }
+]

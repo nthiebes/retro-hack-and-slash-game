@@ -1,151 +1,184 @@
 const { getRandomInt } = require('../utils/number.js');
 const { config } = require('../config.js');
-const { possibleBiomes } = config;
+const { generateChunk } = require('./generateChunk.js');
+const { startBiome, biomeNeighbours } = config;
 
-const getRandomBiome = () => {
-  return possibleBiomes[getRandomInt(possibleBiomes.length)];
+const getRandomBiome = (biome) => {
+  let tempPossibleBiomes = null;
+
+  if (Array.isArray(biome) && biome.length > 0) {
+    const biomes = biome.filter((name) => name); // remove undefined entries
+
+    if (biomes[1]) {
+      tempPossibleBiomes = [
+        ...biomeNeighbours[biomes[0]].filter((name) =>
+          biomeNeighbours[biomes[1]].includes(name)
+        )
+      ];
+    } else if (biomes[2]) {
+      tempPossibleBiomes = [
+        ...biomeNeighbours[biomes[0]].filter(
+          (name) =>
+            biomeNeighbours[biomes[1]].includes(name) &&
+            biomeNeighbours[biomes[2]].includes(name)
+        )
+      ];
+    } else {
+      tempPossibleBiomes = biomeNeighbours[biomes[0]];
+    }
+  } else {
+    tempPossibleBiomes = [...biomeNeighbours[biome]];
+  }
+
+  return tempPossibleBiomes[getRandomInt(tempPossibleBiomes.length)];
 };
 
+// eslint-disable-next-line complexity
 const getSurroundingChunks = ({ centerChunk, chunks }) => {
-  const centerChunkBiome = centerChunk.biomeMap.center;
-  console.log('centerChunkBiome', centerChunkBiome);
-  const surroundingChunks = [];
-  const top = {
-    pos: [centerChunk.pos[0], centerChunk.pos[1] - 1],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: getRandomBiome(),
-      right: getRandomBiome(),
-      bottom: centerChunkBiome,
-      left: getRandomBiome()
-    }
+  const newChunks = [];
+  const centerChunkBiome = centerChunk.biome;
+  const topPos = [centerChunk.pos[0], centerChunk.pos[1] - 1];
+  const topRightPos = [centerChunk.pos[0] + 1, centerChunk.pos[1] - 1];
+  const rightPos = [centerChunk.pos[0] + 1, centerChunk.pos[1]];
+  const bottomRightPos = [centerChunk.pos[0] + 1, centerChunk.pos[1] + 1];
+  const bottomPos = [centerChunk.pos[0], centerChunk.pos[1] + 1];
+  const bottomLeftPos = [centerChunk.pos[0] - 1, centerChunk.pos[1] + 1];
+  const leftPos = [centerChunk.pos[0] - 1, centerChunk.pos[1]];
+  const topLeftPos = [centerChunk.pos[0] - 1, centerChunk.pos[1] - 1];
+
+  const topChunk = chunks.find(
+    (chunk) => chunk.pos[0] === topPos[0] && chunk.pos[1] === topPos[1]
+  ) || {
+    pos: topPos
   };
-  const topRight = {
-    pos: [centerChunk.pos[0] + 1, centerChunk.pos[1] - 1],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: getRandomBiome(),
-      right: getRandomBiome(),
-      bottom: getRandomBiome(),
-      left: top.biomeMap.right
-    }
+  const topRightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === topRightPos[0] && chunk.pos[1] === topRightPos[1]
+  ) || {
+    pos: topRightPos
   };
-  const right = {
-    pos: [centerChunk.pos[0] + 1, centerChunk.pos[1]],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: topRight.biomeMap.bottom,
-      right: getRandomBiome(),
-      bottom: getRandomBiome(),
-      left: centerChunkBiome
-    }
+  const rightChunk = chunks.find(
+    (chunk) => chunk.pos[0] === rightPos[0] && chunk.pos[1] === rightPos[1]
+  ) || {
+    pos: rightPos
   };
-  const bottomRight = {
-    pos: [centerChunk.pos[0] + 1, centerChunk.pos[1] + 1],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: right.biomeMap.bottom,
-      right: getRandomBiome(),
-      bottom: getRandomBiome(),
-      left: getRandomBiome()
-    }
+  const bottomRightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === bottomRightPos[0] && chunk.pos[1] === bottomRightPos[1]
+  ) || {
+    pos: bottomRightPos
   };
-  const bottom = {
-    pos: [centerChunk.pos[0], centerChunk.pos[1] + 1],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: centerChunkBiome,
-      right: bottomRight.biomeMap.left,
-      bottom: getRandomBiome(),
-      left: getRandomBiome()
-    }
-  };
-  const bottomLeft = {
-    pos: [centerChunk.pos[0] - 1, centerChunk.pos[1] + 1],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: getRandomBiome(),
-      right: bottom.biomeMap.left,
-      bottom: centerChunkBiome,
-      left: getRandomBiome()
-    }
-  };
-  const left = {
-    pos: [centerChunk.pos[0] - 1, centerChunk.pos[1]],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: getRandomBiome(),
-      right: centerChunkBiome,
-      bottom: bottomLeft.biomeMap.top,
-      left: getRandomBiome()
-    }
-  };
-  const topLeft = {
-    pos: [centerChunk.pos[0] - 1, centerChunk.pos[1] - 1],
-    biomeMap: {
-      center: getRandomBiome(),
-      top: getRandomBiome(),
-      right: top.biomeMap.left,
-      bottom: left.biomeMap.top,
-      left: getRandomBiome()
-    }
+  const bottomChunk = chunks.find(
+    (chunk) => chunk.pos[0] === bottomPos[0] && chunk.pos[1] === bottomPos[1]
+  ) || { pos: bottomPos };
+  const bottomLeftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === bottomLeftPos[0] && chunk.pos[1] === bottomLeftPos[1]
+  ) || { pos: bottomLeftPos };
+  const leftChunk = chunks.find(
+    (chunk) => chunk.pos[0] === leftPos[0] && chunk.pos[1] === leftPos[1]
+  ) || { pos: leftPos };
+  const topLeftChunk = chunks.find(
+    (chunk) => chunk.pos[0] === topLeftPos[0] && chunk.pos[1] === topLeftPos[1]
+  ) || {
+    pos: topLeftPos
   };
 
-  const topExists = chunks.find(
-    (chunk) => chunk.pos[0] === top.pos[0] && chunk.pos[1] === top.pos[1]
-  );
-  const topRightExists = chunks.find(
-    (chunk) =>
-      chunk.pos[0] === topRight.pos[0] && chunk.pos[1] === topRight.pos[1]
-  );
-  const rightExists = chunks.find(
-    (chunk) => chunk.pos[0] === right.pos[0] && chunk.pos[1] === right.pos[1]
-  );
-  const bottomRightExists = chunks.find(
-    (chunk) =>
-      chunk.pos[0] === bottomRight.pos[0] && chunk.pos[1] === bottomRight.pos[1]
-  );
-  const bottomExists = chunks.find(
-    (chunk) => chunk.pos[0] === bottom.pos[0] && chunk.pos[1] === bottom.pos[1]
-  );
-  const bottomLeftExists = chunks.find(
-    (chunk) =>
-      chunk.pos[0] === bottomLeft.pos[0] && chunk.pos[1] === bottomLeft.pos[1]
-  );
-  const leftExists = chunks.find(
-    (chunk) => chunk.pos[0] === left.pos[0] && chunk.pos[1] === left.pos[1]
-  );
-  const topLeftExists = chunks.find(
-    (chunk) =>
-      chunk.pos[0] === topLeft.pos[0] && chunk.pos[1] === topLeft.pos[1]
-  );
-
-  if (!topExists) {
-    surroundingChunks.push(top);
-  }
-  if (!topRightExists) {
-    surroundingChunks.push(topRight);
-  }
-  if (!rightExists) {
-    surroundingChunks.push(right);
-  }
-  if (!bottomRightExists) {
-    surroundingChunks.push(bottomRight);
-  }
-  if (!bottomExists) {
-    surroundingChunks.push(bottom);
-  }
-  if (!bottomLeftExists) {
-    surroundingChunks.push(bottomLeft);
-  }
-  if (!leftExists) {
-    surroundingChunks.push(left);
-  }
-  if (!topLeftExists) {
-    surroundingChunks.push(topLeft);
+  if (!topChunk.biome) {
+    topChunk.biome = getRandomBiome([
+      topLeftChunk.biome,
+      centerChunkBiome,
+      topRightChunk.biome
+    ]);
+    topChunk.map = generateChunk({
+      biome: topChunk.biome,
+      chunk: topChunk.pos
+    });
+    newChunks.push(topChunk);
   }
 
-  return surroundingChunks;
+  if (!topRightChunk.biome) {
+    topRightChunk.biome = getRandomBiome([topChunk.biome, rightChunk.biome]);
+    topRightChunk.map = generateChunk({
+      biome: topRightChunk.biome,
+      chunk: topRightChunk.pos
+    });
+    newChunks.push(topRightChunk);
+  }
+
+  if (!rightChunk.biome) {
+    rightChunk.biome = getRandomBiome([
+      topRightChunk.biome,
+      centerChunkBiome,
+      bottomRightChunk.biome
+    ]);
+    rightChunk.map = generateChunk({
+      biome: rightChunk.biome,
+      chunk: rightChunk.pos
+    });
+    newChunks.push(rightChunk);
+  }
+
+  if (!bottomRightChunk.biome) {
+    bottomRightChunk.biome = getRandomBiome([
+      rightChunk.biome,
+      bottomChunk.biome
+    ]);
+    bottomRightChunk.map = generateChunk({
+      biome: bottomRightChunk.biome,
+      chunk: bottomRightChunk.pos
+    });
+    newChunks.push(bottomRightChunk);
+  }
+
+  if (!bottomChunk.biome) {
+    bottomChunk.biome = getRandomBiome([
+      bottomRightChunk.biome,
+      centerChunkBiome,
+      bottomLeftChunk.biome
+    ]);
+    bottomChunk.map = generateChunk({
+      biome: bottomChunk.biome,
+      chunk: bottomChunk.pos
+    });
+    newChunks.push(bottomChunk);
+  }
+
+  if (!bottomLeftChunk.biome) {
+    bottomLeftChunk.biome = getRandomBiome([
+      bottomChunk.biome,
+      leftChunk.biome
+    ]);
+    bottomLeftChunk.map = generateChunk({
+      biome: bottomLeftChunk.biome,
+      chunk: bottomLeftChunk.pos
+    });
+    newChunks.push(bottomLeftChunk);
+  }
+
+  if (!leftChunk.biome) {
+    leftChunk.biome = getRandomBiome([
+      bottomLeftChunk.biome,
+      centerChunkBiome,
+      topLeftChunk.biome
+    ]);
+    leftChunk.map = generateChunk({
+      biome: leftChunk.biome,
+      chunk: leftChunk.pos
+    });
+    newChunks.push(leftChunk);
+  }
+
+  if (!topLeftChunk.biome) {
+    topLeftChunk.biome = getRandomBiome([leftChunk.biome, topChunk.biome]);
+    topLeftChunk.map = generateChunk({
+      biome: topLeftChunk.biome,
+      chunk: topLeftChunk.pos
+    });
+    newChunks.push(topLeftChunk);
+  }
+
+  return newChunks;
 };
 
 const generateChunks = ({ newGame, chunks, centerChunk }) => {
@@ -154,13 +187,11 @@ const generateChunks = ({ newGame, chunks, centerChunk }) => {
   if (newGame) {
     const initialChunk = {
       pos: [0, 0],
-      biomeMap: {
-        center: 'plain',
-        top: 'plain',
-        right: 'plain',
-        bottom: 'plain',
-        left: 'plain'
-      }
+      biome: startBiome,
+      map: generateChunk({
+        biome: startBiome,
+        chunk: [0, 0]
+      })
     };
 
     mapChunks.push(

@@ -1,0 +1,270 @@
+.window.inventory {
+  width: 800px;
+  height: 537px;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 13px 1rem 0 1rem;
+}
+
+.window__section.inventory__section {
+  width: 382px;
+  height: 505px;
+  position: relative;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background-size: 100% 100%;
+}
+
+.preview.inventory__preview {
+  width: 150px;
+  top: 4rem;
+  left: calc(50% + 10px);
+}
+
+.inventory__slots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.inventory__slots .inventory__item:nth-child(2n) {
+  margin-left: 7rem;
+}
+
+.inventory__stats {
+  display: flex;
+  margin: 1rem 7px 0 7px;
+  width: 100%;
+  line-height: 27px;
+}
+
+.inventory__stats-equipped {
+  width: 43%;
+  padding-right: 10px;
+}
+
+.inventory__stats-equipped > *,
+.inventory__stats-right > * {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inventory__stats-hover {
+  width: 10%;
+}
+
+.inventory__stats-right {
+  width: 43%;
+  padding-left: 10px;
+}
+
+.inventory__stat {
+  text-align: right;
+  font-size: 1.2rem;
+  color: #000;
+  height: 27px;
+}
+
+.inventory__stat--plus {
+  color: #3a6f20;
+}
+
+.inventory__stat--minus {
+  color: #bf5025;
+}
+
+.inventory__name {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 10px;
+}
+
+.inventory__race {
+  margin: 1rem 0 0.5rem 0.5rem;
+  position: absolute;
+  top: 16px;
+  right: 35px;
+}
+
+.inventory__items {
+  overflow-y: auto;
+  height: 325px;
+  width: 100%;
+  padding-left: 15px;
+}
+
+.inventory__item {
+  width: 60px;
+  height: 60px;
+  margin: 7px;
+  display: inline-block;
+  border-radius: 5px;
+  border: 4px solid #464646;
+  overflow: hidden;
+  padding: 5px;
+  box-shadow: 0 2px 0px 0px inset #2d2d2d, 0 -1px 0px 0px #aaa,
+    0 0 20px 0px inset rgba(0, 0, 0, 1);
+  background-image: url("/game/images/icons.png");
+  background-color: #373737;
+  transition: border-color 0.2s linear;
+}
+
+.inventory__item--highlighted {
+  border-color: #d9d9d9;
+}
+
+.inventory__item#inventory-head {
+  background-position: -4px -244px;
+}
+
+.inventory__item#inventory-torso {
+  background-position: -4px -182px;
+}
+
+.inventory__item#inventory-leg {
+  background-position: -4px -124px;
+}
+
+.inventory__item#inventory-primary {
+  background-position: -4px -65px;
+}
+
+.inventory__item#inventory-secondary {
+  background-position: -4px -304px;
+}
+
+.inventory__item#inventory-jewlery {
+  background-position: -4px -364px;
+}
+
+.inventory__item--misc,
+.inventory__item--consumable,
+.inventory__item--common,
+.inventory__item--uncommon,
+.inventory__item--rare,
+.inventory__item--epic,
+.inventory__item--legendary {
+  background-size: 400px 300px;
+  background-position: -750px -550px !important;
+  cursor: var(--cursorUse);
+}
+
+.inventory__item--consumable {
+  background-color: #e2d8c7;
+}
+
+.inventory__item--common {
+  background-color: #a2724a;
+}
+
+.inventory__item--uncommon {
+  background-color: #8bc34a;
+}
+
+.inventory__item--rare {
+  background-color: #3f51b5;
+}
+
+.inventory__item--epic {
+  background-color: #9c27b0;
+}
+
+.inventory__item--legendary {
+  background-color: #ffeb3b;
+}
+
+.inventory__health {
+  position: absolute;
+  top: 270px;
+  right: 147px;
+  width: 90px;
+  height: 20px;
+  background-color: #373737;
+  border-radius: 4px;
+  border: 1px solid #464646;
+  overflow: hidden;
+}
+
+.inventory__health-bar {
+  width: 80%;
+  height: 100%;
+  background-color: var(--colorRed);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.inventory__health-number {
+  color: #e2d8c7;
+  text-align: center;
+  line-height: 18px;
+  position: relative;
+}
+
+.inventory__item-info {
+  position: relative;
+  padding: 0 7px 0 7px;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.inventory__item-name {
+  margin-left: 0;
+  margin-bottom: 5px;
+}
+
+.inventory__item-description {
+  font-style: italic;
+}
+
+.inventory__item-rarity {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid #464646;
+  padding: 0 8px;
+  display: none;
+}
+
+.inventory__item-rarity--common {
+  background-color: #a2724a;
+  display: block;
+}
+
+.inventory__item-rarity--uncommon {
+  background-color: #8bc34a;
+  display: block;
+}
+
+.inventory__item-rarity--rare {
+  background-color: #3f51b5;
+  color: #e2d8c7;
+  display: block;
+}
+
+.inventory__item-rarity--epic {
+  background-color: #9c27b0;
+  color: #e2d8c7;
+  display: block;
+}
+
+.inventory__item-rarity--legendary {
+  background-color: #ffeb3b;
+  display: block;
+}
+
+.inventory__item-effect {
+  margin-top: 1rem;
+}
+
+.inventory__item--health {
+  color: #3a6f20;
+}
+
+.inventory__item--damage {
+  color: var(--colorRed);
+}

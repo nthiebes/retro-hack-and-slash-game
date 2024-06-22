@@ -3,7 +3,7 @@ import Sprite from '../utils/Sprite.js';
 import Animation from './Animation.js';
 import { GameData } from '../gameData.js';
 
-const listData = [];
+let listData = [];
 
 export class Animations {
   static get list() {
@@ -16,27 +16,35 @@ export class Animations {
     );
   }
 
+  static getAnimationById(id) {
+    return listData.find((animation) => animation.id === id);
+  }
+
   static addAnimations(animations) {
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
-      const animationData = GameData.getAnimation(animation.id);
+      const animationData = GameData.getAnimation(animation.id.split('.')[0]);
 
-      this.addAnimation({
-        ...animationData,
-        pos: animation.pos,
-        id: `${animation.id}.${i}`
-      });
+      this.addAnimation(
+        {
+          ...animationData,
+          pos: animation.pos,
+          id: animation.id,
+          chunk: animation.chunk
+        },
+        animation.played
+      );
     }
   }
 
-  static addAnimation(animation) {
+  static addAnimation(animation, played) {
     listData.push(
       new Animation(
         {
           ...animation,
           sprite: new Sprite({
             url: 'images/animations.png',
-            pos: animation.sprite.pos,
+            pos: played ? [100, animation.sprite.pos[1]] : animation.sprite.pos,
             size: animation.sprite.size,
             speed: animation.sprite.speed,
             frames: animation.sprite.frames,
@@ -47,5 +55,24 @@ export class Animations {
         config.debug
       )
     );
+  }
+
+  static updateAnimations(animations) {
+    listData = [];
+
+    for (let i = 0; i < animations.length; i++) {
+      const animation = animations[i];
+      const animationData = GameData.getAnimation(animation.id.split('.')[0]);
+
+      this.addAnimation(
+        {
+          ...animationData,
+          pos: animation.pos,
+          id: animation.id,
+          chunk: animation.chunk
+        },
+        animation.played
+      );
+    }
   }
 }

@@ -1,69 +1,72 @@
 const { config } = require('../config.js');
-const { biomes } = require('./data/biomes.js');
-const { generateChunk } = require('./generateChunk.js');
 const { chunkSize } = config;
 
-const generateMap = ({ chunks }) => {
-  const centerBiome = biomes[chunks[0].biomeMap.center];
-  const topBiome = biomes[chunks[1].biomeMap.center];
-  const topRightBiome = biomes[chunks[2].biomeMap.center];
-  const rightBiome = biomes[chunks[3].biomeMap.center];
-  const bottomRightBiome = biomes[chunks[4].biomeMap.center];
-  const bottomBiome = biomes[chunks[5].biomeMap.center];
-  const bottomLeftBiome = biomes[chunks[6].biomeMap.center];
-  const leftBiome = biomes[chunks[7].biomeMap.center];
-  const topLeftBiome = biomes[chunks[8].biomeMap.center];
-  const centerChunk = generateChunk({
-    biome: centerBiome,
-    offset: [chunkSize, chunkSize]
-  });
-  const topChunk = generateChunk({ biome: topBiome, offset: [chunkSize, 0] });
-  const topRightChunk = generateChunk({
-    biome: topRightBiome,
-    offset: [chunkSize * 2, 0]
-  });
-  const rightChunk = generateChunk({
-    biome: rightBiome,
-    offset: [chunkSize * 2, chunkSize]
-  });
-  const bottomRightChunk = generateChunk({
-    biome: bottomRightBiome,
-    offset: [chunkSize * 2, chunkSize * 2]
-  });
-  const bottomChunk = generateChunk({
-    biome: bottomBiome,
-    offset: [chunkSize, chunkSize * 2]
-  });
-  const bottomLeftChunk = generateChunk({
-    biome: bottomLeftBiome,
-    offset: [0, chunkSize * 2]
-  });
-  const leftChunk = generateChunk({ biome: leftBiome, offset: [0, chunkSize] });
-  const topLeftChunk = generateChunk({ biome: topLeftBiome, offset: [0, 0] });
+const generateMap = ({ chunks, centerChunkPos }) => {
+  const centerChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] && chunk.pos[1] === centerChunkPos[1]
+  ).map;
+  const topChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] &&
+      chunk.pos[1] === centerChunkPos[1] - 1
+  ).map;
+  const topRightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] + 1 &&
+      chunk.pos[1] === centerChunkPos[1] - 1
+  ).map;
+  const rightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] + 1 &&
+      chunk.pos[1] === centerChunkPos[1]
+  ).map;
+  const bottomRightChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] + 1 &&
+      chunk.pos[1] === centerChunkPos[1] + 1
+  ).map;
+  const bottomChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] &&
+      chunk.pos[1] === centerChunkPos[1] + 1
+  ).map;
+  const bottomLeftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] - 1 &&
+      chunk.pos[1] === centerChunkPos[1] + 1
+  ).map;
+  const leftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] - 1 &&
+      chunk.pos[1] === centerChunkPos[1]
+  ).map;
+  const topLeftChunk = chunks.find(
+    (chunk) =>
+      chunk.pos[0] === centerChunkPos[0] - 1 &&
+      chunk.pos[1] === centerChunkPos[1] - 1
+  ).map;
 
   // Ground 1
-  const topChunksGround1 = topLeftChunk.mapGround1;
-  const centerChunksGround1 = leftChunk.mapGround1;
-  const bottomChunksGround1 = bottomLeftChunk.mapGround1;
+  let topChunksGround1 = topLeftChunk.mapGround1;
+  let centerChunksGround1 = leftChunk.mapGround1;
+  let bottomChunksGround1 = bottomLeftChunk.mapGround1;
 
-  topChunksGround1.forEach((row, index) => {
-    row.push(
-      ...[...topChunk.mapGround1[index], ...topRightChunk.mapGround1[index]]
-    );
-  });
-  centerChunksGround1.forEach((row, index) => {
-    row.push(
-      ...[...centerChunk.mapGround1[index], ...rightChunk.mapGround1[index]]
-    );
-  });
-  bottomChunksGround1.forEach((row, index) => {
-    row.push(
-      ...[
-        ...bottomChunk.mapGround1[index],
-        ...bottomRightChunk.mapGround1[index]
-      ]
-    );
-  });
+  topChunksGround1 = topChunksGround1.map((row, index) => [
+    ...row,
+    ...topChunk.mapGround1[index],
+    ...topRightChunk.mapGround1[index]
+  ]);
+  centerChunksGround1 = centerChunksGround1.map((row, index) => [
+    ...row,
+    ...centerChunk.mapGround1[index],
+    ...rightChunk.mapGround1[index]
+  ]);
+  bottomChunksGround1 = bottomChunksGround1.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapGround1[index],
+    ...bottomRightChunk.mapGround1[index]
+  ]);
 
   const mapGround1 = [
     ...topChunksGround1,
@@ -72,28 +75,25 @@ const generateMap = ({ chunks }) => {
   ];
 
   // Ground 2
-  const topChunksGround2 = topLeftChunk.mapGround2;
-  const centerChunksGround2 = leftChunk.mapGround2;
-  const bottomChunksGround2 = bottomLeftChunk.mapGround2;
+  let topChunksGround2 = topLeftChunk.mapGround2;
+  let centerChunksGround2 = leftChunk.mapGround2;
+  let bottomChunksGround2 = bottomLeftChunk.mapGround2;
 
-  topChunksGround2.forEach((row, index) => {
-    row.push(
-      ...[...topChunk.mapGround2[index], ...topRightChunk.mapGround2[index]]
-    );
-  });
-  centerChunksGround2.forEach((row, index) => {
-    row.push(
-      ...[...centerChunk.mapGround2[index], ...rightChunk.mapGround2[index]]
-    );
-  });
-  bottomChunksGround2.forEach((row, index) => {
-    row.push(
-      ...[
-        ...bottomChunk.mapGround2[index],
-        ...bottomRightChunk.mapGround2[index]
-      ]
-    );
-  });
+  topChunksGround2 = topChunksGround2.map((row, index) => [
+    ...row,
+    ...topChunk.mapGround2[index],
+    ...topRightChunk.mapGround2[index]
+  ]);
+  centerChunksGround2 = centerChunksGround2.map((row, index) => [
+    ...row,
+    ...centerChunk.mapGround2[index],
+    ...rightChunk.mapGround2[index]
+  ]);
+  bottomChunksGround2 = bottomChunksGround2.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapGround2[index],
+    ...bottomRightChunk.mapGround2[index]
+  ]);
 
   const mapGround2 = [
     ...topChunksGround2,
@@ -102,91 +102,296 @@ const generateMap = ({ chunks }) => {
   ];
 
   // Top 1
-  const topChunksTop1 = topLeftChunk.mapTop1;
-  const centerChunksTop1 = leftChunk.mapTop1;
-  const bottomChunksTop1 = bottomLeftChunk.mapTop1;
+  let topChunksTop1 = topLeftChunk.mapTop1;
+  let centerChunksTop1 = leftChunk.mapTop1;
+  let bottomChunksTop1 = bottomLeftChunk.mapTop1;
 
-  topChunksTop1.forEach((row, index) => {
-    row.push(...[...topChunk.mapTop1[index], ...topRightChunk.mapTop1[index]]);
-  });
-  centerChunksTop1.forEach((row, index) => {
-    row.push(...[...centerChunk.mapTop1[index], ...rightChunk.mapTop1[index]]);
-  });
-  bottomChunksTop1.forEach((row, index) => {
-    row.push(
-      ...[...bottomChunk.mapTop1[index], ...bottomRightChunk.mapTop1[index]]
-    );
-  });
+  topChunksTop1 = topChunksTop1.map((row, index) => [
+    ...row,
+    ...topChunk.mapTop1[index],
+    ...topRightChunk.mapTop1[index]
+  ]);
+  centerChunksTop1 = centerChunksTop1.map((row, index) => [
+    ...row,
+    ...centerChunk.mapTop1[index],
+    ...rightChunk.mapTop1[index]
+  ]);
+  bottomChunksTop1 = bottomChunksTop1.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapTop1[index],
+    ...bottomRightChunk.mapTop1[index]
+  ]);
 
   const mapTop1 = [...topChunksTop1, ...centerChunksTop1, ...bottomChunksTop1];
 
   // Blocked
-  const topChunksBlocked = topLeftChunk.mapBlocked;
-  const centerChunksBlocked = leftChunk.mapBlocked;
-  const bottomChunksBlocked = bottomLeftChunk.mapBlocked;
+  let topChunksBlocked = topLeftChunk.mapBlocked;
+  let centerChunksBlocked = leftChunk.mapBlocked;
+  let bottomChunksBlocked = bottomLeftChunk.mapBlocked;
 
-  topChunksBlocked.forEach((row, index) => {
-    row.push(
-      ...[...topChunk.mapBlocked[index], ...topRightChunk.mapBlocked[index]]
-    );
-  });
-  centerChunksBlocked.forEach((row, index) => {
-    row.push(
-      ...[...centerChunk.mapBlocked[index], ...rightChunk.mapBlocked[index]]
-    );
-  });
-  bottomChunksBlocked.forEach((row, index) => {
-    row.push(
-      ...[
-        ...bottomChunk.mapBlocked[index],
-        ...bottomRightChunk.mapBlocked[index]
-      ]
-    );
-  });
+  topChunksBlocked = topChunksBlocked.map((row, index) => [
+    ...row,
+    ...topChunk.mapBlocked[index],
+    ...topRightChunk.mapBlocked[index]
+  ]);
+  centerChunksBlocked = centerChunksBlocked.map((row, index) => [
+    ...row,
+    ...centerChunk.mapBlocked[index],
+    ...rightChunk.mapBlocked[index]
+  ]);
+  bottomChunksBlocked = bottomChunksBlocked.map((row, index) => [
+    ...row,
+    ...bottomChunk.mapBlocked[index],
+    ...bottomRightChunk.mapBlocked[index]
+  ]);
 
   const mapBlocked = [
     ...topChunksBlocked,
     ...centerChunksBlocked,
     ...bottomChunksBlocked
   ];
+
+  // Offset events
+  let centerChunkEvents,
+    topChunkEvents,
+    topRightChunkEvents,
+    rightChunkEvents,
+    bottomRightChunkEvents,
+    bottomChunkEvents,
+    bottomLeftChunkEvents,
+    leftChunkEvents,
+    topLeftChunkEvents;
+
+  if (centerChunk.events) {
+    centerChunkEvents = centerChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize]
+    }));
+  }
+  if (topChunk.events) {
+    topChunkEvents = topChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize, event.pos[1] + 0]
+    }));
+  }
+  if (topRightChunk.events) {
+    topRightChunkEvents = topRightChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + 0]
+    }));
+  }
+  if (rightChunk.events) {
+    rightChunkEvents = rightChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize]
+    }));
+  }
+  if (bottomRightChunk.events) {
+    bottomRightChunkEvents = bottomRightChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize * 2, event.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomChunk.events) {
+    bottomChunkEvents = bottomChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + chunkSize, event.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomLeftChunk.events) {
+    bottomLeftChunkEvents = bottomLeftChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (leftChunk.events) {
+    leftChunkEvents = leftChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + 0, event.pos[1] + chunkSize]
+    }));
+  }
+  if (topLeftChunk.events) {
+    topLeftChunkEvents = topLeftChunk.events.map((event) => ({
+      ...event,
+      pos: [event.pos[0] + 0, event.pos[1] + 0]
+    }));
+  }
+
+  // Offset animations
+  let centerChunkAnimations,
+    topChunkAnimations,
+    topRightChunkAnimations,
+    rightChunkAnimations,
+    bottomRightChunkAnimations,
+    bottomChunkAnimations,
+    bottomLeftChunkAnimations,
+    leftChunkAnimations,
+    topLeftChunkAnimations;
+
+  if (centerChunk.animations) {
+    centerChunkAnimations = centerChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize, animation.pos[1] + chunkSize]
+    }));
+  }
+  if (topChunk.animations) {
+    topChunkAnimations = topChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize, animation.pos[1] + 0]
+    }));
+  }
+  if (topRightChunk.animations) {
+    topRightChunkAnimations = topRightChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize * 2, animation.pos[1] + 0]
+    }));
+  }
+  if (rightChunk.animations) {
+    rightChunkAnimations = rightChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize * 2, animation.pos[1] + chunkSize]
+    }));
+  }
+  if (bottomRightChunk.animations) {
+    bottomRightChunkAnimations = bottomRightChunk.animations.map(
+      (animation) => ({
+        ...animation,
+        pos: [
+          animation.pos[0] + chunkSize * 2,
+          animation.pos[1] + chunkSize * 2
+        ]
+      })
+    );
+  }
+  if (bottomChunk.animations) {
+    bottomChunkAnimations = bottomChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + chunkSize, animation.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomLeftChunk.animations) {
+    bottomLeftChunkAnimations = bottomLeftChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + 0, animation.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (leftChunk.animations) {
+    leftChunkAnimations = leftChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + 0, animation.pos[1] + chunkSize]
+    }));
+  }
+  if (topLeftChunk.animations) {
+    topLeftChunkAnimations = topLeftChunk.animations.map((animation) => ({
+      ...animation,
+      pos: [animation.pos[0] + 0, animation.pos[1] + 0]
+    }));
+  }
+
+  // Offset enemies
+  let centerChunkEnemies,
+    topChunkEnemies,
+    topRightChunkEnemies,
+    rightChunkEnemies,
+    bottomRightChunkEnemies,
+    bottomChunkEnemies,
+    bottomLeftChunkEnemies,
+    leftChunkEnemies,
+    topLeftChunkEnemies;
+
+  if (centerChunk.enemies) {
+    centerChunkEnemies = centerChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize, enemy.pos[1] + chunkSize]
+    }));
+  }
+  if (topChunk.enemies) {
+    topChunkEnemies = topChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize, enemy.pos[1] + 0]
+    }));
+  }
+  if (topRightChunk.enemies) {
+    topRightChunkEnemies = topRightChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize * 2, enemy.pos[1] + 0]
+    }));
+  }
+  if (rightChunk.enemies) {
+    rightChunkEnemies = rightChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize * 2, enemy.pos[1] + chunkSize]
+    }));
+  }
+  if (bottomRightChunk.enemies) {
+    bottomRightChunkEnemies = bottomRightChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize * 2, enemy.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomChunk.enemies) {
+    bottomChunkEnemies = bottomChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + chunkSize, enemy.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (bottomLeftChunk.enemies) {
+    bottomLeftChunkEnemies = bottomLeftChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + 0, enemy.pos[1] + chunkSize * 2]
+    }));
+  }
+  if (leftChunk.enemies) {
+    leftChunkEnemies = leftChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + 0, enemy.pos[1] + chunkSize]
+    }));
+  }
+  if (topLeftChunk.enemies) {
+    topLeftChunkEnemies = topLeftChunk.enemies.map((enemy) => ({
+      ...enemy,
+      pos: [enemy.pos[0] + 0, enemy.pos[1] + 0]
+    }));
+  }
+
   const playerPosition = Math.round((chunkSize * 3) / 2);
 
   return {
-    players: [[playerPosition, playerPosition]],
+    playerStartPositions: [[playerPosition, playerPosition]],
     enemies: [
-      ...centerChunk.enemies,
-      ...topChunk.enemies,
-      ...topRightChunk.enemies,
-      ...rightChunk.enemies,
-      ...bottomRightChunk.enemies,
-      ...bottomChunk.enemies,
-      ...bottomLeftChunk.enemies,
-      ...leftChunk.enemies,
-      ...topLeftChunk.enemies
+      ...centerChunkEnemies,
+      ...topChunkEnemies,
+      ...topRightChunkEnemies,
+      ...rightChunkEnemies,
+      ...bottomRightChunkEnemies,
+      ...bottomChunkEnemies,
+      ...bottomLeftChunkEnemies,
+      ...leftChunkEnemies,
+      ...topLeftChunkEnemies
     ],
-    items: [
-      ...centerChunk.items,
-      ...topChunk.items,
-      ...topRightChunk.items,
-      ...rightChunk.items,
-      ...bottomRightChunk.items,
-      ...bottomChunk.items,
-      ...bottomLeftChunk.items,
-      ...leftChunk.items,
-      ...topLeftChunk.items
+    events: [
+      ...centerChunkEvents,
+      ...topChunkEvents,
+      ...topRightChunkEvents,
+      ...rightChunkEvents,
+      ...bottomRightChunkEvents,
+      ...bottomChunkEvents,
+      ...bottomLeftChunkEvents,
+      ...leftChunkEvents,
+      ...topLeftChunkEvents
     ],
     animations: [
-      ...centerChunk.animations,
-      ...topChunk.animations,
-      ...topRightChunk.animations,
-      ...rightChunk.animations,
-      ...bottomRightChunk.animations,
-      ...bottomChunk.animations,
-      ...bottomLeftChunk.animations,
-      ...leftChunk.animations,
-      ...topLeftChunk.animations
+      ...centerChunkAnimations,
+      ...topChunkAnimations,
+      ...topRightChunkAnimations,
+      ...rightChunkAnimations,
+      ...bottomRightChunkAnimations,
+      ...bottomChunkAnimations,
+      ...bottomLeftChunkAnimations,
+      ...leftChunkAnimations,
+      ...topLeftChunkAnimations
     ],
-    maps: [],
+    mapTransitions: [],
     map: [mapGround1, mapGround2, mapTop1, mapBlocked]
   };
 };

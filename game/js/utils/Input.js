@@ -1,9 +1,23 @@
-export default class Input {
+import { Inventory } from '../interface/inventory.js';
+import { Menu } from '../interface/menu.js';
+import { Statistics } from '../interface/statistics.js';
+
+export class Input {
   constructor() {
     this.pressedKeys = {};
 
     document.addEventListener('keydown', (e) => {
       this.setKey(e, true);
+
+      if (e.key.toLocaleLowerCase() === 'i') {
+        Inventory.toggleInventory();
+      }
+      if (e.key.toLocaleLowerCase() === 'n') {
+        Statistics.toggleStatistics();
+      }
+      if (e.key.toLocaleLowerCase() === 'escape') {
+        Menu.toggleIngameMenu();
+      }
     });
 
     document.addEventListener('keyup', (e) => {

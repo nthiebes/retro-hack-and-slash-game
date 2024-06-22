@@ -9,13 +9,14 @@
     "npm": ">=9"
   },
   "scripts": {
-    "start": "python3 -m http.server 1234",
+    "start": "python3 -m http.server 1234 --bind 0.0.0.0",
     "lint": "eslint .",
     "prettier": "prettier --write ."
   },
   "author": "Nico Thiebes",
   "license": "SEE LICENSE IN \"LICENSE\"",
   "dependencies": {
+    "howler": "2.2.4",
     "socket.io-client": "4.0.0"
   },
   "devDependencies": {

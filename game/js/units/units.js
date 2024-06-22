@@ -26,25 +26,27 @@ export class Units {
   }
 
   static addUnits({ player, players, enemies }) {
-    this.addUnit(player);
-    playerId = player.id;
+    player && this.addUnit(player);
+    playerId = playerId || player?.id;
 
     for (let i = 0; i < players.length; i++) {
       const otherPlayer = players[i];
 
-      if (player.id !== otherPlayer.id) {
+      if (playerId !== otherPlayer.id) {
         this.addUnit(otherPlayer);
       }
     }
 
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
-      const unitData = GameData.enemies.list.find(({ id }) => id === enemy.id);
+      const unitData = GameData.enemies.list.find(
+        ({ id }) => id === enemy.id.split('.')[0]
+      );
 
       this.addUnit({
         ...unitData,
         ...enemy,
-        id: `enemy.${i}`
+        id: enemy.id
       });
     }
   }
@@ -74,9 +76,17 @@ export class Units {
 
     const animation = GameData.getWeapon(primary).animation;
     const skinCount = GameData.races[unit.race].skins;
+    const hairCount = GameData.races[unit.race].hair;
+    const facesCount = GameData.races[unit.race].faces;
     const skin = Number.isInteger(unit.skin)
       ? unit.skin
-      : getRandomInt(skinCount - 1);
+      : getRandomInt(skinCount);
+    const hair = unit?.cosmetics?.hair
+      ? unit.cosmetics.hair
+      : `hair${getRandomInt(hairCount)}`;
+    const face = unit?.cosmetics?.face
+      ? unit.cosmetics.face
+      : `face${getRandomInt(facesCount)}`;
     const speed = getWalkSpeed({
       ...unit,
       gear: {
@@ -86,7 +96,6 @@ export class Units {
       }
     });
     const attackSpeed = getAttackSpeed(primary);
-    const directionOffset = unit.direction === 'LEFT' ? 128 : 0;
 
     listData.push(
       new Unit(
@@ -111,50 +120,64 @@ export class Units {
           },
           skin: new Sprite({
             url: `images/races/${unit.race}${skin}.png`,
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           }),
           head: new Sprite({
-            url: `images/armor/${head}.png`,
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            url: `images/items/${head}.png`,
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           }),
           leg: new Sprite({
-            url: `images/armor/${leg}.png`,
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            url: `images/items/${leg}.png`,
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           }),
           torso: new Sprite({
-            url: `images/armor/${torso}.png`,
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            url: `images/items/${torso}.png`,
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           }),
           primary: new Sprite({
-            url: `images/weapons/${primary}.png`,
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            url: `images/items/${primary}.png`,
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           }),
           secondary: new Sprite({
-            url: `images/weapons/${secondary}.png`,
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            url: `images/items/${secondary}.png`,
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           }),
           special: new Sprite({
-            url: 'images/armor/none.png',
-            pos: [0, 256 + directionOffset],
-            size: [128, 128],
+            url: 'images/items/none.png',
+            pos: [0, 256],
+            size: [256, 256],
+            speed,
+            frames: [0]
+          }),
+          hair: new Sprite({
+            url: `images/hair/${unit.race}/${hair}.png`,
+            pos: [0, 256],
+            size: [256, 256],
+            speed,
+            frames: [0]
+          }),
+          face: new Sprite({
+            url: `images/faces/${unit.race}/${face}.png`,
+            pos: [0, 256],
+            size: [256, 256],
             speed,
             frames: [0]
           })

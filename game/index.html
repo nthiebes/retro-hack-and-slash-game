@@ -1,64 +1,438 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta charset="utf-8">
-  <title>Ridane</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="styles/game.css">
-  <meta name="”robots”" content="”noindex”" />
-</head>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>Ridane</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/game.css" />
+    <meta name="”robots”" content="”noindex”" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+  </head>
 
-<body ontouchstart="">
-  <main id="canvas-wrapper">
-    <canvas class="map-layer" id="canvas-ground1"></canvas>
-    <canvas class="map-layer" id="canvas-ground2"></canvas>
-    <canvas class="map-layer" id="canvas-anim"></canvas>
-    <canvas class="map-layer" id="canvas-top1"></canvas>
-  </main>
+  <body ontouchstart="">
+    <svg
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <defs>
+        <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+          <path
+            d="M15.422 16.594l-1.406 1.406-6-6 6-6 1.406 1.406-4.594 4.594z"
+          ></path>
+        </symbol>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+          <path
+            d="M8.578 16.594l4.594-4.594-4.594-4.594 1.406-1.406 6 6-6 6z"
+          ></path>
+        </symbol>
+        <symbol id="icon-fullscreen" viewBox="0 0 24 24">
+          <path
+            d="M14.016 5.016h4.969v4.969h-1.969v-3h-3v-1.969zM17.016 17.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 9.984v-4.969h4.969v1.969h-3v3h-1.969zM6.984 14.016v3h3v1.969h-4.969v-4.969h1.969z"
+          ></path>
+        </symbol>
+        <symbol id="icon-fullscreen-exit" viewBox="0 0 24 24">
+          <path
+            d="M15.984 8.016h3v1.969h-4.969v-4.969h1.969v3zM14.016 18.984v-4.969h4.969v1.969h-3v3h-1.969zM8.016 8.016v-3h1.969v4.969h-4.969v-1.969h3zM5.016 15.984v-1.969h4.969v4.969h-1.969v-3h-3z"
+          ></path>
+        </symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+          <path
+            d="M9 5.016h12v3.984h-12v-3.984zM9 18.984v-3.984h12v3.984h-12zM9 14.016v-4.031h12v4.031h-12zM3.984 9v-3.984h4.031v3.984h-4.031zM3.984 18.984v-3.984h4.031v3.984h-4.031zM3.984 14.016v-4.031h4.031v4.031h-4.031z"
+          ></path>
+        </symbol>
+        <symbol id="icon-stats" viewBox="0 0 24 24">
+          <path
+            d="M16.219 12.984h2.766v6h-2.766v-6zM10.594 5.016h2.813v13.969h-2.813v-13.969zM5.016 9.188h3v9.797h-3v-9.797z"
+          ></path>
+        </symbol>
+        <symbol id="icon-inventory" viewBox="0 0 24 24">
+          <path
+            d="M13.418 7.354h-2.842c0 0-4.627 3.623-4.627 9.081s4.864 5.51 4.864 5.51 1.266 0.094 2.344 0c0 0.047 4.894-0.649 4.894-5.515 0.001-4.864-4.632-9.076-4.632-9.076zM10.576 6.998h2.848v-1.068h-2.848v1.068zM13.38 5.574l1.446-3.56c0 0-0.913 0.757-1.446 0.757-0.535 0-1.38-0.734-1.38-0.734s-0.912 0.734-1.446 0.734-1.402-0.712-1.402-0.712l1.469 3.516h2.759z"
+          ></path>
+        </symbol>
+        <symbol id="icon-mute" viewBox="0 0 24 24">
+          <path
+            d="M12 3.984v4.219l-2.109-2.109zM4.266 3l16.734 16.734-1.266 1.266-2.063-2.063q-1.547 1.313-3.656 1.828v-2.063q1.172-0.328 2.25-1.172l-4.266-4.266v6.75l-5.016-5.016h-3.984v-6h4.734l-4.734-4.734zM18.984 12q0-2.391-1.383-4.219t-3.586-2.484v-2.063q3.047 0.656 5.016 3.117t1.969 5.648q0 2.203-1.031 4.172l-1.5-1.547q0.516-1.266 0.516-2.625zM16.5 12q0 0.422-0.047 0.609l-2.438-2.438v-2.203q1.031 0.516 1.758 1.688t0.727 2.344z"
+          ></path>
+        </symbol>
+        <symbol id="icon-unmute" viewBox="0 0 24 24">
+          <path
+            d="M14.016 3.234q3.047 0.656 5.016 3.117t1.969 5.648-1.969 5.648-5.016 3.117v-2.063q2.203-0.656 3.586-2.484t1.383-4.219-1.383-4.219-3.586-2.484v-2.063zM16.5 12q0 2.813-2.484 4.031v-8.063q1.031 0.516 1.758 1.688t0.727 2.344zM3 9h3.984l5.016-5.016v16.031l-5.016-5.016h-3.984v-6z"
+          ></path>
+        </symbol>
+      </defs>
+    </svg>
 
-  <section class="window window--show" id="menu">
-    <h1>Ridane</h1>
-    <button class="button" id="menu-new" disabled>Neues Spiel</button>
-    <button class="button" id="menu-join" disabled>Spiel beitreten</button>
-    <button class="button" id="menu-options" disabled>Optionen</button>
-  </section>
+    <main id="canvas-wrapper">
+      <canvas class="map-layer" id="canvas-ground1"></canvas>
+      <canvas class="map-layer" id="canvas-ground2"></canvas>
+      <canvas class="map-layer" id="canvas-anim"></canvas>
+      <canvas class="map-layer" id="canvas-top1"></canvas>
+    </main>
 
-  <form class="window" id="new">
-    <h1>Karte wählen</h1>
-    <select id="map">
-      <option value="generated" selected>Generierte Karte</option>
-      <option value="arena">Arena</option>
-      <option value="distribute">Verteiler</option>
-      <option value="demo">Demo</option>
-      <option value="items">Alle Gegenstände</option>
-      <option value="island">Insel</option>
-      <option value="turn-based">Turn-based</option>
-      <option value="big">Groß</option>
-      <option value="medium">Mittel</option>
-      <option value="small">Klein</option>
-      <option value="camp">Camp</option>
-      <option value="ridane-old">Ridane old</option>
-      <option value="survival">Survival</option>
-    </select>
-    <button class="button" type="submit">Spiel erstellen</button>
-  </form>
+    <section class="window window--small window--show" id="menu">
+      <h1 class="window__title">Ridane</h1>
+      <section class="window__section window__section--small">
+        <button class="button" id="menu-new" autocomplete="off" disabled>
+          Neues Spiel
+        </button>
+        <button class="button" id="menu-join" autocomplete="off" disabled>
+          Beitreten
+        </button>
+        <button class="button" id="menu-options">Optionen</button>
+        <button class="button" id="menu-options">Hilfe</button>
+        <button class="button" id="menu-options">Credits</button>
+      </section>
+    </section>
 
-  <form class="window" id="character">
-    <h1>Dein Charakter</h1>
-    <input class="input" required value="Gscheid" id="name" />
-    <div class="race">
-      <button id="race-prev" type="button">⬅️</button>
-      <div class="race__img race__img--human0" id="race-img"></div>
-      <button id="race-next" type="button">➡️</button>
-    </div>
-    <h2 id="race-name"></h2>
-    <ul class="attributes" id="race-attributes"></ul>
-    <button class="button" type="submit">Spiel beitreten</button>
-  </form>
+    <section class="window window--small" id="ingame-menu">
+      <h1 class="window__title">Menü</h1>
+      <section class="window__section window__section--small">
+        <button class="button" id="menu-continue">Weiter</button>
+        <button class="button" id="menu-leave">Verlassen</button>
+        <button class="button" id="menu-options">Optionen</button>
+        <button class="button" id="menu-options">Hilfe</button>
+        <button class="button" id="menu-options">Credits</button>
+      </section>
+    </section>
 
-  <canvas class="minimap" id="minimap" height="320" width="320"></canvas>
+    <form class="window window--small" id="new">
+      <h1 class="window__title">Karte wählen</h1>
+      <section class="window__section window__section--small">
+        <select class="select" id="map">
+          <option value="generated" selected>Generierte Karte</option>
+          <option value="arena">Arena</option>
+          <option value="distribute">Verteiler</option>
+          <option value="demo">Demo</option>
+          <option value="items">Alle Gegenstände</option>
+          <option value="island">Insel</option>
+          <option value="turn-based">Turn-based</option>
+          <option value="big">Groß</option>
+          <option value="medium">Mittel</option>
+          <option value="small">Klein</option>
+          <option value="camp">Camp</option>
+          <option value="ridane-old">Ridane old</option>
+          <option value="survival">Survival</option>
+        </select>
+        <button class="button button--long-text" type="submit">
+          Spiel erstellen
+        </button>
+      </section>
+    </form>
 
-  <script src="index.js" type="module" async></script>
-</body>
+    <form class="window" id="character">
+      <h1 class="window__title">Dein Charakter</h1>
+      <section class="window__section window__section--editor">
+        <div class="window__section-column">
+          <div class="option">
+            <button class="icon-button" id="race-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="race-label">Rasse</h3>
+              <p id="race-count"></p>
+            </div>
+            <button class="icon-button" id="race-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
+          </div>
+          <h2 id="race-name"></h2>
+          <p class="race-description" id="race-description"></p>
+          <ul class="attributes" id="race-attributes"></ul>
+        </div>
+
+        <div class="preview-wrapper">
+          <div class="preview" id="race-preview"></div>
+          <div class="preview" id="face-preview"></div>
+          <div class="preview" id="hair-preview"></div>
+          <label class="label" for="name">Name:</label>
+          <input
+            class="input"
+            required
+            value="Gscheid"
+            id="name"
+            maxlength="20"
+          />
+        </div>
+
+        <div class="window__section-column">
+          <div class="option">
+            <button class="icon-button" id="skin-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="skin-label">Haut</h3>
+              <p id="skin-count"></p>
+            </div>
+            <button class="icon-button" id="skin-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="option">
+            <button class="icon-button" id="face-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="face-label">Gesicht</h3>
+              <p id="face-count"></p>
+            </div>
+            <button class="icon-button" id="face-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="option">
+            <button class="icon-button" id="hair-prev" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-left"></use>
+              </svg>
+            </button>
+            <div>
+              <h3 id="hair-label">Haare</h3>
+              <p id="hair-count"></p>
+            </div>
+            <button class="icon-button" id="hair-next" type="button">
+              <svg class="icon icon-arrow-right">
+                <use xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+      <button class="button button--long-text window__button" type="submit">
+        Spiel beitreten
+      </button>
+    </form>
+
+    <section class="window inventory" id="inventory">
+      <button class="window__close" id="close-inventory"></button>
+      <h1 class="window__title">Inventar</h1>
+      <section
+        class="window__section window__section--small inventory__section"
+      >
+        <h2 class="inventory__name" id="inventory-name"></h2>
+        <h3 class="inventory__race" id="inventory-race"></h3>
+        <div class="inventory__health" id="inventory-health">
+          <div class="inventory__health-bar" id="inventory-health-bar"></div>
+          <div
+            class="inventory__health-number"
+            id="inventory-health-number"
+          ></div>
+        </div>
+        <ul class="inventory__slots" id="inventory-slots">
+          <li class="inventory__item" id="inventory-head"></li>
+          <li class="inventory__item" id="inventory-primary"></li>
+          <li class="inventory__item" id="inventory-torso"></li>
+          <li class="inventory__item" id="inventory-secondary"></li>
+          <li class="inventory__item" id="inventory-leg"></li>
+          <li class="inventory__item" id="inventory-jewlery"></li>
+        </ul>
+        <div
+          class="preview inventory__preview"
+          id="inventory-primary-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-race-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-face-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-hair-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-torso-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-leg-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-head-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-secondary-preview"
+        ></div>
+        <div
+          class="preview inventory__preview"
+          id="inventory-wounded-preview"
+        ></div>
+        <div class="inventory__stats">
+          <div class="inventory__stats-equipped">
+            <div>
+              Schaden:
+              <div class="inventory__stat" id="inventory-damage"></div>
+            </div>
+            <div>
+              Verteidigung:
+              <div class="inventory__stat" id="inventory-defense"></div>
+            </div>
+            <div>
+              Reichweite:
+              <div class="inventory__stat" id="inventory-range"></div>
+            </div>
+            <div>
+              Kampf-Geschw.:
+              <div class="inventory__stat" id="inventory-combatspeed"></div>
+            </div>
+            <div>
+              Lauf-Geschw.:
+              <div class="inventory__stat" id="inventory-walkspeed"></div>
+            </div>
+          </div>
+          <div class="inventory__stats-hover">
+            <div class="inventory__stat" id="inventory-damage-hover"></div>
+            <div class="inventory__stat" id="inventory-defense-hover"></div>
+            <div class="inventory__stat" id="inventory-range-hover"></div>
+            <div class="inventory__stat" id="inventory-combatspeed-hover"></div>
+            <div class="inventory__stat" id="inventory-walkspeed-hover"></div>
+          </div>
+          <div class="inventory__stats-right">
+            <div>
+              Geschicklichkeit:
+              <div class="inventory__stat" id="inventory-dexterity"></div>
+            </div>
+            <div>
+              Intelligenz:
+              <div class="inventory__stat" id="inventory-intelligence"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="window__section window__section--small inventory__section"
+      >
+        <ul class="inventory__items" id="inventory-items"></ul>
+        <div class="inventory__item-info">
+          <h3 class="inventory__item-name" id="inventory-item-name"></h3>
+          <p
+            class="inventory__item-description"
+            id="inventory-item-description"
+          ></p>
+          <p class="inventory__item-rarity" id="inventory-item-rarity"></p>
+          <p class="inventory__item-effect" id="inventory-item-effect"></p>
+        </div>
+      </section>
+    </section>
+
+    <section class="window inventory" id="statistics">
+      <button class="window__close" id="close-statistics"></button>
+      <h1 class="window__title">Statistiken</h1>
+      <section
+        class="window__section window__section--small inventory__section"
+      >
+        <ul class="statistics" id="statistics-list"></ul>
+      </section>
+      <section
+        class="window__section window__section--small inventory__section"
+      ></section>
+    </section>
+
+    <section class="health-bar" id="health-bar">
+      <div class="health-bar__health" id="health-bar-health"></div>
+      <div class="health-bar__number" id="health-bar-number"></div>
+    </section>
+
+    <section class="minimap" id="minimap">
+      <div class="minimap__wrapper">
+        <canvas
+          class="minimap__inner"
+          id="minimap-canvas"
+          height="650"
+          width="650"
+        ></canvas>
+      </div>
+    </section>
+
+    <section class="menu-frame" id="menu-frame">
+      <button
+        class="inventory-button icon-button"
+        id="inventory-button"
+        title="Inventar (i)"
+      >
+        <svg class="icon"><use xlink:href="#icon-inventory"></use></svg>
+      </button>
+      <button
+        class="stats-button icon-button"
+        id="stats-button"
+        title="Statistiken (n)"
+      >
+        <svg class="icon"><use xlink:href="#icon-stats"></use></svg>
+      </button>
+      <button
+        class="menu-button icon-button"
+        id="menu-button"
+        title="Menü (Esc)"
+        disabled
+      >
+        <svg class="icon"><use xlink:href="#icon-menu"></use></svg>
+      </button>
+      <button
+        class="fullscreen-button icon-button"
+        id="fullscreen-button"
+        title="Vollbild"
+      >
+        <svg class="icon" id="fullscreen-icon">
+          <use xlink:href="#icon-fullscreen"></use>
+        </svg>
+        <svg class="icon" id="fullscreen-icon-exit" style="display: none">
+          <use xlink:href="#icon-fullscreen-exit"></use>
+        </svg>
+      </button>
+      <button
+        class="volume-button icon-button"
+        id="volume-button"
+        title="Sound"
+      >
+        <svg class="icon" id="mute-icon" style="display: none">
+          <use xlink:href="#icon-mute"></use>
+        </svg>
+        <svg class="icon" id="unmute-icon">
+          <use xlink:href="#icon-unmute"></use>
+        </svg>
+      </button>
+    </section>
+
+    <!-- Credits
+    <a href="https://www.freepik.com/free-ai-image/fantasy-style-scene-with-mountains-landscape_133542314.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/fantasy-style-scene-with-mountains-landscape_133542285.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/fantasy-style-scene-with-mountains-landscape_133542281.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/mountain-landscape-with-fantasy-style-scene_133542783.htm">Image by freepik</a>
+    <a href="https://www.freepik.com/free-ai-image/mountain-landscape-with-fantasy-style-scene_133542848.htm">Image by freepik</a>
+    
+    Music by <a href="https://pixabay.com/de/users/amaksi-28332361/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=173853">Amaksi</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=173853">Pixabay</a>
+    Music by <a href="https://pixabay.com/de/users/samuelfjohanns-1207793/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=11274">Samuel F. Johanns</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=11274">Pixabay</a>
+
+    Sound Effect by <a href="https://pixabay.com/de/users/alex_jauk-16800354/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=210632">Alexander Jauk</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=210632">Pixabay</a>
+    Sound Effect from <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=105348">Pixabay</a>
+
+    Sound Effect by <a href="https://pixabay.com/de/users/floraphonic-38928062">floraphonic</a> from <a href="https://pixabay.com/sound-effects/">Pixabay</a>
+    Sound Effect by <a href="https://pixabay.com/de/users/universfield-28281460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=192117">UNIVERSFIELD</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=192117">Pixabay</a>
+    -->
+
+    <script src="index.js" type="module" async></script>
+  </body>
 </html>

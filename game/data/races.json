@@ -1,20 +1,24 @@
 {
-  "dwarf": {
-    "strength": 4,
-    "dexterity": 3,
-    "intelligence": 3,
-    "defense": 4,
-    "speed": 3,
-    "skins": 1
-  },
-
   "human": {
     "strength": 3,
     "dexterity": 3,
     "intelligence": 3,
     "defense": 3,
+    "speed": 5,
+    "skins": 9,
+    "faces": 3,
+    "hair": 8
+  },
+
+  "dwarf": {
+    "strength": 4,
+    "dexterity": 3,
+    "intelligence": 3,
+    "defense": 4,
     "speed": 4,
-    "skins": 7
+    "skins": 8,
+    "faces": 12,
+    "hair": 7
   },
 
   "orc": {
@@ -22,8 +26,10 @@
     "dexterity": 2,
     "intelligence": 1,
     "defense": 4,
-    "speed": 3,
-    "skins": 4
+    "speed": 4,
+    "skins": 6,
+    "faces": 3,
+    "hair": 2
   },
 
   "elf": {
@@ -31,8 +37,10 @@
     "dexterity": 4,
     "intelligence": 4,
     "defense": 2,
-    "speed": 4,
-    "skins": 1
+    "speed": 5,
+    "skins": 8,
+    "faces": 2,
+    "hair": 16
   },
 
   "vampire": {
@@ -40,25 +48,86 @@
     "dexterity": 3,
     "intelligence": 2,
     "defense": 2,
-    "speed": 5,
-    "skins": 1
+    "speed": 6,
+    "skins": 4,
+    "faces": 2,
+    "hair": 7
   },
 
-  "ghost": {
-    "strength": 1,
-    "dexterity": 1,
-    "intelligence": 1,
-    "defense": 4,
+  "beastman": {
+    "strength": 3,
+    "dexterity": 3,
+    "intelligence": 3,
+    "defense": 3,
     "speed": 5,
-    "skins": 1
+    "skins": 3,
+    "faces": 1,
+    "hair": 1
   },
 
   "zombie": {
     "strength": 1,
     "dexterity": 1,
     "intelligence": 0,
+    "defense": 2,
+    "speed": 2,
+    "skins": 3,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "skeleton": {
+    "strength": 1,
+    "dexterity": 2,
+    "intelligence": 0,
     "defense": 1,
-    "speed": 1,
-    "skins": 7
+    "speed": 4,
+    "skins": 3,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "ghoul": {
+    "strength": 3,
+    "dexterity": 2,
+    "intelligence": 1,
+    "defense": 3,
+    "speed": 5,
+    "skins": 1,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "mummy": {
+    "strength": 2,
+    "dexterity": 2,
+    "intelligence": 0,
+    "defense": 3,
+    "speed": 3,
+    "skins": 1,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "lich": {
+    "strength": 4,
+    "dexterity": 2,
+    "intelligence": 5,
+    "defense": 4,
+    "speed": 3,
+    "skins": 1,
+    "faces": 1,
+    "hair": 1
+  },
+
+  "blood-knight": {
+    "strength": 5,
+    "dexterity": 3,
+    "intelligence": 2,
+    "defense": 5,
+    "speed": 4,
+    "skins": 1,
+    "faces": 1,
+    "hair": 1
   }
 }

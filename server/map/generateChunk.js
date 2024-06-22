@@ -1,10 +1,11 @@
 const { blocks } = require('./data/blocks.js');
-const { getRandomInt } = require('../utils/number.js');
+const { biomes } = require('./data/biomes.js');
+const { getRandomInt, getRandomId } = require('../utils/number.js');
 const { config } = require('../config.js');
 const { chunkSize } = config;
 
 const getRandomPositions = (max) => {
-  const count = max || chunkSize;
+  const count = max;
   const randomPositions = [];
 
   for (let i = 0; i < count; i++) {
@@ -14,7 +15,8 @@ const getRandomPositions = (max) => {
   return randomPositions;
 };
 
-const generateChunk = ({ biome, offset }) => {
+const generateChunk = ({ biome: biomeName, chunk }) => {
+  const biome = biomes[biomeName];
   const mapGround2 = new Array(chunkSize)
     .fill(0)
     .map(() => new Array(chunkSize).fill(0));
@@ -26,20 +28,116 @@ const generateChunk = ({ biome, offset }) => {
     .map(() => new Array(chunkSize).fill(0));
   let mapGround1;
   const animations = [];
-  const items = [];
+  const events = [];
   const enemies = [];
 
-  if (biome.ground === 32) {
+  if (biome.ground === 1360) {
     mapGround1 = new Array(chunkSize).fill(0).map((_, index) => {
       const innerGround1 = new Array(chunkSize).fill(0);
 
-      if (index % 2) {
-        return innerGround1.map((__, innerIndex) =>
-          innerIndex % 2 ? 143 : 142
-        );
+      if (index % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1360;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 1363;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 1362;
+          }
+          return 1361;
+        });
       }
 
-      return innerGround1.map((__, innerIndex) => (innerIndex % 2 ? 127 : 126));
+      if ((index + 1) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1408;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 1411;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 1410;
+          }
+          return 1409;
+        });
+      }
+
+      if ((index + 2) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1392;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 1395;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 1394;
+          }
+          return 1393;
+        });
+      }
+
+      return innerGround1.map((__, innerIndex) => {
+        if (innerIndex % 4 === 0) {
+          return 1376;
+        } else if ((innerIndex + 1) % 4 === 0) {
+          return 1379;
+        } else if ((innerIndex + 2) % 4 === 0) {
+          return 1378;
+        }
+        return 1377;
+      });
+    });
+  } else if (biome.ground === 1) {
+    mapGround1 = new Array(chunkSize).fill(0).map((_, index) => {
+      const innerGround1 = new Array(chunkSize).fill(0);
+
+      if (index % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 1;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 4;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 3;
+          }
+          return 2;
+        });
+      }
+
+      if ((index + 1) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 49;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 52;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 51;
+          }
+          return 50;
+        });
+      }
+
+      if ((index + 2) % 4 === 0) {
+        return innerGround1.map((__, innerIndex) => {
+          if (innerIndex % 4 === 0) {
+            return 33;
+          } else if ((innerIndex + 1) % 4 === 0) {
+            return 36;
+          } else if ((innerIndex + 2) % 4 === 0) {
+            return 35;
+          }
+          return 34;
+        });
+      }
+
+      return innerGround1.map((__, innerIndex) => {
+        if (innerIndex % 4 === 0) {
+          return 17;
+        } else if ((innerIndex + 1) % 4 === 0) {
+          return 20;
+        } else if ((innerIndex + 2) % 4 === 0) {
+          return 19;
+        }
+        return 18;
+      });
     });
   } else {
     mapGround1 = new Array(chunkSize)
@@ -117,18 +215,19 @@ const generateChunk = ({ biome, offset }) => {
           animations.push(
             ...blocks[block.id].animations.map((animation) => ({
               ...animation,
-              pos: [animation.pos[0] + randomX, animation.pos[1] + randomY]
+              pos: [animation.pos[0] + randomY, animation.pos[1] + randomX],
+              id: `${animation.id}.${getRandomId()}`,
+              chunk
             }))
           );
         }
-        if (blocks[block.id].items) {
-          items.push(
-            ...blocks[block.id].items.map((item) => ({
-              ...item,
-              pos: [
-                item.pos[0] + offset[0] + randomX,
-                item.pos[1] + offset[1] + randomY
-              ]
+        if (blocks[block.id].events) {
+          events.push(
+            ...blocks[block.id].events.map((event) => ({
+              ...event,
+              pos: [event.pos[0] + randomY, event.pos[1] + randomX],
+              id: `${event.id}.${getRandomId()}`,
+              chunk
             }))
           );
         }
@@ -136,10 +235,10 @@ const generateChunk = ({ biome, offset }) => {
           enemies.push(
             ...blocks[block.id].enemies.map((enemy) => ({
               ...enemy,
-              pos: [
-                enemy.pos[0] + offset[0] + randomX,
-                enemy.pos[1] + offset[1] + randomY
-              ]
+              pos: [enemy.pos[0] + randomY, enemy.pos[1] + randomX],
+              id: `${enemy.id}.${getRandomId()}`,
+              direction: getRandomInt(2) === 1 ? 'LEFT' : 'RIGHT',
+              chunk
             }))
           );
         }
@@ -155,7 +254,7 @@ const generateChunk = ({ biome, offset }) => {
     }
   });
 
-  // Larger bushes
+  // Larger bushes/stones
   getRandomPositions(biome.bushesAmount).forEach((pos) => {
     if (mapGround2[pos[0]][pos[1]] === 0) {
       mapGround2[pos[0]][pos[1]] =
@@ -171,7 +270,7 @@ const generateChunk = ({ biome, offset }) => {
     mapBlocked,
     enemies,
     animations,
-    items
+    events
   };
 };
 

@@ -2,47 +2,110 @@
   "list": [
     {
       "id": "campfire",
-      "name": "Lagerfeuer 1x2",
       "autoplay": true,
       "sprite": {
-        "frames": [0, 1, 2, 3, 4, 5],
+        "frames": [0, 1, 2, 3, 4, 5, 6],
         "pos": [0, 0],
-        "size": [32, 64],
+        "size": [100, 100],
         "speed": 7
       }
     },
     {
       "id": "axe",
-      "name": "Baumstamm Axt 1x1",
       "autoplay": false,
       "sprite": {
         "frames": [0, 1],
-        "pos": [0, 64],
-        "size": [32, 32],
+        "pos": [0, 100],
+        "size": [100, 100],
         "speed": 20,
         "stay": true
       }
     },
     {
-      "id": "barrel",
-      "name": "Fass 1x1",
+      "id": "barrel0",
       "autoplay": false,
+      "sound": "barrel",
       "sprite": {
         "frames": [0, 1],
-        "pos": [0, 96],
-        "size": [32, 32],
+        "pos": [0, 200],
+        "size": [100, 100],
         "speed": 20,
         "stay": true
       }
     },
     {
-      "id": "jug",
-      "name": "Krug 1x1",
+      "id": "mushrooms0",
       "autoplay": false,
       "sprite": {
         "frames": [0, 1],
-        "pos": [0, 128],
-        "size": [32, 32],
+        "pos": [0, 300],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "berries0",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 400],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "berries1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 500],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "berries2",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 600],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "berries3",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 700],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "flower0",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 800],
+        "size": [100, 100],
+        "speed": 20,
+        "stay": true
+      }
+    },
+    {
+      "id": "flower1",
+      "autoplay": false,
+      "sprite": {
+        "frames": [0, 1],
+        "pos": [0, 900],
+        "size": [100, 100],
         "speed": 20,
         "stay": true
       }
