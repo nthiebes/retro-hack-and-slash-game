@@ -2000,6 +2000,16 @@ const blocks = {
     animations: [{ pos: [0, 0], id: 'barrel0' }],
     events: [{ pos: [0, 0], id: 'random3', type: 'loot' }]
   },
+  flowerLoot0: {
+    map: [[], [[]], [], []],
+    animations: [{ pos: [0, 0], id: 'flower0' }],
+    events: [{ pos: [0, 0], id: 'flower0', type: 'loot' }]
+  },
+  flowerLoot1: {
+    map: [[], [[]], [], []],
+    animations: [{ pos: [0, 0], id: 'flower1' }],
+    events: [{ pos: [0, 0], id: 'flower1', type: 'loot' }]
+  },
   'camp-plain0': {
     map: [
       [],

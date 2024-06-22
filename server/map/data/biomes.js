@@ -209,11 +209,11 @@ const biomes = {
     bushesAmount: 0,
     blocks: [
       {
-        id: 'flower0',
+        id: 'flowerLoot0',
         amount: 10
       },
       {
-        id: 'flower1',
+        id: 'flowerLoot1',
         amount: 10
       },
       {

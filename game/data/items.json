@@ -87,5 +87,17 @@
     "health": 100,
     "name": "Wolfsfleisch",
     "description": ""
+  },
+  {
+    "id": "flower0",
+    "type": "misc",
+    "name": "Rote Blume",
+    "description": "Deko."
+  },
+  {
+    "id": "flower1",
+    "type": "misc",
+    "name": "Blaue Blume",
+    "description": "Deko."
   }
 ]
