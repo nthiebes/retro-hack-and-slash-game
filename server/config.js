@@ -10,7 +10,7 @@ const config = {
     blackForest: ['blackForest', 'forest'],
     deadForest: ['deadForest', 'forest'],
     desert: ['desert', 'savannah', 'oasis'],
-    oasis: ['desert', 'oasis'],
+    oasis: ['desert', 'savannah', 'oasis'],
     savannah: ['savannah', 'desert', 'plain']
   },
   startBiome: 'plain'

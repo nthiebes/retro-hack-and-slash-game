@@ -79,7 +79,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'camp0',
+        id: 'camp-plain0',
         amount: 1
       },
       {
@@ -192,7 +192,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'camp0',
+        id: 'camp-plain0',
         amount: 1
       },
       {
@@ -285,7 +285,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'camp0',
+        id: 'camp-plain0',
         amount: 1
       },
       {
@@ -815,7 +815,7 @@ const biomes = {
         amount: 5
       },
       {
-        id: 'camp1',
+        id: 'camp-oasis0',
         amount: 1
       },
       {
@@ -905,6 +905,10 @@ const biomes = {
       },
       {
         id: 'orc-warrior',
+        amount: 1
+      },
+      {
+        id: 'skull-camp',
         amount: 1
       }
     ]
