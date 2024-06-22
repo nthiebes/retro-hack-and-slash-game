@@ -1988,17 +1988,17 @@ const blocks = {
   barrelLoot0: {
     map: [[], [[16]], [], [[1]]],
     animations: [{ pos: [0, 0], id: 'barrel0' }],
-    events: [{ pos: [0, 0], id: 'random1', type: 'loot' }]
+    events: [{ pos: [0, 0], id: 'random0', type: 'loot' }]
   },
   barrelLoot1: {
     map: [[], [[16]], [], [[1]]],
     animations: [{ pos: [0, 0], id: 'barrel0' }],
-    events: [{ pos: [0, 0], id: 'random2', type: 'loot' }]
+    events: [{ pos: [0, 0], id: 'random1', type: 'loot' }]
   },
   barrelLoot2: {
     map: [[], [[16]], [], [[1]]],
     animations: [{ pos: [0, 0], id: 'barrel0' }],
-    events: [{ pos: [0, 0], id: 'random3', type: 'loot' }]
+    events: [{ pos: [0, 0], id: 'random2', type: 'loot' }]
   },
   flowerLoot0: {
     map: [[], [[]], [], []],
@@ -2039,7 +2039,7 @@ const blocks = {
       { pos: [5, 2], id: 'campfire' }
     ],
     events: [
-      { pos: [7, 1], id: 'random1', type: 'loot' },
+      { pos: [7, 1], id: 'random0', type: 'loot' },
       { pos: [5, 2], id: 'campfire', type: 'fire' }
     ],
     enemies: [
@@ -2085,7 +2085,7 @@ const blocks = {
       { pos: [4, 5], id: 'campfire' }
     ],
     events: [
-      { pos: [9, 5], id: 'random1', type: 'loot' },
+      { pos: [9, 5], id: 'random0', type: 'loot' },
       { pos: [8, 6], id: 'random1', type: 'loot' },
       { pos: [4, 5], id: 'campfire', type: 'fire' }
     ],

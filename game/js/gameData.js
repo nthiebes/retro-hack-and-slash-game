@@ -69,7 +69,7 @@ export class GameData {
     const eventId = id.split('.')[0];
     let possibleItems = null;
 
-    if (eventId === 'random1') {
+    if (eventId === 'random0') {
       possibleItems = this.armorData.list.filter(
         (item) =>
           item.material === 'cloth' ||
@@ -86,7 +86,7 @@ export class GameData {
         )
       ];
     }
-    if (eventId === 'random2') {
+    if (eventId === 'random1') {
       possibleItems = this.armorData.list.filter(
         (item) =>
           item.material === 'leather' ||
@@ -103,7 +103,7 @@ export class GameData {
         )
       ];
     }
-    if (eventId === 'random3') {
+    if (eventId === 'random2') {
       possibleItems = this.armorData.list.filter(
         (item) =>
           item.material === 'iron' ||
