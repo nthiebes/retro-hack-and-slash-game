@@ -168,14 +168,18 @@ export class Units {
             frames: [0]
           }),
           hair: new Sprite({
-            url: `images/hair/${unit.race}/${hair}.png`,
+            url: hairCount
+              ? `images/hair/${unit.race}/${hair}.png`
+              : 'images/hair/none.png',
             pos: [0, 256],
             size: [256, 256],
             speed,
             frames: [0]
           }),
           face: new Sprite({
-            url: `images/faces/${unit.race}/${face}.png`,
+            url: facesCount
+              ? `images/faces/${unit.race}/${face}.png`
+              : 'images/faces/none.png',
             pos: [0, 256],
             size: [256, 256],
             speed,

@@ -60,9 +60,7 @@
     "intelligence": 3,
     "defense": 3,
     "speed": 5,
-    "skins": 3,
-    "faces": 1,
-    "hair": 1
+    "skins": 3
   },
 
   "zombie": {
@@ -71,9 +69,7 @@
     "intelligence": 0,
     "defense": 2,
     "speed": 2,
-    "skins": 3,
-    "faces": 1,
-    "hair": 1
+    "skins": 3
   },
 
   "skeleton": {
@@ -82,9 +78,7 @@
     "intelligence": 0,
     "defense": 1,
     "speed": 4,
-    "skins": 3,
-    "faces": 1,
-    "hair": 1
+    "skins": 3
   },
 
   "ghoul": {
@@ -92,10 +86,7 @@
     "dexterity": 2,
     "intelligence": 1,
     "defense": 3,
-    "speed": 5,
-    "skins": 1,
-    "faces": 1,
-    "hair": 1
+    "speed": 5
   },
 
   "mummy": {
@@ -103,10 +94,7 @@
     "dexterity": 2,
     "intelligence": 0,
     "defense": 3,
-    "speed": 3,
-    "skins": 1,
-    "faces": 1,
-    "hair": 1
+    "speed": 3
   },
 
   "lich": {
@@ -114,10 +102,7 @@
     "dexterity": 2,
     "intelligence": 5,
     "defense": 4,
-    "speed": 3,
-    "skins": 1,
-    "faces": 1,
-    "hair": 1
+    "speed": 3
   },
 
   "blood-knight": {
@@ -125,9 +110,6 @@
     "dexterity": 3,
     "intelligence": 2,
     "defense": 5,
-    "speed": 4,
-    "skins": 1,
-    "faces": 1,
-    "hair": 1
+    "speed": 4
   }
 }
