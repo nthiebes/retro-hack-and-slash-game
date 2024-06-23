@@ -177,6 +177,15 @@ const generateChunk = ({ biome: biomeName, chunk }) => {
             ) {
               tileOccupied = true;
             }
+            // Blocked
+            if (
+              mapLayerIndex === 3 &&
+              value &&
+              inChunkBorder &&
+              mapBlocked[x + randomX][y + randomY] > 0
+            ) {
+              tileOccupied = true;
+            }
 
             if (!inChunkBorder) {
               tileOccupied = true;

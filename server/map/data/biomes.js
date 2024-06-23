@@ -196,7 +196,7 @@ const biomes = {
         amount: 1
       },
       {
-        id: 'orc',
+        id: 'orc-warrior',
         amount: 1
       }
     ]
