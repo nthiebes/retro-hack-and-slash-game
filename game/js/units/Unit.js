@@ -16,8 +16,8 @@ export default class Unit {
     this.fieldsInSight = [];
     this.attackSpeed = 0;
     this.target = null;
-    this.noHair = false;
-    this.noFace = false;
+    this.noHair = data.noHair;
+    this.noFace = data.noFace;
     this.hairUrl = data.hair.url;
     this.faceUrl = data.face.url;
     this.chunk = [0, 0];

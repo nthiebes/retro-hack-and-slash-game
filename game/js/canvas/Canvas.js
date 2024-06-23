@@ -553,10 +553,10 @@ export default class Canvas {
       const noFace = unitList[i].noFace;
 
       if (noHair) {
-        unitList[i].hair.url = 'images/hair/human/hair0.png';
+        unitList[i].hair.url = 'images/hair/none.png';
       }
       if (noFace) {
-        unitList[i].face.url = 'images/hair/human/hair0.png';
+        unitList[i].face.url = 'images/face/none.png';
       }
 
       this.renderUnit(unitList[i], [

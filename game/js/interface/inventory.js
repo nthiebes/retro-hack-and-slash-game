@@ -129,7 +129,7 @@ export class Inventory {
       noFace ? 'images/hair/human/hair0.png' : face.url
     })`;
     inventoryHairImg.style.backgroundImage = `url(/game/${
-      noHair ? 'images/hair/human/hair0.png' : hair.url
+      noHair ? 'images/hair/none.png' : hair.url
     })`;
     inventoryPrimaryImg.style.backgroundImage = `url(/game/${primary.url})`;
     inventorySecondaryImg.style.backgroundImage = `url(/game/${secondary.url})`;
@@ -270,8 +270,12 @@ export class Inventory {
         } else if (item.health) {
           Units.player.heal(item.health);
         }
-        if (item.zombie && getRandomInt(100) <= item.zombie) {
-          Units.player.changeRace('zombie');
+        if (
+          item.zombie &&
+          !Units.player.race.includes('zombie') &&
+          getRandomInt(100) <= item.zombie
+        ) {
+          Units.player.changeRace(`zombie-${Units.player.race}`);
         }
         if (item.psychedelic) {
           canvasWrapper.classList.add('canvas-wrapper--psychedelic');
@@ -282,16 +286,20 @@ export class Inventory {
 
         if (item.id.includes('mushroom')) {
           Units.player.stats.mushrooms++;
-          sounds.effects.play('eat');
         }
         if (item.id.includes('berries')) {
           Units.player.stats.berries++;
-          sounds.effects.play('eat');
+        }
+        if (item.id.includes('meat')) {
+          Units.player.stats.meat++;
+        }
+        if (item.id.includes('salmon')) {
+          Units.player.stats.fish++;
         }
         if (item.id.includes('zombie')) {
           Units.player.stats.zombieMeat++;
-          sounds.effects.play('eat');
         }
+        sounds.effects.play('eat');
         Units.player.removeFromInventory(itemId);
         break;
       }

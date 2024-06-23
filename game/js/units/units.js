@@ -96,11 +96,14 @@ export class Units {
       }
     });
     const attackSpeed = getAttackSpeed(primary);
+    const armor = GameData.getArmor(head);
 
     listData.push(
       new Unit(
         {
           ...unit,
+          noHair: Boolean(armor.noHair),
+          noFace: Boolean(armor.noFace),
           pos: [unit.pos[0] + 0.5, unit.pos[1] + 0.5],
           tile: unit.pos,
           range: GameData.getWeapon(primary).range,
