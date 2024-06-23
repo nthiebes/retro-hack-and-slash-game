@@ -145,6 +145,43 @@ export default class Canvas {
       Events.removeEvent(item);
     });
 
+    socket.on('player-took-damage', ({ playerId, amount }) => {
+      if (config.debug) {
+        console.log('👤❤️‍🩹');
+      }
+
+      Units.list.find(({ id }) => id === playerId).takeDamage(amount);
+    });
+
+    socket.on('player-heals', ({ playerId, amount }) => {
+      if (config.debug) {
+        console.log('👤💚');
+      }
+
+      Units.list.find(({ id }) => id === playerId).heal(amount);
+    });
+
+    socket.on('player-changed-race', ({ playerId, race }) => {
+      if (config.debug) {
+        console.log('👤→👹');
+      }
+
+      Units.list.find(({ id }) => id === playerId).changeRace(race);
+    });
+
+    socket.on('player-equipped-item', ({ playerId, itemId }) => {
+      Units.list.find(({ id }) => id === playerId).equipItem(itemId);
+    });
+
+    socket.on('player-unequipped-item', ({ playerId, itemId }) => {
+      Units.list.find(({ id }) => id === playerId).unequipItem(itemId);
+    });
+
+    socket.on('enemy-looted', ({ playerId, enemyId, itemId }) => {
+      Units.list.find(({ id }) => id === playerId).equipItem(itemId);
+      Units.list.find(({ id }) => id === enemyId).unequipItem(itemId);
+    });
+
     socket.on('ai-moved', ({ id, path }) => {
       if (config.debug) {
         console.log('🤖🚶‍♂️');

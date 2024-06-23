@@ -3,6 +3,7 @@ import { GameData } from '../gameData.js';
 import { Units } from '../units/units.js';
 import { sounds } from '../utils/sounds.js';
 import { getRandomInt } from '../utils/number.js';
+import { socket } from '../utils/socket.js';
 
 const healthBarHealth = document.getElementById('health-bar-health');
 const healthBarNumber = document.getElementById('health-bar-number');
@@ -75,6 +76,10 @@ const fight = ({ attacker, defender, map }) => {
         defender.unequipItem(lootedItem);
         attacker.takeItem({
           id: lootedItem
+        });
+        socket.emit('loot-enemy', {
+          itemId: lootedItem,
+          enemyId: defender.id
         });
       }
     }

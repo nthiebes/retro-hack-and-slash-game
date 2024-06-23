@@ -245,6 +245,48 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('player-took-item', { item, animationId, playerId });
   });
 
+  /*
+   * Player takes damage
+   */
+  socket.on('take-damage', ({ amount }) => {
+    socket.broadcast.emit('player-took-damage', { amount, playerId });
+  });
+
+  /*
+   * Player heals
+   */
+  socket.on('heal', ({ amount }) => {
+    socket.broadcast.emit('player-heals', { amount, playerId });
+  });
+
+  /*
+   * Player changes race
+   */
+  socket.on('change-race', ({ race }) => {
+    socket.broadcast.emit('player-changed-race', { race, playerId });
+  });
+
+  /*
+   * Player equipps item
+   */
+  socket.on('equip-item', ({ itemId }) => {
+    socket.broadcast.emit('player-equipped-item', { itemId, playerId });
+  });
+
+  /*
+   * Player unequipps item
+   */
+  socket.on('unequip-item', ({ itemId }) => {
+    socket.broadcast.emit('player-unequipped-item', { itemId, playerId });
+  });
+
+  /*
+   * Player loots enemy
+   */
+  socket.on('loot-enemy', ({ itemId, enemyId }) => {
+    socket.broadcast.emit('enemy-looted', { itemId, enemyId, playerId });
+  });
+
   /**
    * Remove event
    */

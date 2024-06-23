@@ -13,6 +13,7 @@ import { racesMap, rarityMap } from './translations.js';
 import { Menu } from './menu.js';
 import { Statistics } from './statistics.js';
 import { getRandomInt } from '../utils/number.js';
+import { socket } from '../utils/socket.js';
 
 const canvasWrapper = document.getElementById('canvas-wrapper');
 const inventoryWindow = document.getElementById('inventory');
@@ -235,6 +236,9 @@ export class Inventory {
     Inventory.updateInventory();
     event.target.setAttribute('data-id', '');
     sounds.effects.play('take');
+    socket.emit('unequip-item', {
+      itemId
+    });
   };
 
   static handleItemClick = (event) => {
@@ -252,6 +256,9 @@ export class Inventory {
       Units.player.equipItem(itemId);
       Inventory.updateInventory();
       sounds.effects.play('take');
+      socket.emit('equip-item', {
+        itemId
+      });
       return;
     }
 
@@ -262,19 +269,34 @@ export class Inventory {
         if (item.health && item.damage) {
           if (getRandomInt(3) === 0) {
             Units.player.takeDamage(item.damage);
+            socket.emit('take-damage', {
+              amount: item.damage
+            });
           } else {
             Units.player.heal(item.health);
+            socket.emit('heal', {
+              amount: item.health
+            });
           }
         } else if (item.damage) {
           Units.player.takeDamage(item.damage);
+          socket.emit('take-damage', {
+            amount: item.damage
+          });
         } else if (item.health) {
           Units.player.heal(item.health);
+          socket.emit('heal', {
+            amount: item.health
+          });
         }
         if (
           item.zombie &&
           !Units.player.race.includes('zombie') &&
           getRandomInt(100) <= item.zombie
         ) {
+          socket.emit('change-race', {
+            race: `zombie-${Units.player.race}`
+          });
           Units.player.changeRace(`zombie-${Units.player.race}`);
         }
         if (item.psychedelic) {
