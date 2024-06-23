@@ -28,9 +28,12 @@ export default class Unit {
       mushrooms: 0,
       berries: 0,
       zombieMeat: 0,
+      meat: 0,
+      fish: 0,
       tilesWalked: 0
     };
     this.initialHealth = data.health;
+    this.initialRace = data.race;
     this.steps = Math.floor((config.fieldWidth / data.speed) * 1.2);
     this.currentStep = this.steps;
 
@@ -507,20 +510,19 @@ export default class Unit {
       frames: [0]
     });
     this.hair = new Sprite({
-      url: `images/hair/${race}/hair0.png`,
+      url: 'images/hair/none.png',
       pos: [0, 256],
       size: [256, 256],
       speed: this.speed,
       frames: [0]
     });
     this.face = new Sprite({
-      url: `images/faces/${race}/face0.png`,
+      url: this.face.url,
       pos: [0, 256],
       size: [256, 256],
       speed: this.speed,
       frames: [0]
     });
     this.hairUrl = this.hair.url;
-    this.faceUrl = this.face.url;
   };
 }

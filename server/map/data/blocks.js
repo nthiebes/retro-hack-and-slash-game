@@ -2131,7 +2131,10 @@ const blocks = {
       { pos: [2, 5], type: 'item', id: 'note' },
       { pos: [3, 5], type: 'item', id: 'salmon' },
       { pos: [4, 5], type: 'item', id: 'rabbit-meat' },
-      { pos: [5, 5], type: 'item', id: 'wolf-meat' }
+      { pos: [5, 5], type: 'item', id: 'wolf-meat' },
+      { pos: [6, 5], type: 'item', id: 'zombie-arm' },
+      { pos: [7, 5], type: 'item', id: 'zombie-hands' },
+      { pos: [8, 5], type: 'item', id: 'zombie-foot' }
     ]
   },
   'skull-camp': {

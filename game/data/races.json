@@ -10,6 +10,15 @@
     "hair": 8
   },
 
+  "zombie-human": {
+    "strength": 2,
+    "dexterity": 2,
+    "intelligence": 1,
+    "defense": 2,
+    "speed": 4,
+    "skins": 1
+  },
+
   "dwarf": {
     "strength": 4,
     "dexterity": 3,
@@ -19,6 +28,15 @@
     "skins": 8,
     "faces": 12,
     "hair": 7
+  },
+
+  "zombie-dwarf": {
+    "strength": 3,
+    "dexterity": 2,
+    "intelligence": 1,
+    "defense": 3,
+    "speed": 3,
+    "skins": 1
   },
 
   "orc": {
@@ -32,6 +50,15 @@
     "hair": 2
   },
 
+  "zombie-orc": {
+    "strength": 4,
+    "dexterity": 1,
+    "intelligence": 1,
+    "defense": 3,
+    "speed": 3,
+    "skins": 1
+  },
+
   "elf": {
     "strength": 2,
     "dexterity": 4,
@@ -43,6 +70,15 @@
     "hair": 16
   },
 
+  "zombie-elf": {
+    "strength": 1,
+    "dexterity": 3,
+    "intelligence": 1,
+    "defense": 1,
+    "speed": 4,
+    "skins": 1
+  },
+
   "vampire": {
     "strength": 4,
     "dexterity": 3,
@@ -52,6 +88,15 @@
     "skins": 4,
     "faces": 2,
     "hair": 7
+  },
+
+  "zombie-vampire": {
+    "strength": 3,
+    "dexterity": 2,
+    "intelligence": 1,
+    "defense": 1,
+    "speed": 5,
+    "skins": 1
   },
 
   "beastman": {

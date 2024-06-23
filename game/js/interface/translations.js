@@ -36,20 +36,40 @@ export const racesMap = {
     name: 'Mensch',
     description: 'Kann alles, aber nichts davon richtig.'
   },
+  'zombie-human': {
+    name: 'Zombie-Mensch',
+    description: 'Kann alles, aber nichts davon richtig.'
+  },
   dwarf: {
     name: 'Zwerg',
+    description: 'Stur, gehört in die erste Reihe.'
+  },
+  'zombie-dwarf': {
+    name: 'Zombie-Zwerg',
     description: 'Stur, gehört in die erste Reihe.'
   },
   orc: {
     name: 'Ork',
     description: 'Haut gut zu. Waaagh!!!'
   },
+  'zombie-orc': {
+    name: 'Zombie-Ork',
+    description: 'Haut gut zu. Waaagh!!!'
+  },
   elf: {
     name: 'Elf',
     description: 'Besser nach hinten und aus der Ferne angreifen.'
   },
+  'zombie-elf': {
+    name: 'Zombie-Elf',
+    description: 'Besser nach hinten und aus der Ferne angreifen.'
+  },
   vampire: {
     name: 'Vampir',
+    description: 'Glaskanone, Vorsicht zerbrechlich!'
+  },
+  'zombie-vampire': {
+    name: 'Zombie-Vampir',
     description: 'Glaskanone, Vorsicht zerbrechlich!'
   },
   beastman: {
@@ -96,5 +116,7 @@ export const statsMap = {
   berries: 'Beeren gegessen',
   mushrooms: 'Pilze verspeist',
   zombieMeat: 'Zombiefleisch verschlungen',
+  meat: 'Fleisch verzehrt',
+  fish: 'Fisch vertilgt',
   tilesWalked: 'Meter zurückgelegt'
 };
