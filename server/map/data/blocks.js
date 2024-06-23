@@ -2022,11 +2022,11 @@ const blocks = {
       ],
       [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 'orc', 0, 0, 1, 0, 0],
         [1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 0, 0, 0, 0, 'orc-boss', 1, 1],
         [1, 1, 1, 0, 0, 0, 0, 0, 1, 1],
-        [1, 1, 1, 0, 0, 0, 0, 0, 1, 1],
-        [0, 0, 0, 1, 1, 1, 1, 0, 0, 0]
+        [0, 'orc-warrior', 0, 1, 1, 1, 1, 0, 0, 0]
       ]
     ],
     animations: [
@@ -2065,7 +2065,7 @@ const blocks = {
       [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 'mummy', 0, 'mummy', 0],
         [0, 0, 0, 0, 2, 2, 2, 2, 0, 0],
         [0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -2164,10 +2164,11 @@ const blocks = {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 'orc-warrior', 0],
+        [0, 'orc-warrior', 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 0, 0]
+        [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 'orc-warrior', 0, 0, 0]
       ]
     ],
     animations: [{ pos: [3, 8], id: 'barrel0' }],
@@ -2180,51 +2181,51 @@ const blocks = {
     ]
   },
   orc: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['orc']]],
     enemies: [{ pos: [0, 0], id: 'orc' }]
   },
   'orc-warrior': {
-    map: [[], [], [], []],
+    map: [[], [], [], [['orc-warrior']]],
     enemies: [{ pos: [0, 0], id: 'orc-warrior' }]
   },
   'orc-boss': {
-    map: [[], [], [], []],
+    map: [[], [], [], [['orc-boss']]],
     enemies: [{ pos: [0, 0], id: 'orc-boss' }]
   },
   beastman: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['beastman']]],
     enemies: [{ pos: [0, 0], id: 'beastman' }]
   },
   'beastman-warrior': {
-    map: [[], [], [], []],
+    map: [[], [], [], [['beastman-warrior']]],
     enemies: [{ pos: [0, 0], id: 'beastman-warrior' }]
   },
   zombie: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['zombie']]],
     enemies: [{ pos: [0, 0], id: 'zombie' }]
   },
   skeleton: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['skeleton']]],
     enemies: [{ pos: [0, 0], id: 'skeleton' }]
   },
   'skeleton-warrior': {
-    map: [[], [], [], []],
+    map: [[], [], [], [['skeleton-warrior']]],
     enemies: [{ pos: [0, 0], id: 'skeleton-warrior' }]
   },
   mummy: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['mummy']]],
     enemies: [{ pos: [0, 0], id: 'mummy' }]
   },
   ghoul: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['ghoul']]],
     enemies: [{ pos: [0, 0], id: 'ghoul' }]
   },
   'blood-knight': {
-    map: [[], [], [], []],
+    map: [[], [], [], [['blood-knight']]],
     enemies: [{ pos: [0, 0], id: 'blood-knight' }]
   },
   lich: {
-    map: [[], [], [], []],
+    map: [[], [], [], [['lich']]],
     enemies: [{ pos: [0, 0], id: 'lich' }]
   }
 };
