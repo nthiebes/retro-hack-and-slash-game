@@ -95,7 +95,7 @@ export class Units {
         leg
       }
     });
-    const attackSpeed = getAttackSpeed(primary);
+    const attackSpeed = getAttackSpeed(primary, unit.race);
     const armor = GameData.getArmor(head);
 
     listData.push(

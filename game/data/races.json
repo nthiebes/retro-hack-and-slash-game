@@ -160,5 +160,15 @@
     "defense": 5,
     "speed": 4,
     "skins": 1
+  },
+
+  "golem": {
+    "strength": 12,
+    "dexterity": 2,
+    "intelligence": 2,
+    "defense": 8,
+    "speed": 2,
+    "attackSpeed": -2,
+    "skins": 1
   }
 }

@@ -95,6 +95,19 @@ const skeletonSprite = new Howl({
   }
 });
 
+const golemSprite = new Howl({
+  src: ['/game/sounds/golem.mp3'],
+  onend: () => {
+    isGruntPlaying = false;
+  },
+  preload: true,
+  sprite: {
+    grunt0: [0, 1230],
+    grunt1: [1260, 1860],
+    grunt2: [3230, 2940]
+  }
+});
+
 let isBattlePlaying = false;
 const battle = new Howl({
   src: ['/game/sounds/battle.mp3'],
@@ -126,6 +139,10 @@ const gruntMap = {
   skeleton: {
     sprite: skeletonSprite,
     sounds: 1
+  },
+  golem: {
+    sprite: golemSprite,
+    sounds: 3
   }
 };
 export const sounds = {

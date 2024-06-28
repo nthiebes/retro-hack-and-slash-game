@@ -209,6 +209,24 @@
         "secondary": "none"
       },
       "inventory": ["skull", "bone"]
+    },
+
+    {
+      "id": "golem",
+      "friendly": false,
+      "name": "Steingolem",
+      "race": "golem",
+      "health": 1000,
+      "gear": {
+        "head": "none",
+        "torso": "none",
+        "leg": "none"
+      },
+      "weapons": {
+        "primary": "none",
+        "secondary": "none"
+      },
+      "inventory": []
     }
   ]
 }

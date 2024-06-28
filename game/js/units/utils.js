@@ -164,6 +164,11 @@ export const getWalkSpeed = ({ race, gear }) => {
   return Math.round(GameData.races[race].speed * speedModifier * 100) / 100;
 };
 
-export const getAttackSpeed = (primary) => {
-  return GameData.getWeapon(primary).speed;
+export const getAttackSpeed = (primary, race) => {
+  const raceModifier =
+    race && GameData.races[race].attackSpeed
+      ? GameData.races[race].attackSpeed
+      : 0;
+
+  return GameData.getWeapon(primary).speed + raceModifier;
 };

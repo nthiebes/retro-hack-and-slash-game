@@ -99,6 +99,10 @@ export const racesMap = {
   'blood-knight': {
     name: 'Blutritter',
     description: ''
+  },
+  golem: {
+    name: 'Steingolem',
+    description: ''
   }
 };
 

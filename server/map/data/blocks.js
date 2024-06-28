@@ -2227,6 +2227,10 @@ const blocks = {
   lich: {
     map: [[], [], [], [['lich']]],
     enemies: [{ pos: [0, 0], id: 'lich' }]
+  },
+  golem: {
+    map: [[], [], [], [['golem']]],
+    enemies: [{ pos: [0, 0], id: 'golem' }]
   }
 };
 
