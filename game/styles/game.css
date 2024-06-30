@@ -407,6 +407,7 @@ p {
   top: 20px;
   height: 260px;
   width: 260px;
+  border: 2px solid var(--fontColor);
 }
 
 .minimap__inner {
@@ -469,4 +470,18 @@ p {
 .statistics__stat {
   display: flex;
   justify-content: space-between;
+}
+
+.action-bar {
+  background: url("/game/images/action-bar.png") no-repeat;
+  width: 582px;
+  height: 129px;
+  position: fixed;
+  bottom: 0;
+  left: calc(50% - 281px);
+  opacity: 0;
+}
+
+.action-bar--show {
+  opacity: 1;
 }

@@ -45,6 +45,7 @@ const raceName = document.getElementById('race-name');
 const minimap = document.getElementById('minimap');
 const healthBar = document.getElementById('health-bar');
 const healthBarNumber = document.getElementById('health-bar-number');
+const actionBar = document.getElementById('action-bar');
 const canvasWrapper = document.getElementById('canvas-wrapper');
 const menuButton = document.getElementById('menu-button');
 const ingameMenu = document.getElementById('ingame-menu');
@@ -458,6 +459,7 @@ export class Menu {
         characterWindow.classList.remove('window--show');
         minimap.classList.add('minimap--show');
         healthBar.classList.add('health-bar--show');
+        actionBar.classList.add('action-bar--show');
         menuButton.removeAttribute('disabled');
         inventoryButton.style.display = 'block';
         statsButton.style.display = 'block';
