@@ -12,6 +12,7 @@ export default class Animation {
   play() {
     this.sprite.index = 0;
     this.sprite.frames = this.frames;
+    this.sprite.done = false;
   }
 
   continue() {

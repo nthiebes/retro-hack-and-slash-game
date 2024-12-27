@@ -2,8 +2,10 @@ import '../../../node_modules/howler/dist/howler.core.min.js';
 
 import Canvas from '../canvas/Canvas.js';
 import { GameData } from '../gameData.js';
+import { Animations } from '../animations/animations.js';
 import { socket } from '../utils/socket.js';
 import { sounds } from '../utils/sounds.js';
+import { getRandomId } from '../utils/number.js';
 import config from '../config.js';
 import { attributesMap, racesMap } from './translations.js';
 import { Statistics } from './statistics.js';
@@ -46,6 +48,7 @@ const minimap = document.getElementById('minimap');
 const healthBar = document.getElementById('health-bar');
 const healthBarNumber = document.getElementById('health-bar-number');
 const actionBar = document.getElementById('action-bar');
+const actionBarSlot1 = document.getElementById('action-bar-slot1');
 const canvasWrapper = document.getElementById('canvas-wrapper');
 const menuButton = document.getElementById('menu-button');
 const ingameMenu = document.getElementById('ingame-menu');
@@ -447,7 +450,7 @@ export class Menu {
           players: playersPosAdjusted,
           enemies,
           mapEvents: mapTransitions,
-          animations,
+          animations: [...animations, { id: 'explosion', pos: [45, 45] }],
           resources: Menu.resources,
           player: {
             ...Menu.player,
@@ -464,6 +467,9 @@ export class Menu {
         inventoryButton.style.display = 'block';
         statsButton.style.display = 'block';
         healthBarNumber.innerHTML = `${Menu.player.health} / ${Menu.player.health}`;
+        actionBarSlot1.addEventListener('click', () => {
+          Animations.play('explosion', [45, 45]);
+        });
       }
     );
   };

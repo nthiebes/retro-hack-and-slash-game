@@ -480,8 +480,18 @@ p {
   bottom: 0;
   left: calc(50% - 281px);
   opacity: 0;
+  display: flex;
+  gap: 16px;
+  padding: 37px 89px;
 }
 
 .action-bar--show {
   opacity: 1;
+}
+
+.action-bar__slot {
+  width: 69px;
+  height: 69px;
+  background-color: red;
+  cursor: var(--cursorUse);
 }

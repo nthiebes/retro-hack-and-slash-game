@@ -20,6 +20,20 @@ export class Animations {
     return listData.find((animation) => animation.id === id);
   }
 
+  static play(id, pos) {
+    console.log(listData);
+    // const animation = {
+    //   ...listData.find((data) => data.id === id),
+    //   pos
+    // };
+
+    // console.log(animation);
+
+    Animations.getAnimationById(id).play();
+
+    // animation.play();
+  }
+
   static addAnimations(animations) {
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
